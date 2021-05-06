@@ -26,7 +26,7 @@ const fetchTrades = (exchangeRequestData) => {
 
   const {exchange, symbol, timeframe, since} = exchangeRequestData
 
-  exchange.fetchMyTrades(symbol, since)
+  return exchange.fetchMyTrades(symbol, since)
   .then(trades => {
     trades.forEach(trade => {
       console.log (
@@ -44,9 +44,11 @@ const fetchTrades = (exchangeRequestData) => {
 }
 
 const averageCost = (trades) => {
+  const costTotal = 0;
   trades.forEach(trade => {
-    // calculate average cost 
+    costTotal += trade.price;
   })
+  return costTotal / trades.length;
 }
 
 const fetchBalance = (exchange) => {
@@ -95,8 +97,15 @@ const exchangeRequestData = {
   since: oneDayAgo()
 }
 
+// CALL API FUNCTIONS // 
+
 // fetch all trades 
-fetchTrades(exchangeRequestData)
+// fetchTrades(exchangeRequestData)
+
+// get avergge cost from all trades 
+const trades = fetchTrades(exchangeRequestData)
+console.log(trades);
+// console.log(averageCost(trades))
 
 // fetch balance for user
 // fetchBalance(phemex)
