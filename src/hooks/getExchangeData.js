@@ -51,11 +51,16 @@ export default function getExchangeData() {
     .catch(err => console.log(err))
   }
 
-  const calculatePL = (entry, exit) => {
-    // calculate profit or loss from a single trade
+  const calculatePL = (costPrice, sellPrice) => {
+    if (costPrice > sellPrice) {
+      return (costPrice - sellPrice) / costPrice * 100;
+    } else {
+      return (sellPrice - costPrice) / costPrice * 100;
+    }
   }
   
   const averagePL = (trades) => {
+     
     for (let trade of trades) {
       [entry, exit] = trade
       calculatePL(entry, exit)
@@ -80,6 +85,5 @@ export default function getExchangeData() {
   
   }
   
-
   return { initializeExchange, fetchBalance, fetchTrades }
 }
