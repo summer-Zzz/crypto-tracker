@@ -69,6 +69,7 @@ const getOHLCVData = (exchangeRequestData) => {
 
 }
 
+// we get a % for the profit or loss of a single trade from this function
 const calculatePL = (costPrice, currentPrice) => {
   if (costPrice > currentPrice) {
     return (costPrice - currentPrice) / costPrice * 100;
@@ -102,13 +103,13 @@ const exchangeRequestData = {
 // fetch all trades 
 // fetchTrades(exchangeRequestData)
 
-// get avergge cost from all trades 
-const trades = fetchTrades(exchangeRequestData)
-console.log(trades);
+// // get avergge cost from all trades 
+// const trades = fetchTrades(exchangeRequestData)
+// console.log(trades);
 // console.log(averageCost(trades))
 
 // fetch balance for user
 // fetchBalance(phemex)
 
 // fetch OHLCV data
-// getOHLCVData(exchangeRequestData)
+getOHLCVData(exchangeRequestData)
