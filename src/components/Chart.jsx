@@ -1,6 +1,5 @@
 export default function Chart(props) {
 
-  return (
-    <div></div>
-  )
+  return <div>I am chart</div>
+
 }
