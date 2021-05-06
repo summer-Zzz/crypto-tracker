@@ -37,18 +37,30 @@ export default function getExchangeData() {
     })
   }
   
-  const fetchTrades = (exchange, dateSince, symbol) => {
-    const dateRange = new Date(dateSince)
-    exchange.fetchMyTrades(symbol, dateRange)
-    .then(trades => console.log(trades))
+  // Object to mimic request coming from front-end ui 
+  // const chartDataRequest = {
+  //   exchange: phemex,
+  //   symbol: 'BTC/USDT',
+  //   timeframe: '1m',
+  //   since: oneDayAgo() 
+  // }
+
+  const fetchTrades = (exchangeRequestData) => {
+
+    const {exchange, symbol, timeframe, since} = exchangeRequestData
+  
+    exchange.fetchMyTrades(symbol, since)
+    .then(trades => trades.forEach(trade => console.log('price', trade.price, 'amount', trade.amount, 'cost', trade.cost)))
     .catch(err => console.log(err))
   
   }
   
   const fetchBalance = (exchange) => {
+
     exchange.fetchBalance()
     .then(balance => console.log(balance))
     .catch(err => console.log(err))
+
   }
 
   const calculatePL = (costPrice, sellPrice) => {
