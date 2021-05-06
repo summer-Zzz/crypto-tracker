@@ -20,6 +20,11 @@ bitmex.setSandboxMode(true)
 
 // HELPERS
 
+const oneMonthAgo = () => new Date - 2629800000
+const oneWeekAgo = () => new Date - 604800000
+const oneDayAgo = () => new Date - 86400000
+const oneMinuteAgo = () => new Date - 60000
+
 export default function getExchangeData() {
 
   const initializeExchange = (exchange, apiKey, secret) => {
@@ -56,4 +61,25 @@ export default function getExchangeData() {
       calculatePL(entry, exit)
     }
   }
+
+  // Object to mimic request coming from front-end ui 
+  // const chartDataRequest = {
+  //   exchange: phemex,
+  //   symbol: 'BTC/USDT',
+  //   timeframe: '1m',
+  //   since: oneDayAgo() 
+  // }
+
+  const getOHLCVData = (chartDataRequest) => {
+
+    const {exchange, symbol, timeframe, since} = chartDataRequest
+  
+    exchange.fetchOHLCV(symbol, timeframe, since)
+    .then(data => console.log(data))
+    .catch(err => console.log(err))
+  
+  }
+  
+
+  return { initializeExchange, fetchBalance, fetchTrades }
 }
