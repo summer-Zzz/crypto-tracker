@@ -9,7 +9,7 @@ const phemex = new ccxt.phemex({
   enableRateLimit: true
 })
 
-// phemex.setSandboxMode(true)
+phemex.setSandboxMode(true)
 
 // const bitmex = new ccxt.bitmex({
 //   apiKey: process.env.BITMEX_API_PUBLIC,
@@ -96,13 +96,14 @@ const oneMinuteAgo = () => new Date - 60000
 const exchangeRequestData = {
   symbol: 'BTC/USDT',
   timeframe: '1m',
-  since: oneDayAgo()
+  since: oneDayAgo(),
+  exchange: phemex
 }
 
 // CALL API FUNCTIONS // 
 
 // fetch all trades 
-// fetchTrades(exchangeRequestData)
+fetchTrades(exchangeRequestData)
 
 // // get average cost from all trades 
 // const trades = fetchTrades(exchangeRequestData)
