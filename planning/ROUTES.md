@@ -1,26 +1,16 @@
-# Frontend Routes
-
-- /register
+## ROUTES 
+### React Routes
+- /settings
 - /login
-- /show
-- /config
+- /register
+- /main
+- (stretch) - show all available coins 
 
-# Backend Routes
-
-Actions that provide data in json format
-
-In our case we need to store user information in db
-- user info
-- api keys
-- coins
-- exchanges 
-and use API information to get exchange information
-
-
-- /api/register POST
-  - store user info in db
-- /api/login POST
-  - get user info from db
-  - authenticate user 
-- /api/validate POST
+### Express Routes
+- GET /api/users/:id === get user information
+- POST /api/users/new === register user 
+- POST /api/login === log user in (set cookies)
+- POST /api/logout === log user out (delete cookies)
+- GET /api/users/exchanges/:id === get user exchanges 
+- POST /api/users/exchanges/new === add user exchanges
 - /api/dashboard GET 

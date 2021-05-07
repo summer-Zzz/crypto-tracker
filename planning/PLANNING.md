@@ -126,6 +126,7 @@ Stretch - As a user I can see news regarding a selected coin because I want to u
 - Play with CCXT 
 - Create Trello board/accounts
 - Develop ERDs 
+- Record structure of API data
 
 ## Building Components 
 - Hard code example data for testing components 
