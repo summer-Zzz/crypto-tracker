@@ -1,7 +1,7 @@
 require('dotenv').config();
 const ccxt = require ('ccxt');
 
-// EXCHANGE INSTANTIATION  //
+// SINGLE EXCHANGE INSTANTIATION  //
 
 const phemex = new ccxt.phemex({
   apiKey: process.env.PHEMEX_ID,
@@ -9,19 +9,21 @@ const phemex = new ccxt.phemex({
   enableRateLimit: true
 })
 
-phemex.setSandboxMode(true)
+// phemex.setSandboxMode(true)
 
-const bitmex = new ccxt.bitmex({
-  apiKey: process.env.BITMEX_API_PUBLIC,
-  secret: process.env.BITMEX_API_SECRET,
-  enableRateLimit: true
-})
+// const bitmex = new ccxt.bitmex({
+//   apiKey: process.env.BITMEX_API_PUBLIC,
+//   secret: process.env.BITMEX_API_SECRET,
+//   enableRateLimit: true
+// })
 
-bitmex.setSandboxMode(true)
+// bitmex.setSandboxMode(true)
+
+// USEREXCHANGE CLASS INSTANTIATION // 
+// for each exchange a user adds to our app, we create a new userExchange class 
 
 // HELPERS //
 
-// accepts a date string eg: 'April 10, 2016 23:15:30'
 const fetchTrades = (exchangeRequestData) => {
 
   const {exchange, symbol, timeframe, since} = exchangeRequestData
@@ -92,7 +94,6 @@ const oneMinuteAgo = () => new Date - 60000
 
 // Object to mimic request coming from front-end ui 
 const exchangeRequestData = {
-  exchange: phemex,
   symbol: 'BTC/USDT',
   timeframe: '1m',
   since: oneDayAgo()
@@ -103,7 +104,7 @@ const exchangeRequestData = {
 // fetch all trades 
 // fetchTrades(exchangeRequestData)
 
-// // get avergge cost from all trades 
+// // get average cost from all trades 
 // const trades = fetchTrades(exchangeRequestData)
 // console.log(trades);
 // console.log(averageCost(trades))
@@ -112,4 +113,4 @@ const exchangeRequestData = {
 // fetchBalance(phemex)
 
 // fetch OHLCV data
-getOHLCVData(exchangeRequestData)
+// getOHLCVData(exchangeRequestData)
