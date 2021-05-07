@@ -1,24 +1,26 @@
 # PLANNING 
 - User Stories
 
-## SCHEDULE 
+### SCHEDULE 
 - 11am start - 7pm 
 - We can work nights if need be. We're flexible
 - Document review before meeting with Francis 
 - No more coding until after meeting
 
-## DEVELOPMENT APPROACH 
+### DEVELOPMENT APPROACH 
 - 1/2 hour scrum meeting to start every day 
 - 1-2hrs of pair programming per day
 - Utilize trello board
 - Pair-programming + vertical approach
 - Have second planning session when MVP is complete
 
-## DEMOGRAPHICS 
+### DEMOGRAPHICS 
 - Target audience
   - 18+
 
 ## FEATURES 
+
+### MVP Features
 - User Authentication
 - User Register 
 - Render chart with adjustable time period
@@ -44,6 +46,8 @@
 - User registers/ user logs in > user can add and save API keys to profile 
 
 ## USER STORIES 
+
+### MVP User Stories
 - As a user I can create a profile because I want to register
 - As a user I want to use my credentials to log in 
 - As a user I can add and save my personal exchange API keys because I want to have access to them in the future
@@ -63,7 +67,7 @@ Stretch - As a user I can see tweets regarding a selected coin because I want to
 Stretch - As a user I can see news regarding a selected coin because I want to use this information so I can make informed decisions regarding future trades
 
 ## WIREFRAME
-- TBC
+- https://www.figma.com/file/73IVglxA0f5roqMxiEORuH/crypto-tracker-wireframe?node-id=0%3A1
 
 ## STATE
 - currentExchange 
@@ -71,7 +75,7 @@ Stretch - As a user I can see news regarding a selected coin because I want to u
 - currentPrice 
 
 ## ERDs 
-- TBC
+- https://drive.google.com/file/d/1FOD6Wse3WplYS_vHouxiciHn2P2E0-PV/view?usp=sharing
 
 ## STACK
 - React.js
