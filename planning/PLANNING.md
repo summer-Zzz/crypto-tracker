@@ -17,7 +17,6 @@
 ## DEMOGRAPHICS 
 - Target audience
   - 18+
-  - 
 
 ## FEATURES 
 - User Authentication

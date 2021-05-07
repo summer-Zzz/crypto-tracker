@@ -36,8 +36,8 @@ export class userExchange {
   }
 
   // set get method?
-  fetchBalance = (symbol) => {
-    this.exchange.fetchBalance()
+  fetchBalance = (symbol = "") => {
+    this.exchange.fetchBalance(symbol)
     .then(balance => console.log(balance))
     .catch(err => console.log(err))
   }
