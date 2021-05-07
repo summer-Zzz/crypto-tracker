@@ -17,11 +17,13 @@
 ### DEMOGRAPHICS 
 - Target audience
   - 18+
+  - Define what crypto-related demographic we're developing for 
+  - Demographics help us decide what features to provide next 
 
 ## FEATURES 
 
 ### MVP Features
-- User Authentication
+- User Authentication - https://web.compass.lighthouselabs.ca/activities/1076/lectures/4375
 - User Register 
 - Render chart with adjustable time period
 - Add API key pair
@@ -30,7 +32,7 @@
 - User trades table
 - Show balance
 - Show P&L
-- (stretch) websockets live price update 
+- (stretch) websockets live price update - connect using socket.io
 
 ### Stretch Features
 
@@ -48,7 +50,6 @@
 ## USER STORIES 
 
 ### MVP User Stories
-- As a user I can create a profile because I want to register
 - As a user I want to use my credentials to log in 
 - As a user I can add and save my personal exchange API keys because I want to have access to them in the future
 - As a user I can search for coins because I want to see data related to portfolio's performance
@@ -65,13 +66,13 @@ Stretch - A user can see volume and/or other technical indicators
 Gigantic Stretch - A user can generate data, reports, to decide when to buy and when to sell
 Stretch - As a user I can see tweets regarding a selected coin because I want to use social information so I can make informed decisions regarding future trades 
 Stretch - As a user I can see news regarding a selected coin because I want to use this information so I can make informed decisions regarding future trades
+Stretch - I want to see data from a closed account 
 
 ## WIREFRAME
 - https://www.figma.com/file/73IVglxA0f5roqMxiEORuH/crypto-tracker-wireframe?node-id=0%3A1
 
 ## STATE
 - currentExchange 
-- currentCoin 
 - currentPrice 
 
 ## ERDs 
@@ -133,6 +134,7 @@ Stretch - As a user I can see news regarding a selected coin because I want to u
 
 ## Building Components 
 - Hard code example data for testing components 
+- Write basic html for each component 
 - Button
 - Chart 
 - Form
@@ -147,7 +149,7 @@ Stretch - As a user I can see news regarding a selected coin because I want to u
 
 ## dB
 - Set up express routes
-- build queires 
+- build queries 
 - Develop schema 
 - Migrate seeds (base those on current api data)
 
@@ -179,6 +181,12 @@ Stretch - As a user I can see news regarding a selected coin because I want to u
   - find and use and embed twitter api 
 - Develop news feed 
   - research, find and embed news api 
+
+#### DB
+
+- Take snapshot of user info
+- Save in dB 
+- Conditionally render from dB in case of API outage 
 
 ### Pair-Programming 
 - Design tables
