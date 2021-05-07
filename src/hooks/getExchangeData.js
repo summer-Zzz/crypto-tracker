@@ -84,6 +84,15 @@ export class userExchange {
     // if trade is a sell, compare 
   }
 
+  getOHLCVData(chartDataRequest) {
+    const { symbol, timeframe, since } = chartDataRequest
+  
+    this.exchange.fetchOHLCV(symbol, timeframe, since)
+    .then(data => console.log(data))
+    .catch(err => console.log(err))
+  
+  }
+
 }
 
 // HELPERS
@@ -101,14 +110,3 @@ const oneMinuteAgo = () => new Date - 60000
     since: oneDayAgo() 
   }
 
-  export function getOHLCVData(chartDataRequest) {
-    const {exchange, symbol, timeframe, since} = chartDataRequest
-  
-    return exchange.fetchOHLCV(symbol, timeframe, since)
-    .then(data => console.log(data))
-    .catch(err => console.log(err))
-  
-  }
-  
-  query = "phemex", apiKey, secret
-  const jaredPhemex = new userExchange(query, apiKey, secret)
