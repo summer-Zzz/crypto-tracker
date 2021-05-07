@@ -110,3 +110,5 @@ const oneMinuteAgo = () => new Date - 60000
   
   }
   
+  query = "phemex", apiKey, secret
+  const jaredPhemex = new userExchange(query, apiKey, secret)
