@@ -9,9 +9,9 @@ export default function Form(props) {
     <div className={'form-container'}>
       <h2>{props.formLabel}</h2>
       <form action="POST">
-        <label for={props.firstLabel}>{props.firstLabel}</label>
+        <label htmlFor={props.firstLabel}>{props.firstLabel}</label>
         <input type="text" name={props.firstLabel}/>
-        <label for={props.secondLabel}>{props.secondLabel}</label>
+        <label htmlFor={props.secondLabel}>{props.secondLabel}</label>
         <input type="text" name={props.firstLabel}/>
         <Button></Button>
       </form>
