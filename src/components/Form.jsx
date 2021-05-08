@@ -1,13 +1,17 @@
-export default function Button(props) {
+import React from 'react'
+
+import Button from './Button'
+export default function Form(props) {
 
   return (
     <div>
-      <h2>Login</h2>
+      <h2>{props.formLabel}</h2>
       <form action="POST">
-        <label htmlFor="">Email</label>
-        <input type="text" />
-        <label htmlFor="">Password</label>
-        <input type="text" />
+        <label for={props.firstLabel}>{props.firstLabel}</label>
+        <input type="text" name={props.firstLabel}/>
+        <label for={props.secondLabel}>{props.secondLabel}</label>
+        <input type="text" name={props.firstLabel}/>
+        <Button></Button>
       </form>
     </div>
   )
