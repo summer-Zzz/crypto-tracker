@@ -11,18 +11,24 @@ const phemex = new ccxt.phemex({
 
 phemex.setSandboxMode(true)
 
-// const bitmex = new ccxt.bitmex({
-//   apiKey: process.env.BITMEX_API_PUBLIC,
-//   secret: process.env.BITMEX_API_SECRET,
-//   enableRateLimit: true
-// })
+const bitmex = new ccxt.bitmex({
+  apiKey: process.env.BITMEX_API_PUBLIC,
+  secret: process.env.BITMEX_API_SECRET,
+  enableRateLimit: true
+})
 
-// bitmex.setSandboxMode(true)
+bitmex.setSandboxMode(true)
+
+const binance = new ccxt.binance({
+  apiKey: process.env.BITMEX_API_PUBLIC,
+  secret: process.env.BITMEX_API_SECRET,
+  enableRateLimit: true
+})
 
 // USEREXCHANGE CLASS INSTANTIATION // 
 // for each exchange a user adds to our app, we create a new userExchange class 
 
-export class userExchange {
+class userExchange {
  
   constructor(exchange, apiKey, secret) {
     this.exchangeId = exchange,
@@ -43,7 +49,7 @@ export class userExchange {
   }
 
   fetchTrades = (exchangeRequestData) => {
-    const {symbol, since} = exchangeRequestData
+    const {symbol, since} = exchangeRequestData;
   
     this.exchange.fetchMyTrades(symbol, since)
     .then(trades => {
@@ -74,7 +80,7 @@ export class userExchange {
       // average cost
       console.log(costTotal / trades.length);
     })
-    .catch(err => console.log(err))
+    .catch(err => console.log(err));
   }
 
   calculatePL(trades) {
@@ -82,6 +88,18 @@ export class userExchange {
     // if trade is a buy, 
     // compare it to current price of asset and calculate P/L
     // if trade is a sell, compare 
+  }
+
+  getOHLCVData(chartDataRequest) {
+    const { symbol, timeframe, since } = chartDataRequest
+  
+    this.exchange.fetchOHLCV(symbol, timeframe, since)
+    .then(data => console.log(data))
+    .catch(err => console.log(err))
+  }
+
+  fetchExchangeMarkets() {
+    console.log (exchange.id, symbols) 
   }
 
 }
@@ -101,14 +119,35 @@ const oneMinuteAgo = () => new Date - 60000
     since: oneDayAgo() 
   }
 
-  export function getOHLCVData(chartDataRequest) {
-    const {exchange, symbol, timeframe, since} = chartDataRequest
+
   
-    return exchange.fetchOHLCV(symbol, timeframe, since)
-    .then(data => console.log(data))
-    .catch(err => console.log(err))
-  
-  }
-  
-  query = "phemex", apiKey, secret
-  const jaredPhemex = new userExchange(query, apiKey, secret)
+
+  async function populateCoinChart() {
+
+    await binance.loadMarkets ()
+
+    // const symbols = binance.symbols
+    // symbols.forEach(symbol => {
+    //   binance.fetchTicker(symbol)
+    //   .then(ticker => {
+    //     console.log(
+    //       "symbol: ", ticker.symbol,
+    //       "bid price: ", ticker.bid,
+    //       "base vol: ", ticker.baseVolume,
+    //       // 24hr average
+    //       // 7d average
+    //       // volume
+    //       // market cap 
+    //       )
+    //   }).catch(err => console.log(err))
+    // })
+    binance.fetchTickers().then(tickers => {
+      tickerArr = Object.keys(tickers)
+      tickerArr.forEach(ticker => {
+        console.log(tickers[ticker].symbol)
+      })
+    })
+  }     
+
+populateCoinChart()
+// phemex.fetchTicker('BTC/USDT').then(ticker => console.log(ticker.bid))
