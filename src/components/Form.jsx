@@ -1,6 +1,8 @@
 import React from 'react'
 
 import Button from './Button'
+
+import "../components/Form.scss"
 export default function Form(props) {
 
   return (
