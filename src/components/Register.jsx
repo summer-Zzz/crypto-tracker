@@ -2,7 +2,7 @@ export default function Button(props) {
 
   return (
     <div>
-      <h2>Login</h2>
+      <h2>Register</h2>
       <form action="POST">
         <label htmlFor="">Email</label>
         <input type="text" />
@@ -11,4 +11,5 @@ export default function Button(props) {
       </form>
     </div>
   )
+
 }
