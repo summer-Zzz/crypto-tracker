@@ -5,7 +5,7 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import logo from './logo.svg';
+const db = require('../express-server/db/index');
 
 import Chart from './components/Chart'
 
