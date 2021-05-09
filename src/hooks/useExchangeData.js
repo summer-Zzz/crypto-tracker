@@ -47,7 +47,7 @@ class userExchange {
     .then(balance => console.log(balance))
     .catch(err => console.log(err))
   }
-
+ 
   fetchTrades = (exchangeRequestData) => {
     const {symbol, since} = exchangeRequestData;
   
@@ -98,9 +98,37 @@ class userExchange {
     .catch(err => console.log(err))
   }
 
-  fetchExchangeMarkets() {
-    console.log (exchange.id, symbols) 
+  fetchExchangeTickers = (searchTicker) => {
+
+    this.exchange.fetchTickers()
+    .then(tickers => {
+      const tickersArr = Object.keys(tickers);
+      tickersArr.forEach(ticker => {
+        if (ticker.includes(searchTicker)) {
+          // ****** BINANCE INFO *********
+          // const tickerInfo = tickers[ticker].info;
+          // // console.log(
+          // //   'symbol: ', tickerInfo.symbol,
+          // //   'price: ', tickerInfo.lastPrice,
+          // //   'change: ', tickerInfo.priceChange,
+          // //   'change%: ', tickerInfo.priceChangePercent,
+          // //   'volume: ', (tickerInfo.volume * 1000),
+          // // )
+          const tickerInfo = tickers[ticker];
+          console.log(
+            'symbol: ', tickerInfo.symbol,
+            'price: ', tickerInfo.ask,
+            'change: ', tickerInfo.change,
+            'change%: ', tickerInfo.percentage,
+            'volume: ', tickerInfo.baseVolume,
+          )
+        }
+      })
+    })
+    .catch(err => console.log(err))
   }
+
+
 
 }
 

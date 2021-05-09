@@ -12,13 +12,13 @@ const phemex = new ccxt.phemex({
 
 phemex.setSandboxMode(true)
 
-// const bitmex = new ccxt.bitmex({
-//   apiKey: process.env.BITMEX_API_PUBLIC,
-//   secret: process.env.BITMEX_API_SECRET,
-//   enableRateLimit: true
-// })
+const bitmex = new ccxt.bitmex({
+  apiKey: process.env.BITMEX_API_PUBLIC,
+  secret: process.env.BITMEX_API_SECRET,
+  enableRateLimit: true
+})
 
-// bitmex.setSandboxMode(true)
+bitmex.setSandboxMode(true)
 
 const binance = new ccxt.binance({
   apiKey: process.env.BNB_ID,
@@ -86,16 +86,49 @@ const calculatePL = (costPrice, currentPrice) => {
   }
 }
 
-const fetchExchangeCoinsPrice = (exchange, currency) => {
-  // get symbols from exchange
-  exchange.fetchMarkets().then(markets => {
-    markets.forEach(market => {
-        axios.get(`https://min-api.cryptocompare.com/data/price?fsym=${market.base}&tsyms=${currency}&api_key=${process.env.CC_API}`)
-        .then(res => {
-          console.log(`${market.base} => ${res.data[currency]}`)
-        }).catch(err => console.log(err))
+// alternate method using CryptoCompare
+// const fetchExchangeCoinsPrice = (exchange, currency) => {
+//   // get symbols from exchange
+//   exchange.fetchMarkets().then(markets => {
+//     markets.forEach(market => {
+//       // get prices for symbols in selected currency fomr crypto compare 
+//       axios.get(`https://min-api.cryptocompare.com/data/price?fsym=${market.base}&tsyms=${currency}&api_key=${process.env.CC_API}`)
+//       .then(res => {
+//         console.log(`${market.base} => ${res.data[currency]}`)
+//       })
+//       .catch(err => console.log(err))
+//     })
+//   })
+// }
+
+const fetchExchangeTickers = (exchange, searchTicker) => {
+
+  exchange.fetchTickers()
+  .then(tickers => {
+    const tickersArr = Object.keys(tickers);
+    tickersArr.forEach(ticker => {
+      if (ticker.includes(searchTicker)) {
+        // ****** BINANCE INFO *********
+        // const tickerInfo = tickers[ticker].info;
+        // // console.log(
+        // //   'symbol: ', tickerInfo.symbol,
+        // //   'price: ', tickerInfo.lastPrice,
+        // //   'change: ', tickerInfo.priceChange,
+        // //   'change%: ', tickerInfo.priceChangePercent,
+        // //   'volume: ', (tickerInfo.volume * 1000),
+        // // )
+        const tickerInfo = tickers[ticker];
+        console.log(
+          'symbol: ', tickerInfo.symbol,
+          'price: ', tickerInfo.ask,
+          'change: ', tickerInfo.change,
+          'change%: ', tickerInfo.percentage,
+          'volume: ', tickerInfo.baseVolume,
+        )
+      }
     })
   })
+  .catch(err => console.log(err))
 }
 
 // const averagePL = (trades) => {
@@ -135,5 +168,36 @@ const exchangeRequestData = {
 // getOHLCVData(exchangeRequestData)
 
 // fetch exchange coins
-fetchExchangeCoins(phemex, 'CAD')
+// fetchExchangeCoins(phemex, 'CAD')
 
+const fetchExchangeTickers = (exchange, searchTicker) => {
+
+  exchange.fetchsearchTickers()
+  .then(tickers => {
+    const tickersArr = Object.keys(tickers);
+    tickersArr.forEach(ticker => {
+      // if the last three or four letters are 
+      if (ticker.includes(searchTicker)) {
+        // ****** BINANCE INFO *********
+        // const tickerInfo = tickers[ticker].info;
+        // // console.log(
+        // //   'symbol: ', tickerInfo.symbol,
+        // //   'price: ', tickerInfo.lastPrice,
+        // //   'change: ', tickerInfo.priceChange,
+        // //   'change%: ', tickerInfo.priceChangePercent,
+        // //   'volume: ', (tickerInfo.volume * 1000),
+        // // )
+        const tickerInfo = tickers[ticker];
+        console.log(
+          'symbol: ', tickerInfo.symbol,
+          'price: ', tickerInfo.ask,
+          'change: ', tickerInfo.change,
+          'change%: ', tickerInfo.percentage,
+          'volume: ', tickerInfo.baseVolume,
+        )
+
+      }
+    })
+  })
+  .catch(err => console.log(err))
+}
