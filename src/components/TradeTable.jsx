@@ -13,6 +13,8 @@ export default function TradeTable(props) {
       tradePrice={row.price}
       tradeAmount={row.amount}
     />
+
+    
   })
   return <table className="table">
     <thead>

@@ -1,5 +1,6 @@
 require('dotenv').config();
 const ccxt = require ('ccxt');
+const axios = require('axios');
 
 // SINGLE EXCHANGE INSTANTIATION  //
 
@@ -11,13 +12,19 @@ const phemex = new ccxt.phemex({
 
 phemex.setSandboxMode(true)
 
-// const bitmex = new ccxt.bitmex({
-//   apiKey: process.env.BITMEX_API_PUBLIC,
-//   secret: process.env.BITMEX_API_SECRET,
-//   enableRateLimit: true
-// })
+const bitmex = new ccxt.bitmex({
+  apiKey: process.env.BITMEX_API_PUBLIC,
+  secret: process.env.BITMEX_API_SECRET,
+  enableRateLimit: true
+})
 
-// bitmex.setSandboxMode(true)
+bitmex.setSandboxMode(true)
+
+const binance = new ccxt.binance({
+  apiKey: process.env.BNB_ID,
+  secret: process.env.BNB_SECRET, 
+  enableRateLimit: true
+})
 
 // USEREXCHANGE CLASS INSTANTIATION // 
 // for each exchange a user adds to our app, we create a new userExchange class 
@@ -31,20 +38,20 @@ const fetchTrades = (exchangeRequestData) => {
   return exchange.fetchMyTrades(symbol, since)
   .then(trades => {
     trades.forEach(trade => {
-      console.log (
-        'price: ', trade.price, 
-        'amount: ', trade.amount, 
-        'cost: ', trade.cost, 
+      console.log ( 
         'time: ', trade.timestamp,
-        'symbol: ', trade.info.symbol,
+        'side: ', trade.side,     
         'order-type: ', trade.type,
-        'side: ', trade.side     
+        'price: ', trade.price, 
+        'cost: ', trade.cost, 
+        'amount: ', trade.amount
       )
     })
   }) 
   .catch(err => console.log(err))
 }
 
+// given an array of trades, calculates average cost of trades
 const averageCost = (trades) => {
   const costTotal = 0;
   trades.forEach(trade => {
@@ -80,6 +87,42 @@ const calculatePL = (costPrice, currentPrice) => {
   }
 }
 
+// alternate method using CryptoCompare
+// const fetchExchangeCoinsPrice = (exchange, currency) => {
+//   // get symbols from exchange
+//   exchange.fetchMarkets().then(markets => {
+//     markets.forEach(market => {
+//       // get prices for symbols in selected currency fomr crypto compare 
+//       axios.get(`https://min-api.cryptocompare.com/data/price?fsym=${market.base}&tsyms=${currency}&api_key=${process.env.CC_API}`)
+//       .then(res => {
+//         console.log(`${market.base} => ${res.data[currency]}`)
+//       })
+//       .catch(err => console.log(err))
+//     })
+//   })
+// }
+
+const fetchExchangeCoins = (exchange, searchTicker) => {
+
+  exchange.fetchTickers()
+  .then(tickers => {
+    const tickersArr = Object.keys(tickers);
+    tickersArr.forEach(ticker => {
+      if (ticker.includes(searchTicker)) {
+        const tickerInfo = tickers[ticker];
+        console.log(
+          'symbol: ', tickerInfo.symbol,
+          'price: ', tickerInfo.ask,
+          'change: ', tickerInfo.change,
+          'change%: ', tickerInfo.percentage,
+          'volume: ', tickerInfo.baseVolume,
+        )
+      }
+    })
+  })
+  .catch(err => console.log(err))
+}
+
 // const averagePL = (trades) => {
 //   totalPercent = 0;
 //   trades.forEach(trade, i => {
@@ -96,11 +139,11 @@ const oneMinuteAgo = () => new Date - 60000
 const exchangeRequestData = {
   symbol: 'BTC/USDT',
   timeframe: '1h',
-  since: oneDayAgo(),
+  since: oneMonthAgo(),
   exchange: phemex
 }
 
-// CALL API FUNCTIONS // 
+// CALL API SANDBOX FUNCTIONS // 
 
 // fetch all trades 
 // fetchTrades(exchangeRequestData)
@@ -114,4 +157,7 @@ const exchangeRequestData = {
 // fetchBalance(phemex)
 
 // fetch OHLCV data
-getOHLCVData(exchangeRequestData)
+// getOHLCVData(exchangeRequestData)
+
+// fetch exchange coins
+// fetchExchangeCoins(phemex, 'CAD')

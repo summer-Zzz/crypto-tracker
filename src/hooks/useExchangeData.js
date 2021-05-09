@@ -47,7 +47,7 @@ class userExchange {
     .then(balance => console.log(balance))
     .catch(err => console.log(err))
   }
-
+ 
   fetchTrades = (exchangeRequestData) => {
     const {symbol, since} = exchangeRequestData;
   
@@ -98,10 +98,28 @@ class userExchange {
     .catch(err => console.log(err))
   }
 
-  fetchExchangeMarkets() {
-    console.log (exchange.id, symbols) 
-  }
+// filter your search by entering a ticker ie: "BTC" or "CAD"
+  fetchExchangeCoins = (searchTicker) => {
 
+    this.exchange.fetchTickers()
+    .then(tickers => {
+      const tickersArr = Object.keys(tickers);
+      tickersArr.forEach(ticker => {
+        if (ticker.includes(searchTicker.toUpperCase())) {
+          const tickerInfo = tickers[ticker];
+          console.log(
+            'symbol: ', tickerInfo.symbol,
+            'price: ', tickerInfo.ask,
+            'change: ', tickerInfo.change,
+            'change%: ', tickerInfo.percentage,
+            'volume: ', tickerInfo.baseVolume,
+          )
+        }
+      })
+    })
+    .catch(err => console.log(err))
+  }
+  
 }
 
 // HELPERS
@@ -120,34 +138,3 @@ const oneMinuteAgo = () => new Date - 60000
   }
 
 
-  
-
-  async function populateCoinChart() {
-
-    await binance.loadMarkets ()
-
-    // const symbols = binance.symbols
-    // symbols.forEach(symbol => {
-    //   binance.fetchTicker(symbol)
-    //   .then(ticker => {
-    //     console.log(
-    //       "symbol: ", ticker.symbol,
-    //       "bid price: ", ticker.bid,
-    //       "base vol: ", ticker.baseVolume,
-    //       // 24hr average
-    //       // 7d average
-    //       // volume
-    //       // market cap 
-    //       )
-    //   }).catch(err => console.log(err))
-    // })
-    binance.fetchTickers().then(tickers => {
-      tickerArr = Object.keys(tickers)
-      tickerArr.forEach(ticker => {
-        console.log(tickers[ticker].symbol)
-      })
-    })
-  }     
-
-populateCoinChart()
-// phemex.fetchTicker('BTC/USDT').then(ticker => console.log(ticker.bid))
