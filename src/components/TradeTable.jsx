@@ -14,7 +14,7 @@ export default function TradeTable(props) {
       tradeAmount={row.amount}
     />
   })
-  return <table>
+  return <table className="table">
     <thead>
       <tr>
         <td></td>
