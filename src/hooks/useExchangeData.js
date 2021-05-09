@@ -120,34 +120,3 @@ const oneMinuteAgo = () => new Date - 60000
   }
 
 
-  
-
-  async function populateCoinChart() {
-
-    await binance.loadMarkets ()
-
-    // const symbols = binance.symbols
-    // symbols.forEach(symbol => {
-    //   binance.fetchTicker(symbol)
-    //   .then(ticker => {
-    //     console.log(
-    //       "symbol: ", ticker.symbol,
-    //       "bid price: ", ticker.bid,
-    //       "base vol: ", ticker.baseVolume,
-    //       // 24hr average
-    //       // 7d average
-    //       // volume
-    //       // market cap 
-    //       )
-    //   }).catch(err => console.log(err))
-    // })
-    binance.fetchTickers().then(tickers => {
-      tickerArr = Object.keys(tickers)
-      tickerArr.forEach(ticker => {
-        console.log(tickers[ticker].symbol)
-      })
-    })
-  }     
-
-populateCoinChart()
-// phemex.fetchTicker('BTC/USDT').then(ticker => console.log(ticker.bid))

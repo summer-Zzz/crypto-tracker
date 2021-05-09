@@ -1,5 +1,6 @@
 require('dotenv').config();
 const ccxt = require ('ccxt');
+const axios = require('axios');
 
 // SINGLE EXCHANGE INSTANTIATION  //
 
@@ -19,6 +20,12 @@ phemex.setSandboxMode(true)
 
 // bitmex.setSandboxMode(true)
 
+const binance = new ccxt.binance({
+  apiKey: process.env.BNB_ID,
+  secret: process.env.BNB_SECRET, 
+  enableRateLimit: true
+})
+
 // USEREXCHANGE CLASS INSTANTIATION // 
 // for each exchange a user adds to our app, we create a new userExchange class 
 
@@ -31,14 +38,13 @@ const fetchTrades = (exchangeRequestData) => {
   return exchange.fetchMyTrades(symbol, since)
   .then(trades => {
     trades.forEach(trade => {
-      console.log (
-        'price: ', trade.price, 
-        'amount: ', trade.amount, 
-        'cost: ', trade.cost, 
+      console.log ( 
         'time: ', trade.timestamp,
-        'symbol: ', trade.info.symbol,
+        'side: ', trade.side,     
         'order-type: ', trade.type,
-        'side: ', trade.side     
+        'price: ', trade.price, 
+        'cost: ', trade.cost, 
+        'amount: ', trade.amount
       )
     })
   }) 
@@ -80,6 +86,18 @@ const calculatePL = (costPrice, currentPrice) => {
   }
 }
 
+const fetchExchangeCoinsPrice = (exchange, currency) => {
+  // get symbols from exchange
+  exchange.fetchMarkets().then(markets => {
+    markets.forEach(market => {
+        axios.get(`https://min-api.cryptocompare.com/data/price?fsym=${market.base}&tsyms=${currency}&api_key=${process.env.CC_API}`)
+        .then(res => {
+          console.log(`${market.base} => ${res.data[currency]}`)
+        }).catch(err => console.log(err))
+    })
+  })
+}
+
 // const averagePL = (trades) => {
 //   totalPercent = 0;
 //   trades.forEach(trade, i => {
@@ -96,7 +114,7 @@ const oneMinuteAgo = () => new Date - 60000
 const exchangeRequestData = {
   symbol: 'BTC/USDT',
   timeframe: '1h',
-  since: oneDayAgo(),
+  since: oneMonthAgo(),
   exchange: phemex
 }
 
@@ -114,4 +132,8 @@ const exchangeRequestData = {
 // fetchBalance(phemex)
 
 // fetch OHLCV data
-getOHLCVData(exchangeRequestData)
+// getOHLCVData(exchangeRequestData)
+
+// fetch exchange coins
+fetchExchangeCoins(phemex, 'CAD')
+
