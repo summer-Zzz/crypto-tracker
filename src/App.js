@@ -12,7 +12,7 @@ import Chart from './components/Chart'
 import './App.css';
 import { formatPrefix } from 'd3-format';
 
-function App() {
+export default function App() {
   const [number, setNumber] = useState(0)
   return (
     <Router>
@@ -46,5 +46,3 @@ function App() {
     </Router>
   );
 }
-
-export default App;
