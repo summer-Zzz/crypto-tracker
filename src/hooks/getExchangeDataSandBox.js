@@ -95,7 +95,7 @@ const oneMinuteAgo = () => new Date - 60000
 // Object to mimic request coming from front-end ui 
 const exchangeRequestData = {
   symbol: 'BTC/USDT',
-  timeframe: '1m',
+  timeframe: '1h',
   since: oneDayAgo(),
   exchange: phemex
 }
@@ -103,7 +103,7 @@ const exchangeRequestData = {
 // CALL API FUNCTIONS // 
 
 // fetch all trades 
-fetchTrades(exchangeRequestData)
+// fetchTrades(exchangeRequestData)
 
 // // get average cost from all trades 
 // const trades = fetchTrades(exchangeRequestData)
@@ -114,4 +114,4 @@ fetchTrades(exchangeRequestData)
 // fetchBalance(phemex)
 
 // fetch OHLCV data
-// getOHLCVData(exchangeRequestData)
+getOHLCVData(exchangeRequestData)
