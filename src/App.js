@@ -5,7 +5,6 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import logo from './logo.svg';
 
 import Chart from './components/Chart'
 
