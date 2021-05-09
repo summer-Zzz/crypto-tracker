@@ -30,3 +30,4 @@ export default function TradeTable(props) {
     </tbody>
   </table>
 }
+
