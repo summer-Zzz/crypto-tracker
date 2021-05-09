@@ -1,6 +1,6 @@
 import "../components/CoinTableRow.scss"
 
-export default function CointableRow(props) {
+export default function CoinTableRow(props) {
 
   return (
     <tr>
