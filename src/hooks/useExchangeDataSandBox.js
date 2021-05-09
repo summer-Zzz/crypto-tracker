@@ -51,6 +51,7 @@ const fetchTrades = (exchangeRequestData) => {
   .catch(err => console.log(err))
 }
 
+// given an array of trades, calculates average cost of trades
 const averageCost = (trades) => {
   const costTotal = 0;
   trades.forEach(trade => {
@@ -108,15 +109,6 @@ const fetchExchangeCoins = (exchange, searchTicker) => {
     const tickersArr = Object.keys(tickers);
     tickersArr.forEach(ticker => {
       if (ticker.includes(searchTicker)) {
-        // ****** BINANCE INFO *********
-        // const tickerInfo = tickers[ticker].info;
-        // // console.log(
-        // //   'symbol: ', tickerInfo.symbol,
-        // //   'price: ', tickerInfo.lastPrice,
-        // //   'change: ', tickerInfo.priceChange,
-        // //   'change%: ', tickerInfo.priceChangePercent,
-        // //   'volume: ', (tickerInfo.volume * 1000),
-        // // )
         const tickerInfo = tickers[ticker];
         console.log(
           'symbol: ', tickerInfo.symbol,
@@ -151,7 +143,7 @@ const exchangeRequestData = {
   exchange: phemex
 }
 
-// CALL API FUNCTIONS // 
+// CALL API SANDBOX FUNCTIONS // 
 
 // fetch all trades 
 // fetchTrades(exchangeRequestData)
@@ -169,35 +161,3 @@ const exchangeRequestData = {
 
 // fetch exchange coins
 // fetchExchangeCoins(phemex, 'CAD')
-
-const fetchExchangeTickers = (exchange, searchTicker) => {
-
-  exchange.fetchsearchTickers()
-  .then(tickers => {
-    const tickersArr = Object.keys(tickers);
-    tickersArr.forEach(ticker => {
-      // if the last three or four letters are 
-      if (ticker.includes(searchTicker)) {
-        // ****** BINANCE INFO *********
-        // const tickerInfo = tickers[ticker].info;
-        // // console.log(
-        // //   'symbol: ', tickerInfo.symbol,
-        // //   'price: ', tickerInfo.lastPrice,
-        // //   'change: ', tickerInfo.priceChange,
-        // //   'change%: ', tickerInfo.priceChangePercent,
-        // //   'volume: ', (tickerInfo.volume * 1000),
-        // // )
-        const tickerInfo = tickers[ticker];
-        console.log(
-          'symbol: ', tickerInfo.symbol,
-          'price: ', tickerInfo.ask,
-          'change: ', tickerInfo.change,
-          'change%: ', tickerInfo.percentage,
-          'volume: ', tickerInfo.baseVolume,
-        )
-
-      }
-    })
-  })
-  .catch(err => console.log(err))
-}

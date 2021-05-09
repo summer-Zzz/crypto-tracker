@@ -98,22 +98,14 @@ class userExchange {
     .catch(err => console.log(err))
   }
 
+// filter your search by entering a ticker ie: "BTC" or "CAD"
   fetchExchangeCoins = (searchTicker) => {
 
     this.exchange.fetchTickers()
     .then(tickers => {
       const tickersArr = Object.keys(tickers);
       tickersArr.forEach(ticker => {
-        if (ticker.includes(searchTicker)) {
-          // ****** BINANCE INFO *********
-          // const tickerInfo = tickers[ticker].info;
-          // // console.log(
-          // //   'symbol: ', tickerInfo.symbol,
-          // //   'price: ', tickerInfo.lastPrice,
-          // //   'change: ', tickerInfo.priceChange,
-          // //   'change%: ', tickerInfo.priceChangePercent,
-          // //   'volume: ', (tickerInfo.volume * 1000),
-          // // )
+        if (ticker.includes(searchTicker.toUpperCase())) {
           const tickerInfo = tickers[ticker];
           console.log(
             'symbol: ', tickerInfo.symbol,
@@ -127,9 +119,7 @@ class userExchange {
     })
     .catch(err => console.log(err))
   }
-
-
-
+  
 }
 
 // HELPERS
