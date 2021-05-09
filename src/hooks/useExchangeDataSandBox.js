@@ -101,7 +101,7 @@ const calculatePL = (costPrice, currentPrice) => {
 //   })
 // }
 
-const fetchExchangeTickers = (exchange, searchTicker) => {
+const fetchExchangeCoins = (exchange, searchTicker) => {
 
   exchange.fetchTickers()
   .then(tickers => {

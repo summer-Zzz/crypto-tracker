@@ -98,7 +98,7 @@ class userExchange {
     .catch(err => console.log(err))
   }
 
-  fetchExchangeTickers = (searchTicker) => {
+  fetchExchangeCoins = (searchTicker) => {
 
     this.exchange.fetchTickers()
     .then(tickers => {
