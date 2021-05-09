@@ -1,3 +1,6 @@
-.form-container {
-  background-color: aqua;
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 50%;
 }
