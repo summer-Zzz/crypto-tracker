@@ -6,7 +6,7 @@ import "../components/Form.scss"
 export default function Form(props) {
 
   return (
-    <div className={'form-container'}>
+    <div className={"form-container"}>
       <h2>{props.formLabel}</h2>
       <form action="POST">
         <label htmlFor={props.firstLabel}>{props.firstLabel}</label>
