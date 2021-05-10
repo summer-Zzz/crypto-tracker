@@ -1,6 +1,7 @@
 require('dotenv').config();
 const ccxt = require ('ccxt');
 const axios = require('axios');
+const HttpsProxyAgent = require('https-proxy-agent')
 
 // SINGLE EXCHANGE INSTANTIATION  //
 
@@ -10,13 +11,15 @@ const phemex = new ccxt.phemex({
   enableRateLimit: true
 })
 
-phemex.setSandboxMode(true)
+phemex.setSandboxMode(true);  
+// phemex.proxy = 'https://test.cors.workers.dev';
 
 const bitmex = new ccxt.bitmex({
   apiKey: process.env.BITMEX_API_PUBLIC,
   secret: process.env.BITMEX_API_SECRET,
   enableRateLimit: true
 })
+bitmex.proxy = 'https://test.cors.workers.dev';
 
 bitmex.setSandboxMode(true)
 
@@ -25,6 +28,7 @@ const binance = new ccxt.binance({
   secret: process.env.BNB_SECRET, 
   enableRateLimit: true
 })
+binance.proxy = 'https://test.cors.workers.dev';
 
 // USEREXCHANGE CLASS INSTANTIATION // 
 // for each exchange a user adds to our app, we create a new userExchange class 
@@ -161,3 +165,4 @@ const exchangeRequestData = {
 
 // fetch exchange coins
 // fetchExchangeCoins(phemex, 'CAD')
+

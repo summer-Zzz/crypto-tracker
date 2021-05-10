@@ -1,4 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
+// import useCryptoExchanges from './hooks/useExchangeData'
+import 'dotenv/config'
 import {
   BrowserRouter as Router,
   Switch,
@@ -10,8 +12,6 @@ import Form from "./components/Form"
 import CoinTable from "./components/CoinTable"
 import TradeTable from "./components/TradeTable"
 import './App.css';
-
-import { formatPrefix } from 'd3-format';
 
 const coinRows = [
   {
@@ -90,7 +90,6 @@ const tradeRows = [
   tradeAmount: 0.0855208
   },
 ]
-
 
 export default function App() {
   return (

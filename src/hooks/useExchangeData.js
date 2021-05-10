@@ -1,44 +1,53 @@
-require('dotenv').config();
-const ccxt = require ('ccxt');
+// require('dotenv').config();
+import ccxt from 'ccxt'
 
 // SINGLE EXCHANGE INSTANTIATION  //
 
-const phemex = new ccxt.phemex({
-  apiKey: process.env.PHEMEX_API_PUBLIC,
-  secret: process.env.PHEMEX_API_SECRET,
-  enableRateLimit: true
-})
+// const phemex = new ccxt.phemex({
+//   apiKey: process.env.PHEMEX_API_PUBLIC,
+//   secret: process.env.PHEMEX_API_SECRET,
+//   enableRateLimit: true
+// })
 
-phemex.setSandboxMode(true)
+// phemex.setSandboxMode(true)
 
-const bitmex = new ccxt.bitmex({
-  apiKey: process.env.BITMEX_API_PUBLIC,
-  secret: process.env.BITMEX_API_SECRET,
-  enableRateLimit: true
-})
+// const bitmex = new ccxt.bitmex({
+//   apiKey: process.env.BITMEX_API_PUBLIC,
+//   secret: process.env.BITMEX_API_SECRET,
+//   enableRateLimit: true
+// })
 
-bitmex.setSandboxMode(true)
+// bitmex.setSandboxMode(true)
 
-const binance = new ccxt.binance({
-  apiKey: process.env.BITMEX_API_PUBLIC,
-  secret: process.env.BITMEX_API_SECRET,
-  enableRateLimit: true
-})
+// const binance = new ccxt.binance({
+//   apiKey: process.env.BITMEX_API_PUBLIC,
+//   secret: process.env.BITMEX_API_SECRET,
+//   enableRateLimit: true
+// })
 
 // USEREXCHANGE CLASS INSTANTIATION // 
 // for each exchange a user adds to our app, we create a new userExchange class 
 
-class userExchange {
+class useCryptoExchanges {
  
   constructor(exchange, apiKey, secret) {
-    this.exchangeId = exchange,
-    this.exchangeClass = ccxt[this.exchangeId],
+    this.exchangeId = exchange;
+    this.exchangeClass = ccxt[this.exchangeId];
     this.exchange = new this.exchangeClass ({
       apiKey,
       secret,
-      enableRateLimit: true
+      enableRateLimit: true,
+      proxy: 'https://cors-anywhere.herokuapp.com/'
+    });
+    this.exchange.setSandboxMode(true);
+  }
+
+  fetchMarkets = () => {
+    this.exchange.fetchMarkets()
+    .then(markets => {
+      console.log(markets)
     })
-    this.exchange.setSandboxMode(true)
+    .catch(err => console.log(err))
   }
 
   // set get method?
@@ -95,7 +104,7 @@ class userExchange {
   
     this.exchange.fetchOHLCV(symbol, timeframe, since)
     .then(data => console.log(data))
-    .catch(err => console.log(err))
+    .catch(err => console.log(err));
   }
 
 // filter your search by entering a ticker ie: "BTC" or "CAD"
@@ -117,24 +126,25 @@ class userExchange {
         }
       })
     })
-    .catch(err => console.log(err))
+    .catch(err => console.log(err));
   }
-  
 }
+
+export default useCryptoExchanges
 
 // HELPERS
 
-const oneMonthAgo = () => new Date - 2629800000
-const oneWeekAgo = () => new Date - 604800000
-const oneDayAgo = () => new Date - 86400000
-const oneMinuteAgo = () => new Date - 60000
+// const oneMonthAgo = () => new Date - 2629800000
+// const oneWeekAgo = () => new Date - 604800000
+// const oneDayAgo = () => new Date - 86400000
+// const oneMinuteAgo = () => new Date - 60000
 
-  //******* TEST DATA *******//
-  const chartDataRequest = {
-    exchange: phemex,
-    symbol: 'BTC/USDT',
-    timeframe: '1m',
-    since: oneDayAgo() 
-  }
-
+//   //******* TEST DATA *******//
+//   const chartDataRequest = {
+//     exchange: "phemex",
+//     symbol: 'BTC/USDT',
+//     timeframe: '1m',
+//     since: oneDayAgo() 
+//   }
+git 
 
