@@ -22,9 +22,8 @@ export default function CoinTable(props) {
           <td></td>
           <td>Coin</td>
           <td>Price</td>
-          <td>24h %</td>
-          <td>7d %</td>
-          <td>Market Cap</td>
+          <td>24h</td>
+          <td>24h%</td>
           <td>Volume (24h)</td>
         </tr>
       </thead>
