@@ -9,9 +9,8 @@ export default function CoinTable(props) {
       coinLogo={row.coinLogo}
       coinName={row.coinName}
       currentPrice={row.currentPrice}
-      dayPerformance={row.dayPerformance}
-      weekPerformance={row.weekPerformance}
-      marketCap={row.marketCap}
+      performance={row.dayPerformance}
+      performancePercent={row.weekPerformance}
       volume={row.volume}
     />
   })

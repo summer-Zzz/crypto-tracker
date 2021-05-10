@@ -7,9 +7,8 @@ export default function CoinTableRow(props) {
       <td><img src={props.coinlogo} alt="coinlogo"/></td>
       <td>{props.coinName}</td>
       <td>{props.currentPrice}</td>
-      <td>{props.dayPerformance}</td>
-      <td>{props.weekPerformance}</td>
-      <td>{props.marketCap}</td>
+      <td>{props.performance}</td>
+      <td>{props.performancePercent}</td>
       <td>{props.volume}</td>
     </tr>
   )
