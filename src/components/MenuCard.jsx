@@ -12,7 +12,6 @@ export default function MenuCard(props) {
     setMenuState(false)
   }
 
-
   const exchanges = props.exchanges.map(exchange => {
     return <MenuButton 
       key={exchange.id}
