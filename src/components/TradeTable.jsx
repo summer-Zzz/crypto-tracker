@@ -13,10 +13,13 @@ export default function TradeTable(props) {
       tradePrice={row.tradePrice}
       tradeAmount={row.tradeAmount}
     />
+
+    
   })
+  
   return (
   <table className="table">
-    <thead>
+      <thead>
       <tr>
         <td>Time</td>
         <td>Type</td>
@@ -31,3 +34,4 @@ export default function TradeTable(props) {
   </table>
   )
 }
+

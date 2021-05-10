@@ -1,17 +1,19 @@
 import React from 'react'
 
 import Button from './Button'
+
+import "../components/Form.scss"
 export default function Form(props) {
 
   return (
-    <div>
-      <h2>{props.formLabel}</h2>
+    <div className={"form-container"}>
       <form action="POST">
-        <label for={props.firstLabel}>{props.firstLabel}</label>
+      <h2>{props.formLabel}</h2>
+        <label htmlFor={props.firstLabel}>{props.firstLabel}</label>
         <input type="text" name={props.firstLabel}/>
-        <label for={props.secondLabel}>{props.secondLabel}</label>
+        <label htmlFor={props.secondLabel}>{props.secondLabel}</label>
         <input type="text" name={props.firstLabel}/>
-        <Button></Button>
+        <Button>Submit</Button>
       </form>
     </div>
   )

@@ -34,5 +34,3 @@ export default function CoinTable(props) {
     </table>
   )
 }
-
- 

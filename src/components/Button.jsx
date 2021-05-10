@@ -1,7 +1,21 @@
-import React from 'react'
+import React from "react";
+// import "components/Button.scss";
+import classNames from "classnames";
 
-export default function Button() {
+//Component for submit/view buttons
+export default function Button(props) {
+  const buttonClass = classNames("button", {
+    "button--submit": props.submit,
+    "button--view": props.view,
+  });
 
-  return <button>I am button</button>
-
+  return (
+    <button
+      className={buttonClass}
+      submit={props.submit}
+      view={props.view}
+    >
+      {props.children}
+    </button>
+  );
 }
