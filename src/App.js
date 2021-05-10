@@ -1,4 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
+import useCryptoExchanges from './hooks/useExchangeData'
+import 'dotenv/config'
 import {
   BrowserRouter as Router,
   Switch,
@@ -10,8 +12,6 @@ import Form from "./components/Form"
 import CoinTable from "./components/CoinTable"
 import TradeTable from "./components/TradeTable"
 import './App.css';
-
-import { formatPrefix } from 'd3-format';
 
 const coinRows = [
   {
@@ -90,6 +90,22 @@ const tradeRows = [
   tradeAmount: 0.0855208
   },
 ]
+
+// const phemex = new useCryptoExchanges('phemex', '6e4baee4-8560-4675-b3da-7c4c62332801', 'aysxzFt1JU4139lbt-RM-tToIdmm5aWfYLz9KABPbfRmNzM3MDE2Ny1lOGZmLTQ2NDgtYTc4NC0yZjk3ZTMyODI1YmQ')
+
+// const oneMonthAgo = () => new Date - 2629800000
+// const oneWeekAgo = () => new Date - 604800000
+// const oneDayAgo = () => new Date - 86400000
+// const oneMinuteAgo = () => new Date - 60000
+
+// phemex.fetchBalance();
+
+// const chartDataRequest = {
+//   symbol: 'BTC/USDT',
+//   timeframe: '1m',
+//   since: oneDayAgo() 
+// }
+// phemex.getOHLCVData(chartDataRequest)
 
 
 export default function App() {

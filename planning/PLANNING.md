@@ -142,6 +142,7 @@ Stretch - I want to see data from a closed account
 - Register Form
 - Login Form
 - InfoDisplay
+- DropdownMenu (for exchange and currency)
 - Trades Table 
 - Logo
 - Navbar/header
