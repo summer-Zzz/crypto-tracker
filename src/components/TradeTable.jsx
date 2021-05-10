@@ -1,25 +1,26 @@
 import React from 'react'
-
-import TradeTableRow from "../components/TradeTableRow"
+import TradeTableRow from "./TradeTableRow"
+import "./TradeTable.scss";
 
 export default function TradeTable(props) {
 
   const tableRows = props.rows.map(row => {
     return <TradeTableRow 
       key={row.id}
-      tradeTime={row.time}
-      tradeType={row.type}
-      tradeOrder={row.order}
-      tradePrice={row.price}
-      tradeAmount={row.amount}
+      tradeTime={row.tradeTime}
+      tradeType={row.tradeType}
+      tradeOrder={row.tradeOrder}
+      tradePrice={row.tradePrice}
+      tradeAmount={row.tradeAmount}
     />
 
     
   })
-  return <table className="table">
-    <thead>
+  
+  return (
+  <table className="table">
+      <thead>
       <tr>
-        <td></td>
         <td>Time</td>
         <td>Type</td>
         <td>Order %</td>
@@ -31,5 +32,6 @@ export default function TradeTable(props) {
       {tableRows}
     </tbody>
   </table>
+  )
 }
 
