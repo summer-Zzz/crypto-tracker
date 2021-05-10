@@ -1,7 +1,6 @@
 require('dotenv').config();
 const ccxt = require ('ccxt');
 const axios = require('axios');
-const HttpsProxyAgent = require('https-proxy-agent')
 
 // SINGLE EXCHANGE INSTANTIATION  //
 
@@ -28,7 +27,7 @@ const binance = new ccxt.binance({
   secret: process.env.BNB_SECRET, 
   enableRateLimit: true
 })
-binance.proxy = 'https://test.cors.workers.dev';
+
 
 // USEREXCHANGE CLASS INSTANTIATION // 
 // for each exchange a user adds to our app, we create a new userExchange class 
@@ -42,7 +41,8 @@ const fetchTrades = (exchangeRequestData) => {
   return exchange.fetchMyTrades(symbol, since)
   .then(trades => {
     trades.forEach(trade => {
-      console.log ( 
+      console.log (
+
         'time: ', trade.timestamp,
         'side: ', trade.side,     
         'order-type: ', trade.type,
@@ -67,7 +67,7 @@ const averageCost = (trades) => {
 const fetchBalance = (exchange) => {
 
   exchange.fetchBalance()
-  .then(balance => console.log(balance))
+  .then(balance => console.log(balance.total))
   .catch(err => console.log(err))
 
 }
@@ -161,8 +161,8 @@ const exchangeRequestData = {
 // fetchBalance(phemex)
 
 // fetch OHLCV data
-getOHLCVData(exchangeRequestData)
+// getOHLCVData(exchangeRequestData)
 
 // fetch exchange coins
-// fetchExchangeCoins(phemex, 'CAD')
+// fetchExchangeCoins(binance, "BTC/USD")
 
