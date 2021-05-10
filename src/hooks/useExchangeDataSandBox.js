@@ -157,7 +157,7 @@ const exchangeRequestData = {
 // fetchBalance(phemex)
 
 // fetch OHLCV data
-// getOHLCVData(exchangeRequestData)
+getOHLCVData(exchangeRequestData)
 
 // fetch exchange coins
 // fetchExchangeCoins(phemex, 'CAD')

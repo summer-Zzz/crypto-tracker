@@ -5,7 +5,8 @@ import * as d3 from "d3";
 import Candle from "./Candle";
 import CrossHairs from "./CrossHairs";
 
-const Chart = props => {
+export default function Chart(props) {
+
   const { data, width: chart_width, height: chart_height } = props;
   // let { last_bar_idx = 0, bars_wide = 40 } = props;
 
@@ -54,6 +55,7 @@ const Chart = props => {
         chart_dims["pixel_height"]
     );
   };
+  
 
   const onMouseLeave = () => {
     setMouseCoords({
@@ -113,5 +115,3 @@ const Chart = props => {
     </svg>
   );
 };
-
-export default Chart;
