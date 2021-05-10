@@ -1,10 +1,13 @@
 DROP TABLE IF EXISTS users CASCADE;
+
 CREATE TABLE users(
     id SERIAL PRIMARY KEY NOT NULL,
-    email VARCHAR(25e5) NOT NULL,
+    email VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
     holdings INTEGER, 
-    holdings_dated_update, DATE,
-    joined_at TIMESTAMP WITH TIME ZONE DEFAULT,
+    holdings_dated_update TIMESTAMP,
+    joined_at TIMESTAMP WITH TIME ZONE,
     UNIQUE (email)
 );
+
+ALTER TABLE users ADD COLUMN name VARCHAR(255) NOT NULL;
