@@ -42,7 +42,7 @@ const fetchTrades = (exchangeRequestData) => {
   .then(trades => {
     trades.forEach(trade => {
       console.log (
-
+        'symbol', symbol,
         'time: ', trade.timestamp,
         'side: ', trade.side,     
         'order-type: ', trade.type,

@@ -2,13 +2,16 @@ TradeTable Data
 
 ```js
 {
-  time: 1620331915827, // timestamp
+  baseCurrency: 'BTC',
+  quoteCurrency: 'USD',
+  time: 1620331915827, // trade transaction time (milliseconds)
   side: 'buy', // side: buy or sell
   order-type: 'limit', // order type
-  price:  54240.09, // price per coin at time of trade
-  cost:  19.960353, // amount spent on coin
+  price:  54240.09, // unit price
+  cost:  19.960353, // amount spent on coin 
   amount:  0.000368 // amount of coin received
 }
+
   ``` 
 CoinTable Data
 
