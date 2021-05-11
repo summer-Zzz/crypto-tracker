@@ -3,6 +3,6 @@ import "./MenuButton.scss"
 export default function MenuButton(props) {
 
  return (
-   <button onClick={() => props.setExchange(props.exchange)}>{props.exchange}</button>
+   <button onClick={() => props.setOption(props.option)}>{props.option}</button>
  )
 }

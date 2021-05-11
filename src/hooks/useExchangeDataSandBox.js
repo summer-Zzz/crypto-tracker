@@ -36,7 +36,7 @@ const binance = new ccxt.binance({
 
 const fetchTrades = (exchangeRequestData) => {
 
-  const {exchange, symbol, timeframe, since} = exchangeRequestData
+  const {exchange, symbol, since} = exchangeRequestData
 
   return exchange.fetchMyTrades(symbol, since)
   .then(trades => {
@@ -142,7 +142,7 @@ const oneMinuteAgo = () => new Date - 60000
 // Object to mimic request coming from front-end ui 
 const exchangeRequestData = {
   symbol: 'BTC/USDT',
-  timeframe: '1h',
+  timeframe: '1m',
   since: oneMonthAgo(),
   exchange: phemex
 }
@@ -161,8 +161,8 @@ const exchangeRequestData = {
 // fetchBalance(phemex)
 
 // fetch OHLCV data
-// getOHLCVData(exchangeRequestData)
-
+getOHLCVData(exchangeRequestData)
+console.log(phemex.timeframes)
 // fetch exchange coins
 // fetchExchangeCoins(binance, "BTC/USD")
 
