@@ -1,6 +1,7 @@
 import React from 'react'
 import DropMenu from './DropDownMenu/DropMenu'
 import InfoDisplay from './InfoDisplay'
+<<<<<<< HEAD
 import TradeTable from "./TradeTable"
 import DisplayChart from "./Candlestick/DisplayChart"
 import "./Dashboard.scss"
@@ -44,6 +45,12 @@ export default function Dashboard() {
   XLM: 0,
   ATOM: 0,
   LUNA: 0 }
+=======
+import TradeTable from './TradeTable'
+import CoinTable from './CoinTable'
+
+export default function Dashboard(props) {
+>>>>>>> 27c85d865d7fbd824dde38ee974cd4538f4f7912
 
   const exchanges = [
     {
@@ -158,6 +165,7 @@ export default function Dashboard() {
   ]  
   
   return (
+<<<<<<< HEAD
     <div className="dashboard">
       <div className="leftside">
         <DisplayChart />
@@ -174,8 +182,23 @@ export default function Dashboard() {
         <div>
           <TradeTable rows={rows} />
         </div>
+=======
+    <div className='dashboard-container'>
+      <div className="menu-container">
+        <DropMenu options={props.exchanges}/>
+        <DropMenu options={props.timeframes}/>
+        <DropMenu options={props.currencies}/>
+      </div>
+      <div className="info-container">
+        <InfoDisplay infoHeader={'Balance'} infoContent={'0.85452'}/>
+        <InfoDisplay infoHeader={'P%L'} infoContent={'+25%'}/>
+        <InfoDisplay infoHeader={'Average Price'} infoContent={"$53000"}/>
+      </div>
+      <div className="trade-container">
+        <TradeTable rows={props.TradeData}/>
+>>>>>>> 27c85d865d7fbd824dde38ee974cd4538f4f7912
       </div>
     </div>
   )
 
-}
+} 
