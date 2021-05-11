@@ -1,0 +1,15 @@
+.dashboard {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.right-side {
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown {
+  text-align: center;
+  margin-left: 30%;
+}

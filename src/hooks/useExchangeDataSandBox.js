@@ -161,8 +161,8 @@ const exchangeRequestData = {
 // fetchBalance(phemex)
 
 // fetch OHLCV data
-getOHLCVData(exchangeRequestData)
-console.log(phemex.timeframes)
+// getOHLCVData(exchangeRequestData)
+// console.log(phemex.timeframes)
 // fetch exchange coins
 // fetchExchangeCoins(binance, "BTC/USD")
 

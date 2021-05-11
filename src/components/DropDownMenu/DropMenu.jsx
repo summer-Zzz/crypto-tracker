@@ -6,7 +6,7 @@ export default function MenuCard(props) {
 
   const [currentOption, setOption] = useState('Select option')
   const [menuState, setMenuState] = useState(false)
-
+  const onClick = () => setMenuState(!menuState)
   function handleBlur() {
     setMenuState(false)
   }
@@ -21,8 +21,8 @@ export default function MenuCard(props) {
 
   return (
     <div>
-      <div  className="dropdown-menu">
-        <button onClick={() => setMenuState(true)}>
+      <div className="dropdown-menu">
+        <button onClick={onClick}>
           {currentOption}
         </button>
       </div>

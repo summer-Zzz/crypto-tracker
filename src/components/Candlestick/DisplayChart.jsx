@@ -113,8 +113,8 @@ export default function DisplayChart() {
   [ 1618394400000, 63590.93, 64160.31, 63464.45, 64096.22, 22.653 ],
   [ 1618398000000, 64114.33, 64785.99, 64096.09, 64510.79, 22.145383 ],
   [ 1618401600000, 64542.03, 64645.13, 63690.7, 63886.22, 25.077029 ]]
-  const chart_width = 500;
-  const chart_height = 300;
+  const chart_width = 700;
+  const chart_height = 500;
 
   const parseDate = d3.timeFormat("%B %d, %Y");
   
@@ -147,7 +147,6 @@ export default function DisplayChart() {
 
   return (
     <div className="Chart">
-      <h1>Chart</h1>
       <div className="content">
         <div>
           <Chart data={data} width={chart_width} height={chart_height} />
