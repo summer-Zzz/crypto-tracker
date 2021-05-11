@@ -19,8 +19,8 @@ export default function DropMenu(props) {
   })
 
   return (
-    <div>
-      <div className="dropdown-menu">
+    <div className="dropdown-menu">
+      <div>
         <button onClick={onClick}>
           {currentOption}
         </button>
@@ -29,7 +29,7 @@ export default function DropMenu(props) {
       <div className="dropdown-menu" onClick={() => handleBlur()}>
         {options}
       </div>
-    }
+       }
     </div>
   )
 }

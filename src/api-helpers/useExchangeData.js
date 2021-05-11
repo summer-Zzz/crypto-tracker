@@ -28,7 +28,7 @@ import ccxt from 'ccxt'
 // USEREXCHANGE CLASS INSTANTIATION // 
 // for each exchange a user adds to our app, we create a new userExchange class 
 
-class CryptoExchange {
+class Exchange {
  
   constructor(exchange, apiKey, secret) {
     this.exchangeId = exchange;
@@ -134,7 +134,7 @@ class CryptoExchange {
   
 }
 
-export default CryptoExchange
+export default Exchange
 
 // HELPERS
 

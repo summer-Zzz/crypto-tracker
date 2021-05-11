@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import CryptoExchange from './hooks/useExchangeData'
+import Exchange from './api-helpers/useExchangeData'
 import 'dotenv/config'
 import {
   BrowserRouter as Router,
@@ -219,24 +219,56 @@ const rows = [
 
 export default function App() {
 
-  const [exchange, setExchange] = useState(null);
-  const [exchangeInfo, setExchangeInfo] = useState(null);
-  const [markets, setMarkets] = useState([])
-  const [coin, setCoin] = useState(null)
+  // const [exchange, setExchange] = useState(null);
+  // const [exchangeInfo, setExchangeInfo] = useState(null);
+  // const [markets, setMarkets] = useState([])
+  // const [coins, setCoins] = useState(null)
+  // const [candles, setCandles] = useState([])
+  // const [trades, setTrades] = useState([])
+
+  const [state, setState] = useState({
+    exchangeInfo: {
+      exchangeName: null,
+      apiKey: null,
+      secret: null
+    },
+    exchange: null,
+    coin: [],
+    coins: [],
+    candles: [],
+    timeframe: null,
+    candleLength: null
+  })
+
+  function handleEmailChange(e) {
+    setState(...state, email)
+  }
+
+  function handlePasswordChange(e) {
+    setState(...state, password)
+  }
 
   useEffect(() => {
     if (exchangeInfo) {
-      setExchange(new CryptoExchange(...exchangeInfo))
-      setMarkets(exchange.fetchExchangeCoins())
+     const exchange = new Exchange(exchangeInfo);
+     // fetch available coins from market 
+     const coins = exchange.fetchExchangeCoins();
+     // set coin data in state 
+     setState({...state, coins});
     }
   },[exchangeInfo])
 
   useEffect(() => {
     if (coin) {
       // fetch chart data
+      const candles = state.exchange.fetchOHLCV(state.coin, state.timeframe, state.candleLength)
       // fetch user trades
+      const trades = state.exchange.fetchTrades(state.coin)
       // fetch user balance
+      const balance = state.exchange.fetchBalance(state.coin)
       // fetch user P&L
+      const pL = state.exchange.calculatePL(trades, state.coin)
+      setState({...state, candles, trades, balance, pL})
     }
   },[coin])
 
@@ -257,7 +289,7 @@ export default function App() {
       <main>
         <Switch>
           <Route path="/register">
-            <Form formLabel={'Register'} firstLabel={'email'} secondLabel={'password'}/>
+            <Form formLabel={'Register'} firstLabel={'email'} secondLabel={'password'} />
           </Route>
           <Route path="/login">
             <Form formLabel={'Login'} firstLabel={'email'} secondLabel={'password'}/>
