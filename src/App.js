@@ -288,8 +288,8 @@ export default function App() {
           <Link className="nav-text" to="/">Crypto-Tracker</Link>
           <Link className="nav-text" to="/login">Login</Link>
           <Link className="nav-text" to="/register">Register</Link>
-          <Link className="nav-text" to="/settings">Settings</Link>
           <Link className="nav-text" to="/tradetable">Trade Table</Link>
+          <Link className="nav-text" to="/settings">Settings</Link>
         </nav>
         <div class="home-header">
           <img id="main_image" src="/images/background.jpeg" alt="background" />
@@ -303,11 +303,11 @@ export default function App() {
           <Route path="/login">
             <Form formLabel={'Login'} firstLabel={'email'} secondLabel={'password'}/>
           </Route>
-          <Route path="/settings">
-            <Form formLabel={'New Exchange'} firstLabel={'API key/id'} secondLabel={'Secert Key'}/> 
-          </Route>
           <Route path="/tradetable">
             <TradeTable rows={tradeRows}/>
+          </Route>
+          <Route path="/settings">
+            <Form formLabel={'New Exchange'} firstLabel={'API key/id'} secondLabel={'Secert Key'}/> 
           </Route>
           <Route path="/">
             <div class="chart-dashboard-container">
