@@ -13,6 +13,7 @@ import CoinTable from "./components/CoinTable"
 import './App.css';
 
 import Dashboard from "./components/Dashboard"
+import DisplayChart from './components/Candlestick/DisplayChart';
 
 
 const exchanges = [
@@ -271,13 +272,16 @@ export default function App() {
             <Form formLabel={'New Exchange'} firstLabel={'API key/id'} secondLabel={'Secert Key'}/> 
           </Route>
           <Route path="/">
-            <Dashboard 
-              balance={balance} 
-              exchanges={exchanges} 
-              timeframes={timeframes}
-              currencies={currencies}
-            />
-          <CoinTable rows={rows} /> 
+            <div class="chart-dashboard-container">
+              <DisplayChart />
+              <Dashboard 
+                balance={balance} 
+                exchanges={exchanges} 
+                timeframes={timeframes}
+                currencies={currencies}
+              />
+            </div>
+              <CoinTable rows={rows} /> 
           </Route>
         </Switch>
       </main>

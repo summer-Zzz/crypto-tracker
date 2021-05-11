@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import MenuButton from "./MenuButton"
+import "./DropMenu.scss"
 
 export default function DropMenu(props) {
 
@@ -21,7 +22,7 @@ export default function DropMenu(props) {
   return (
     <div>
       <div className="dropdown-menu">
-        <button onClick={onClick}>
+        <button className="menu-button" onClick={onClick}>
           {currentOption}
         </button>
       </div>
