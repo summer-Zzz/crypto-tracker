@@ -8,9 +8,6 @@ export default function Dashboard(props) {
 
   return (
     <div className='dashboard-container'>
-      <div className="chart-container">
-        <Chart />
-      </div>
       <div className="menu-container">
         <DropMenu options={props.exchanges}/>
         <DropMenu options={props.timeframes}/>
@@ -19,14 +16,12 @@ export default function Dashboard(props) {
       <div className="info-container">
         <InfoDisplay infoHeader={'Balance'} infoContent={'0.85452'}/>
         <InfoDisplay infoHeader={'P%L'} infoContent={'+25%'}/>
+        <InfoDisplay infoHeader={'Average Price'} infoContent={"$53000"}/>
       </div>
       <div className="trade-container">
         <TradeTable rows={props.TradeData}/>
       </div>
-      <div className="coin-container">
-        <CoinTable rows={props.CoinData}/>
-      </div>
     </div>
   )
 
-}
+} 

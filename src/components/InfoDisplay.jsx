@@ -10,7 +10,7 @@ export default function InfoDisplay(props) {
 
   return (
     <div>
-         <h1>{props.infoHeader}</h1>
+        <h1>{props.infoHeader}</h1>
         <p>{props.infoContent}</p>
     </div>
   )
