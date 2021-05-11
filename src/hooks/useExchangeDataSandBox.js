@@ -11,14 +11,14 @@ const phemex = new ccxt.phemex({
 })
 
 phemex.setSandboxMode(true);  
-// phemex.proxy = 'https://test.cors.workers.dev';
+
 
 const bitmex = new ccxt.bitmex({
   apiKey: process.env.BITMEX_API_PUBLIC,
   secret: process.env.BITMEX_API_SECRET,
   enableRateLimit: true
 })
-bitmex.proxy = 'https://test.cors.workers.dev';
+
 
 bitmex.setSandboxMode(true)
 
@@ -106,6 +106,12 @@ const calculatePL = (costPrice, currentPrice) => {
 //   })
 // }
 
+const fetchTickerPrice = (exchange, symbol) => {
+  exchange.fetchTicker(symbol).then(ticker => {
+    console.log(ticker.ask)
+  })
+}
+
 const fetchExchangeCoins = (exchange, searchTicker) => {
 
   exchange.fetchTickers()
@@ -162,7 +168,10 @@ const exchangeRequestData = {
 
 // fetch OHLCV data
 // getOHLCVData(exchangeRequestData)
-// console.log(phemex.timeframes)
+
 // fetch exchange coins
 // fetchExchangeCoins(binance, "BTC/USD")
+
+// fetch single ticker price
+fetchTickerPrice(binance, 'BTC/USDT')
 
