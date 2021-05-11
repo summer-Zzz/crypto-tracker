@@ -14,6 +14,7 @@ import './App.css';
 
 import Dashboard from "./components/Dashboard"
 
+
 const exchanges = [
   {
     id: 1,
@@ -217,6 +218,8 @@ const rows = [
   },
 ]
 
+const currentPrice = 65281.91;
+
 export default function App() {
 
   const [exchange, setExchange] = useState(null);
@@ -239,6 +242,8 @@ export default function App() {
       // fetch user P&L
     }
   },[coin])
+
+  // console.log("PL:", calculatePL(trades, currentPrice))
 
   return (
     <Router>
