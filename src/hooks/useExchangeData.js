@@ -124,6 +124,14 @@ class CryptoExchange {
     })
     .catch(err => console.log(err));
   }
+
+  fetchTickerPrice = (symbol) => {
+    return this.exchange.fetchTicker(symbol).then(ticker => {
+      return ticker.ask;
+    })
+    .catch(err => console.log(err))
+  }
+  
 }
 
 export default CryptoExchange

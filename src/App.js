@@ -20,15 +20,15 @@ const exchanges = [
     name: 'kraken',
   },
   {
-    id: 1,
+    id: 2,
     name: 'binance',
   },
   {
-    id: 1,
+    id: 3,
     name: 'phemex',
   },
   {
-    id: 1,
+    id: 4,
     name: 'bitmex',
   }
 ]
@@ -216,58 +216,29 @@ const rows = [
   volume: 67366474410
   },
 ]
-// have state for user info 
-// useEffect to pass user info to exchange instantiation
-// 
-
-// const phemex = new useCryptoExchanges('phemex', '6e4baee4-8560-4675-b3da-7c4c62332801', 'aysxzFt1JU4139lbt-RM-tToIdmm5aWfYLz9KABPbfRmNzM3MDE2Ny1lOGZmLTQ2NDgtYTc4NC0yZjk3ZTMyODI1YmQ')
-
-// state.balance = phemex.fetchBalance()
-
-// const oneMonthAgo = () => new Date - 2629800000
-// const oneWeekAgo = () => new Date - 604800000
-// const oneDayAgo = () => new Date - 86400000
-// const oneMinuteAgo = () => new Date - 60000
-
-// phemex.fetchBalance();
-
-// const chartDataRequest = {
-//   symbol: 'BTC/USDT',
-//   timeframe: '1m',
-//   since: oneDayAgo() 
-// }
-// phemex.getOHLCVData(chartDataRequest)
-
-// const newExchange = new CryptoExchange('phemex', '6e4baee4-8560-4675-b3da-7c4c62332801', 'aysxzFt1JU4139lbt-RM-tToIdmm5aWfYLz9KABPbfRmNzM3MDE2Ny1lOGZmLTQ2NDgtYTc4NC0yZjk3ZTMyODI1YmQ')
-
-// const oneMonthAgo = () => new Date - 2629800000
-// const oneWeekAgo = () => new Date - 604800000
-// const oneDayAgo = () => new Date - 86400000
-// const oneMinuteAgo = () => new Date - 60000
-
-//   //******* TEST DATA *******//
-//   const chartDataRequest = {
-//     exchange: "phemex",
-//     symbol: 'BTC/USDT',
-//     timeframe: '1m',
-//     since: oneDayAgo() 
-//   }
-
-// console.log(newExchange.fetchTrades(chartDataRequest))
 
 export default function App() {
 
-  // const [exchange, setExchange] = useState(null);
-  // const [exchangeInfo, setExchangeInfo] = useState(null);
-  // const [markets, setMarkets] = useState([])
+  const [exchange, setExchange] = useState(null);
+  const [exchangeInfo, setExchangeInfo] = useState(null);
+  const [markets, setMarkets] = useState([])
+  const [coin, setCoin] = useState(null)
 
-  // useEffect(() => {
-  //   if (exchangeInfo) {
-  //     setExchange(
-  //       new CryptoExchange(...exchangeInfo)
-  //     )
-  // //   }
-  // },[exchangeInfo])
+  useEffect(() => {
+    if (exchangeInfo) {
+      setExchange(new CryptoExchange(...exchangeInfo))
+      setMarkets(exchange.fetchExchangeCoins())
+    }
+  },[exchangeInfo])
+
+  useEffect(() => {
+    if (coin) {
+      // fetch chart data
+      // fetch user trades
+      // fetch user balance
+      // fetch user P&L
+    }
+  },[coin])
 
   return (
     <Router>
