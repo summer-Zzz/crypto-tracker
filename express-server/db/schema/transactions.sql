@@ -7,10 +7,11 @@ CREATE TABLE transactions(
     quote_currency VARCHAR(10),
     transaction_type VARCHAR(10),
     order_type VARCHAR(15),
-    unit_price INTEGER,
-    amount INTEGER,
-    cost INTEGER,
-    transaction_time TIMESTAMP
+    unit_price DOUBLE PRECISION,
+    amount DOUBLE PRECISION,
+    cost DOUBLE PRECISION,
+    transaction_time TIMESTAMP WITH TIME ZONE,
+    transaction_fee 
 )
 
 -- ALTER TABLE transactions 

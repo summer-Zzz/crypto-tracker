@@ -73,7 +73,8 @@ Stretch - I want to see data from a closed account
 
 ## STATE
 - currentExchange 
-- currentPrice 
+- currentCoin
+- currentCurrency
 
 ## ERDs 
 - https://drive.google.com/file/d/1FOD6Wse3WplYS_vHouxiciHn2P2E0-PV/view?usp=sharing

@@ -5,12 +5,6 @@ import "./InfoDisplay.scss"
 import { sum } from "d3";
 
 export default function InfoDisplay(props) {
-  // const infodisplayClass = classNames("infodisplay", {
-  //   "infodisplay--header": props.infoHeader,
-  //   "infodisplay--content": props.infoContent
-  // });
-
-  const usBalance = props.balance.USDT.toFixed(2)
 
   console.log({props})
   const priceNow = props.currentPrice.price
@@ -25,13 +19,9 @@ export default function InfoDisplay(props) {
 
 
   return (
-    <div className="info-display">
-      <div className="balance">
-        <p>Balance: {usBalance}</p>
-      </div>
-      <div className="profit-loss">
-        <p>P&L: {proLoss}</p>
-      </div>
+    <div>
+      <h2>{props.infoHeader}</h2>
+      <p>{props.infoContent}</p>
     </div>
   )
 }

@@ -11,14 +11,14 @@ const phemex = new ccxt.phemex({
 })
 
 phemex.setSandboxMode(true);  
-// phemex.proxy = 'https://test.cors.workers.dev';
+
 
 const bitmex = new ccxt.bitmex({
   apiKey: process.env.BITMEX_API_PUBLIC,
   secret: process.env.BITMEX_API_SECRET,
   enableRateLimit: true
 })
-bitmex.proxy = 'https://test.cors.workers.dev';
+
 
 bitmex.setSandboxMode(true)
 
@@ -84,11 +84,14 @@ const getOHLCVData = (exchangeRequestData) => {
 
 // we get a % for the profit or loss of a single trade from this function
 const calculatePL = (costPrice, currentPrice) => {
-  if (costPrice > currentPrice) {
-    return (costPrice - currentPrice) / costPrice * 100;
-  } else {
-    return (currentPrice - costPrice) / costPrice * 100;
-  }
+  // const priceNow = props.currentPrice.price
+  // let costs = 0;
+  // let amounts = 0;
+  //   for(let trade of props.trades) {
+  //     costs += trade.cost;
+  //     amounts += trade.amount;
+  //   }
+  // const proLoss =((priceNow * amounts) - costs) /costs * 100
 }
 
 // alternate method using CryptoCompare
@@ -105,6 +108,12 @@ const calculatePL = (costPrice, currentPrice) => {
 //     })
 //   })
 // }
+
+const fetchTickerPrice = (exchange, symbol) => {
+  exchange.fetchTicker(symbol).then(ticker => {
+    console.log(ticker.ask)
+  })
+}
 
 const fetchExchangeCoins = (exchange, searchTicker) => {
 
@@ -127,22 +136,6 @@ const fetchExchangeCoins = (exchange, searchTicker) => {
   .catch(err => console.log(err))
 }
 
-// const fetchCurrentPrice = (exchange, searchTicker) => {
-
-//   exchange.fetchTickers()
-//   .then(tickers => {
-//     const tickersArr = Object.keys(tickers);
-//     tickersArr.forEach(ticker => {
-//       if (ticker.includes(searchTicker)) {
-//         const tickerInfo = tickers[ticker];
-//         console.log(
-//           'price: ', tickerInfo.ask,
-//         )
-//       }
-//     })
-//   })
-//   .catch(err => console.log(err))
-// }
 
 
 // const averagePL = (trades) => {
@@ -180,7 +173,10 @@ fetchTrades(exchangeRequestData)
 
 // fetch OHLCV data
 // getOHLCVData(exchangeRequestData)
-// console.log(phemex.timeframes)
+
 // fetch exchange coins
 // fetchExchangeCoins(binance, "BTC/USD")
+
+// fetch single ticker price
+fetchTickerPrice(binance, 'BTC/USDT')
 
