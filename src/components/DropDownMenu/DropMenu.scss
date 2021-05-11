@@ -8,3 +8,9 @@
   background-color: rgb(203, 203, 203);
   cursor: pointer;
 }
+
+@media only screen and (max-width: 1024px) {
+  .dropdown-menu {
+    position: absolute
+  }
+}
