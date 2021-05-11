@@ -45,8 +45,10 @@ class CryptoExchange {
 
   fetchBalance = (symbol = "") => {
     return this.exchange.fetchBalance(symbol)
-    // .then(balance => console.log(balance))
-    // .catch(err => console.log(err))
+    .then(balance => {
+      return balance
+    })
+    .catch(err => console.log(err))
   }
  
   fetchTrades = (exchangeRequestData) => {
@@ -115,7 +117,7 @@ class CryptoExchange {
             price: tickerInfo.ask,
             change: tickerInfo.change,
             changePercent: tickerInfo.percentage,
-            volume: tickerInfo.baseVolume,
+            volume: tickerInfo.baseVolume
           }
         }
       })
