@@ -83,12 +83,15 @@ const getOHLCVData = (exchangeRequestData) => {
 }
 
 // we get a % for the profit or loss of a single trade from this function
-const calculatePL = (costPrice, currentPrice) => {
-  if (costPrice > currentPrice) {
-    return (costPrice - currentPrice) / costPrice * 100;
-  } else {
-    return (currentPrice - costPrice) / costPrice * 100;
-  }
+const calculatePL = (trades, currentPrice) => {
+  let costs = 0;
+  let amounts = 0;
+    for(let trade of trades) {
+      costs += trade.cost;
+      amounts += trade.amount;
+    }
+  const proLoss =((currentPrice * amounts) - costs) /costs * 100;
+  return proLoss;
 }
 
 // alternate method using CryptoCompare
@@ -133,6 +136,8 @@ const fetchExchangeCoins = (exchange, searchTicker) => {
   .catch(err => console.log(err))
 }
 
+
+
 // const averagePL = (trades) => {
 //   totalPercent = 0;
 //   trades.forEach(trade, i => {
@@ -156,7 +161,7 @@ const exchangeRequestData = {
 // CALL API SANDBOX FUNCTIONS // 
 
 // fetch all trades 
-// fetchTrades(exchangeRequestData)
+fetchTrades(exchangeRequestData)
 
 // // get average cost from all trades 
 // const trades = fetchTrades(exchangeRequestData)

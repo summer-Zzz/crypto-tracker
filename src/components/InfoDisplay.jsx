@@ -11,5 +11,4 @@ export default function InfoDisplay(props) {
       <p>{props.infoContent}</p>
     </div>
   )
-
 }

@@ -13,6 +13,8 @@ import CoinTable from "./components/CoinTable"
 import './App.css';
 
 import Dashboard from "./components/Dashboard"
+import DisplayChart from './components/Candlestick/DisplayChart';
+
 
 const exchanges = [
   {
@@ -217,6 +219,8 @@ const rows = [
   },
 ]
 
+const currentPrice = 65281.91;
+
 export default function App() {
 
   const [exchange, setExchange] = useState(null);
@@ -239,6 +243,8 @@ export default function App() {
       // fetch user P&L
     }
   },[coin])
+
+  // console.log("PL:", calculatePL(trades, currentPrice))
 
   return (
     <Router>
@@ -266,13 +272,16 @@ export default function App() {
             <Form formLabel={'New Exchange'} firstLabel={'API key/id'} secondLabel={'Secert Key'}/> 
           </Route>
           <Route path="/">
-            <Dashboard 
-              balance={balance} 
-              exchanges={exchanges} 
-              timeframes={timeframes}
-              currencies={currencies}
-            />
-          <CoinTable rows={rows} /> 
+            <div class="chart-dashboard-container">
+              <DisplayChart />
+              <Dashboard 
+                balance={balance} 
+                exchanges={exchanges} 
+                timeframes={timeframes}
+                currencies={currencies}
+              />
+            </div>
+              <CoinTable rows={rows} /> 
           </Route>
         </Switch>
       </main>

@@ -50,3 +50,10 @@ button:hover {
   margin-left: auto;
   margin-right: auto;
 }
+
+.chart-dashboard-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin: 10px
+}
