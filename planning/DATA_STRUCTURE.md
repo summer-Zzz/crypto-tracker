@@ -84,3 +84,28 @@ User Balance data
   ATOM: 0,
   LUNA: 0
 }
+
+  ```
+User Exchanges Data
+
+```js
+
+const exchanges = [
+  {
+    id: 1,
+    name: 'kraken',
+  },
+  {
+    id: 1,
+    name: 'binance',
+  },
+  {
+    id: 1,
+    name: 'phemex',
+  },
+  {
+    id: 1,
+    name: 'bitmex',
+  }
+]
+  ```

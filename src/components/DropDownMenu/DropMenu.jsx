@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import MenuButton from "./MenuButton"
 
-import './DropMenu.scss'
-export default function MenuCard(props) {
+export default function DropMenu(props) {
 
   const [currentOption, setOption] = useState('Select option')
   const [menuState, setMenuState] = useState(false)
