@@ -12,7 +12,7 @@ export default function Dashboard(props) {
         <DropMenu options={props.currencies}/>
       </div>
       <div className="info-container">
-        <InfoDisplay infoHeader={'Balance'} infoContent={props.balance.USDT}/>
+        <InfoDisplay infoHeader={'Balance'} infoContent={"102020"}/>
         <InfoDisplay infoHeader={'P%L'} infoContent={'+25%'}/>
         <InfoDisplay infoHeader={'Average Price'} infoContent={"$53000"}/>
       </div>

@@ -2,7 +2,6 @@ import React from "react";
 //import "components/InfoDisplay.scss";
 import classNames from "classnames";
 import "./InfoDisplay.scss"
-import { sum } from "d3";
 
 export default function InfoDisplay(props) {
 

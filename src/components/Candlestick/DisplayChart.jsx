@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
-import * as d3 from "d3";
 import ReactApexChart from "react-apexcharts";
 
 
 import "./DisplayChart.scss";
-
-import Chart from "./Chart";
 
 export default function DisplayChart() {
   const exchange = 
@@ -112,7 +109,7 @@ export default function DisplayChart() {
     return {x: new Date(date),
     y: values}})
 
-  const [data, setData] = useState([]);
+    
   const [chartData, setChartData] = useState({
     
     series: [{
@@ -136,53 +133,21 @@ export default function DisplayChart() {
         }
       }
     },
-
   })
 
-  useEffect(() => {
-    setData(generateData())
-    //make a api call
-  }, [])
+  // useEffect(() => {
+  //   setData(generateData())
+  //   //make a api call
+  // }, [])
 
   const chart_width = 700;
   const chart_height = 500;
-
-  const parseDate = d3.timeFormat("%B %d, %Y");
-  
-
-  const generateData = () => {
-    // calculate each bar
-    return exchange.map((item) => {
-      const time = parseDate(item[0])
-      const open = item[1];
-      const high = item[2];
-      const low = item[3];
-      const close = item[4];
-      const volume = item[5];
-      console.log(time)
-      // previous_close = close;
-      // trend = Math.floor(Math.random() * 2) * 2 - 1;
-
-      return {
-        time,
-        open,
-        high,
-        low,
-        close,
-        volume
-      };
-    });
-  };
-
-  // const data_on_chart = data.slice()
 
   return (
     <div className="Chart">
       <div className="content">
         <div>
-          <Chart data={data} width={chart_width} height={chart_height} />
           <ReactApexChart options={chartData.options} series={chartData.series} type="candlestick" width={chart_width} height={chart_height} />
-
         </div>
       </div>
     </div>
