@@ -1,9 +1,16 @@
-form {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  width: 50%;
-  text-align: left;
-  margin: 30px;
-  margin-top: 80px;
+.form-container{
+  margin: 50px;
+  margin-bottom: 300px;
+  padding: 30px;
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.input-feild {
+  margin: 10px
+}
+
+.form-button {
+  margin-top: 20px;
 }

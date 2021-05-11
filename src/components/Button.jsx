@@ -10,7 +10,7 @@ export default function Button(props) {
   });
 
   return (
-    <button
+    <button 
       className={buttonClass}
       submit={props.submit}
       view={props.view}

@@ -1,6 +1,7 @@
 import React from 'react'
 import DropMenu from './DropDownMenu/DropMenu'
 import InfoDisplay from './InfoDisplay'
+import "./Dashboard.scss";
 
 export default function Dashboard(props) {
   

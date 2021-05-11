@@ -22,6 +22,7 @@ button:hover {
   cursor: pointer;
 }
 
+
 .navbar {
   display: flex;
   border: none;
@@ -32,6 +33,7 @@ button:hover {
   position: fixed;
   width: 100%;
   top: 0;
+  z-index: 20;
 }
 
 .nav-text {
@@ -47,13 +49,22 @@ button:hover {
   text-align: center;
   margin-top: 60px;
   display: flex;
-  margin-left: auto;
-  margin-right: auto;
+  position: relative;
 }
+
 
 .chart-dashboard-container {
   display: flex;
   justify-content: center;
   width: 100%;
   margin: 10px
+}
+
+@media only screen and (max-width: 1024px) {
+  .chart-dashboard-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 10px
+  }
 }

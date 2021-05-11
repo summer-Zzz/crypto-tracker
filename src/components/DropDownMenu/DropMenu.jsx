@@ -21,7 +21,7 @@ export default function DropMenu(props) {
 
   return (
     <div>
-      <div className="dropdown-menu">
+      <div>
         <button className="menu-button" onClick={onClick}>
           {currentOption}
         </button>
