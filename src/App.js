@@ -10,8 +10,9 @@ import {
 
 import Form from "./components/Form"
 import CoinTable from "./components/CoinTable"
-import TradeTable from "./components/TradeTable"
 import './App.css';
+
+import Dashboard from "./components/Dashboard"
 
 const coinRows = [
   {
@@ -56,40 +57,7 @@ const coinRows = [
   },
 ]
 
-const tradeRows = [
-  {
-  id: 1, 
-  tradeTime: "2021-08-17 12:42",
-  tradeType: "Buy",
-  tradeOrder: "Limit",
-  tradePrice: 59203.82,
-  tradeAmount: 0.0855208
-  },
-  {
-  id: 2, 
-  tradeTime: "2021-08-17 12:42",
-  tradeType: "Buy",
-  tradeOrder: "Limit",
-  tradePrice: 59203.82,
-  tradeAmount: 0.0855208
-  },
-  {
-  id: 3, 
-  tradeTime: "2021-08-17 12:42",
-  tradeType: "Buy",
-  tradeOrder: "Limit",
-  tradePrice: 59203.82,
-  tradeAmount: 0.0855208
-  },
-  {
-  id: 4, 
-  tradeTime: "2021-08-17 12:42",
-  tradeType: "Buy",
-  tradeOrder: "Limit",
-  tradePrice: 59203.82,
-  tradeAmount: 0.0855208
-  },
-]
+
 
 // const phemex = new useCryptoExchanges('phemex', '6e4baee4-8560-4675-b3da-7c4c62332801', 'aysxzFt1JU4139lbt-RM-tToIdmm5aWfYLz9KABPbfRmNzM3MDE2Ny1lOGZmLTQ2NDgtYTc4NC0yZjk3ZTMyODI1YmQ')
 
@@ -135,8 +103,8 @@ export default function App() {
             <Form formLabel={'New Exchange'} firstLabel={'API key/id'} secondLabel={'Secert Key'}/> 
           </Route>
           <Route path="/">
+            <Dashboard />
             <CoinTable rows={coinRows} />
-            <TradeTable rows={tradeRows} />
           </Route>
         </Switch>
       </main>

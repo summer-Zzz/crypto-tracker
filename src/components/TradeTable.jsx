@@ -18,7 +18,7 @@ export default function TradeTable(props) {
   })
   
   return (
-  <table className="table">
+  <table className="trade-table">
       <thead>
       <tr>
         <td>Time</td>

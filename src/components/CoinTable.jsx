@@ -15,20 +15,22 @@ export default function CoinTable(props) {
     />
   })
   return (
-    <table className="table">
-      <thead>
-        <tr>
-          <td></td>
-          <td>Coin</td>
-          <td>Price</td>
-          <td>24h</td>
-          <td>24h%</td>
-          <td>Volume (24h)</td>
-        </tr>
-      </thead>
-      <tbody>
-        {tableRows}
-      </tbody>
-    </table>
+    <div className="coin-container">
+      <table className="coin-table">
+        <thead>
+          <tr>
+            <td></td>
+            <td>Coin</td>
+            <td>Price</td>
+            <td>24h</td>
+            <td>24h%</td>
+            <td>Volume (24h)</td>
+          </tr>
+        </thead>
+        <tbody>
+          {tableRows}
+        </tbody>
+      </table>
+    </div>
   )
 }

@@ -1,7 +1,11 @@
-.table {
+.coin-container {
+  display: flex;
+  justify-content: center;
+}
+.coin-table {
   border: solid black;
   margin-top: 80px;
-  margin-left: 20%;
   text-align: center;
+  width: 100%;
 }
 
