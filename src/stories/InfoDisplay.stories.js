@@ -5,5 +5,6 @@ import { storiesOf } from "@storybook/react";
 import InfoDisplay from "../components/InfoDisplay"
 
 storiesOf("InfoDisplay", module)
-  .add("InfoHeader", () => <h1>InfoHeader</h1>)
-  .add("InfoContent", () => <p>InfoContent</p>)
+  .add("Balance", () => <InfoDisplay infoHeader={'Balance'} infoContent={'0.85452'}/>)
+  .add("P&L", () => <InfoDisplay infoHeader={'P&L'} infoContent={'+25%'}/>)
+  
