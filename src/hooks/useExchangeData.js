@@ -28,7 +28,7 @@ import ccxt from 'ccxt'
 // USEREXCHANGE CLASS INSTANTIATION // 
 // for each exchange a user adds to our app, we create a new userExchange class 
 
-class useCryptoExchanges {
+class CryptoExchange {
  
   constructor(exchange, apiKey, secret) {
     this.exchangeId = exchange;
@@ -42,38 +42,30 @@ class useCryptoExchanges {
     this.exchange.setSandboxMode(true);
   }
 
-  fetchMarkets = () => {
-    this.exchange.fetchMarkets()
-    .then(markets => {
-      console.log(markets)
-    })
-    .catch(err => console.log(err))
-  }
 
-  // set get method?
   fetchBalance = (symbol = "") => {
-    this.exchange.fetchBalance(symbol)
-    .then(balance => console.log(balance))
-    .catch(err => console.log(err))
+    return this.exchange.fetchBalance(symbol)
+    // .then(balance => console.log(balance))
+    // .catch(err => console.log(err))
   }
  
   fetchTrades = (exchangeRequestData) => {
     const {symbol, since} = exchangeRequestData;
   
-    this.exchange.fetchMyTrades(symbol, since)
+   return this.exchange.fetchMyTrades(symbol, since)
     .then(trades => {
-      trades.forEach(trade => {
-        console.log (
-          'price: ', trade.price, 
-          'amount: ', trade.amount, 
-          'cost: ', trade.cost, 
-          'time: ', trade.timestamp,
-          'symbol: ', trade.info.symbol,
-          'order-type: ', trade.type,
-          'side: ', trade.side     
-        )
+      return trades.map(trade => {
+        return {
+          price: trade.price, 
+          amount: trade.amount, 
+          cost: trade.cost, 
+          time: trade.timestamp,
+          symbol: trade.info.symbol,
+          orderType: trade.type,
+          side: trade.side     
+        }
       })
-    }) 
+    })
     .catch(err => console.log(err))
   }
 
@@ -81,13 +73,13 @@ class useCryptoExchanges {
     const {symbol, since} = exchangeRequestData
     
     let costTotal = 0;
-    this.exchange.fetchMyTrades(symbol, since)
+    return this.exchange.fetchMyTrades(symbol, since)
     .then(trades => {
       trades.forEach(trade => {
         costTotal += trade.price;
       })
       // average cost
-      console.log(costTotal / trades.length);
+      return costTotal / trades.length
     })
     .catch(err => console.log(err));
   }
@@ -102,27 +94,29 @@ class useCryptoExchanges {
   getOHLCVData(chartDataRequest) {
     const { symbol, timeframe, since } = chartDataRequest
   
-    this.exchange.fetchOHLCV(symbol, timeframe, since)
-    .then(data => console.log(data))
+    return this.exchange.fetchOHLCV(symbol, timeframe, since)
+    .then(data => {
+      return data;
+    })
     .catch(err => console.log(err));
   }
 
 // filter your search by entering a ticker ie: "BTC" or "CAD"
   fetchExchangeCoins = (searchTicker) => {
 
-    this.exchange.fetchTickers()
-    .then(tickers => {
+    return this.exchange.fetchTickers()
+    .then(tickers => { 
       const tickersArr = Object.keys(tickers);
-      tickersArr.forEach(ticker => {
+      return tickersArr.map(ticker => {
         if (ticker.includes(searchTicker.toUpperCase())) {
           const tickerInfo = tickers[ticker];
-          console.log(
-            'symbol: ', tickerInfo.symbol,
-            'price: ', tickerInfo.ask,
-            'change: ', tickerInfo.change,
-            'change%: ', tickerInfo.percentage,
-            'volume: ', tickerInfo.baseVolume,
-          )
+          return {
+            symbol: tickerInfo.symbol,
+            price: tickerInfo.ask,
+            change: tickerInfo.change,
+            changePercent: tickerInfo.percentage,
+            volume: tickerInfo.baseVolume,
+          }
         }
       })
     })
@@ -130,7 +124,7 @@ class useCryptoExchanges {
   }
 }
 
-export default useCryptoExchanges
+export default CryptoExchange
 
 // HELPERS
 

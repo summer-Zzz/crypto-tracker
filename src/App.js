@@ -1,5 +1,5 @@
-import React from 'react'
-import useCryptoExchanges from './hooks/useExchangeData'
+import React, { useState, useEffect } from 'react'
+import CryptoExchange from './hooks/useExchangeData'
 import 'dotenv/config'
 import {
   BrowserRouter as Router,
@@ -14,52 +14,56 @@ import './App.css';
 
 import Dashboard from "./components/Dashboard"
 
-const coinRows = [
-  {
-  id: 1, 
-  coinLogo: "https://cryptologos.cc/logos/bitcoin-btc-logo.png?v=010",
-  coinName: "Bitcoin",
-  currentPrice: 59203.82,
-  dayPerformance: "2.3%",
-  weekPerformance: "10%",
-  marketCap: 1105217718036,
-  volume: 67366474410
-  },
-  {
-  id: 2, 
-  coinLogo: "https://s2.coinmarketcap.com/static/img/coins/64x64/1.png",
-  coinName: "Bitcoin",
-  currentPrice: 59203.82,
-  dayPerformance: "2.3%",
-  weekPerformance: "10%",
-  marketCap: 1105217718036,
-  volume: 67366474410
-  },
-  {
-  id: 3, 
-  coinLogo: "https://s2.coinmarketcap.com/static/img/coins/64x64/1.png",
-  coinName: "Bitcoin",
-  currentPrice: 59203.82,
-  dayPerformance: "2.3%",
-  weekPerformance: "10%",
-  marketCap: 1105217718036,
-  volume: 67366474410
-  },
-  {
-  id: 4, 
-  coinLogo: "https://s2.coinmarketcap.com/static/img/coins/64x64/1.png",
-  coinName: "Bitcoin",
-  currentPrice: 59203.82,
-  dayPerformance: "2.3%",
-  weekPerformance: "10%",
-  marketCap: 1105217718036,
-  volume: 67366474410
-  },
-]
+// const coinRows = [
+//   {
+//   id: 1, 
+//   coinLogo: "https://cryptologos.cc/logos/bitcoin-btc-logo.png?v=010",
+//   coinName: "Bitcoin",
+//   currentPrice: 59203.82,
+//   dayPerformance: "2.3%",
+//   weekPerformance: "10%",
+//   marketCap: 1105217718036,
+//   volume: 67366474410
+//   },
+//   {
+//   id: 2, 
+//   coinLogo: "https://s2.coinmarketcap.com/static/img/coins/64x64/1.png",
+//   coinName: "Bitcoin",
+//   currentPrice: 59203.82,
+//   dayPerformance: "2.3%",
+//   weekPerformance: "10%",
+//   marketCap: 1105217718036,
+//   volume: 67366474410
+//   },
+//   {
+//   id: 3, 
+//   coinLogo: "https://s2.coinmarketcap.com/static/img/coins/64x64/1.png",
+//   coinName: "Bitcoin",
+//   currentPrice: 59203.82,
+//   dayPerformance: "2.3%",
+//   weekPerformance: "10%",
+//   marketCap: 1105217718036,
+//   volume: 67366474410
+//   },
+//   {
+//   id: 4, 
+//   coinLogo: "https://s2.coinmarketcap.com/static/img/coins/64x64/1.png",
+//   coinName: "Bitcoin",
+//   currentPrice: 59203.82,
+//   dayPerformance: "2.3%",
+//   weekPerformance: "10%",
+//   marketCap: 1105217718036,
+//   volume: 67366474410
+//   },
+// ]
 
-
+// have state for user info 
+// useEffect to pass user info to exchange instantiation
+// 
 
 // const phemex = new useCryptoExchanges('phemex', '6e4baee4-8560-4675-b3da-7c4c62332801', 'aysxzFt1JU4139lbt-RM-tToIdmm5aWfYLz9KABPbfRmNzM3MDE2Ny1lOGZmLTQ2NDgtYTc4NC0yZjk3ZTMyODI1YmQ')
+
+// state.balance = phemex.fetchBalance()
 
 // const oneMonthAgo = () => new Date - 2629800000
 // const oneWeekAgo = () => new Date - 604800000
@@ -75,8 +79,22 @@ const coinRows = [
 // }
 // phemex.getOHLCVData(chartDataRequest)
 
+const infoArray = ['phemex', '6e4baee4-8560-4675-b3da-7c4c62332801', 'aysxzFt1JU4139lbt-RM-tToIdmm5aWfYLz9KABPbfRmNzM3MDE2Ny1lOGZmLTQ2NDgtYTc4NC0yZjk3ZTMyODI1YmQ']
 
 export default function App() {
+
+  const [exchange, setExchange] = useState(null);
+  const [exchangeInfo, setExchangeInfo] = useState(null);
+  const [markets, setMarkets] = useState([])
+
+  useEffect(() => {
+    if (exchangeInfo) {
+      setExchange(
+        new CryptoExchange(...exchangeInfo)
+      )
+    }
+  },[exchangeInfo])
+
   return (
     <Router>
     <div>
@@ -104,7 +122,7 @@ export default function App() {
           </Route>
           <Route path="/">
             <Dashboard />
-            <CoinTable rows={coinRows} />
+          <CoinTable rows={coinRows} />
           </Route>
         </Switch>
       </main>
