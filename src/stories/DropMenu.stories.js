@@ -81,7 +81,6 @@ const currencies = [
   }
 ]
 
-
 storiesOf("DropMenu", module)
   .add("With Exchanges", () => <DropMenu options={exchanges} />)
   .add("With Timeframes", () => <DropMenu options={timePeriods} />)

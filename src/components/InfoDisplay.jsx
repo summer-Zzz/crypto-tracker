@@ -3,18 +3,15 @@ import React from "react";
 import classNames from "classnames";
 
 export default function InfoDisplay(props) {
-  const infodisplayClass = classNames("infodisplay", {
-    "infodisplay--header": props.infoHeader,
-    "infodisplay--content": props.infoContent
-  });
+  // const infodisplayClass = classNames("infodisplay", {
+  //   "infodisplay--header": props.infoHeader,
+  //   "infodisplay--content": props.infoContent
+  // });
 
   return (
     <div>
-      className={infodisplayClass}
-      <div>
-         <h1>{props.InfoHeader}</h1>
-        <p>{props.InfoContent}</p>
-      </div>
+         <h1>{props.infoHeader}</h1>
+        <p>{props.infoContent}</p>
     </div>
   )
 }
