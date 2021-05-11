@@ -2,7 +2,15 @@ DROP TABLE IF EXISTS transactions CASCADE;
 
 CREATE TABLE transactions(
     id SERIAL PRIMARY KEY NOT NULL,
-    account_id INTEGER REFERENCES accounts(id)
+    account_id INTEGER REFERENCES accounts(id),
+    base_currency VARCHAR(10),
+    quote_currency VARCHAR(10),
+    transaction_type VARCHAR(10),
+    order_type VARCHAR(15),
+    unit_price INTEGER,
+    amount INTEGER,
+    cost INTEGER,
+    transaction_time TIMESTAMP
 )
 
 -- ALTER TABLE transactions 
