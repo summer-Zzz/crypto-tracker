@@ -1,23 +1,21 @@
 import React, { useState } from 'react'
 import MenuButton from "./MenuButton"
 
-import './MenuCard.scss'
+import './DropMenu.scss'
 export default function MenuCard(props) {
 
-  const [currentExchange, setExchange] = useState('Select exchange')
+  const [currentOption, setOption] = useState('Select option')
   const [menuState, setMenuState] = useState(false)
 
-  // document.addEventListener('click', () => setMenuState(false))
   function handleBlur() {
     setMenuState(false)
   }
 
-
-  const exchanges = props.exchanges.map(exchange => {
+  const options = props.options.map(option => {
     return <MenuButton 
-      key={exchange.id}
-      setExchange={setExchange}
-      exchange={exchange.name}
+      key={option.id}
+      setOption={setOption}
+      option={option.name}
     />
   })
 
@@ -25,12 +23,12 @@ export default function MenuCard(props) {
     <div>
       <div  className="dropdown-menu">
         <button onClick={() => setMenuState(true)}>
-          {currentExchange}
+          {currentOption}
         </button>
       </div>
        {menuState && 
       <div className="dropdown-menu" onClick={() => handleBlur()}>
-        {exchanges}
+        {options}
       </div>
     }
     </div>
