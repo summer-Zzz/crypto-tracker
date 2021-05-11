@@ -43,5 +43,33 @@ const balance =
   ATOM: 0,
   LUNA: 0 }
 
+  const currentPrice = 
+  {
+    symbol:  'BTC/USDT',
+    price:  55967.82
+  }
+
+
+  const trades = [
+    {
+      time: 1620408663304,
+      marketPrice:  54241.17,
+      cost: 646.934435,
+      amount: 0.011927
+    },
+    {
+      time: 1620408663304,
+      marketPrice:  54241.36,
+      cost: 353.057012,
+      amount: 0.006509
+    },
+    {
+      time: 1620738816423,
+      marketPrice:  54240.91,
+      cost: 9.980327,
+      amount: 0.000184
+    }
+  ]
+
 storiesOf("InfoDisplay", module)
-  .add("Balance", () => <InfoDisplay balance={balance}/>)  
+  .add("Balance", () => <InfoDisplay balance={balance} currentPrice={currentPrice} trades={trades}/>)  

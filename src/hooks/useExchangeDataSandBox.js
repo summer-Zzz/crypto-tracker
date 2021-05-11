@@ -127,6 +127,24 @@ const fetchExchangeCoins = (exchange, searchTicker) => {
   .catch(err => console.log(err))
 }
 
+// const fetchCurrentPrice = (exchange, searchTicker) => {
+
+//   exchange.fetchTickers()
+//   .then(tickers => {
+//     const tickersArr = Object.keys(tickers);
+//     tickersArr.forEach(ticker => {
+//       if (ticker.includes(searchTicker)) {
+//         const tickerInfo = tickers[ticker];
+//         console.log(
+//           'price: ', tickerInfo.ask,
+//         )
+//       }
+//     })
+//   })
+//   .catch(err => console.log(err))
+// }
+
+
 // const averagePL = (trades) => {
 //   totalPercent = 0;
 //   trades.forEach(trade, i => {
@@ -150,7 +168,7 @@ const exchangeRequestData = {
 // CALL API SANDBOX FUNCTIONS // 
 
 // fetch all trades 
-// fetchTrades(exchangeRequestData)
+fetchTrades(exchangeRequestData)
 
 // // get average cost from all trades 
 // const trades = fetchTrades(exchangeRequestData)

@@ -1,7 +1,6 @@
 import React from 'react'
 import DropMenu from './DropDownMenu/DropMenu'
 import InfoDisplay from './InfoDisplay'
-<<<<<<< HEAD
 import TradeTable from "./TradeTable"
 import DisplayChart from "./Candlestick/DisplayChart"
 import "./Dashboard.scss"
@@ -45,12 +44,6 @@ export default function Dashboard() {
   XLM: 0,
   ATOM: 0,
   LUNA: 0 }
-=======
-import TradeTable from './TradeTable'
-import CoinTable from './CoinTable'
-
-export default function Dashboard(props) {
->>>>>>> 27c85d865d7fbd824dde38ee974cd4538f4f7912
 
   const exchanges = [
     {
@@ -163,9 +156,37 @@ export default function Dashboard(props) {
     tradeAmount: 0.0855208
     },
   ]  
+
+
+  const currentPrice = 
+  {
+    symbol:  'BTC/USDT',
+    price:  55967.82
+  }
+
+
+  const trades = [
+    {
+      time: 1620408663304,
+      marketPrice:  54241.17,
+      cost: 646.934435,
+      amount: 0.011927
+    },
+    {
+      time: 1620408663304,
+      marketPrice:  54241.36,
+      cost: 353.057012,
+      amount: 0.006509
+    },
+    {
+      time: 1620738816423,
+      marketPrice:  54240.91,
+      cost: 9.980327,
+      amount: 0.000184
+    }
+  ]
   
   return (
-<<<<<<< HEAD
     <div className="dashboard">
       <div className="leftside">
         <DisplayChart />
@@ -177,28 +198,25 @@ export default function Dashboard(props) {
           <DropMenu options={currencies}/>
         </div>
         <div>
-          <InfoDisplay balance={balance}/>
+          <InfoDisplay balance={balance} currentPrice={currentPrice} trades={trades}/>
         </div>
         <div>
           <TradeTable rows={rows} />
         </div>
-=======
-    <div className='dashboard-container'>
-      <div className="menu-container">
-        <DropMenu options={props.exchanges}/>
-        <DropMenu options={props.timeframes}/>
-        <DropMenu options={props.currencies}/>
-      </div>
-      <div className="info-container">
-        <InfoDisplay infoHeader={'Balance'} infoContent={'0.85452'}/>
-        <InfoDisplay infoHeader={'P%L'} infoContent={'+25%'}/>
-        <InfoDisplay infoHeader={'Average Price'} infoContent={"$53000"}/>
-      </div>
-      <div className="trade-container">
-        <TradeTable rows={props.TradeData}/>
->>>>>>> 27c85d865d7fbd824dde38ee974cd4538f4f7912
-      </div>
+        </div>
     </div>
+    // {/* <div className='dashboard-container'>
+    //   <div className="menu-container">
+    //     <DropMenu options={props.exchanges}/>
+    //     <DropMenu options={props.timeframes}/>
+    //     <DropMenu options={props.currencies}/>
+    //   </div>
+    //   <div className="info-container">
+    //     <InfoDisplay infoHeader={'Balance'} infoContent={'0.85452'}/>
+    //     <InfoDisplay infoHeader={'P%L'} infoContent={'+25%'}/>
+    //     <InfoDisplay infoHeader={'Average Price'} infoContent={"$53000"}/>
+    //   </div>
+    //   <div className="trade-container">
+    //     <TradeTable rows={props.TradeData}/> */}
   )
-
 } 

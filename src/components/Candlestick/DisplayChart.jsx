@@ -1,17 +1,13 @@
 import React, { useState, useEffect } from "react";
 import * as d3 from "d3";
+import ReactApexChart from "react-apexcharts";
+
 
 import "./DisplayChart.scss";
 
 import Chart from "./Chart";
 
 export default function DisplayChart() {
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    setData(generateData())
-    //make a api call
-  }, [])
   const exchange = 
   [ [ 1618045200000, 60543.44, 60812.65, 60474.31, 60789.16, 22.318214 ],
   [ 1618048800000, 60783.96, 60994.81, 60528.68, 60660.47, 20.398156 ],
@@ -112,7 +108,42 @@ export default function DisplayChart() {
   [ 1618390800000, 63938.86, 64148.99, 63040.13, 63578.21, 27.276512 ],
   [ 1618394400000, 63590.93, 64160.31, 63464.45, 64096.22, 22.653 ],
   [ 1618398000000, 64114.33, 64785.99, 64096.09, 64510.79, 22.145383 ],
-  [ 1618401600000, 64542.03, 64645.13, 63690.7, 63886.22, 25.077029 ]]
+  [ 1618401600000, 64542.03, 64645.13, 63690.7, 63886.22, 25.077029 ]].map(([date, ...values]) => {
+    return {x: new Date(date),
+    y: values}})
+
+  const [data, setData] = useState([]);
+  const [chartData, setChartData] = useState({
+    
+    series: [{
+      data: exchange
+    }],
+    options: {
+      chart: {
+        type: 'candlestick',
+        height: 350
+      },
+      title: {
+        text: 'CandleStick Chart',
+        align: 'left'
+      },
+      xaxis: {
+        type: 'datetime'
+      },
+      yaxis: {
+        tooltip: {
+          enabled: true
+        }
+      }
+    },
+
+  })
+
+  useEffect(() => {
+    setData(generateData())
+    //make a api call
+  }, [])
+
   const chart_width = 700;
   const chart_height = 500;
 
@@ -150,8 +181,11 @@ export default function DisplayChart() {
       <div className="content">
         <div>
           <Chart data={data} width={chart_width} height={chart_height} />
+          <ReactApexChart options={chartData.options} series={chartData.series} type="candlestick" width={chart_width} height={chart_height} />
+
         </div>
       </div>
     </div>
   );
 }
+
