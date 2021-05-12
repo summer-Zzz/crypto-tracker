@@ -18,6 +18,7 @@ import DisplayChart from './components/Candlestick/DisplayChart';
 import TradeTable from "./components/TradeTable/TradeTable";
 import axios from 'axios';
 
+
 const exchanges = [
   {
     id: 1,
@@ -211,6 +212,14 @@ const tradeRows = [
 const currentPrice = 65281.91;
 
 export default function App() {
+
+  function handleScroll() {
+    window.scroll({
+      top: document.body.offsetHeight,
+      left: 0, 
+      behavior: 'smooth',
+    });
+  }
 
   return (
     <Router>

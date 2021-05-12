@@ -27,6 +27,14 @@ export default function DropMenu(props) {
           {options}
         </select>
       </div>
+<<<<<<< HEAD
+       {menuState && 
+      <div className="dropdown-menu" onClick={() => handleBlur()}>
+        {options}
+      </div>
+       }
+=======
+>>>>>>> 3764c7ec56fb70987c7032295f904b371a2ce163
     </div>
   )
 }

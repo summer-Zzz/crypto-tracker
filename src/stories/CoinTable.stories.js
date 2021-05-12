@@ -3,7 +3,8 @@ import React, { Fragment } from 'react'
 import { storiesOf } from "@storybook/react"
 import { action } from "@storybook/addon-actions"
 
-import CoinTable from "../components/CoinTable"
+import CoinTable from "../components/CoinTable/CoinTable"
+import "../components/CoinTable/CoinTable.scss"
 
 const rows = [
   {

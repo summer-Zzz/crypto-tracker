@@ -1,4 +1,4 @@
-import "../components/TradeTableRow.scss"
+import "./TradeTableRow.scss"
 
 export default function TradeTableRow(props) {
 
