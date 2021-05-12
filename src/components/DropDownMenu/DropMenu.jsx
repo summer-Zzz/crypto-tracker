@@ -1,36 +1,32 @@
 import React, { useState } from 'react'
-import MenuButton from "./MenuButton"
 import "./DropMenu.scss"
+import DropDownItem from './DropDownItem'
 
 export default function DropMenu(props) {
 
-  const [currentOption, setOption] = useState('Select option')
-  const [menuState, setMenuState] = useState(false)
-  const onClick = () => setMenuState(!menuState)
-  function handleBlur() {
-    setMenuState(false)
+  const [currentOption, setOption] = useState('')
+    function handleChange(event) {
+    let value = event.target.value;
+    setOption(value)
   }
 
   const options = props.options.map(option => {
-    return <MenuButton 
+    return <DropDownItem 
       key={option.id}
-      setOption={setOption}
-      option={option.name}
+      name={option.name}
     />
   })
 
   return (
     <div>
       <div>
-        <button className="menu-button" onClick={onClick}>
-          {currentOption}
-        </button>
+        <select onChange={handleChange} value={currentOption}>
+          <DropDownItem 
+            name={'Select option'}
+          />
+          {options}
+        </select>
       </div>
-       {menuState && 
-      <div className="dropdown-menu" onClick={() => handleBlur()}>
-        {options}
-      </div>
-    }
     </div>
   )
 }
