@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { ParallaxProvider } from 'react-scroll-parallax';
 import CryptoExchange from './hooks/useExchangeData'
 import 'dotenv/config'
 import {
@@ -8,6 +9,7 @@ import {
   Link
 } from "react-router-dom";
 
+import Home from "./components/Home"
 import Form from "./components/Form"
 import CoinTable from "./components/CoinTable"
 import './App.css';
@@ -288,7 +290,10 @@ export default function App() {
     });
   }
 
+
+
   return (
+    <ParallaxProvider>
     <Router>
     <div>
       <header>
@@ -299,11 +304,7 @@ export default function App() {
           <Link className="nav-text" to="/tradetable" onClick={handleScroll}>Trade Table</Link>
           <Link className="nav-text" to="/settings" onClick={handleScroll}>Settings</Link>
         </nav>
-        <div class="home-header">
-          <img id="main_image" src="/images/background.jpeg" alt="background" />
-          <img id="coins1" src="/images/coins1.png" alt="coins" />
-          <img id="coins2" src="/images/coins2.png" alt="coins" />
-        </div>
+       <Home />
       </header>
       <main>
         <Switch>
@@ -335,5 +336,6 @@ export default function App() {
       </main>
     </div>
     </Router>
+    </ParallaxProvider>
   );
 }
