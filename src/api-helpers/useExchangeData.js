@@ -14,6 +14,7 @@ class Exchange {
       proxy: 'https://cors-anywhere.herokuapp.com/'
     });
     this.exchange.setSandboxMode(true);
+    this.coins = this.exchange.fetchExchangeCoins()
   }
 
 
@@ -84,15 +85,13 @@ class Exchange {
     .then(tickers => { 
       const tickersArr = Object.keys(tickers);
       return tickersArr.map(ticker => {
-        if (ticker.includes(searchTicker.toUpperCase())) {
-          const tickerInfo = tickers[ticker];
-          return {
-            symbol: tickerInfo.symbol,
-            price: tickerInfo.ask,
-            change: tickerInfo.change,
-            changePercent: tickerInfo.percentage,
-            volume: tickerInfo.baseVolume
-          }
+        const tickerInfo = tickers[ticker];
+        return {
+          symbol: tickerInfo.symbol,
+          price: tickerInfo.ask,
+          change: tickerInfo.change,
+          changePercent: tickerInfo.percentage,
+          volume: tickerInfo.baseVolume
         }
       })
     })
@@ -109,19 +108,4 @@ class Exchange {
 }
 
 export default Exchange
-
-// HELPERS
-
-// const oneMonthAgo = () => new Date - 2629800000
-// const oneWeekAgo = () => new Date - 604800000
-// const oneDayAgo = () => new Date - 86400000
-// const oneMinuteAgo = () => new Date - 60000
-
-//   //******* TEST DATA *******//
-//   const chartDataRequest = {
-//     exchange: "phemex",
-//     symbol: 'BTC/USDT',
-//     timeframe: '1m',
-//     since: oneDayAgo() 
-//   }
 

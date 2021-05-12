@@ -1,3 +1,4 @@
+// import React from 'react'
 import React, { useState, useEffect } from 'react'
 import Exchange from './api-helpers/useExchangeData'
 import 'dotenv/config'
@@ -35,7 +36,6 @@ const exchanges = [
     name: 'bitmex',
   }
 ]
-
 const timeframes = [
   {
     id: 1,
@@ -66,7 +66,6 @@ const timeframes = [
     name: '1 month'
   }
 ]
-
 const currencies = [
   {
     id: 1,
@@ -93,50 +92,6 @@ const currencies = [
     name: "SGD"
   }
 ]
-
-const trades = [
-  {
-    baseCurrency: 'BTC',
-    quoteCurrency: 'USD',
-    time: 1620331915827, // trade transaction time (milliseconds)
-    side: 'buy', // side: buy or sell
-    orderType: 'limit', // order type
-    price:  54240.09, // unit price
-    cost:  19.960353, // amount spent on coin 
-    amount:  0.000368 // amount of coin received
-  },
-  {
-    baseCurrency: 'BTC',
-    quoteCurrency: 'USD',
-    time: 1620331915827, // trade transaction time (milliseconds)
-    side: 'buy', // side: buy or sell
-    orderType: 'limit', // order type
-    price:  54240.09, // unit price
-    cost:  19.960353, // amount spent on coin 
-    amount:  0.000368 // amount of coin received
-  },
-  {
-    baseCurrency: 'BTC',
-    quoteCurrency: 'USD',
-    time: 1620331915827, // trade transaction time (milliseconds)
-    side: 'buy', // side: buy or sell
-    orderType: 'limit', // order type
-    price:  54240.09, // unit price
-    cost:  19.960353, // amount spent on coin 
-    amount:  0.000368 // amount of coin received
-  },
-  {
-    baseCurrency: 'BTC',
-    quoteCurrency: 'USD',
-    time: 1620331915827, // trade transaction time (milliseconds)
-    side: 'buy', // side: buy or sell
-    orderType: 'limit', // order type
-    price:  54240.09, // unit price
-    cost:  19.960353, // amount spent on coin 
-    amount:  0.000368 // amount of coin received
-  }
-]
-
 const balance = {
   BTC: 0.25588023,
   USDT: 17422.2849681,
@@ -176,7 +131,6 @@ const balance = {
   ATOM: 0,
   LUNA: 0
 }
-
 const coinRows = [
   {
   id: 1, 
@@ -254,7 +208,7 @@ const tradeRows = [
   },
 ]
 
-const currentPrice = 65281.91;
+// const currentPrice = 65281.91;
 
 export default function App() {
   
@@ -273,34 +227,31 @@ export default function App() {
     // })
 
   // exchange insantiation
-  const [accountInfo, setAccountInfo] = useState(null
+  const [accountInfo, setAccountInfo] = useState(null)
     // exchange: null,
     // apiKey: null,
     // secret: null
-  );
 
   // exchange related
-  const [exchangeInfo, setExchangeInfo] = useState({
-    exchangeName: null,
-    exchange: null,
-    coins: []
-  })
+  const [exchangeInfo, setExchangeInfo] = useState(null)
+  // exchangeName,
+  // exchange
+  // coins
 
   // coin related
-  const [coinData, setCoinData] = useState(null
+  const [coinData, setCoinData] = useState(null)
     // coin: null,
     // trades: [],
     // current: null,
     // pl: null,
     // balance: null
-  // }
-  )
+
   // chart related 
-  const [chartData, setChartData] = useState({
-    candles: [],
-    timeframe: null,
-    candleLength: null
-  })
+  const [chartData, setChartData] = useState(null)
+    // candles: [],
+    // timeframe: null,
+    // candleLength: null
+
  
   useEffect(() => {
     if (accountInfo) {
@@ -309,25 +260,25 @@ export default function App() {
     // create new Exchange object
      const exchange = new Exchange(accountInfo);
      // fetch available coins from market 
-     const coins = exchange.fetchExchangeCoins();
+     const coins = exchange.coins
      // set coin data in state 
      setExchangeInfo({exchangeName, exchange, coins});
     }
   },[accountInfo])
 
   useEffect(() => {
-    if (coinData) {
-      const exchange = exchangeInfo.exchange
+    if (coinData.coin) {
       // fetch chart data
-      const candles = exchange.fetchOHLCV(coinData.coin, chartData.timeframe, chartData.candleLength)
-      setChartData({...candles})
+      const candles = exchange.fetchOHLCV(coinData.coin, chartData.timeframe, chartData.candleLength);
+      setChartData({...candles});
       // fetch user trades
-      const trades = exchange.fetchTrades(coinData.coin)
+      const trades = exchange.fetchTrades(coinData.coin);
       // fetch user balance
-      const balance = exchange.fetchBalance(coinData.coin)
+      const balance = exchange.fetchBalance(coinData.coin);
       // fetch user P&L
-      const pL = exchange.calculatePL(coinData.trades, coinData.coin)
-      setCoinData({...coinData, trades, balance, pL})
+      const currentPrice = exhange.fetchTickerPrice(coinData.coin);
+      const pL = exchange.calculatePL(coinData.trades, currentPrice);
+      setCoinData({...coinData, trades, balance, pL});
     }
   },[coinData])
 
