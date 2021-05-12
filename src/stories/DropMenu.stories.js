@@ -10,15 +10,15 @@ const exchanges = [
     name: 'kraken',
   },
   {
-    id: 1,
+    id: 2,
     name: 'binance',
   },
   {
-    id: 1,
+    id: 3,
     name: 'phemex',
   },
   {
-    id: 1,
+    id: 4,
     name: 'bitmex',
   }
 ]

@@ -280,8 +280,6 @@ export default function App() {
     }
   },[coin])
 
-  // console.log("PL:", calculatePL(trades, currentPrice))
-
   function handleScroll() {
     window.scroll({
       top: document.body.offsetHeight,
@@ -298,7 +296,7 @@ export default function App() {
     <div>
       <header>
         <nav className="navbar">
-          <Link className="nav-text" to="/" onClick={handleScroll}>Crypto-Tracker</Link>
+          <Link className="nav-text" to="/" >Crypto-Tracker</Link>
           <Link className="nav-text" to="/login" onClick={handleScroll}>Login</Link>
           <Link className="nav-text" to="/register" onClick={handleScroll}>Register</Link>
           <Link className="nav-text" to="/tradetable" onClick={handleScroll}>Trade Table</Link>

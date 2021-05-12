@@ -17,12 +17,10 @@ export default function Home(props) {
 
 return (
   <div id="container">
-    {/* <div class="home-header">
-      <img id="main_image" src="/images/background.jpeg" alt="background" /> */}
-      <div id="scene" ref={sceneEl}>
-        <img className="coins" src="/images/coins1.png" alt="coins" data-depth="1.5"/>
-        <img className="coins" src="/images/coins2.png" alt="coins" data-depth="0.4"/>
-      </div>
+    <div id="scene" ref={sceneEl}>
+      <img className="coins" src="/images/coins1.png" alt="coins" data-depth="1.5"/>
+      <img className="coins" src="/images/coins2.png" alt="coins" data-depth="0.4"/>
     </div>
+  </div>
   )
 }
