@@ -7,9 +7,10 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import Home from "./components/Home"
+
 import './App.css';
 
+import Home from "./components/Home"
 import Form from "./components/Form"
 import SettingsForm from "./components/SettingsForm"
 import CoinTable from "./components/CoinTable/CoinTable"
