@@ -1,5 +1,6 @@
-import React from 'react'
-// import CryptoExchange from './hooks/useExchangeData'
+import React, { useState, useEffect } from 'react'
+import { ParallaxProvider } from 'react-scroll-parallax';
+import CryptoExchange from './hooks/useExchangeData'
 import 'dotenv/config'
 import {
   BrowserRouter as Router,
@@ -8,6 +9,7 @@ import {
   Link
 } from "react-router-dom";
 
+import Home from "./components/Home"
 import Form from "./components/Form"
 import CoinTable from "./components/CoinTable"
 import './App.css';
@@ -235,22 +237,29 @@ export default function App() {
   //   }
   // },[coin])
 
-  // console.log("PL:", calculatePL(trades, currentPrice))
+  function handleScroll() {
+    window.scroll({
+      top: document.body.offsetHeight,
+      left: 0, 
+      behavior: 'smooth',
+    });
+  }
+
+
 
   return (
+    <ParallaxProvider>
     <Router>
     <div>
       <header>
         <nav className="navbar">
-          <Link className="nav-text" to="/">Crypto-Tracker</Link>
-          <Link className="nav-text" to="/login">Login</Link>
-          <Link className="nav-text" to="/register">Register</Link>
-          <Link className="nav-text" to="/tradetable">Trade Table</Link>
-          <Link className="nav-text" to="/settings">Settings</Link>
+          <Link className="nav-text" to="/" >Crypto-Tracker</Link>
+          <Link className="nav-text" to="/login" onClick={handleScroll}>Login</Link>
+          <Link className="nav-text" to="/register" onClick={handleScroll}>Register</Link>
+          <Link className="nav-text" to="/tradetable" onClick={handleScroll}>Trade Table</Link>
+          <Link className="nav-text" to="/settings" onClick={handleScroll}>Settings</Link>
         </nav>
-        <div class="home-header">
-          <img id="main_image" src="/images/background.jpeg" alt="background" />
-        </div>
+       <Home />
       </header>
       <main>
         <Switch>
@@ -258,7 +267,7 @@ export default function App() {
             <Form formLabel={'Register'} firstLabel={'email'} secondLabel={'password'}/>
           </Route>
           <Route path="/login">
-            <Form formLabel={'Login'} firstLabel={'email'} secondLabel={'password'}/>
+              <Form formLabel={'Login'} firstLabel={'email'} secondLabel={'password'}/>
           </Route>
           <Route path="/tradetable">
             <TradeTable rows={tradeRows}/>
@@ -282,5 +291,6 @@ export default function App() {
       </main>
     </div>
     </Router>
+    </ParallaxProvider>
   );
 }
