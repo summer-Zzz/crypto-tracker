@@ -8,14 +8,14 @@ import {
   Link
 } from "react-router-dom";
 
+import './App.css';
+
 import Form from "./components/Form"
 import SettingsForm from "./components/SettingsForm"
 import CoinTable from "./components/CoinTable/CoinTable"
-import './App.css';
-
 import Dashboard from "./components/Dashboard"
 import DisplayChart from './components/Candlestick/DisplayChart';
-import TradeTable from "./components/TradeTable";
+import TradeTable from "./components/TradeTable/TradeTable";
 
 const exchanges = [
   {
