@@ -1,6 +1,11 @@
 // import React from 'react'
 import React, { useState, useEffect } from 'react'
+<<<<<<< HEAD
 import Exchange from './api-helpers/useExchangeData'
+=======
+import { ParallaxProvider } from 'react-scroll-parallax';
+import CryptoExchange from './hooks/useExchangeData'
+>>>>>>> 3764c7ec56fb70987c7032295f904b371a2ce163
 import 'dotenv/config'
 import {
   BrowserRouter as Router,
@@ -9,6 +14,12 @@ import {
   Link
 } from "react-router-dom";
 
+<<<<<<< HEAD
+=======
+import Home from "./components/Home"
+import Form from "./components/Form"
+import CoinTable from "./components/CoinTable"
+>>>>>>> 3764c7ec56fb70987c7032295f904b371a2ce163
 import './App.css';
 
 import Form from "./components/Form"
@@ -92,6 +103,10 @@ const currencies = [
     name: "SGD"
   }
 ]
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3764c7ec56fb70987c7032295f904b371a2ce163
 const balance = {
   BTC: 0.25588023,
   USDT: 17422.2849681,
@@ -226,6 +241,7 @@ export default function App() {
     //   candleLength: null
     // })
 
+<<<<<<< HEAD
   // exchange insantiation
   const [accountInfo, setAccountInfo] = useState(null)
     // exchange: null,
@@ -268,6 +284,22 @@ export default function App() {
 
   useEffect(() => {
     if (coinData.coin) {
+=======
+  // const [exchange, setExchange] = useState(null);
+  // const [exchangeInfo, setExchangeInfo] = useState(null);
+  // const [markets, setMarkets] = useState([])
+  // const [coin, setCoin] = useState(null)
+
+  // useEffect(() => {
+  //   if (exchangeInfo) {
+  //     setExchange(new CryptoExchange(...exchangeInfo))
+  //     setMarkets(exchange.fetchExchangeCoins())
+  //   }
+  // },[exchangeInfo])
+
+  // useEffect(() => {
+  //   if (coin) {
+>>>>>>> 3764c7ec56fb70987c7032295f904b371a2ce163
       // fetch chart data
       const candles = exchange.fetchOHLCV(coinData.coin, chartData.timeframe, chartData.candleLength);
       setChartData({...candles});
@@ -276,6 +308,7 @@ export default function App() {
       // fetch user balance
       const balance = exchange.fetchBalance(coinData.coin);
       // fetch user P&L
+<<<<<<< HEAD
       const currentPrice = exhange.fetchTickerPrice(coinData.coin);
       const pL = exchange.calculatePL(coinData.trades, currentPrice);
       setCoinData({...coinData, trades, balance, pL});
@@ -286,23 +319,34 @@ export default function App() {
     e.preventDefault()
     setAccountInfo({exchange, apiKey, secret})
   }
+=======
+  //   }
+  // },[coin])
 
-  // console.log("PL:", calculatePL(trades, currentPrice))
+  function handleScroll() {
+    window.scroll({
+      top: document.body.offsetHeight,
+      left: 0, 
+      behavior: 'smooth',
+    });
+  }
+
+>>>>>>> 3764c7ec56fb70987c7032295f904b371a2ce163
+
 
   return (
+    <ParallaxProvider>
     <Router>
     <div>
       <header>
         <nav className="navbar">
-          <Link className="nav-text" to="/">Crypto-Tracker</Link>
-          <Link className="nav-text" to="/login">Login</Link>
-          <Link className="nav-text" to="/register">Register</Link>
-          <Link className="nav-text" to="/tradetable">Trade Table</Link>
-          <Link className="nav-text" to="/settings">Settings</Link>
+          <Link className="nav-text" to="/" >Crypto-Tracker</Link>
+          <Link className="nav-text" to="/login" onClick={handleScroll}>Login</Link>
+          <Link className="nav-text" to="/register" onClick={handleScroll}>Register</Link>
+          <Link className="nav-text" to="/tradetable" onClick={handleScroll}>Trade Table</Link>
+          <Link className="nav-text" to="/settings" onClick={handleScroll}>Settings</Link>
         </nav>
-        <div class="home-header">
-          <img id="main_image" src="/images/background.jpeg" alt="background" />
-        </div>
+       <Home />
       </header>
       <main>
         <Switch>
@@ -310,7 +354,7 @@ export default function App() {
             <Form formLabel={'Register'} firstLabel={'email'} secondLabel={'password'} />
           </Route>
           <Route path="/login">
-            <Form formLabel={'Login'} firstLabel={'email'} secondLabel={'password'}/>
+              <Form formLabel={'Login'} firstLabel={'email'} secondLabel={'password'}/>
           </Route>
           <Route path="/tradetable">
             <TradeTable rows={tradeRows}/>
@@ -334,5 +378,6 @@ export default function App() {
       </main>
     </div>
     </Router>
+    </ParallaxProvider>
   );
 }

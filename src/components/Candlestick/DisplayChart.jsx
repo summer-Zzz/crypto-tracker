@@ -135,10 +135,6 @@ export default function DisplayChart() {
     },
   })
 
-  // useEffect(() => {
-  //   setData(generateData())
-  //   //make a api call
-  // }, [])
 
   const chart_width = 700;
   const chart_height = 500;
