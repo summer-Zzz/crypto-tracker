@@ -69,9 +69,12 @@ module.exports = (db) => {
 
   }
 
-  // - POST /api/users/exchanges/new === add user exchanges
+  // - GET /api/users/exchanges
+
+  
+  // - POST /api/users/exchanges/new === add user exchange
   // Add new exchange
-  const addUserExchanges = (exchangeName, exchangeWebsite) => {
+  const addUserExchange = (exchangeName, exchangeWebsite) => {
     const query = {
         text: `INSERT INTO exchanges (name, website) VALUES ($1, $2) RETURNING *` ,
         values: [exchangeName, exchangeWebsite]
@@ -83,7 +86,7 @@ module.exports = (db) => {
 }
 
 // Add new user account
-const addUserAccounts = (userId, exchangeId, apiKey, apiSecret) => {
+const addUserAccount = (userId, exchangeId, apiKey, apiSecret) => {
   const query = {
       text: `INSERT INTO accounts (user_id, exchange_id, api_key, api_secret) VALUES ($1, $2, $3, $4) RETURNING *` ,
       values: [userId, exchangeId, apiKey, apiSecret]

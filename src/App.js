@@ -248,7 +248,7 @@ export default function App() {
             <TradeTable rows={tradeRows}/>
           </Route>
           <Route path="/settings">
-            <SettingsForm addExchange={handleExchangeInfo}/> 
+            <SettingsForm /> 
           </Route>
           <Route path="/">
             <div class="chart-dashboard-container">

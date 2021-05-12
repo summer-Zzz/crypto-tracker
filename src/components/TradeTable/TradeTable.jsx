@@ -37,4 +37,4 @@ export default function TradeTable(props) {
     </div>
   )
 
-
+  }
