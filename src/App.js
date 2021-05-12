@@ -7,7 +7,7 @@ import {
   Route,
   Link
 } from "react-router-dom";
-
+import Home from "./components/Home"
 import './App.css';
 
 import Form from "./components/Form"
@@ -232,9 +232,7 @@ export default function App() {
           <Link className="nav-text" to="/tradetable">Trade Table</Link>
           <Link className="nav-text" to="/settings">Settings</Link>
         </nav>
-        <div class="home-header">
-          <img id="main_image" src="/images/background.jpeg" alt="background" />
-        </div>
+        <Home />
       </header>
       <main>
         <Switch>
@@ -248,7 +246,7 @@ export default function App() {
             <TradeTable rows={tradeRows}/>
           </Route>
           <Route path="/settings">
-            <SettingsForm addExchange={handleExchangeInfo}/> 
+            <SettingsForm /> 
           </Route>
           <Route path="/">
             <div class="chart-dashboard-container">
