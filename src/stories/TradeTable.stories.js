@@ -3,7 +3,7 @@ import React, { Fragment } from 'react'
 import { storiesOf } from "@storybook/react"
 import { action } from "@storybook/addon-actions"
 
-import TradeTable from "../components/TradeTable"
+import TradeTable from "../components/TradeTable/TradeTable"
 
 const rows = [
   {
