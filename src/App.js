@@ -9,7 +9,8 @@ import {
 } from "react-router-dom";
 
 import Form from "./components/Form"
-import CoinTable from "./components/CoinTable"
+import SettingsForm from "./components/SettingsForm"
+import CoinTable from "./components/CoinTable/CoinTable"
 import './App.css';
 
 import Dashboard from "./components/Dashboard"
@@ -218,59 +219,84 @@ const rows = [
 ]
 
 export default function App() {
+  
+    // const [state, setState] = useState({
+    //   exchangeInfo: {
+    //     exchangeName: null,
+    //     apiKey: null,
+    //     secret: null
+    //   },
+    //   exchange: null,
+    //   coin: [],
+    //   coins: [],
+    //   candles: [],
+    //   timeframe: null,
+    //   candleLength: null
+    // })
 
-  // const [exchange, setExchange] = useState(null);
-  // const [exchangeInfo, setExchangeInfo] = useState(null);
-  // const [markets, setMarkets] = useState([])
-  // const [coins, setCoins] = useState(null)
-  // const [candles, setCandles] = useState([])
-  // const [trades, setTrades] = useState([])
+  // exchange insantiation
+  const [accountInfo, setAccountInfo] = useState(null
+    // exchange: null,
+    // apiKey: null,
+    // secret: null
+  );
 
-  const [state, setState] = useState({
-    exchangeInfo: {
-      exchangeName: null,
-      apiKey: null,
-      secret: null
-    },
+  // exchange related
+  const [exchangeInfo, setExchangeInfo] = useState({
+    exchangeName: null,
     exchange: null,
-    coin: [],
-    coins: [],
+    coins: []
+  })
+
+  // coin related
+  const [coinData, setCoinData] = useState(null
+    // coin: null,
+    // trades: [],
+    // current: null,
+    // pl: null,
+    // balance: null
+  // }
+  )
+  // chart related 
+  const [chartData, setChartData] = useState({
     candles: [],
     timeframe: null,
     candleLength: null
   })
-
-  function handleEmailChange(e) {
-    setState(...state, email)
-  }
-
-  function handlePasswordChange(e) {
-    setState(...state, password)
-  }
-
+ 
   useEffect(() => {
-    if (exchangeInfo) {
-     const exchange = new Exchange(exchangeInfo);
+    if (accountInfo) {
+      // get exchange name
+      const exchangeName = accountInfo.exchange
+    // create new Exchange object
+     const exchange = new Exchange(accountInfo);
      // fetch available coins from market 
      const coins = exchange.fetchExchangeCoins();
      // set coin data in state 
-     setState({...state, coins});
+     setExchangeInfo({exchangeName, exchange, coins});
     }
-  },[exchangeInfo])
+  },[accountInfo])
 
   useEffect(() => {
-    if (coin) {
+    if (coinData) {
+      const exchange = exchangeInfo.exchange
       // fetch chart data
-      const candles = state.exchange.fetchOHLCV(state.coin, state.timeframe, state.candleLength)
+      const candles = exchange.fetchOHLCV(coinData.coin, chartData.timeframe, chartData.candleLength)
+      setChartData({...candles})
       // fetch user trades
-      const trades = state.exchange.fetchTrades(state.coin)
+      const trades = exchange.fetchTrades(coinData.coin)
       // fetch user balance
-      const balance = state.exchange.fetchBalance(state.coin)
+      const balance = exchange.fetchBalance(coinData.coin)
       // fetch user P&L
-      const pL = state.exchange.calculatePL(trades, state.coin)
-      setState({...state, candles, trades, balance, pL})
+      const pL = exchange.calculatePL(coinData.trades, coinData.coin)
+      setCoinData({...coinData, trades, balance, pL})
     }
-  },[coin])
+  },[coinData])
+
+  function handleExchangeInfo(e, exchange, apiKey, secret) {
+    e.preventDefault()
+    setAccountInfo({exchange, apiKey, secret})
+  }
 
   return (
     <Router>
@@ -295,7 +321,7 @@ export default function App() {
             <Form formLabel={'Login'} firstLabel={'email'} secondLabel={'password'}/>
           </Route>
           <Route path="/settings">
-            <Form formLabel={'New Exchange'} firstLabel={'API key/id'} secondLabel={'Secert Key'}/> 
+            <SettingsForm addExchange={handleExchangeInfo}/> 
           </Route>
           <Route path="/">
             <Dashboard 
