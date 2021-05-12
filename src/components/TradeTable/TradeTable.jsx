@@ -1,6 +1,7 @@
 import React from 'react'
 import TradeTableRow from "./TradeTableRow"
 import "./TradeTable.scss";
+import Table from 'react-bootstrap/Table'
 
 export default function TradeTable(props) {
 
@@ -17,21 +18,23 @@ export default function TradeTable(props) {
   })
   
   return (
-  <table className="trade-table">
-      <thead>
-      <tr>
-        <td>Time</td>
-        <td>Type</td>
-        <td>Order %</td>
-        <td>Price</td>
-        <td>Amount</td>
-      </tr>
-    </thead>
-    <tbody>
-      {tableRows}
-    </tbody>
-  </table>
+
+    <div className="trade-table">
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <td>Time</td>
+            <td>Type</td>
+            <td>Order %</td>
+            <td>Price</td>
+            <td>Amount</td>
+          </tr>
+        </thead>
+        <tbody>
+          {tableRows}
+        </tbody>
+      </Table>
+    </div>
   )
-  
-}
+
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import Parallax from 'parallax-js';
 
-import "../App.css"
+import "./Home.scss"
 export default function Home(props) {
   const sceneEl = useRef(null);
   useEffect(() => {

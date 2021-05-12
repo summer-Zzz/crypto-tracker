@@ -1,6 +1,7 @@
 import React from "react";
 import "./Button.scss";
 
+
 //Component for submit/view buttons
 export default function Button(props) {
 

@@ -1,3 +1,4 @@
+
 import "./CoinTableRow.scss"
 
 export default function CoinTableRow(props) {
