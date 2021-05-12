@@ -8,7 +8,8 @@ export default function Form(props) {
       <form action="" method="POST">
       <h2>{props.formLabel}</h2>
         <label htmlFor={props.firstLabel}>{props.firstLabel}</label>
-        <input type="text" name={props.firstLabel}/>
+        <input className="input-feild" type="text" name={props.firstLabel}/>
+        <br/>
         <label htmlFor={props.secondLabel}>{props.secondLabel}</label>
         <input type="text" name={props.firstLabel}/>
         <input type="submit" onClick={props.onClick}></input>

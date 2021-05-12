@@ -1,8 +1,7 @@
 import React from 'react'
 import DropMenu from './DropDownMenu/DropMenu'
 import InfoDisplay from './InfoDisplay'
-// import TradeTable from './TradeTable'
-// import CoinTable from './CoinTable'
+import "./Dashboard.scss";
 
 export default function Dashboard(props) {
   
@@ -14,14 +13,10 @@ export default function Dashboard(props) {
         <DropMenu options={props.currencies}/>
       </div>
       <div className="info-container">
-        <InfoDisplay infoHeader={'Balance'} infoContent={props.balance.USDT}/>
+        <InfoDisplay infoHeader={'Balance'} infoContent={"102020"}/>
         <InfoDisplay infoHeader={'P%L'} infoContent={'+25%'}/>
         <InfoDisplay infoHeader={'Average Price'} infoContent={"$53000"}/>
       </div>
-      {/* <div className="trade-container">
-        <TradeTable rows={props.trades}/>
-      </div> */}
     </div>
   )
-
 } 

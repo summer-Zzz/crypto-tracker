@@ -1,15 +1,29 @@
-.dashboard {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
-
-.right-side {
+.menu-container {
   display: flex;
   flex-direction: column;
+  text-align: center;
 }
 
-.dropdown {
-  text-align: center;
+.info-container {
   margin-left: 30%;
+}
+
+
+@media only screen and (max-width: 1024px) {
+  .dashboard-container {
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    margin: 10px;
+    text-align: right;
+  }
+  .info-container {
+    margin-left:30%;
+    margin-right: 20px;
+  }
+  .menu-container {
+    margin-top: 50px;
+    margin-left: 10%;
+    position: relative;
+  }
 }

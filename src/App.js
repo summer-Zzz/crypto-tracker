@@ -14,6 +14,8 @@ import CoinTable from "./components/CoinTable/CoinTable"
 import './App.css';
 
 import Dashboard from "./components/Dashboard"
+import DisplayChart from './components/Candlestick/DisplayChart';
+import TradeTable from "./components/TradeTable";
 
 const exchanges = [
   {
@@ -175,7 +177,7 @@ const balance = {
   LUNA: 0
 }
 
-const rows = [
+const coinRows = [
   {
   id: 1, 
   coinLogo: "https://cryptologos.cc/logos/bitcoin-btc-logo.png?v=010",
@@ -217,6 +219,42 @@ const rows = [
   volume: 67366474410
   },
 ]
+const tradeRows = [
+  {
+  id: 1, 
+  tradeTime: "2021-08-17 12:42",
+  tradeType: "Buy",
+  tradeOrder: "Limit",
+  tradePrice: 59203.82,
+  tradeAmount: 0.0855208
+  },
+  {
+  id: 2, 
+  tradeTime: "2021-08-17 12:42",
+  tradeType: "Buy",
+  tradeOrder: "Limit",
+  tradePrice: 59203.82,
+  tradeAmount: 0.0855208
+  },
+  {
+  id: 3, 
+  tradeTime: "2021-08-17 12:42",
+  tradeType: "Buy",
+  tradeOrder: "Limit",
+  tradePrice: 59203.82,
+  tradeAmount: 0.0855208
+  },
+  {
+  id: 4, 
+  tradeTime: "2021-08-17 12:42",
+  tradeType: "Buy",
+  tradeOrder: "Limit",
+  tradePrice: 59203.82,
+  tradeAmount: 0.0855208
+  },
+]
+
+const currentPrice = 65281.91;
 
 export default function App() {
   
@@ -298,6 +336,8 @@ export default function App() {
     setAccountInfo({exchange, apiKey, secret})
   }
 
+  // console.log("PL:", calculatePL(trades, currentPrice))
+
   return (
     <Router>
     <div>
@@ -306,6 +346,7 @@ export default function App() {
           <Link className="nav-text" to="/">Crypto-Tracker</Link>
           <Link className="nav-text" to="/login">Login</Link>
           <Link className="nav-text" to="/register">Register</Link>
+          <Link className="nav-text" to="/tradetable">Trade Table</Link>
           <Link className="nav-text" to="/settings">Settings</Link>
         </nav>
         <div class="home-header">
@@ -320,17 +361,23 @@ export default function App() {
           <Route path="/login">
             <Form formLabel={'Login'} firstLabel={'email'} secondLabel={'password'}/>
           </Route>
+          <Route path="/tradetable">
+            <TradeTable rows={tradeRows}/>
+          </Route>
           <Route path="/settings">
             <SettingsForm addExchange={handleExchangeInfo}/> 
           </Route>
           <Route path="/">
-            <Dashboard 
-              balance={balance} 
-              exchanges={exchanges} 
-              timeframes={timeframes}
-              currencies={currencies}
-            />
-          <CoinTable rows={rows} /> 
+            <div class="chart-dashboard-container">
+              <DisplayChart />
+              <Dashboard 
+                balance={balance} 
+                exchanges={exchanges} 
+                timeframes={timeframes}
+                currencies={currencies}
+              />
+            </div>
+            <CoinTable rows={coinRows} /> 
           </Route>
         </Switch>
       </main>
