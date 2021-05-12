@@ -2,6 +2,7 @@ h1, h2 {
   font-size: 2em;
 }
 
+
 a{
   display: inline-block;
   margin:0 0.5em;
@@ -12,6 +13,7 @@ a{
 a:hover {
   background-color: #416fc4;
 }
+
 
 button:focus {
   outline: none;
@@ -50,6 +52,23 @@ button:hover {
   margin-top: 60px;
   display: flex;
   position: relative;
+}
+
+#coins1 {
+  width: 100%;
+  position: absolute; 
+  top: 110px; 
+  left: 0; 
+  margin-left: 0;
+}
+
+
+#coins2 {
+  width: 100%;
+  position: absolute; 
+  top: 250px; 
+  right: 200px;
+  margin-left: 0;
 }
 
 

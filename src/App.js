@@ -260,7 +260,7 @@ export default function App() {
   const [exchange, setExchange] = useState(null);
   const [exchangeInfo, setExchangeInfo] = useState(null);
   const [markets, setMarkets] = useState([])
-  const [coin, setCoin] = useState(null)
+  const [coin, setCoin] = useState(null);
 
   useEffect(() => {
     if (exchangeInfo) {
@@ -280,19 +280,29 @@ export default function App() {
 
   // console.log("PL:", calculatePL(trades, currentPrice))
 
+  function handleScroll() {
+    window.scroll({
+      top: document.body.offsetHeight,
+      left: 0, 
+      behavior: 'smooth',
+    });
+  }
+
   return (
     <Router>
     <div>
       <header>
         <nav className="navbar">
-          <Link className="nav-text" to="/">Crypto-Tracker</Link>
-          <Link className="nav-text" to="/login">Login</Link>
-          <Link className="nav-text" to="/register">Register</Link>
-          <Link className="nav-text" to="/tradetable">Trade Table</Link>
-          <Link className="nav-text" to="/settings">Settings</Link>
+          <Link className="nav-text" to="/" onClick={handleScroll}>Crypto-Tracker</Link>
+          <Link className="nav-text" to="/login" onClick={handleScroll}>Login</Link>
+          <Link className="nav-text" to="/register" onClick={handleScroll}>Register</Link>
+          <Link className="nav-text" to="/tradetable" onClick={handleScroll}>Trade Table</Link>
+          <Link className="nav-text" to="/settings" onClick={handleScroll}>Settings</Link>
         </nav>
         <div class="home-header">
           <img id="main_image" src="/images/background.jpeg" alt="background" />
+          <img id="coins1" src="/images/coins1.png" alt="coins" />
+          <img id="coins2" src="/images/coins2.png" alt="coins" />
         </div>
       </header>
       <main>
@@ -301,7 +311,7 @@ export default function App() {
             <Form formLabel={'Register'} firstLabel={'email'} secondLabel={'password'}/>
           </Route>
           <Route path="/login">
-            <Form formLabel={'Login'} firstLabel={'email'} secondLabel={'password'}/>
+              <Form formLabel={'Login'} firstLabel={'email'} secondLabel={'password'}/>
           </Route>
           <Route path="/tradetable">
             <TradeTable rows={tradeRows}/>
