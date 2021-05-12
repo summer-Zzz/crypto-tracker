@@ -1,4 +1,5 @@
 import CoinTableRow from "./CoinTableRow"
+import Table from 'react-bootstrap/Table'
 import "./CoinTable.scss";
 
 export default function CoinTable(props) {
@@ -16,7 +17,7 @@ export default function CoinTable(props) {
   })
   return (
     <div className="coin-container">
-      <table className="coin-table">
+      <Table striped bordered hover>
         <thead>
           <tr>
             <td></td>
@@ -30,7 +31,7 @@ export default function CoinTable(props) {
         <tbody>
           {tableRows}
         </tbody>
-      </table>
+      </Table>
     </div>
   )
 }
