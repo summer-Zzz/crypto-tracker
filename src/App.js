@@ -1,11 +1,7 @@
 // import React from 'react'
 import React, { useState, useEffect } from 'react'
-<<<<<<< HEAD
-import Exchange from './api-helpers/useExchangeData'
-=======
 import { ParallaxProvider } from 'react-scroll-parallax';
 import CryptoExchange from './hooks/useExchangeData'
->>>>>>> 3764c7ec56fb70987c7032295f904b371a2ce163
 import 'dotenv/config'
 import {
   BrowserRouter as Router,
@@ -14,12 +10,6 @@ import {
   Link
 } from "react-router-dom";
 
-<<<<<<< HEAD
-=======
-import Home from "./components/Home"
-import Form from "./components/Form"
-import CoinTable from "./components/CoinTable"
->>>>>>> 3764c7ec56fb70987c7032295f904b371a2ce163
 import './App.css';
 
 import Form from "./components/Form"
@@ -103,10 +93,6 @@ const currencies = [
     name: "SGD"
   }
 ]
-<<<<<<< HEAD
-=======
-
->>>>>>> 3764c7ec56fb70987c7032295f904b371a2ce163
 const balance = {
   BTC: 0.25588023,
   USDT: 17422.2849681,
@@ -241,88 +227,6 @@ export default function App() {
     //   candleLength: null
     // })
 
-<<<<<<< HEAD
-  // exchange insantiation
-  const [accountInfo, setAccountInfo] = useState(null)
-    // exchange: null,
-    // apiKey: null,
-    // secret: null
-
-  // exchange related
-  const [exchangeInfo, setExchangeInfo] = useState(null)
-  // exchangeName,
-  // exchange
-  // coins
-
-  // coin related
-  const [coinData, setCoinData] = useState(null)
-    // coin: null,
-    // trades: [],
-    // current: null,
-    // pl: null,
-    // balance: null
-
-  // chart related 
-  const [chartData, setChartData] = useState(null)
-    // candles: [],
-    // timeframe: null,
-    // candleLength: null
-
- 
-  useEffect(() => {
-    if (accountInfo) {
-      // get exchange name
-      const exchangeName = accountInfo.exchange
-    // create new Exchange object
-     const exchange = new Exchange(accountInfo);
-     // fetch available coins from market 
-     const coins = exchange.coins
-     // set coin data in state 
-     setExchangeInfo({exchangeName, exchange, coins});
-    }
-  },[accountInfo])
-
-  useEffect(() => {
-    if (coinData.coin) {
-=======
-  // const [exchange, setExchange] = useState(null);
-  // const [exchangeInfo, setExchangeInfo] = useState(null);
-  // const [markets, setMarkets] = useState([])
-  // const [coin, setCoin] = useState(null)
-
-  // useEffect(() => {
-  //   if (exchangeInfo) {
-  //     setExchange(new CryptoExchange(...exchangeInfo))
-  //     setMarkets(exchange.fetchExchangeCoins())
-  //   }
-  // },[exchangeInfo])
-
-  // useEffect(() => {
-  //   if (coin) {
->>>>>>> 3764c7ec56fb70987c7032295f904b371a2ce163
-      // fetch chart data
-      const candles = exchange.fetchOHLCV(coinData.coin, chartData.timeframe, chartData.candleLength);
-      setChartData({...candles});
-      // fetch user trades
-      const trades = exchange.fetchTrades(coinData.coin);
-      // fetch user balance
-      const balance = exchange.fetchBalance(coinData.coin);
-      // fetch user P&L
-<<<<<<< HEAD
-      const currentPrice = exhange.fetchTickerPrice(coinData.coin);
-      const pL = exchange.calculatePL(coinData.trades, currentPrice);
-      setCoinData({...coinData, trades, balance, pL});
-    }
-  },[coinData])
-
-  function handleExchangeInfo(e, exchange, apiKey, secret) {
-    e.preventDefault()
-    setAccountInfo({exchange, apiKey, secret})
-  }
-=======
-  //   }
-  // },[coin])
-
   function handleScroll() {
     window.scroll({
       top: document.body.offsetHeight,
@@ -330,9 +234,6 @@ export default function App() {
       behavior: 'smooth',
     });
   }
-
->>>>>>> 3764c7ec56fb70987c7032295f904b371a2ce163
-
 
   return (
     <ParallaxProvider>
