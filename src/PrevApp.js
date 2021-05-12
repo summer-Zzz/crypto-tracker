@@ -213,6 +213,69 @@ const tradeRows = [
 
 export default function App() {
 
+  // exchange insantiation
+  const [accountInfo, setAccountInfo] = useState(null)
+    // exchange: null,
+    // apiKey: null,
+    // secret: null
+
+  // exchange related
+  const [exchangeInfo, setExchangeInfo] = useState(null)
+  // exchangeName,
+  // exchange
+  // coins
+
+  // coin related
+  const [coinData, setCoinData] = useState(null)
+    // coin: null,
+    // trades: [],
+    // current: null,
+    // pl: null,
+    // balance: null
+
+  // chart related 
+  const [chartData, setChartData] = useState(null)
+    // candles: [],
+    // timeframe: null,
+    // candleLength: null
+
+ 
+  useEffect(() => {
+    if (accountInfo) {
+      // get exchange name
+      const exchangeName = accountInfo.exchange;
+    // create new Exchange object
+     const exchange = new Exchange(accountInfo);
+     // fetch available coins from market 
+     const coins = exchange.coins;
+     // set coin data in state 
+     setExchangeInfo({exchangeName, exchange, coins});
+    }
+  },[accountInfo])
+
+  useEffect(() => {
+    if (coinData.coin) {
+      // fetch chart data
+      const candles = exchange.fetchOHLCV(coinData.coin, chartData.timeframe, chartData.candleLength);
+      setChartData({...candles});
+      // fetch user trades
+      const trades = exchange.fetchTrades(coinData.coin);
+      // fetch user balance
+      const balance = exchange.fetchBalance(coinData.coin);
+      // fetch user P&L
+      const currentPrice = exhange.fetchTickerPrice(coinData.coin);
+      const pL = exchange.calculatePL(coinData.trades, currentPrice);
+      setCoinData({...coinData, trades, balance, pL});
+    }
+  },[coinData])
+
+  function handleExchangeInfo(e, exchange, apiKey, secret) {
+    e.preventDefault()
+    setAccountInfo({exchange, apiKey, secret})
+  }
+
+  // console.log("PL:", calculatePL(trades, currentPrice))
+
   return (
     <Router>
     <div>
