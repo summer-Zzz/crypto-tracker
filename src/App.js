@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import CryptoExchange from './hooks/useExchangeData'
+import React from 'react'
+// import CryptoExchange from './hooks/useExchangeData'
 import 'dotenv/config'
 import {
   BrowserRouter as Router,
@@ -90,49 +90,6 @@ const currencies = [
   {
     id: 6,
     name: "SGD"
-  }
-]
-
-const trades = [
-  {
-    baseCurrency: 'BTC',
-    quoteCurrency: 'USD',
-    time: 1620331915827, // trade transaction time (milliseconds)
-    side: 'buy', // side: buy or sell
-    orderType: 'limit', // order type
-    price:  54240.09, // unit price
-    cost:  19.960353, // amount spent on coin 
-    amount:  0.000368 // amount of coin received
-  },
-  {
-    baseCurrency: 'BTC',
-    quoteCurrency: 'USD',
-    time: 1620331915827, // trade transaction time (milliseconds)
-    side: 'buy', // side: buy or sell
-    orderType: 'limit', // order type
-    price:  54240.09, // unit price
-    cost:  19.960353, // amount spent on coin 
-    amount:  0.000368 // amount of coin received
-  },
-  {
-    baseCurrency: 'BTC',
-    quoteCurrency: 'USD',
-    time: 1620331915827, // trade transaction time (milliseconds)
-    side: 'buy', // side: buy or sell
-    orderType: 'limit', // order type
-    price:  54240.09, // unit price
-    cost:  19.960353, // amount spent on coin 
-    amount:  0.000368 // amount of coin received
-  },
-  {
-    baseCurrency: 'BTC',
-    quoteCurrency: 'USD',
-    time: 1620331915827, // trade transaction time (milliseconds)
-    side: 'buy', // side: buy or sell
-    orderType: 'limit', // order type
-    price:  54240.09, // unit price
-    cost:  19.960353, // amount spent on coin 
-    amount:  0.000368 // amount of coin received
   }
 ]
 
@@ -253,30 +210,30 @@ const tradeRows = [
   },
 ]
 
-const currentPrice = 65281.91;
+// const currentPrice = 65281.91;
 
 export default function App() {
 
-  const [exchange, setExchange] = useState(null);
-  const [exchangeInfo, setExchangeInfo] = useState(null);
-  const [markets, setMarkets] = useState([])
-  const [coin, setCoin] = useState(null)
+  // const [exchange, setExchange] = useState(null);
+  // const [exchangeInfo, setExchangeInfo] = useState(null);
+  // const [markets, setMarkets] = useState([])
+  // const [coin, setCoin] = useState(null)
 
-  useEffect(() => {
-    if (exchangeInfo) {
-      setExchange(new CryptoExchange(...exchangeInfo))
-      setMarkets(exchange.fetchExchangeCoins())
-    }
-  },[exchangeInfo])
+  // useEffect(() => {
+  //   if (exchangeInfo) {
+  //     setExchange(new CryptoExchange(...exchangeInfo))
+  //     setMarkets(exchange.fetchExchangeCoins())
+  //   }
+  // },[exchangeInfo])
 
-  useEffect(() => {
-    if (coin) {
+  // useEffect(() => {
+  //   if (coin) {
       // fetch chart data
       // fetch user trades
       // fetch user balance
       // fetch user P&L
-    }
-  },[coin])
+  //   }
+  // },[coin])
 
   // console.log("PL:", calculatePL(trades, currentPrice))
 
