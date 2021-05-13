@@ -219,7 +219,6 @@ export default function App() {
     // filter: null,
     // timeframe: null
 
-
   useEffect(() => {
     if (exchangeCredentials) { 
       // const {exchange, coin, currency, timeframe} = exchangeData
@@ -227,6 +226,7 @@ export default function App() {
       const apiUrl = `http://localhost:3001/api/exchange`
       axios.get(apiUrl)
       .then(res => {
+        console.log(res.data)
         setExchangeData(res.data);
       })
     }
