@@ -141,34 +141,8 @@ const exchangeData = {
   currentPrice: 55000
 }
 
-<<<<<<< HEAD
 router.get('/:name', (req, res) => {
     res.json(exchangeData)
-=======
-router.get('/', function (req, res) {
-  const returnObject = {}
-  // does user have exchange data?
-  // if no - flash welcome message 
-  const {exchange, coin, filter, timeframe} = url.params
-  const userId = session.params.user_id
-  getUserExchanges(userId)
-  .then(exchanges => {
-    if (!exchanges) {
-      sendDefaultExchangeInfo().then(defaultExchange => {
-        return res.send(defaultExchange);
-      })
-
-    // if yes -
-    // is user requesting a specific exchange? 
-    
-      // render first coin
-      // filter USD 
-      // 
-    }
-  })
-  // if no - render first exchange with 
-  
->>>>>>> 1de08a26b7762c1a1ffac08a0cdb825ba567398a
 })
 // res.send(exchangeData);
 // need this data: apiKey, secret, coin, exchange
