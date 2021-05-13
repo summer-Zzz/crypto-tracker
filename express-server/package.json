@@ -2,14 +2,23 @@
   "name": "express-server",
   "version": "0.0.0",
   "private": true,
+  "proxy": "http://localhost:3002",
   "scripts": {
     "start": "node ./bin/www",
     "db:reset": "node ./db/reset.js"
   },
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "cookie-parser": "~1.4.4",
+    "cors": "^2.8.5",
     "debug": "~2.6.9",
+    "dotenv": "^9.0.2",
     "express": "~4.16.1",
-    "morgan": "~1.9.1"
+    "morgan": "~1.9.1",
+    "pg": "^8.6.0",
+    "pg-native": "^3.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
   }
 }

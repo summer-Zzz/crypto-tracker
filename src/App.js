@@ -60,11 +60,11 @@ const timeframes = [
     name: '24 hours'
   },
   {
-    id: 5,
+    id: 6,
     name: '1 week'
   },
   {
-    id: 6,
+    id: 7,
     name: '1 month'
   }
 ]
@@ -137,7 +137,7 @@ const coinRows = [
   {
   id: 1, 
   coinLogo: "https://cryptologos.cc/logos/bitcoin-btc-logo.png?v=010",
-  coinName: "Bitcoin",
+  coinSymbol: "BTC/USD",
   currentPrice: 59203.82,
   dayPerformance: "2.3%",
   weekPerformance: "10%",
@@ -147,7 +147,7 @@ const coinRows = [
   {
   id: 2, 
   coinLogo: "https://s2.coinmarketcap.com/static/img/coins/64x64/1.png",
-  coinName: "Bitcoin",
+  coinSymbol: "BTC/USD",
   currentPrice: 59203.82,
   dayPerformance: "2.3%",
   weekPerformance: "10%",
@@ -157,7 +157,7 @@ const coinRows = [
   {
   id: 3, 
   coinLogo: "https://s2.coinmarketcap.com/static/img/coins/64x64/1.png",
-  coinName: "Bitcoin",
+  coinSymbol: "BTC/USD",
   currentPrice: 59203.82,
   dayPerformance: "2.3%",
   weekPerformance: "10%",
@@ -167,7 +167,7 @@ const coinRows = [
   {
   id: 4, 
   coinLogo: "https://s2.coinmarketcap.com/static/img/coins/64x64/1.png",
-  coinName: "Bitcoin",
+  coinSymbol: "BTC/USD",
   currentPrice: 59203.82,
   dayPerformance: "2.3%",
   weekPerformance: "10%",
@@ -210,9 +210,27 @@ const tradeRows = [
   },
 ]
 
-const currentPrice = 65281.91;
-
 export default function App() {
+
+  const [exchangeCredentials, setExchangeCredentials] = useState(null);
+  const [exchangeData, setExchangeData] = useState(null)
+    // exchange: null,
+    // coin: null,
+    // filter: null,
+    // timeframe: null
+
+
+  useEffect(() => {
+    if (exchangeCredentials) { 
+      // const {exchange, coin, currency, timeframe} = exchangeData
+      // const apiUrl = `http://localhost:3001/api/exchange?exchange=${exchange}&coin=${coin}&currency=${filter}&timeframe=${timeframe}`
+      const apiUrl = `http://localhost:3001/api/exchange`
+      axios.get(apiUrl)
+      .then(res => {
+        setExchangeData(res.data);
+      })
+    }
+  }, [exchangeCredentials])
 
   function handleScroll() {
     window.scroll({
@@ -225,6 +243,8 @@ export default function App() {
   return (
     <Router>
     <div>
+      <button onClick={() => setExchangeCredentials("Exchange set")}>Update data</button>
+      <div>{JSON.stringify(exchangeData)}</div>
       <header>
         <nav className="navbar">
           <Link className="nav-text" to="/" >Crypto-Tracker</Link>
@@ -244,13 +264,13 @@ export default function App() {
             <Form formLabel={'Login'} firstLabel={'Email:'} secondLabel={'Password:'}/>
           </Route>
           <Route path="/tradetable">
-            <TradeTable rows={tradeRows}/>
+          { exchangeData && <TradeTable rows={exchangeData.trades}/> }
           </Route>
           <Route path="/settings">
             <SettingsForm /> 
           </Route>
-          <Route path="/">
-            <div class="chart-dashboard-container">
+        { exchangeData && <Route path="/">
+            <div className="chart-dashboard-container">
               <DisplayChart />
               <Dashboard 
                 balance={balance} 
@@ -260,7 +280,7 @@ export default function App() {
               />
             </div>
             <CoinTable rows={coinRows} /> 
-          </Route>
+          </Route> }
         </Switch>
       </main>
     </div>

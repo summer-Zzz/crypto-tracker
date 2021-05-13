@@ -2,7 +2,6 @@ const db = require('../index')
 
 // User queries
 
-module.exports = (db) => {
     // 1- GET /api/users/:id === get users information
   const getUsers = () => {
     const query = {
@@ -56,8 +55,9 @@ module.exports = (db) => {
   }
 
   // 5- GET /api/users/exchange/:id === get user exchange 
-  const getUserExchange = (userId) => {
+  const getUserExchanges = (userId) => {
     const query = {
+
       text: `SELECT accounts.api_key, accounts.secret_key, exchanges.name as exchange_name
       FROM users
       INNER JOIN accounts
@@ -172,19 +172,19 @@ const addUserAccount = (txnData) => {
     .catch(err => err);
 }
 
-  return {
-      getUsers,
-      getUserById,
-      getUserByEmail,
-      addUser,
-      getUserExchange,
-      getUserTransactions,
-      getUserExchangeTransactions,
-      addUserTransactions,
-      addUserExchange, 
-      addUserAccount
-  };
-}
+  // return {
+  //     getUsers,
+  //     getUserById,
+  //     getUserByEmail,
+  //     addUser,
+  //     getUserExchanges,
+  //     getUserTransactions,
+  //     getUserExchangeTransactions,
+  //     addUserTransactions,
+  //     addUserExchange, 
+  //     addUserAccount
+  // };
+  module.exports = {getUserExchanges}
 
 // - POST /api/login === log user in (set cookies)
 // - POST /api/logout === log user out (delete cookies)
