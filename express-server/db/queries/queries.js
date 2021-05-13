@@ -58,7 +58,7 @@ const db = require('../index')
   const getUserExchanges = (userId) => {
     const query = {
 
-      text: `SELECT accounts.api_key, accounts.secret_key, exchanges.name as exchange_name
+      text: `SELECT accounts.api_key, accounts.api_secret, exchanges.name as exchange_name
       FROM users
       INNER JOIN accounts
       ON users.id = accounts.user_id

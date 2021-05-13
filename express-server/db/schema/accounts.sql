@@ -5,5 +5,5 @@ CREATE TABLE accounts(
   user_id INTEGER REFERENCES users(id) NOT NULL,
   exchange_id INTEGER REFERENCES exchanges(id) NOT NULL,
   api_key VARCHAR(100),
-  api_Secret VARCHAR(100) 
+  api_secret VARCHAR(100) 
 )
