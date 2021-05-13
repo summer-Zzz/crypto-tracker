@@ -1,6 +1,7 @@
 const ccxt = require('ccxt');
 const express = require('express');
 const router = express.Router();
+const db = require('../db/index')
 
 const exchangeData = {
   exchanges: [
@@ -139,16 +140,35 @@ const exchangeData = {
   currentPrice: 55000
 }
 
-router.get('/', (req, res) => {
-  // query db for exchange name 
+const middleWare = () => {
   
-  // get coin params 
-  // get all exchange info 
-  const {apiKey, secret} = req.params
+}
+
+router.get('/', (req, res) => {
+  const userId = req.session;
+  // need this data: apiKey, secret, coin, exchange
+  // MIDDLEWARE
+// is user logged in? - req.session.userId
+// if no - return 401 status("user must be logged in")
+// if yes - fetch user data, next()
+// does the user have an account for exchange already? - accounts table db query
+// if no - return 401 status("user must have an account")
+// if yes - fetch exchange data and coinList, next()
+
+
+// ROUTE
+// do we have coin param?
+// if yes, fetch coindata and render
+// // is coin param present in coinList?
+// // if yes, render coinList
+// // if no, next()
+// if no, fetch first available coin and render 
+
   initializeExchange(exchange, apiKey, secret).then(exchangeData => {
-    res.json(exchangeData);
+    res.json(exchangeData, userExchanges);
   })
 })
+// get exchanges by id 
 
 const initializeExchange = (exchange, apiKey, secret) => {
   exchangeId = exchange;
@@ -192,7 +212,7 @@ const formatCoins = (coins) => {
 // is user logged in? - req.session.userId
 // if no - return 401 status("user must be logged in")
 // if yes - fetch user data, next()
-// does the user have account for exchange already? - accounts table db query
+// does the user have an account for exchange already? - accounts table db query
 // if no - return 401 status("user must have an account")
 // if yes - fetch exchange data and coinList, next()
 
