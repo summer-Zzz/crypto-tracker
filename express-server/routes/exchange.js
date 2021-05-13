@@ -142,52 +142,52 @@ const exchangeData = {
 }
 
 router.get('/', function (req, res) {
-  const returnObject = {}
-  // does user have exchange data?
-  // if no - flash welcome message 
-  const {exchange, coin, filter, timeframe} = url.params
-  const userId = session.params.user_id
+  const userId = 2;
   getUserExchanges(userId)
   .then(exchanges => {
-    if (!exchanges) {
-      sendDefaultExchangeInfo().then(defaultExchange => {
-        return res.send(defaultExchange);
-      })
-
-    // if yes -
-    // is user requesting a specific exchange? 
-    
-      // render first coin
-      // filter USD 
-      // 
-    }
+    const firstExchange = exchanges[0];
+    getExchangeInfo(firstExchange).then(data => {
+      console.log(data)
+      return res.send(data);
+    })
   })
-  // if no - render first exchange with 
-  
 })
-// res.send(exchangeData);
-// need this data: apiKey, secret, coin, exchange
-// MIDDLEWARE
-// is user logged in? - req.session.userId
-// if no - return 401 status("user must be logged in")
-// if yes - fetch user data, next()
-// does the user have an account for exchange already? - accounts table db query
-// if no - return 401 status("user must have an account")
-// if yes - fetch exchange data and coinList, next()
 
+const oneMonthAgo = () => new Date - 2629800000
+const oneWeekAgo = () => new Date - 604800000
+const oneDayAgo = () => new Date - 86400000
+const oneMinuteAgo = () => new Date - 60000
 
-// ROUTE
-// do we have exchange data? 
-// if yes
-// render exchange
-// if no welcome message 
-// do we have coin param?
-// if yes, fetch coindata and render
-// // is coin param present in coinList?
-// // if yes, render coinList
-// // if no, next()
+const getExchangeInfo = (exchangeData) => {
+  const {api_key, api_secret, exchange_name} = exchangeData; 
+  exchangeId = exchange_name;
+  exchangeClass = ccxt[exchangeId];
+  const exchange = new exchangeClass({
+    apiKey: api_key,
+    secret: api_secret,
+    enableRateLimit: true
+  })
+  exchange.setSandboxMode(true);
+  const fetchTrades = exchange.fetchTrades("BTC/USD", oneWeekAgo());
+  const fetchOHLCV = exchange.fetchOHLCV("BTC/USD", '1h', oneWeekAgo());
+  const fetchBalance = exchange.fetchBalance();
+  const fetchCoins = exchange.fetchTickers();
+  return Promise.all([fetchTrades, fetchOHLCV, fetchBalance, fetchCoins])
+  .then(values => {
+    const trades = formatTrades(values[0]);
+    const candles = values[1];
+    const balance = values[2];
+    const coins = formatCoins(values[3]);
+    return {
+      trades,
+      candles,
+      balance,
+      coins,
+    };
+  })
+}
 
-const sendDefaultExchangeInfo = () => {
+const getDefaultExchangeInfo = () => {
   const binance = new ccxt.binance({
     enableRateLimit: true
   })
@@ -202,10 +202,25 @@ const sendDefaultExchangeInfo = () => {
   })
 }
 
-const formatCoins = (coins, searchParam) => {
+const formatTrades = (trades) => {
+  const formattedTrades = trades.map(trade => {
+    return {
+      price: trade.price, 
+      amount: trade.amount, 
+      cost: trade.cost, 
+      time: trade.timestamp,
+      symbol: trade.info.symbol,
+      orderType: trade.type,
+      side: trade.side     
+    }
+  })
+  return formattedTrades;
+}
+
+const formatCoins = (coins) => {
   const coinArray = []
   for (let coin in coins) {
-    if (coin.includes(searchParam)) {
+    // if (coin.includes(searchParam)) {
       const coinData = coins[coin]
       const coinObject = {
         symbol: coinData.symbol,
@@ -215,38 +230,12 @@ const formatCoins = (coins, searchParam) => {
         volume: coinData.baseVolume
       }
      coinArray.push(coinObject)
-    }
+    // }
   }
   return coinArray;
 }
 
-// // initializeExchange(exchange, apiKey, secret).then(exchangeData => {
-// //   res.json(exchangeData, userExchanges);
-
-// const initializeExchange = (exchange, apiKey, secret) => {
-//   exchangeId = exchange;
-//   exchangeClass = ccxt[exchangeId];
-//   exchange = new exchangeClass({
-//     apiKey,
-//     secret,
-//     enableRateLimit: true
-//   })
-//   const fetchBalance = exchange.fetchBalance();
-//   const fetchCoins = exchange.fetchCoins();
-//   return Promise.all([fetchBalance, fetchCoins])
-//   .then(values => {
-//     const balance = values[0];
-//     const coins = formatCoins(values[1]);
-//     const coin = coins[0];
-//     return {
-//       balance,
-//       coins,
-//       coin
-//     }
-//   })
-// }
-
-
+module.exports = router
 
 // MIDDLEWARE
 // is user logged in? - req.session.userId
@@ -264,15 +253,3 @@ const formatCoins = (coins, searchParam) => {
 // // if yes, render coinList
 // // if no, next()
 // if no, fetch first available coin and render 
-
-
-// app.get('/api/exchange/:name', (req, res) => {
-//   db.query('select accountinfo from user where exchange is ...')
-//   .then(accountInfo => {
-//     new Exchange(accountinfo)
-//     const trades = exchange.fetchTrades()
-//     res.json(trades)
-//   })
-// })
-
-module.exports = router

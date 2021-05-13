@@ -219,7 +219,6 @@ export default function App() {
     // filter: null,
     // timeframe: null
 
-
   useEffect(() => {
     if (exchangeCredentials) { 
       // const {exchange, coin, currency, timeframe} = exchangeData
@@ -227,7 +226,13 @@ export default function App() {
       const apiUrl = `http://localhost:3001/api/exchange`
       axios.get(apiUrl)
       .then(res => {
-        setExchangeData(res.data);
+       const [trades, candles, balance, coins] = res.data;
+        setExchangeData({
+          trades,
+          candles,
+          balance,
+          coins,
+        });
       })
     }
   }, [exchangeCredentials])
@@ -244,7 +249,7 @@ export default function App() {
     <Router>
     <div>
       <button onClick={() => setExchangeCredentials("Exchange set")}>Update data</button>
-      <div>{JSON.stringify(exchangeData)}</div>
+      {/* <div>{JSON.stringify(exchangeData)}</div> */}
       <header>
         <nav className="navbar">
           <Link className="nav-text" to="/" >Crypto-Tracker</Link>
@@ -273,13 +278,13 @@ export default function App() {
             <div className="chart-dashboard-container">
               <DisplayChart />
               <Dashboard 
-                balance={balance} 
+                balance={exchangeData.balance} 
                 exchanges={exchanges} 
                 timeframes={timeframes}
                 currencies={currencies}
               />
             </div>
-            <CoinTable rows={coinRows} /> 
+            <CoinTable rows={exchangeData.coins} /> 
           </Route> }
         </Switch>
       </main>

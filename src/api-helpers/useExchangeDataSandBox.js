@@ -160,7 +160,7 @@ const exchangeRequestData = {
 // CALL API SANDBOX FUNCTIONS // 
 
 // // fetch all trades 
-// fetchTrades(exchangeRequestData)
+fetchTrades(exchangeRequestData)
 
 // // get average cost from all trades 
 // const trades = fetchTrades(exchangeRequestData)
@@ -178,9 +178,3 @@ const exchangeRequestData = {
 
 // fetch single ticker price
 // fetchTickerPrice(binance, 'BTC/USDT')
-
-bitmex.fetchTickers().then(data => {
-  for (let ticker of tickers) {
-    console.log(ticker.info)
-  }
-})
