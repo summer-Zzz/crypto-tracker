@@ -1,6 +1,8 @@
-const { exchanges } = require('ccxt');
+const ccxt = require('ccxt');
 const express = require('express');
 const router = express.Router();
+const db = require('../db/index')
+const { getUserExchanges } = require('../db/queries/queries')
 
 const exchangeData = {
   exchanges: [
@@ -135,20 +137,131 @@ const exchangeData = {
     tradePrice: 59203.82,
     tradeAmount: 0.0855208
     },
-  ]
+  ],
+  currentPrice: 55000
 }
 
+<<<<<<< HEAD
 router.get('/:name', (req, res) => {
     res.json(exchangeData)
+=======
+router.get('/', function (req, res) {
+  const returnObject = {}
+  // does user have exchange data?
+  // if no - flash welcome message 
+  const {exchange, coin, filter, timeframe} = url.params
+  const userId = session.params.user_id
+  getUserExchanges(userId)
+  .then(exchanges => {
+    if (!exchanges) {
+      sendDefaultExchangeInfo().then(defaultExchange => {
+        return res.send(defaultExchange);
+      })
+
+    // if yes -
+    // is user requesting a specific exchange? 
+    
+      // render first coin
+      // filter USD 
+      // 
+    }
+  })
+  // if no - render first exchange with 
+  
+>>>>>>> 1de08a26b7762c1a1ffac08a0cdb825ba567398a
 })
+// res.send(exchangeData);
+// need this data: apiKey, secret, coin, exchange
+// MIDDLEWARE
+// is user logged in? - req.session.userId
+// if no - return 401 status("user must be logged in")
+// if yes - fetch user data, next()
+// does the user have an account for exchange already? - accounts table db query
+// if no - return 401 status("user must have an account")
+// if yes - fetch exchange data and coinList, next()
+
+
+// ROUTE
+// do we have exchange data? 
+// if yes
+// render exchange
+// if no welcome message 
+// do we have coin param?
+// if yes, fetch coindata and render
+// // is coin param present in coinList?
+// // if yes, render coinList
+// // if no, next()
+
+const sendDefaultExchangeInfo = () => {
+  const binance = new ccxt.binance({
+    enableRateLimit: true
+  })
+  return binance.fetchTickers()
+  .then(values => {
+    const coins = formatCoins(values, "BTC");
+    const coin = coins[0];
+    return {
+      coins: coins,
+      coin: coin
+    }
+  })
+}
+
+const formatCoins = (coins, searchParam) => {
+  const coinArray = []
+  for (let coin in coins) {
+    if (coin.includes(searchParam)) {
+      const coinData = coins[coin]
+      const coinObject = {
+        symbol: coinData.symbol,
+        price: coinData.ask,
+        change: coinData.change,
+        changePercent: coinData.percentage,
+        volume: coinData.baseVolume
+      }
+     coinArray.push(coinObject)
+    }
+  }
+  return coinArray;
+}
+
+// // initializeExchange(exchange, apiKey, secret).then(exchangeData => {
+// //   res.json(exchangeData, userExchanges);
+
+// const initializeExchange = (exchange, apiKey, secret) => {
+//   exchangeId = exchange;
+//   exchangeClass = ccxt[exchangeId];
+//   exchange = new exchangeClass({
+//     apiKey,
+//     secret,
+//     enableRateLimit: true
+//   })
+//   const fetchBalance = exchange.fetchBalance();
+//   const fetchCoins = exchange.fetchCoins();
+//   return Promise.all([fetchBalance, fetchCoins])
+//   .then(values => {
+//     const balance = values[0];
+//     const coins = formatCoins(values[1]);
+//     const coin = coins[0];
+//     return {
+//       balance,
+//       coins,
+//       coin
+//     }
+//   })
+// }
+
+
 
 // MIDDLEWARE
 // is user logged in? - req.session.userId
 // if no - return 401 status("user must be logged in")
 // if yes - fetch user data, next()
-// does the user have account for exchange already? - accounts table db query
+// does the user have an account for exchange already? - accounts table db query
 // if no - return 401 status("user must have an account")
 // if yes - fetch exchange data and coinList, next()
+
+
 // ROUTE
 // do we have coin param?
 // if yes, fetch coindata and render
@@ -166,3 +279,5 @@ router.get('/:name', (req, res) => {
 //     res.json(trades)
 //   })
 // })
+
+module.exports = router

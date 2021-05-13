@@ -137,7 +137,6 @@ const fetchExchangeCoins = (exchange, searchTicker) => {
 }
 
 
-
 // const averagePL = (trades) => {
 //   totalPercent = 0;
 //   trades.forEach(trade, i => {
@@ -160,8 +159,8 @@ const exchangeRequestData = {
 
 // CALL API SANDBOX FUNCTIONS // 
 
-// fetch all trades 
-fetchTrades(exchangeRequestData)
+// // fetch all trades 
+// fetchTrades(exchangeRequestData)
 
 // // get average cost from all trades 
 // const trades = fetchTrades(exchangeRequestData)
@@ -178,5 +177,10 @@ fetchTrades(exchangeRequestData)
 // fetchExchangeCoins(binance, "BTC/USD")
 
 // fetch single ticker price
-fetchTickerPrice(binance, 'BTC/USDT')
+// fetchTickerPrice(binance, 'BTC/USDT')
 
+bitmex.fetchTickers().then(data => {
+  for (let ticker of tickers) {
+    console.log(ticker.info)
+  }
+})

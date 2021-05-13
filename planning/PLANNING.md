@@ -206,3 +206,15 @@ Stretch - I want to see data from a closed account
 ## QUESTION FOR FRANCIS
 - Testing?!?!
 
+## TOMORROW (FINISH MVP)
+- Style user login 
+- Style user Register 
+- Add labels to options 
+- Add filter to top of coin table 
+- (minor) create error message if filter returns no coins 
+- Test backend routes for login and register 
+- Setup exchange backend 
+- Testing db queries 
+- Adding transactions to db 
+  - figure out flow for this 
+- 
