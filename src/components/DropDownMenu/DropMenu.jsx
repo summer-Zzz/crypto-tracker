@@ -18,8 +18,7 @@ export default function DropMenu(props) {
   })
 
   return (
-    <div>
-      <div>
+      <div className="select">
         <select onChange={handleChange} value={currentOption}>
           <DropDownItem 
             name={'Select option'}
@@ -27,6 +26,5 @@ export default function DropMenu(props) {
           {options}
         </select>
       </div>
-    </div>
   )
 }

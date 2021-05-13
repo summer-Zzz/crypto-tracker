@@ -21,7 +21,9 @@ const [exchange, setExchange] = useState(null)
         <input type="text" name="api-key" value={apiKey} onChange={(e) => setApiKey(e.target.value)}/>
         <label htmlFor='secret-key'>Secret Key</label>
         <input type="text" name="secret-key" value={secret} onChange={(e) => setSecret(e.target.value)}/>
-        <input type="submit" onSubmit={(e) => props.addExchange(exchange, apiKey, secret)}></input>
+        <div className="button-container">
+        <input type="submit" onSubmit={(e) => props.addExchange(exchange, apiKey, secret)} className="button"></input>
+        </div>
       </form>
     </div>
   )

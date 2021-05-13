@@ -7,9 +7,10 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import Home from "./components/Home"
+
 import './App.css';
 
+import Home from "./components/Home"
 import Form from "./components/Form"
 import SettingsForm from "./components/SettingsForm"
 import CoinTable from "./components/CoinTable/CoinTable"
@@ -239,21 +240,21 @@ export default function App() {
       {/* <div>{JSON.stringify(exchangeData)}</div> */}
       <header>
         <nav className="navbar">
-          <Link className="nav-text" to="/">Crypto-Tracker</Link>
-          <Link className="nav-text" to="/login">Login</Link>
-          <Link className="nav-text" to="/register">Register</Link>
-          <Link className="nav-text" to="/tradetable">Trade Table</Link>
-          <Link className="nav-text" to="/settings">Settings</Link>
+          <Link className="nav-text" to="/" >Crypto-Tracker</Link>
+          <Link className="nav-text" to="/login" onClick={handleScroll}>Login</Link>
+          <Link className="nav-text" to="/register" onClick={handleScroll}>Register</Link>
+          <Link className="nav-text" to="/tradetable" onClick={handleScroll}>Trade Table</Link>
+          <Link className="nav-text" to="/settings" onClick={handleScroll}>Settings</Link>
         </nav>
         <Home />
       </header>
       <main>
         <Switch>
           <Route path="/register">
-            <Form formLabel={'Register'} firstLabel={'email'} secondLabel={'password'} />
+            <Form formLabel={'Register'} firstLabel={'Email:'} secondLabel={'Password:'} />
           </Route>
           <Route path="/login">
-            <Form formLabel={'Login'} firstLabel={'email'} secondLabel={'password'}/>
+            <Form formLabel={'Login'} firstLabel={'Email:'} secondLabel={'Password:'}/>
           </Route>
           <Route path="/tradetable">
           { exchangeData && <TradeTable rows={exchangeData.trades}/> }
