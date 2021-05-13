@@ -140,12 +140,9 @@ const exchangeData = {
   currentPrice: 55000
 }
 
-const middleWare = () => {
-  
-}
-
 router.get('/', (req, res) => {
-  const userId = req.session;
+  res.send(exchangeData)
+  // const userId = req.session;
   // need this data: apiKey, secret, coin, exchange
   // MIDDLEWARE
 // is user logged in? - req.session.userId
@@ -164,49 +161,50 @@ router.get('/', (req, res) => {
 // // if no, next()
 // if no, fetch first available coin and render 
 
-  initializeExchange(exchange, apiKey, secret).then(exchangeData => {
-    res.json(exchangeData, userExchanges);
-  })
 })
+
+
+// initializeExchange(exchange, apiKey, secret).then(exchangeData => {
+//   res.json(exchangeData, userExchanges);
 // get exchanges by id 
 
-const initializeExchange = (exchange, apiKey, secret) => {
-  exchangeId = exchange;
-  exchangeClass = ccxt[exchangeId];
-  exchange = new exchangeClass({
-    apiKey,
-    secret,
-    enableRateLimit: true
-  })
-  const fetchBalance = exchange.fetchBalance();
-  const fetchCoins = exchange.fetchCoins();
-  return Promise.all([fetchBalance, fetchCoins])
-  .then(values => {
-    const balance = values[0];
-    const coins = formatCoins(values[1]);
-    const coin = coins[0];
-    return {
-      balance,
-      coins,
-      coin
-    }
-  })
-}
+// const initializeExchange = (exchange, apiKey, secret) => {
+//   exchangeId = exchange;
+//   exchangeClass = ccxt[exchangeId];
+//   exchange = new exchangeClass({
+//     apiKey,
+//     secret,
+//     enableRateLimit: true
+//   })
+//   const fetchBalance = exchange.fetchBalance();
+//   const fetchCoins = exchange.fetchCoins();
+//   return Promise.all([fetchBalance, fetchCoins])
+//   .then(values => {
+//     const balance = values[0];
+//     const coins = formatCoins(values[1]);
+//     const coin = coins[0];
+//     return {
+//       balance,
+//       coins,
+//       coin
+//     }
+//   })
+// }
 
-const formatCoins = (coins) => {
-  const coinArray = []
-  for (let coin of coins) {
-    const coinData = {
-      symbol: coin.symbol,
-      price: coin.ask,
-      change: coin.change,
-      changePercent: coin.percentage,
-      volume: coin.baseVolume
-    }
-    coinArray.push(coinData)
-  }
-  return coinArray;
-}
+// const formatCoins = (coins) => {
+//   const coinArray = []
+//   for (let coin of coins) {
+//     const coinData = {
+//       symbol: coin.symbol,
+//       price: coin.ask,
+//       change: coin.change,
+//       changePercent: coin.percentage,
+//       volume: coin.baseVolume
+//     }
+//     coinArray.push(coinData)
+//   }
+//   return coinArray;
+// }
 
 // MIDDLEWARE
 // is user logged in? - req.session.userId

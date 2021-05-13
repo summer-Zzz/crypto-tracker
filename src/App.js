@@ -225,13 +225,13 @@ export default function App() {
     }
   }, [exchangeCredentials])
 
-  // function handleScroll() {
-  //   window.scroll({
-  //     top: document.body.offsetHeight,
-  //     left: 0, 
-  //     behavior: 'smooth',
-  //   });
-  // }
+  function handleScroll() {
+    window.scroll({
+      top: document.body.offsetHeight,
+      left: 0, 
+      behavior: 'smooth',
+    });
+  }
 
   return (
     <Router>
