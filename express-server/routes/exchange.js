@@ -147,6 +147,7 @@ router.get('/', function (req, res) {
   .then(exchanges => {
     const firstExchange = exchanges[0];
     getExchangeInfo(firstExchange).then(data => {
+      console.log(data)
       return res.send(data);
     })
   })
