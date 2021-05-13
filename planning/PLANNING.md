@@ -206,3 +206,11 @@ Stretch - I want to see data from a closed account
 ## QUESTION FOR FRANCIS
 - Testing?!?!
 
+## TOMORROW (FINISH MVP)
+- User login 
+- User Register 
+- Setup exchange backend 
+- Add labels to options 
+- Testing db queries 
+- Adding transactions to db 
+  - figure out flow for this 

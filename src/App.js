@@ -212,15 +212,14 @@ const tradeRows = [
 
 export default function App() {
 
-  const [exchangeCredentials, setExchangeCredentials] = useState(null)
-  const [exchangeData, setExchangeData] = useState()
+  const [exchangeCredentials, setExchangeCredentials] = useState(null);
+  const [exchangeData, setExchangeData] = useState();
 
   useEffect(() => {
     if (exchangeCredentials) { 
       axios.get('http://localhost:3001/api/exchange')
       .then(res => {
-        console.log(res)
-        setExchangeData(res.data)
+        setExchangeData(res.data);
       })
     }
   }, [exchangeCredentials])

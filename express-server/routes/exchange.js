@@ -141,8 +141,9 @@ const exchangeData = {
 }
 
 router.get('/', (req, res) => {
-  res.send(exchangeData)
+  res.send(exchangeData);
   // const userId = req.session;
+  const {apiKey, secret} = req.params
   // need this data: apiKey, secret, coin, exchange
   // MIDDLEWARE
 // is user logged in? - req.session.userId
@@ -154,6 +155,10 @@ router.get('/', (req, res) => {
 
 
 // ROUTE
+// do we have exchange data? 
+// if yes
+// render exchange
+// if no welcome message 
 // do we have coin param?
 // if yes, fetch coindata and render
 // // is coin param present in coinList?
