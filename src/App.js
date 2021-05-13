@@ -20,24 +20,24 @@ import TradeTable from "./components/TradeTable/TradeTable";
 import axios from 'axios';
 
 
-// // const exchanges = [
-//   {
-//     id: 1,
-//     name: 'kraken',
-//   },
-//   {
-//     id: 2,
-//     name: 'binance',
-//   },
-//   {
-//     id: 3,
-//     name: 'phemex',
-//   },
-//   {
-//     id: 4,
-//     name: 'bitmex',
-//   }
-// ]
+const exchanges = [
+  {
+    id: 1,
+    name: 'kraken',
+  },
+  {
+    id: 2,
+    name: 'binance',
+  },
+  {
+    id: 3,
+    name: 'phemex',
+  },
+  {
+    id: 4,
+    name: 'bitmex',
+  }
+]
 const timeframes = [
   {
     id: 1,
@@ -137,7 +137,7 @@ const coinRows = [
   {
   id: 1, 
   coinLogo: "https://cryptologos.cc/logos/bitcoin-btc-logo.png?v=010",
-  coinName: "Bitcoin",
+  coinSymbol: "BTC/USD",
   currentPrice: 59203.82,
   dayPerformance: "2.3%",
   weekPerformance: "10%",
@@ -147,7 +147,7 @@ const coinRows = [
   {
   id: 2, 
   coinLogo: "https://s2.coinmarketcap.com/static/img/coins/64x64/1.png",
-  coinName: "Bitcoin",
+  coinSymbol: "BTC/USD",
   currentPrice: 59203.82,
   dayPerformance: "2.3%",
   weekPerformance: "10%",
@@ -157,7 +157,7 @@ const coinRows = [
   {
   id: 3, 
   coinLogo: "https://s2.coinmarketcap.com/static/img/coins/64x64/1.png",
-  coinName: "Bitcoin",
+  coinSymbol: "BTC/USD",
   currentPrice: 59203.82,
   dayPerformance: "2.3%",
   weekPerformance: "10%",
@@ -167,7 +167,7 @@ const coinRows = [
   {
   id: 4, 
   coinLogo: "https://s2.coinmarketcap.com/static/img/coins/64x64/1.png",
-  coinName: "Bitcoin",
+  coinSymbol: "BTC/USD",
   currentPrice: 59203.82,
   dayPerformance: "2.3%",
   weekPerformance: "10%",
@@ -213,11 +213,19 @@ const tradeRows = [
 export default function App() {
 
   const [exchangeCredentials, setExchangeCredentials] = useState(null);
-  const [exchangeData, setExchangeData] = useState();
+  const [exchangeData, setExchangeData] = useState(null)
+    // exchange: null,
+    // coin: null,
+    // filter: null,
+    // timeframe: null
+
 
   useEffect(() => {
     if (exchangeCredentials) { 
-      axios.get('http://localhost:3001/api/exchange')
+      // const {exchange, coin, currency, timeframe} = exchangeData
+      // const apiUrl = `http://localhost:3001/api/exchange?exchange=${exchange}&coin=${coin}&currency=${filter}&timeframe=${timeframe}`
+      const apiUrl = `http://localhost:3001/api/exchange`
+      axios.get(apiUrl)
       .then(res => {
         setExchangeData(res.data);
       })
@@ -236,7 +244,7 @@ export default function App() {
     <Router>
     <div>
       <button onClick={() => setExchangeCredentials("Exchange set")}>Update data</button>
-      {/* <div>{JSON.stringify(exchangeData)}</div> */}
+      <div>{JSON.stringify(exchangeData)}</div>
       <header>
         <nav className="navbar">
           <Link className="nav-text" to="/" >Crypto-Tracker</Link>
@@ -262,16 +270,16 @@ export default function App() {
             <SettingsForm /> 
           </Route>
         { exchangeData && <Route path="/">
-            <div class="chart-dashboard-container">
+            <div className="chart-dashboard-container">
               <DisplayChart />
               <Dashboard 
-                balance={exchangeData.balance} 
-                exchanges={exchangeData.exchanges} 
+                balance={balance} 
+                exchanges={exchanges} 
                 timeframes={timeframes}
                 currencies={currencies}
               />
             </div>
-            <CoinTable rows={exchangeData.coins} /> 
+            <CoinTable rows={coinRows} /> 
           </Route> }
         </Switch>
       </main>

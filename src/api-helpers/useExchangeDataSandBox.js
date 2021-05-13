@@ -137,7 +137,6 @@ const fetchExchangeCoins = (exchange, searchTicker) => {
 }
 
 
-
 // const averagePL = (trades) => {
 //   totalPercent = 0;
 //   trades.forEach(trade, i => {

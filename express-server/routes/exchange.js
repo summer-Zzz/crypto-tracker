@@ -2,6 +2,7 @@ const ccxt = require('ccxt');
 const express = require('express');
 const router = express.Router();
 const db = require('../db/index')
+const { getUserExchanges } = require('../db/queries/queries')
 
 const exchangeData = {
   exchanges: [
@@ -140,12 +141,33 @@ const exchangeData = {
   currentPrice: 55000
 }
 
-router.get('/', (req, res) => {
-  res.send(exchangeData);
-  // const userId = req.session;
-  const {apiKey, secret} = req.params
-  // need this data: apiKey, secret, coin, exchange
-  // MIDDLEWARE
+router.get('/', function (req, res) {
+  const returnObject = {}
+  // does user have exchange data?
+  // if no - flash welcome message 
+  const {exchange, coin, filter, timeframe} = url.params
+  const userId = session.params.user_id
+  getUserExchanges(userId)
+  .then(exchanges => {
+    if (!exchanges) {
+      sendDefaultExchangeInfo().then(defaultExchange => {
+        return res.send(defaultExchange);
+      })
+
+    // if yes -
+    // is user requesting a specific exchange? 
+    
+      // render first coin
+      // filter USD 
+      // 
+    }
+  })
+  // if no - render first exchange with 
+  
+})
+// res.send(exchangeData);
+// need this data: apiKey, secret, coin, exchange
+// MIDDLEWARE
 // is user logged in? - req.session.userId
 // if no - return 401 status("user must be logged in")
 // if yes - fetch user data, next()
@@ -164,14 +186,42 @@ router.get('/', (req, res) => {
 // // is coin param present in coinList?
 // // if yes, render coinList
 // // if no, next()
-// if no, fetch first available coin and render 
 
-})
+const sendDefaultExchangeInfo = () => {
+  const binance = new ccxt.binance({
+    enableRateLimit: true
+  })
+  return binance.fetchTickers()
+  .then(values => {
+    const coins = formatCoins(values, "BTC");
+    const coin = coins[0];
+    return {
+      coins: coins,
+      coin: coin
+    }
+  })
+}
 
+const formatCoins = (coins, searchParam) => {
+  const coinArray = []
+  for (let coin in coins) {
+    if (coin.includes(searchParam)) {
+      const coinData = coins[coin]
+      const coinObject = {
+        symbol: coinData.symbol,
+        price: coinData.ask,
+        change: coinData.change,
+        changePercent: coinData.percentage,
+        volume: coinData.baseVolume
+      }
+     coinArray.push(coinObject)
+    }
+  }
+  return coinArray;
+}
 
-// initializeExchange(exchange, apiKey, secret).then(exchangeData => {
-//   res.json(exchangeData, userExchanges);
-// get exchanges by id 
+// // initializeExchange(exchange, apiKey, secret).then(exchangeData => {
+// //   res.json(exchangeData, userExchanges);
 
 // const initializeExchange = (exchange, apiKey, secret) => {
 //   exchangeId = exchange;
@@ -196,20 +246,7 @@ router.get('/', (req, res) => {
 //   })
 // }
 
-// const formatCoins = (coins) => {
-//   const coinArray = []
-//   for (let coin of coins) {
-//     const coinData = {
-//       symbol: coin.symbol,
-//       price: coin.ask,
-//       change: coin.change,
-//       changePercent: coin.percentage,
-//       volume: coin.baseVolume
-//     }
-//     coinArray.push(coinData)
-//   }
-//   return coinArray;
-// }
+
 
 // MIDDLEWARE
 // is user logged in? - req.session.userId
