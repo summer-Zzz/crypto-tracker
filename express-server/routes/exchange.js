@@ -142,7 +142,7 @@ const exchangeData = {
 }
 
 router.get('/', function (req, res) {
-  const userId = 1;
+  const userId = 2;
   getUserExchanges(userId)
   .then(exchanges => {
     const firstExchange = exchanges[0];
@@ -158,12 +158,12 @@ const oneDayAgo = () => new Date - 86400000
 const oneMinuteAgo = () => new Date - 60000
 
 const getExchangeInfo = (exchangeData) => {
-  // const {apiKey, secret, exchange} = exchangeData; 
-  exchangeId = 'bitmex';
+  const {api_key, api_secret, exchange_name} = exchangeData; 
+  exchangeId = exchange_name;
   exchangeClass = ccxt[exchangeId];
   const exchange = new exchangeClass({
-    apiKey: 'rEiV3A0DRLlm4Gigyw5rh_CJ',
-    secret: 'FBIW6Q6FWO142xs07zF1UNhKpZ5K1lynUrGKC9Jfn6NZznyW',
+    apiKey: api_key,
+    secret: api_secret,
     enableRateLimit: true
   })
   exchange.setSandboxMode(true);
