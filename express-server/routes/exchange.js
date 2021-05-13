@@ -138,7 +138,7 @@ const exchangeData = {
   ]
 }
 
-router.get('/api/exchange/:name', (req, res) => {
+router.get('/:name', (req, res) => {
     res.json(exchangeData)
 })
 
