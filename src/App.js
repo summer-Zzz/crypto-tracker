@@ -19,24 +19,24 @@ import TradeTable from "./components/TradeTable/TradeTable";
 import axios from 'axios';
 
 
-const exchanges = [
-  {
-    id: 1,
-    name: 'kraken',
-  },
-  {
-    id: 2,
-    name: 'binance',
-  },
-  {
-    id: 3,
-    name: 'phemex',
-  },
-  {
-    id: 4,
-    name: 'bitmex',
-  }
-]
+// // const exchanges = [
+//   {
+//     id: 1,
+//     name: 'kraken',
+//   },
+//   {
+//     id: 2,
+//     name: 'binance',
+//   },
+//   {
+//     id: 3,
+//     name: 'phemex',
+//   },
+//   {
+//     id: 4,
+//     name: 'bitmex',
+//   }
+// ]
 const timeframes = [
   {
     id: 1,
@@ -59,11 +59,11 @@ const timeframes = [
     name: '24 hours'
   },
   {
-    id: 5,
+    id: 6,
     name: '1 week'
   },
   {
-    id: 6,
+    id: 7,
     name: '1 month'
   }
 ]
@@ -209,21 +209,34 @@ const tradeRows = [
   },
 ]
 
-const currentPrice = 65281.91;
-
 export default function App() {
 
-  function handleScroll() {
-    window.scroll({
-      top: document.body.offsetHeight,
-      left: 0, 
-      behavior: 'smooth',
-    });
-  }
+  const [exchangeCredentials, setExchangeCredentials] = useState(null)
+  const [exchangeData, setExchangeData] = useState()
+
+  useEffect(() => {
+    if (exchangeCredentials) { 
+      axios.get('http://localhost:3001/api/exchange')
+      .then(res => {
+        console.log(res)
+        setExchangeData(res.data)
+      })
+    }
+  }, [exchangeCredentials])
+
+  // function handleScroll() {
+  //   window.scroll({
+  //     top: document.body.offsetHeight,
+  //     left: 0, 
+  //     behavior: 'smooth',
+  //   });
+  // }
 
   return (
     <Router>
     <div>
+      <button onClick={() => setExchangeCredentials("Exchange set")}>Update data</button>
+      {/* <div>{JSON.stringify(exchangeData)}</div> */}
       <header>
         <nav className="navbar">
           <Link className="nav-text" to="/">Crypto-Tracker</Link>
@@ -243,23 +256,23 @@ export default function App() {
             <Form formLabel={'Login'} firstLabel={'email'} secondLabel={'password'}/>
           </Route>
           <Route path="/tradetable">
-            <TradeTable rows={tradeRows}/>
+          { exchangeData && <TradeTable rows={exchangeData.trades}/> }
           </Route>
           <Route path="/settings">
             <SettingsForm /> 
           </Route>
-          <Route path="/">
+        { exchangeData && <Route path="/">
             <div class="chart-dashboard-container">
               <DisplayChart />
               <Dashboard 
-                balance={balance} 
-                exchanges={exchanges} 
+                balance={exchangeData.balance} 
+                exchanges={exchangeData.exchanges} 
                 timeframes={timeframes}
                 currencies={currencies}
               />
             </div>
-            <CoinTable rows={coinRows} /> 
-          </Route>
+            <CoinTable rows={exchangeData.coins} /> 
+          </Route> }
         </Switch>
       </main>
     </div>

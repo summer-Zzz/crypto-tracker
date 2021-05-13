@@ -1,4 +1,4 @@
-const { exchanges } = require('ccxt');
+const ccxt = require('ccxt');
 const express = require('express');
 const router = express.Router();
 
@@ -135,12 +135,58 @@ const exchangeData = {
     tradePrice: 59203.82,
     tradeAmount: 0.0855208
     },
-  ]
+  ],
+  currentPrice: 55000
 }
 
-router.get('/api/exchange/:name', (req, res) => {
-    res.json(exchangeData)
+router.get('/', (req, res) => {
+  // query db for exchange name 
+  
+  // get coin params 
+  // get all exchange info 
+  const {apiKey, secret} = req.params
+  initializeExchange(exchange, apiKey, secret).then(exchangeData => {
+    res.json(exchangeData);
+  })
 })
+
+const initializeExchange = (exchange, apiKey, secret) => {
+  exchangeId = exchange;
+  exchangeClass = ccxt[exchangeId];
+  exchange = new exchangeClass({
+    apiKey,
+    secret,
+    enableRateLimit: true
+  })
+  const fetchBalance = exchange.fetchBalance();
+  const fetchCoins = exchange.fetchCoins();
+  return Promise.all([fetchBalance, fetchCoins])
+  .then(values => {
+    const balance = values[0];
+    const coins = formatCoins(values[1]);
+    const coin = coins[0];
+    return {
+      balance,
+      coins,
+      coin
+    }
+  })
+}
+
+const formatCoins = (coins) => {
+  const coinArray = []
+  for (let coin of coins) {
+    const coinData = {
+      symbol: coin.symbol,
+      price: coin.ask,
+      change: coin.change,
+      changePercent: coin.percentage,
+      volume: coin.baseVolume
+    }
+    coinArray.push(coinData)
+  }
+  return coinArray;
+}
 
 // MIDDLEWARE
 // is user logged in? - req.session.userId
@@ -149,6 +195,8 @@ router.get('/api/exchange/:name', (req, res) => {
 // does the user have account for exchange already? - accounts table db query
 // if no - return 401 status("user must have an account")
 // if yes - fetch exchange data and coinList, next()
+
+
 // ROUTE
 // do we have coin param?
 // if yes, fetch coindata and render
@@ -166,3 +214,5 @@ router.get('/api/exchange/:name', (req, res) => {
 //     res.json(trades)
 //   })
 // })
+
+module.exports = router
