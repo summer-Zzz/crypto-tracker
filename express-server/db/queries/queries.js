@@ -58,7 +58,7 @@ module.exports = (db) => {
   // 5- GET /api/users/exchange/:id === get user exchange 
   const getUserExchange = (userId) => {
     const query = {
-      text: `SELECT users.id as user_id, users.name as user_name, email, accounts.id as account_id, exchanges.id as exchange_id, exchanges.name as exchange_name
+      text: `SELECT accounts.api_key, accounts.secret_key, exchanges.name as exchange_name
       FROM users
       INNER JOIN accounts
       ON users.id = accounts.user_id
