@@ -232,7 +232,8 @@ export default function App() {
           candles,
           balance,
           coins,
-          coin
+          coin,
+          timeframes
         });
       })
     }
@@ -283,7 +284,7 @@ export default function App() {
                 trades={exchangeData.trades}
                 balance={exchangeData.balance} 
                 exchanges={exchanges} 
-                timeframes={timeframes}
+                timeframes={exchangeData.timeframes}
                 currencies={currencies}
               />
             </div>
