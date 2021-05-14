@@ -218,14 +218,14 @@ const userDatabase = {
 
 export default function App() {
 
-  // const [currentUser, setCurrentUser] = useState(null)
+  const [currentUser, setCurrentUser] = useState(null)
 
-  // const handleLogin = user => {
-  //   user.preventDefault()
-  //   axios
-  //     .post('/api/users', {data:user})
-  //     .then(res => setCurrentUser(res.data))
-  // }
+  const handleLogin = user => {
+    user.preventDefault()
+    axios
+      .post('/api/users', {data:user})
+      .then(res => setCurrentUser(res.data))
+  }
 
   const [exchangeCredentials, setExchangeCredentials] = useState(null);
   const [exchangeData, setExchangeData] = useState(null)
@@ -248,7 +248,8 @@ export default function App() {
           candles,
           balance,
           coins,
-          coin
+          coin,
+          timeframes
         });
       })
     }
@@ -275,8 +276,7 @@ export default function App() {
             <Form formLabel={'Register'} firstLabel={'Email:'} secondLabel={'Password:'}/>
           </Route>
           <Route path="/login">
-          <Form handleLogin={handleLogin} />
-            <Form formLabel={'Login'} firstLabel={'Email:'} secondLabel={'Password:'}/>
+            <Form formLabel={'Login'} firstLabel={'Email:'} secondLabel={'Password:'} handleLogin={handleLogin}/>
           </Route>
           <Route path="/tradetable">
           { exchangeData && <TradeTable rows={exchangeData.trades}/> }
@@ -293,7 +293,8 @@ export default function App() {
                 trades={exchangeData.trades}
                 balance={exchangeData.balance} 
                 exchanges={exchanges} 
-                timeframes={timeframes}
+                timeframes={exchangeData.timeframes}
+                currencies={currencies}
               />
             </div>
             <CoinTable rows={exchangeData.coins} currencies={currencies} />
