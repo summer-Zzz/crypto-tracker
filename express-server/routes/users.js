@@ -46,22 +46,38 @@ const {getUserByEmail, addUser, addUserAccount} = require('../db/helpers/dbHelpe
       }));
   })
   
-//};
+router.post('/login/:email/:password', (req, res) => {
+  const {email, password} = req.params;
+  
+  getUserByEmail(email)
+  .then(user => {
+    if (email && user.password === password) {
+      // set cookie 
+      req.session.user_id = user.id;
+      return res.redirect("/")
+    }
+    return res.send("Error!! Please try again!");
+  })
+})
+
+router.post('/register/:email/:password', (req, res) => {
+  const {email, password} = req.params;
+  
+  getUserByEmail(email)
+  .then(user => {
+    if (user) {
+      // set cookie 
+      return res.send("Sorry, there is already a user registered with this email")
+    }
+    addUser(email, password).then(userAdded => {
+      console.log(userAdded)
+      return res.send("success, you are registered")
+    })
+  })
+})
 
 module.exports = router;
-
-// app.post('/login', (req,res) => {
-//   const {email, password} = req.body;
-//   console.log(req.body);
-  
-//   if (userDatabase[email] && userDatabase[email].password === password) {
-//     res.cookie('email', email);
-//     res.json(userDatabase[email]);
-//   } else {
-//     res.json(err, "Error!! Please login!!")
-//   }
-// });
-
+4
 // app.post('/register', (req,res) => {
 //   const {email, password} = req.body;
 //   userDatabase[email] = {email, password};
