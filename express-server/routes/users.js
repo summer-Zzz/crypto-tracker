@@ -43,17 +43,19 @@ const {getUserByEmail, addUser} = require('../db/helpers/dbHelpers');
 
 module.exports = router;
 
-// app.post('/login', (req,res) => {
-//   const {email, password} = req.body;
-//   console.log(req.body);
+router.post('/login/:email/:password', (req,res) => {
+  const {email, password} = req.body;
+  console.log(req.body);
   
-//   if (userDatabase[email] && userDatabase[email].password === password) {
-//     res.cookie('email', email);
-//     res.json(userDatabase[email]);
-//   } else {
-//     res.json(err, "Error!! Please login!!")
-//   }
-// });
+  if (userDatabase[email] && userDatabase[email].password === password) {
+    res.cookie('email', email);
+    res.json(userDatabase[email]);
+  } else {
+    res.json(err, "Error!! Please login!!")
+  }
+});
+
+
 
 // app.post('/register', (req,res) => {
 //   const {email, password} = req.body;
