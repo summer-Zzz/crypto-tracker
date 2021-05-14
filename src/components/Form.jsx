@@ -10,9 +10,10 @@ export default function Form(props) {
 
   const userData = {
     email,
-    password
+    password,
+    dataType: props.formLabel.toLowerCase()
   }
-
+  
   const sceneEl = useRef(null);
   useEffect(() => {
     const parallaxInstance = new Parallax(sceneEl.current, {
@@ -42,7 +43,7 @@ export default function Form(props) {
       <div className="form-container">
         <form action="" method="POST" onSubmit={(event) => {
           event.preventDefault()
-          props.handleLogin(userData)
+          props.handleSubmit(userData)
         }
         }>
           <h2 className="form-label">{props.formLabel}</h2>
@@ -58,7 +59,7 @@ export default function Form(props) {
             <input type="text" name={props.firstLabel} placeholder="Enter your password" onChange={(e) => handlePasswordChange(e)} />
           </div>
           <div className="button-container">
-            <input type="submit" onSubmit={(event) => props.handleLogin(userData)} className="button"></input>
+            <input type="submit" onSubmit={(event) => props.handleSubmit(userData)} className="button"></input>
           </div>
         </form>
       </div>
