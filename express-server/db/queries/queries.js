@@ -57,14 +57,15 @@ const db = require('../index')
   // 5- GET /api/users/exchange/:id === get user exchange 
   const getUserExchanges = (userId) => {
     const query = {
-        text: `SELECT users.id as user_id, users.name as user_name, email, accounts.id as account_id, exchanges.id as exchange_id, exchanges.name as exchange_name
-        FROM users
-        INNER JOIN accounts
-        ON users.id = accounts.user_id
-        INNER JOIN exchanges
-        ON accounts.exchange_id = exchanges.id
-        WHERE users.id = $1`,
-        values: [userId]
+
+      text: `SELECT accounts.api_key, accounts.api_secret, exchanges.name as exchange_name
+      FROM users
+      INNER JOIN accounts
+      ON users.id = accounts.user_id
+      INNER JOIN exchanges
+      ON accounts.exchange_id = exchanges.id
+      WHERE users.id = $1`,
+      values: [userId]
       }
 
     return db.query(query)
@@ -171,19 +172,9 @@ const addUserAccount = (txnData) => {
     .catch(err => err);
 }
 
-  // return {
-      // getUsers,
-      // getUserById,
-      // getUserByEmail,
-      // addUser,
-      // getUserExchanges,
-      // getUserTransactions,
-      // getUserExchangeTransactions,
-      // addUserTransactions,
-      // addUserExchange, 
-      // addUserAccount
-  // };
-  module.exports = {getUsers,
+  module.exports = {
+    getUserExchanges,
+    getUsers,
     getUserById,
     getUserByEmail,
     addUser,
@@ -192,7 +183,8 @@ const addUserAccount = (txnData) => {
     getUserExchangeTransactions,
     addUserTransactions,
     addUserExchange, 
-    addUserAccount}
+    addUserAccount
+  }
 
 // - POST /api/login === log user in (set cookies)
 // - POST /api/logout === log user out (delete cookies)

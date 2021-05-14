@@ -14,13 +14,12 @@ phemex.setSandboxMode(true);
 
 
 const bitmex = new ccxt.bitmex({
-  apiKey: process.env.BITMEX_API_PUBLIC,
-  secret: process.env.BITMEX_API_SECRET,
+  apiKey: process.env.BITMEX_ID,
+  secret: process.env.BITMEX_SECRET,
   enableRateLimit: true
 })
 
-
-bitmex.setSandboxMode(true)
+bitmex.setSandboxMode(true);
 
 const binance = new ccxt.binance({
   apiKey: process.env.BNB_ID,
@@ -64,13 +63,13 @@ const averageCost = (trades) => {
   return costTotal / trades.length;
 }
 
-const fetchBalance = (exchange) => {
+// const fetchBalance = (exchange) => {
 
-  exchange.fetchBalance()
-  .then(balance => console.log(balance.total))
-  .catch(err => console.log(err))
+//   exchange.fetchBalance()
+//   .then(balance => console.log(balance.total))
+//   .catch(err => console.log(err))
 
-}
+// }
 
 const getOHLCVData = (exchangeRequestData) => {
 
@@ -143,7 +142,7 @@ const fetchExchangeCoins = (exchange, searchTicker) => {
 //     const pL = calculatePL()
 //   })
 // }
-
+const allTime = () => new Date - 4000000000000000
 const oneMonthAgo = () => new Date - 2629800000
 const oneWeekAgo = () => new Date - 604800000
 const oneDayAgo = () => new Date - 86400000
@@ -151,24 +150,26 @@ const oneMinuteAgo = () => new Date - 60000
 
 // Object to mimic request coming from front-end ui 
 const exchangeRequestData = {
-  symbol: 'BTC/USDT',
+  symbol: 'BTC/USD',
   timeframe: '1m',
-  since: oneMonthAgo(),
-  exchange: phemex
+  since: allTime(),
+  exchange: bitmex
 }
 
 // CALL API SANDBOX FUNCTIONS // 
 
 // // fetch all trades 
 // fetchTrades(exchangeRequestData)
-
+console.log(phemex.timeframes)
 // // get average cost from all trades 
 // const trades = fetchTrades(exchangeRequestData)
 // console.log(trades);
 // console.log(averageCost(trades))
 
-// fetch balance for user
-// fetchBalance(phemex)
+// // fetch balance for user
+// fetchBalance(bitmex)
+
+// binance.fetchBalance().then(balance => console.log(balance)).catch(err => console.log(err))
 
 // fetch OHLCV data
 // getOHLCVData(exchangeRequestData)
@@ -178,9 +179,3 @@ const exchangeRequestData = {
 
 // fetch single ticker price
 // fetchTickerPrice(binance, 'BTC/USDT')
-
-bitmex.fetchTickers().then(data => {
-  for (let ticker of tickers) {
-    console.log(ticker.info)
-  }
-})

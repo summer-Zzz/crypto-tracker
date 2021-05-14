@@ -19,7 +19,6 @@ import DisplayChart from './components/Candlestick/DisplayChart';
 import TradeTable from "./components/TradeTable/TradeTable";
 import axios from 'axios';
 
-
 const exchanges = [
   {
     id: 1,
@@ -235,7 +234,6 @@ export default function App() {
     // filter: null,
     // timeframe: null
 
-
   useEffect(() => {
     if (exchangeCredentials) { 
       // const {exchange, coin, currency, timeframe} = exchangeData
@@ -243,7 +241,15 @@ export default function App() {
       const apiUrl = `http://localhost:3001/api/exchange`
       axios.get(apiUrl)
       .then(res => {
-        setExchangeData(res.data);
+       const {trades, candles, balance, coins, timeframes} = res.data;
+       const coin = coins[0];
+        setExchangeData({
+          trades,
+          candles,
+          balance,
+          coins,
+          coin
+        });
       })
     }
   }, [exchangeCredentials])
@@ -260,7 +266,7 @@ export default function App() {
     <Router>
     <div>
       <button onClick={() => setExchangeCredentials("Exchange set")}>Update data</button>
-      <div>{JSON.stringify(exchangeData)}</div>
+      {/* <div>{JSON.stringify(exchangeData)}</div> */}
       <header>
         <nav className="navbar">
           <Link className="nav-text" to="/" >Crypto-Tracker</Link>
@@ -288,15 +294,17 @@ export default function App() {
           </Route>
         { exchangeData && <Route path="/">
             <div className="chart-dashboard-container">
-              <DisplayChart />
+              <DisplayChart candles={exchangeData.candles} coinName={exchangeData.coin.symbol || "no data"} />
               <Dashboard 
-                balance={balance} 
+                coin={exchangeData.coin}
+                trades={exchangeData.trades}
+                balance={exchangeData.balance} 
                 exchanges={exchanges} 
                 timeframes={timeframes}
                 currencies={currencies}
               />
             </div>
-            <CoinTable rows={coinRows} /> 
+            <CoinTable rows={exchangeData.coins} /> 
           </Route> }
         </Switch>
       </main>
