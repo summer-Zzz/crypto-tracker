@@ -277,10 +277,9 @@ export default function App() {
                 balance={exchangeData.balance} 
                 exchanges={exchanges} 
                 timeframes={timeframes}
-                currencies={currencies}
               />
             </div>
-            <CoinTable rows={exchangeData.coins} />
+            <CoinTable rows={exchangeData.coins} currencies={currencies} />
             </Route>  
           }
           </Route> 
