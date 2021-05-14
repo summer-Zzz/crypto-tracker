@@ -284,7 +284,6 @@ export default function App() {
           <Route path="/settings">
             <SettingsForm /> 
           </Route>
-          <Home />
         { exchangeData &&
           <Route path="/">
             <div id="chart-dashboard-container">
