@@ -1,6 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+
 
 h1, h2 {
   font-size: 2em;
+  font-family: 'Ubuntu', sans-serif;
+
 }
 
 
@@ -43,10 +47,11 @@ button:hover {
   font-family: Arial;
   margin-top: 0;
   padding: 20px;
+  font-family: 'Ubuntu', sans-serif;
 }
 
 
-.chart-dashboard-container {
+#chart-dashboard-container {
   display: flex;
   justify-content: center;
   width: 100%;
@@ -55,7 +60,7 @@ button:hover {
 }
 
 @media only screen and (max-width: 1024px) {
-  .chart-dashboard-container {
+  #chart-dashboard-container {
     display: flex;
     flex-direction: column;
     width: 100%;

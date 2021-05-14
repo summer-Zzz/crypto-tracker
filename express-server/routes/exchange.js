@@ -166,6 +166,7 @@ const getExchangeInfo = (exchangeData) => {
     secret: api_secret,
     enableRateLimit: true
   })
+  
   exchange.setSandboxMode(true);
   const fetchTrades = exchange.fetchMyTrades("BTC/USD", oneMonthAgo());
   const fetchOHLCV = exchange.fetchOHLCV("BTC/USD", '1h', oneMonthAgo());
