@@ -220,11 +220,13 @@ export default function App() {
 
   const [currentUser, setCurrentUser] = useState(null)
 
-  const handleLogin = user => {
-    user.preventDefault()
+  const handleLogin = (userData) => {
+    // event.preventDefault()
+    console.log(userData)
     axios
-      .post('/api/users', {data:user})
-      .then(res => setCurrentUser(res.data))
+    // .then(res => setCurrentUser(res.data))
+    .post(`http://localhost:3001/api/login`)
+    .then(res => console.log("response =>", res))
   }
 
   const [exchangeCredentials, setExchangeCredentials] = useState(null);
@@ -273,11 +275,10 @@ export default function App() {
       <main>
         <Switch>
           <Route path="/register">
-            <Form formLabel={'Register'} firstLabel={'Email:'} secondLabel={'Password:'}/>
+            <Form formLabel={'Register'} firstLabel={'Email:'} secondLabel={'Password:'} handleLogin={handleLogin}/>
           </Route>
           <Route path="/login">
-          <Form handleLogin={handleLogin} />
-            <Form formLabel={'Login'} firstLabel={'Email:'} secondLabel={'Password:'}/>
+            <Form formLabel={'Login'} firstLabel={'Email:'} secondLabel={'Password:'} handleLogin={handleLogin}/>
           </Route>
           <Route path="/tradetable">
           { exchangeData && <TradeTable rows={exchangeData.trades}/> }
