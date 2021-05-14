@@ -43,10 +43,10 @@ const db = require('../index')
 
 
   // 4 - POST /api/users/new === register user 
-  const addUser = (userName, email, password) => {
+  const addUser = (email, password) => {
       const query = {
-          text: `INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *`,
-          values: [userName, email, password]
+          text: `INSERT INTO users (email, password) VALUES ($1, $2) RETURNING *`,
+          values: [email, password]
       }
 
       return db.query(query)
