@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {getUserByEmail, addUser} = require('../db/helpers/dbHelpers');
+const {getUserByEmail, addUser, addUserAccount} = require('../db/helpers/dbHelpers');
 
 /* GET users listing. */
 // module.exports = ({
@@ -16,6 +16,35 @@ const {getUserByEmail, addUser} = require('../db/helpers/dbHelpers');
   //       error: err.message
   //     }));
   // });
+
+  router.post('/exchanges/new', async (req, res) => {
+    const { userId, exchangeId, apiKey, apiSecret } = req.body;
+    const account = await addUserAccount({ userId, exchangeId, apiKey, apiSecret })
+    console.log(account)
+    res.sendStatus(200)
+  })
+
+  router.post('/register', (req, res) => {
+    const {
+      email,
+      password
+    } = req.body;
+
+    getUserByEmail(email)
+      .then(user => {
+        if (user) {
+          res.json({
+            msg: 'Sorry, a user account with this email already exists'
+          });
+        } else {
+          return addUser(email, password)
+        }
+      })
+        .then(newUser => res.json(newUser))
+        .catch(err => res.json({
+          error: err.message
+      }));
+  })
   
 router.post('/login/:email/:password', (req, res) => {
   const {email, password} = req.params;

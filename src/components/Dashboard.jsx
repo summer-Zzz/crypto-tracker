@@ -22,26 +22,14 @@ const averageCost = (trades) => {
   return costTotal / trades.length;
 }
 
-const formatTimeframes = (timeframes) => {
-  const timeFrameArr = [] 
-  for (let tf in timeframes) {
-    timeFrameArr.push({
-      id: tf,
-      name: tf
-    })
-  }
-  return timeFrameArr
-}
-
 export default function Dashboard(props) {
-  const { coin, trades, balance, exchanges, timeframes, currencies, } = props;
+  const { coin, trades, balance, exchanges, timeframes, currencies } = props;
   // use selected coin's symbol to access balance 
   const baseTicker = coin.symbol.split('/')[0];
   const baseTickerBalance = balance[baseTicker].total;
   const pL = calculatePL(trades, coin.price);
   const average = `$${averageCost(trades)}`;
-  const formattedTimeframes = formatTimeframes(timeframes);
- 
+
   return (
     <div className='dashboard-container'>
       <div className="menu-container">
