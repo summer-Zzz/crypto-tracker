@@ -209,7 +209,23 @@ const tradeRows = [
   },
 ]
 
+const userDatabase = {
+  'testlogin@test.com' : {
+    email: 'testlogin@test.com',
+    password: '123'
+  }
+}
+
 export default function App() {
+
+  // const [currentUser, setCurrentUser] = useState(null)
+
+  // const handleLogin = user => {
+  //   user.preventDefault()
+  //   axios
+  //     .post('/api/users', {data:user})
+  //     .then(res => setCurrentUser(res.data))
+  // }
 
   const [exchangeCredentials, setExchangeCredentials] = useState(null);
   const [exchangeData, setExchangeData] = useState(null)
@@ -239,13 +255,6 @@ export default function App() {
     }
   }, [exchangeCredentials])
 
-  function handleScroll() {
-    window.scroll({
-      top: document.body.offsetHeight,
-      left: 0, 
-      behavior: 'smooth',
-    });
-  }
 
   return (
     <Router>
@@ -254,20 +263,20 @@ export default function App() {
       {/* <div>{JSON.stringify(exchangeData)}</div> */}
       <header>
         <nav className="navbar">
-          <Link className="nav-text" to="/" >Crypto-Tracker</Link>
-          <Link className="nav-text" to="/login" onClick={handleScroll}>Login</Link>
-          <Link className="nav-text" to="/register" onClick={handleScroll}>Register</Link>
-          <Link className="nav-text" to="/tradetable" onClick={handleScroll}>Trade Table</Link>
-          <Link className="nav-text" to="/settings" onClick={handleScroll}>Settings</Link>
+          <Link className="nav-text" to="/">Crypto-Tracker</Link>
+          <Link className="nav-text" to="/login">Login</Link>
+          <Link className="nav-text" to="/register">Register</Link>
+          <Link className="nav-text" to="/tradetable">Trade Table</Link>
+          <Link className="nav-text" to="/settings">Settings</Link>
         </nav>
-        <Home />
       </header>
       <main>
         <Switch>
           <Route path="/register">
-            <Form formLabel={'Register'} firstLabel={'Email:'} secondLabel={'Password:'} />
+            <Form formLabel={'Register'} firstLabel={'Email:'} secondLabel={'Password:'}/>
           </Route>
           <Route path="/login">
+          <Form handleLogin={handleLogin} />
             <Form formLabel={'Login'} firstLabel={'Email:'} secondLabel={'Password:'}/>
           </Route>
           <Route path="/tradetable">
@@ -276,8 +285,10 @@ export default function App() {
           <Route path="/settings">
             <SettingsForm /> 
           </Route>
-        { exchangeData && <Route path="/">
-            <div className="chart-dashboard-container">
+          <Home />
+        { exchangeData &&
+          <Route path="/">
+            <div id="chart-dashboard-container">
               <DisplayChart candles={exchangeData.candles} coinName={exchangeData.coin.symbol || "no data"} />
               <Dashboard 
                 coin={exchangeData.coin}
@@ -288,8 +299,9 @@ export default function App() {
                 currencies={currencies}
               />
             </div>
-            <CoinTable rows={exchangeData.coins} /> 
-          </Route> }
+            <CoinTable rows={exchangeData.coins} currencies={currencies} />
+            </Route>  
+          }
         </Switch>
       </main>
     </div>

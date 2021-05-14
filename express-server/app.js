@@ -9,7 +9,6 @@ require('dotenv').config()
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const exchangeRouter = require('./routes/exchange');
-
 const app = express();
 
 app.use(cors());
@@ -22,5 +21,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/exchange', exchangeRouter);
+
 
 module.exports = app;

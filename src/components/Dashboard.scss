@@ -1,5 +1,6 @@
 .dashboard-container {
   margin-bottom: 50px;
+  margin-top: 40px;
 }
 .menu-container {
   display: flex;
@@ -9,7 +10,13 @@
 
 .info-container {
   margin-left: 20%;
-  margin-top: 20px;
+  margin-top: 50px;
+}
+
+.option-lable {
+  font-weight: 800;
+  margin: 10px;
+  text-decoration: underline;
 }
 
 
@@ -22,6 +29,7 @@
     text-align: center;
     margin-top: 50px;
     margin-bottom: 50px;
+    border: solid black
   }
   .info-container {
     margin-left:20%;

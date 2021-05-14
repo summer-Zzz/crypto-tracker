@@ -42,8 +42,6 @@ export default function Dashboard(props) {
   const average = `$${averageCost(trades)}`;
   const formattedTimeframes = formatTimeframes(timeframes);
  
-
-
   return (
     <div className='dashboard-container'>
       <div className="menu-container">
