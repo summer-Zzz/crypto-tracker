@@ -284,7 +284,7 @@ export default function App() {
           { exchangeData && <TradeTable rows={exchangeData.trades}/> }
           </Route>
           <Route path="/settings">
-            <SettingsForm /> 
+            <SettingsForm handleLogin={handleLogin}/> 
           </Route>
           {/* <Home /> */}
         { exchangeData &&

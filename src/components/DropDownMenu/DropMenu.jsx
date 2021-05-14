@@ -4,8 +4,9 @@ import DropDownItem from './DropDownItem'
 
 export default function DropMenu(props) {
 
-  const [currentOption, setOption] = useState('')
-    function handleChange(event) {
+  const [currentOption, setOption] = useState('');
+
+  const handleChange = (event) => {
     let value = event.target.value;
     setOption(value)
   }
