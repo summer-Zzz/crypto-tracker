@@ -1,5 +1,6 @@
-var express = require('express');
-var router = express.Router();
+const  express = require('express');
+const router = express.Router();
+const { }
 
 // user registration
 router.post('/', function(req, res, next) {
@@ -12,17 +13,17 @@ router.post('/', function(req, res, next) {
   // when user logs in call function that confirms if user exists in database 
 });
 
-// add api key
-router.get('/', function(req, res, next) {
-// calls function that takes api keys and inputs them in to db 
-});
-
 // user logout
 router.post('/', function(req, res, next) {
 // calls function that clears user cookies (logout)
 });
 
-// retreive user exchanges
+// add api key
+router.get('/', function(req, res, next) {
+// calls function that takes api keys and inputs them in to db 
+});
+
+// retreive user transactions
 router.get('/', function(req, res, next) {
   // take in userId/email and retreive array of exchanges 
 });

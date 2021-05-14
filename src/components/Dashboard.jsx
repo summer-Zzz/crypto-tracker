@@ -14,7 +14,7 @@ export default function Dashboard(props) {
       </div>
       <div className="info-container">
         <InfoDisplay infoHeader={'Balance'} infoContent={props.balance.USDT}/>
-        <InfoDisplay infoHeader={'P%L'} infoContent={'+25%'}/>
+        <InfoDisplay infoHeader={'P&L'} infoContent={'+25%'}/>
         <InfoDisplay infoHeader={'Average Price'} infoContent={"$53000"}/>
       </div>
     </div>

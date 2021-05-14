@@ -227,12 +227,13 @@ export default function App() {
       axios.get(apiUrl)
       .then(res => {
        const {trades, candles, balance, coins} = res.data;
-       console.log(coins)
+       const coin = coin[0];
         setExchangeData({
           trades,
           candles,
           balance,
           coins,
+          coin
         });
       })
     }
@@ -264,7 +265,7 @@ export default function App() {
       <main>
         <Switch>
           <Route path="/register">
-            <Form formLabel={'Register'} firstLabel={'Email:'} secondLabel={'Password:'} />
+            <Form formLabel={'Register'} firstLabel={'Email:'} secondLabel={'Password:'} onSubmit={} />
           </Route>
           <Route path="/login">
             <Form formLabel={'Login'} firstLabel={'Email:'} secondLabel={'Password:'}/>

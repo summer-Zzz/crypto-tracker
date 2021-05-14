@@ -145,8 +145,7 @@ router.get('/', function (req, res) {
   const userId = 3;
   getUserExchanges(userId)
   .then(exchanges => {
-    const firstExchange = exchanges[0];
-    getExchangeInfo(firstExchange).then(data => {
+    getExchangeInfo(exchanges).then(data => {
       console.log(data)
       return res.send(data);
     })
@@ -159,7 +158,8 @@ const oneDayAgo = () => new Date - 86400000
 const oneMinuteAgo = () => new Date - 60000
 
 const getExchangeInfo = (exchangeData) => {
-  const {api_key, api_secret, exchange_name} = exchangeData; 
+  const firstExchange = exchangeData[0]
+  const {api_key, api_secret, exchange_name} = firstExchange; 
   exchangeId = exchange_name;
   exchangeClass = ccxt[exchangeId];
   const exchange = new exchangeClass({
@@ -169,7 +169,7 @@ const getExchangeInfo = (exchangeData) => {
   })
   // exchange.setSandboxMode(true);
   const fetchTrades = exchange.fetchTrades("BTC/USDT", oneMonthAgo());
-  const fetchOHLCV = exchange.fetchOHLCV("BTC/USDT", '1h', oneMonthAgo());
+  const fetchOHLCV = exchange.fetchOHLCV("BTC/USDT", '30m', oneDayAgo());
   const fetchBalance = exchange.fetchBalance();
   const fetchCoins = exchange.fetchTickers();
   return Promise.all([fetchTrades, fetchOHLCV, fetchBalance, fetchCoins])
@@ -179,6 +179,7 @@ const getExchangeInfo = (exchangeData) => {
     const balance = values[2];
     const coins = formatCoins(values[3]);
     return {
+      exchanges: exchangeData,
       trades,
       candles,
       balance,
