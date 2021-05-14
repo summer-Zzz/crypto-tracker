@@ -277,7 +277,7 @@ export default function App() {
           </Route>
         { exchangeData && <Route path="/">
             <div className="chart-dashboard-container">
-              <DisplayChart candles={exchangeData.candles} coinName={exchangeData.coin.symbol} />
+              <DisplayChart candles={exchangeData.candles} coinName={exchangeData.coin.symbol || "no data"} />
               <Dashboard 
                 coin={exchangeData.coin}
                 trades={exchangeData.trades}
