@@ -38,8 +38,8 @@ export default function Dashboard(props) {
         <DropMenu options={currencies}/>
       </div>
       <div className="info-container">
-        <InfoDisplay infoHeader={'Balance'} infoContent={baseTickerBalance} />
-        <InfoDisplay infoHeader={'P&L'} infoContent={pL.toFixed(2)}/>
+        <InfoDisplay infoHeader={'Balance'} infoContent={`${baseTickerBalance} ${baseTicker}`} />
+        <InfoDisplay infoHeader={'P&L'} infoContent={`${pL.toFixed(2)}%`}/>
         <InfoDisplay infoHeader={'Average Price'} infoContent={average}/>
       </div>
     </div>
