@@ -19,7 +19,6 @@ import DisplayChart from './components/Candlestick/DisplayChart';
 import TradeTable from "./components/TradeTable/TradeTable";
 import axios from 'axios';
 
-
 const exchanges = [
   {
     id: 1,
@@ -226,8 +225,8 @@ export default function App() {
       const apiUrl = `http://localhost:3001/api/exchange`
       axios.get(apiUrl)
       .then(res => {
-       const {trades, candles, balance, coins} = res.data;
-       const coin = coin[0];
+       const {trades, candles, balance, coins, timeframes} = res.data;
+       const coin = coins[0];
         setExchangeData({
           trades,
           candles,
@@ -265,7 +264,7 @@ export default function App() {
       <main>
         <Switch>
           <Route path="/register">
-            <Form formLabel={'Register'} firstLabel={'Email:'} secondLabel={'Password:'} onSubmit={} />
+            <Form formLabel={'Register'} firstLabel={'Email:'} secondLabel={'Password:'} />
           </Route>
           <Route path="/login">
             <Form formLabel={'Login'} firstLabel={'Email:'} secondLabel={'Password:'}/>
@@ -278,8 +277,10 @@ export default function App() {
           </Route>
         { exchangeData && <Route path="/">
             <div className="chart-dashboard-container">
-              <DisplayChart candles={exchangeData.candles} coinName={"BTC/USD"} />
+              <DisplayChart candles={exchangeData.candles} coinName={exchangeData.coin.symbol} />
               <Dashboard 
+                coin={exchangeData.coin}
+                trades={exchangeData.trades}
                 balance={exchangeData.balance} 
                 exchanges={exchanges} 
                 timeframes={timeframes}

@@ -142,11 +142,10 @@ const exchangeData = {
 }
 
 router.get('/', function (req, res) {
-  const userId = 3;
+  const userId = 2;
   getUserExchanges(userId)
   .then(exchanges => {
     getExchangeInfo(exchanges).then(data => {
-      console.log(data)
       return res.send(data);
     })
   })
@@ -167,22 +166,25 @@ const getExchangeInfo = (exchangeData) => {
     secret: api_secret,
     enableRateLimit: true
   })
-  // exchange.setSandboxMode(true);
-  const fetchTrades = exchange.fetchTrades("BTC/USDT", oneMonthAgo());
-  const fetchOHLCV = exchange.fetchOHLCV("BTC/USDT", '30m', oneDayAgo());
+  exchange.setSandboxMode(true);
+  const fetchTrades = exchange.fetchMyTrades("BTC/USD", oneMonthAgo());
+  const fetchOHLCV = exchange.fetchOHLCV("BTC/USD", '1h', oneMonthAgo());
   const fetchBalance = exchange.fetchBalance();
-  const fetchCoins = exchange.fetchTickers(['BTC/USDT', 'ETH/USDT', 'BNB/USDT', "DOGE/USDT"]);
-  return Promise.all([fetchTrades, fetchOHLCV, fetchBalance, fetchCoins])
+  const fetchCoins = exchange.fetchTickers(['BTC/USD']);
+  const timeframes = exchange.timeframes;
+  return Promise.all([fetchTrades, fetchOHLCV, fetchBalance, fetchCoins, timeframes])
   .then(values => {
     const trades = formatTrades(values[0]);
     const candles = values[1];
     const balance = values[2];
     const coins = formatCoins(values[3]);
+    const timeframes = values[4];
     return {
       trades,
       candles,
       balance,
       coins,
+      timeframes
     };
   })
 }
@@ -206,8 +208,8 @@ const formatTrades = (trades) => {
   const formattedTrades = trades.map(trade => {
     return {
       price: trade.price, 
-      amount: trade.amount, 
-      cost: trade.cost, 
+      amount: trade.cost, 
+      cost: trade.amount, 
       time: trade.timestamp,
       symbol: trade.info.symbol,
       orderType: trade.type,
