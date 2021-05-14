@@ -1,5 +1,6 @@
 import CoinTableRow from "./CoinTableRow"
 import Table from 'react-bootstrap/Table'
+import DropMenu from "../DropDownMenu/DropMenu";
 import "./CoinTable.scss";
 
 export default function CoinTable(props) {
@@ -16,6 +17,8 @@ export default function CoinTable(props) {
   })
   return (
     <div className="coin-container">
+      <lable className="option-lable">Select Currency:</lable>
+      <DropMenu options={props.currencies}/>
       <Table striped bordered hover>
         <thead>
           <tr>

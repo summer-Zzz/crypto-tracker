@@ -142,7 +142,7 @@ const exchangeData = {
 }
 
 router.get('/', function (req, res) {
-  const userId = 2;
+  const userId = 4;
   getUserExchanges(userId)
   .then(exchanges => {
     getExchangeInfo(exchanges).then(data => {
@@ -166,6 +166,7 @@ const getExchangeInfo = (exchangeData) => {
     secret: api_secret,
     enableRateLimit: true
   })
+  
   exchange.setSandboxMode(true);
   const fetchTrades = exchange.fetchMyTrades("BTC/USD", oneMonthAgo());
   const fetchOHLCV = exchange.fetchOHLCV("BTC/USD", '1h', oneMonthAgo());
