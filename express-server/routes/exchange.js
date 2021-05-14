@@ -142,7 +142,7 @@ const exchangeData = {
 }
 
 router.get('/', function (req, res) {
-  const userId = 2;
+  const userId = 3;
   getUserExchanges(userId)
   .then(exchanges => {
     const firstExchange = exchanges[0];
@@ -167,9 +167,9 @@ const getExchangeInfo = (exchangeData) => {
     secret: api_secret,
     enableRateLimit: true
   })
-  exchange.setSandboxMode(true);
-  const fetchTrades = exchange.fetchTrades("BTC/USD", oneWeekAgo());
-  const fetchOHLCV = exchange.fetchOHLCV("BTC/USD", '1h', oneWeekAgo());
+  // exchange.setSandboxMode(true);
+  const fetchTrades = exchange.fetchTrades("BTC/USDT", oneMonthAgo());
+  const fetchOHLCV = exchange.fetchOHLCV("BTC/USDT", '1h', oneMonthAgo());
   const fetchBalance = exchange.fetchBalance();
   const fetchCoins = exchange.fetchTickers();
   return Promise.all([fetchTrades, fetchOHLCV, fetchBalance, fetchCoins])
@@ -217,12 +217,13 @@ const formatTrades = (trades) => {
   return formattedTrades;
 }
 
-const formatCoins = (coins) => {
+const formatCoins = (coins, searchParam) => {
   const coinArray = []
   for (let coin in coins) {
     // if (coin.includes(searchParam)) {
       const coinData = coins[coin]
       const coinObject = {
+        key: coinData.symbol,
         symbol: coinData.symbol,
         price: coinData.ask,
         change: coinData.change,

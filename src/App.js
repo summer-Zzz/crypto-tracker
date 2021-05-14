@@ -226,7 +226,8 @@ export default function App() {
       const apiUrl = `http://localhost:3001/api/exchange`
       axios.get(apiUrl)
       .then(res => {
-       const [trades, candles, balance, coins] = res.data;
+       const {trades, candles, balance, coins} = res.data;
+       console.log(coins)
         setExchangeData({
           trades,
           candles,
@@ -276,7 +277,7 @@ export default function App() {
           </Route>
         { exchangeData && <Route path="/">
             <div className="chart-dashboard-container">
-              <DisplayChart />
+              <DisplayChart candles={exchangeData.candles} coinName={"BTC/USD"} />
               <Dashboard 
                 balance={exchangeData.balance} 
                 exchanges={exchanges} 
