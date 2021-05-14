@@ -257,3 +257,47 @@ module.exports = router
 // // if yes, render coinList
 // // if no, next()
 // if no, fetch first available coin and render 
+
+
+// app.get('/api/exchange/:name', (req, res) => {
+//   db.query('select accountinfo from user where exchange is ...')
+//   .then(accountInfo => {
+//     new Exchange(accountinfo)
+//     const trades = exchange.fetchTrades()
+//     res.json(trades)
+//   })
+// })
+module.exports = ({
+  getUserByEmail,
+  getUserExchanges,
+  addUserAccount,
+  getUserTransactions,
+  addUserTransactions,
+ }) => {
+
+  router.get('/', (req, res) => {
+    getUserExchanges()
+      .then((exchanges) => res.json(exchanges))
+      .catch((err) => res.json({
+        error: err.message
+    }));
+  });
+
+    getUserByEmail(email)
+      .then(user => {
+        if (user) {
+          res.json({
+            msg: 'Sorry, a user account with this email already exists'
+          });
+        } else {
+          return addUser(email, password)
+        }
+      })
+        .then(newUser => res.json(newUser))
+        .catch(err => res.json({
+          error: err.message
+        }));
+  return router;
+};
+
+module.exports = router

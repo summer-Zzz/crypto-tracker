@@ -209,7 +209,23 @@ const tradeRows = [
   },
 ]
 
+const userDatabase = {
+  'testlogin@test.com' : {
+    email: 'testlogin@test.com',
+    password: '123'
+  }
+}
+
 export default function App() {
+
+  // const [currentUser, setCurrentUser] = useState(null)
+
+  // const handleLogin = user => {
+  //   user.preventDefault()
+  //   axios
+  //     .post('/api/users', {data:user})
+  //     .then(res => setCurrentUser(res.data))
+  // }
 
   const [exchangeCredentials, setExchangeCredentials] = useState(null);
   const [exchangeData, setExchangeData] = useState(null)
@@ -267,6 +283,7 @@ export default function App() {
             <Form formLabel={'Register'} firstLabel={'Email:'} secondLabel={'Password:'} />
           </Route>
           <Route path="/login">
+          <Form handleLogin={handleLogin} />
             <Form formLabel={'Login'} firstLabel={'Email:'} secondLabel={'Password:'}/>
           </Route>
           <Route path="/tradetable">
