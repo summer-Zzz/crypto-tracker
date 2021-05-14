@@ -171,7 +171,7 @@ const getExchangeInfo = (exchangeData) => {
   const fetchTrades = exchange.fetchTrades("BTC/USDT", oneMonthAgo());
   const fetchOHLCV = exchange.fetchOHLCV("BTC/USDT", '30m', oneDayAgo());
   const fetchBalance = exchange.fetchBalance();
-  const fetchCoins = exchange.fetchTickers();
+  const fetchCoins = exchange.fetchTickers(['BTC/USDT', 'ETH/USDT', 'BNB/USDT', "DOGE/USDT"]);
   return Promise.all([fetchTrades, fetchOHLCV, fetchBalance, fetchCoins])
   .then(values => {
     const trades = formatTrades(values[0]);
@@ -179,7 +179,6 @@ const getExchangeInfo = (exchangeData) => {
     const balance = values[2];
     const coins = formatCoins(values[3]);
     return {
-      exchanges: exchangeData,
       trades,
       candles,
       balance,
@@ -236,6 +235,7 @@ const formatCoins = (coins, searchParam) => {
   }
   return coinArray;
 }
+
 
 module.exports = router
 
