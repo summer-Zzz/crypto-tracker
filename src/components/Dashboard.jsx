@@ -3,19 +3,44 @@ import DropMenu from './DropDownMenu/DropMenu'
 import InfoDisplay from './InfoDisplay'
 import "./Dashboard.scss";
 
+const calculatePL = (trades, currentPrice) => {
+  let costs = 0;
+  let amounts = 0;
+    for(let trade of trades) {
+      costs += trade.cost;
+      amounts += trade.amount;
+    }
+  const proLoss = ((currentPrice * amounts) - costs) /costs * 100;
+  return proLoss;
+}
+
+const averageCost = (trades) => {
+  let costTotal = 0;
+  trades.forEach(trade => {
+    costTotal += trade.cost;
+  })
+  return costTotal / trades.length;
+}
+
 export default function Dashboard(props) {
-  
+  const { coin, trades, balance, exchanges, timeframes, currencies } = props;
+  // use selected coin's symbol to access balance 
+  const baseTicker = coin.symbol.split('/')[0];
+  const baseTickerBalance = balance[baseTicker].total;
+  const pL = calculatePL(trades, coin.price);
+  const average = `$${averageCost(trades)}`;
+
   return (
     <div className='dashboard-container'>
       <div className="menu-container">
-        <DropMenu options={props.exchanges}/>
-        <DropMenu options={props.timeframes}/>
-        <DropMenu options={props.currencies}/>
+        <DropMenu options={exchanges}/>
+        <DropMenu options={timeframes}/>
+        <DropMenu options={currencies}/>
       </div>
       <div className="info-container">
-        <InfoDisplay infoHeader={'Balance'} infoContent={props.balance.USDT}/>
-        <InfoDisplay infoHeader={'P%L'} infoContent={'+25%'}/>
-        <InfoDisplay infoHeader={'Average Price'} infoContent={"$53000"}/>
+        <InfoDisplay infoHeader={'Balance'} infoContent={baseTickerBalance} />
+        <InfoDisplay infoHeader={'P&L'} infoContent={pL.toFixed(2)}/>
+        <InfoDisplay infoHeader={'Average Price'} infoContent={average}/>
       </div>
     </div>
   )

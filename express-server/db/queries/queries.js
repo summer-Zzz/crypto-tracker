@@ -172,19 +172,19 @@ const addUserAccount = (txnData) => {
     .catch(err => err);
 }
 
-  // return {
-  //     getUsers,
-  //     getUserById,
-  //     getUserByEmail,
-  //     addUser,
-  //     getUserExchanges,
-  //     getUserTransactions,
-  //     getUserExchangeTransactions,
-  //     addUserTransactions,
-  //     addUserExchange, 
-  //     addUserAccount
-  // };
-  module.exports = {getUserExchanges}
+  module.exports = {
+    getUserExchanges,
+    getUsers,
+    getUserById,
+    getUserByEmail,
+    addUser,
+    getUserExchanges,
+    getUserTransactions,
+    getUserExchangeTransactions,
+    addUserTransactions,
+    addUserExchange, 
+    addUserAccount
+  }
 
 // - POST /api/login === log user in (set cookies)
 // - POST /api/logout === log user out (delete cookies)
