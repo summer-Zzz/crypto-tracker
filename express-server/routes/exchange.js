@@ -142,7 +142,7 @@ const exchangeData = {
 }
 
 router.get('/', function (req, res) {
-  const userId = 3;
+  const userId = 4;
   getUserExchanges(userId)
   .then(exchanges => {
     const firstExchange = exchanges[0];
