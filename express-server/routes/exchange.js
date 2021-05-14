@@ -142,7 +142,7 @@ const exchangeData = {
 }
 
 router.get('/', function (req, res) {
-  const userId = 4;
+  const userId = 2;
   getUserExchanges(userId)
   .then(exchanges => {
     getExchangeInfo(exchanges).then(data => {
