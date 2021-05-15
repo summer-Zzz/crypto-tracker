@@ -174,8 +174,8 @@ const getExchangeInfo = (exchangeData, exchangeSelection, coin, timeframe) => {
   const firstExchange = exchangeData[0]
   // 
   const {api_key, api_secret} = firstExchange; 
-  exchangeId = exchangeSelection;
-  exchangeClass = ccxt[exchangeId];
+  const exchangeId = exchangeSelection;
+  const exchangeClass = ccxt[exchangeId];
   const exchange = new exchangeClass({
     apiKey: api_key,
     secret: api_secret,
@@ -209,8 +209,8 @@ const getExchangeInfo = (exchangeData, exchangeSelection, coin, timeframe) => {
 const getDefaultExchangeInfo = (exchangeData) => {
   const firstExchange = exchangeData[0]
   const {api_key, api_secret, exchange_name} = firstExchange; 
-  exchangeId = exchange_name;
-  exchangeClass = ccxt[exchangeId];
+  const exchangeId = exchange_name;
+  const exchangeClass = ccxt[exchangeId];
   const exchange = new exchangeClass({
     apiKey: api_key,
     secret: api_secret,

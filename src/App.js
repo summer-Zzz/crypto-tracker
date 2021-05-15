@@ -220,12 +220,11 @@ export default function App() {
 
   const [currentUser, setCurrentUser] = useState(null)
 
-  const handleLogin = (userData) => {
+  const handleSubmit = (userData) => {
     // event.preventDefault()
-    console.log(userData)
+    const { dataType, password, email } = userData;
     axios
-    // .then(res => setCurrentUser(res.data))
-    .post(`http://localhost:3001/api/login`)
+    .post(`http://localhost:3001/api/users/${dataType}/${email}/${password}`)
     .then(res => console.log("response =>", res))
   }
 
@@ -307,10 +306,10 @@ export default function App() {
       <main>
         <Switch>
           <Route path="/register">
-            <Form formLabel={'Register'} firstLabel={'Email:'} secondLabel={'Password:'} handleLogin={handleLogin}/>
+            <Form formLabel={'Register'} firstLabel={'Email:'} secondLabel={'Password:'} handleSubmit={handleSubmit}/>
           </Route>
           <Route path="/login">
-            <Form formLabel={'Login'} firstLabel={'Email:'} secondLabel={'Password:'} handleLogin={handleLogin}/>
+            <Form formLabel={'Login'} firstLabel={'Email:'} secondLabel={'Password:'} handleSubmit={handleSubmit}/>
           </Route>
           <Route path="/tradetable">
           { exchangeData && <TradeTable rows={exchangeData.trades}/> }
