@@ -223,7 +223,7 @@ export default function App() {
   const handleSubmit = (userData) => {
     const { email, password, dataType} = userData;
     axios
-    .post(`http://localhost:3001/api/users/${dataType}/${email}/${password}`)
+    .post(`http://localhost:3002/api/users/${dataType}/${email}/${password}`)
     .then(res => console.log("response =>", res))
   }
 
@@ -239,7 +239,7 @@ export default function App() {
 
   useEffect(() => {
     if (exchangeCredentials) { 
-      const apiUrl = `http://localhost:3001/api/exchange`
+      const apiUrl = `http://localhost:3002/api/exchange`
       axios.get(apiUrl, {requestData})
       .then(res => {
        const {trades, candles, balance, coins, timeframes} = res.data;
