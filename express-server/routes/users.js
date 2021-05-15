@@ -45,7 +45,7 @@ const {getUserByEmail, addUser, addUserAccount} = require('../db/helpers/dbHelpe
           error: err.message
       }));
   })
-  
+
 router.post('/login/:email/:password', (req, res) => {
   const {email, password} = req.params;
   

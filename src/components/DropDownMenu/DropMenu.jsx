@@ -9,6 +9,7 @@ export default function DropMenu(props) {
   const handleChange = (event) => {
     let value = event.target.value;
     setOption(value)
+    props.setData(event.target.value)
   }
 
   const options = props.options.map(option => {
