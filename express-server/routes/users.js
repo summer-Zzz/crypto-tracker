@@ -53,17 +53,15 @@ const {getUserByEmail, addUser, addUserAccount} = require('../db/helpers/dbHelpe
 
 router.post('/login/:email/:password', (req, res) => {
   const {email, password} = req.params;
-  
   getUserByEmail(email)
   .then(user => {
     if (email && user.password === password) {
-      // set cookie 
-      req.session.user_id = user.id;
-      return res.redirect("/")
+      req.session['user_id'] = user.id;
+      return res.redirect("/");
     }
     return res.send("Error!! Please try again!");
   })
-})
+});
 
 router.post('/register/:email/:password', (req, res) => {
   const {email, password} = req.params;
@@ -79,7 +77,7 @@ router.post('/register/:email/:password', (req, res) => {
       return res.send("success, you are registered")
     })
   })
-})
+});
 
 module.exports = router;
 

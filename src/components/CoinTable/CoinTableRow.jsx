@@ -4,7 +4,7 @@ import "./CoinTableRow.scss"
 export default function CoinTableRow(props) {
 
   return (
-    <tr>
+    <tr onClick={() => props.setCoin(props.symbol)}>
       <td><img src={props.coinlogo} alt="coinlogo"/></td>
       <td>{props.symbol}</td>
       <td>{props.price}</td>
