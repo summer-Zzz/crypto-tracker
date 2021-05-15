@@ -285,7 +285,6 @@ export default function App() {
           <Route path="/settings">
             <SettingsForm handleLogin={handleSubmit}/> 
           </Route>
-          {/* <Home /> */}
         { exchangeData &&
           <Route path="/">
             <div id="chart-dashboard-container">
