@@ -48,7 +48,7 @@ export default function Dashboard(props) {
         <label>Pick your exchange</label>
         <DropMenu options={exchanges}/>
         <label>Chart timeframe</label>
-        <DropMenu options={formattedTimeframes}/>
+        <DropMenu options={formattedTimeframes} setData={props.setChartTimeframe} />
       </div>
       <div className="info-container">
         <InfoDisplay infoHeader={'Balance'} infoContent={`${baseTickerBalance} ${baseTicker}`} />

@@ -16,7 +16,7 @@ const {getUserByEmail, addUser} = require('../db/helpers/dbHelpers');
   //       error: err.message
   //     }));
   // });
-  
+
 router.post('/login/:email/:password', (req, res) => {
   const {email, password} = req.params;
   
