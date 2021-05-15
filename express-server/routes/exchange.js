@@ -142,7 +142,7 @@ const exchangeData = {
 }
 
 router.get('/', function (req, res) {
-  const userId = 2;
+  const userId = 4;
   getUserExchanges(userId)
   .then(exchanges => {
     getExchangeInfo(exchanges).then(data => {
@@ -298,6 +298,7 @@ module.exports = ({
         .catch(err => res.json({
           error: err.message
         }));
+    
   return router;
 };
 

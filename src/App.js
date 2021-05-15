@@ -220,11 +220,13 @@ export default function App() {
 
   const [currentUser, setCurrentUser] = useState(null)
 
-  const handleLogin = user => {
-    user.preventDefault()
+  const handleSubmit = (userData) => {
+    // event.preventDefault()
+    const { email, password, dataType} = userData;
     axios
-      .post('/api/users', {data:user})
-      .then(res => setCurrentUser(res.data))
+    // .then(res => setCurrentUser(res.data))
+    .post(`http://localhost:3001/api/users/${dataType}/${email}/${password}`)
+    .then(res => console.log("response =>", res))
   }
 
   const [exchangeCredentials, setExchangeCredentials] = useState(null);
@@ -273,19 +275,17 @@ export default function App() {
       <main>
         <Switch>
           <Route path="/register">
-            <Form formLabel={'Register'} firstLabel={'Email:'} secondLabel={'Password:'}/>
+            <Form formLabel={'Register'} firstLabel={'Email:'} secondLabel={'Password:'} handleSubmit={handleSubmit}/>
           </Route>
           <Route path="/login">
-          <Form handleLogin={handleLogin} />
-            <Form formLabel={'Login'} firstLabel={'Email:'} secondLabel={'Password:'}/>
+            <Form formLabel={'Login'} firstLabel={'Email:'} secondLabel={'Password:'} handleSubmit={handleSubmit}/>
           </Route>
           <Route path="/tradetable">
           { exchangeData && <TradeTable rows={exchangeData.trades}/> }
           </Route>
           <Route path="/settings">
-            <SettingsForm /> 
+            <SettingsForm handleLogin={handleSubmit}/> 
           </Route>
-          {/* <Home /> */}
         { exchangeData &&
           <Route path="/">
             <div id="chart-dashboard-container">
