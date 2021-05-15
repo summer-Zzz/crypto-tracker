@@ -63,13 +63,13 @@ const averageCost = (trades) => {
   return costTotal / trades.length;
 }
 
-// const fetchBalance = (exchange) => {
+const fetchBalance = (exchange) => {
 
-//   exchange.fetchBalance()
-//   .then(balance => console.log(balance.total))
-//   .catch(err => console.log(err))
+  exchange.fetchBalance()
+  .then(balance => console.log(balance.total))
+  .catch(err => console.log(err))
 
-// }
+}
 
 const getOHLCVData = (exchangeRequestData) => {
 
@@ -160,14 +160,14 @@ const exchangeRequestData = {
 
 // // fetch all trades 
 // fetchTrades(exchangeRequestData)
-console.log(phemex.timeframes)
+
 // // get average cost from all trades 
 // const trades = fetchTrades(exchangeRequestData)
 // console.log(trades);
 // console.log(averageCost(trades))
 
 // // fetch balance for user
-// fetchBalance(bitmex)
+fetchBalance(bitmex)
 
 // binance.fetchBalance().then(balance => console.log(balance)).catch(err => console.log(err))
 

@@ -40,9 +40,6 @@ const {getUserByEmail, addUser} = require('../db/helpers/dbHelpers');
   })
   
 //};
-
-module.exports = router;
-
 router.post('/login/:email/:password', (req,res) => {
   const {email, password} = req.body;
   console.log(req.body);
@@ -54,6 +51,9 @@ router.post('/login/:email/:password', (req,res) => {
     res.json(err, "Error!! Please login!!")
   }
 });
+
+module.exports = router;
+
 
 
 

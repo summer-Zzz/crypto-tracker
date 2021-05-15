@@ -230,11 +230,11 @@ export default function App() {
   }
 
   const [exchangeCredentials, setExchangeCredentials] = useState(null);
-  const [exchangeData, setExchangeData] = useState(null)
+  const [exchangeData, setExchangeData] = useState(null);
   const [state, dispatch] = useReducer(reducer, {
-    exchange: null,
+    exchangeSelection: null,
     timeframe: null,
-    coin: null
+    coin: "BTC/USD"
   })
 
   const setExchange = (exchange) => {
@@ -247,16 +247,37 @@ export default function App() {
     dispatch({type: "SET_COIN", value: coin})
   }
 
+  const escapeCoinSlash = (coin) => {
+   return coin.split('/').join('%2F');
+  }
+
+  useEffect(() => {
+      const { exchange, timeframe, coin } = state;
+      const formattedCoin = escapeCoinSlash(coin);
+      console.log(formattedCoin)
+      const apiUrl = `http://localhost:3001/api/exchange/${exchange}/${formattedCoin}/${timeframe}`
+      axios.get(apiUrl)
+      .then(res => {
+       const {trades, candles, balance, coins, timeframes} = res.data;
+       const coin = state.coin;
+        setExchangeData({
+          trades,
+          candles,
+          balance,
+          coins,
+          coin,
+          timeframes
+        });
+      })
+  }, [state])
 
   useEffect(() => {
     if (exchangeCredentials) { 
-      // const {exchange, coin, currency, timeframe} = exchangeData
-      // const apiUrl = `http://localhost:3001/api/exchange?exchange=${exchange}&coin=${coin}&currency=${filter}&timeframe=${timeframe}`
       const apiUrl = `http://localhost:3001/api/exchange`
       axios.get(apiUrl)
       .then(res => {
        const {trades, candles, balance, coins, timeframes} = res.data;
-       const coin = coins[0];
+       const coin = state.coin;
         setExchangeData({
           trades,
           candles,
@@ -268,7 +289,6 @@ export default function App() {
       })
     }
   }, [exchangeCredentials])
-
 
   return (
     <Router>
