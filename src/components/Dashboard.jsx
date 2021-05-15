@@ -10,16 +10,16 @@ const calculatePL = (trades, currentPrice) => {
       costs += trade.cost;
       amounts += trade.amount;
     }
-  const proLoss = ((currentPrice * amounts) - costs) /costs * 100;
+  const proLoss =((currentPrice * amounts) - costs) /costs * 100;
   return proLoss;
 }
 
 const averageCost = (trades) => {
-  let costTotal = 0;
+  let priceTotal = 0;
   trades.forEach(trade => {
-    costTotal += trade.cost;
+    priceTotal += trade.price;
   })
-  return costTotal / trades.length;
+  return priceTotal / trades.length;
 }
 
 const formatTimeframes = (timeframes) => {
@@ -36,9 +36,10 @@ const formatTimeframes = (timeframes) => {
 export default function Dashboard(props) {
   const { coin, trades, balance, exchanges, timeframes, currencies } = props;
   // use selected coin's symbol to access balance 
-  const baseTicker = coin.split('/')[0];
+  console.log(coin)
+  const baseTicker = coin.symbol.split('/')[0];
   const baseTickerBalance = balance[baseTicker].total
-  const pL = calculatePL(trades, coin.price);
+  const pL = calculatePL(trades, coin.last);
   const average = `$${averageCost(trades)}`;
   const formattedTimeframes = formatTimeframes(timeframes);
  

@@ -1,29 +1,35 @@
 require('dotenv').config();
-const ccxt = require ('ccxt');
+const ccxtpro = require ('ccxt.pro');
 const axios = require('axios');
 
 // SINGLE EXCHANGE INSTANTIATION  //
 
-const phemex = new ccxt.phemex({
-  apiKey: process.env.PHEMEX_ID,
-  secret: process.env.PHEMEX_SECRET,
-  enableRateLimit: true
-})
+// const phemex = new ccxt.phemex({
+//   apiKey: process.env.PHEMEX_ID,
+//   secret: process.env.PHEMEX_SECRET,
+//   enableRateLimit: true
+// })
 
-phemex.setSandboxMode(true);  
+// phemex.setSandboxMode(true);  
 
 
-const bitmex = new ccxt.bitmex({
-  apiKey: process.env.BITMEX_ID,
-  secret: process.env.BITMEX_SECRET,
-  enableRateLimit: true
-})
+// const bitmex = new ccxt.bitmex({
+//   apiKey: process.env.BITMEX_ID,
+//   secret: process.env.BITMEX_SECRET,
+//   enableRateLimit: true
+// })
 
-bitmex.setSandboxMode(true);
+// bitmex.setSandboxMode(true);
 
-const binance = new ccxt.binance({
-  apiKey: process.env.BNB_ID,
-  secret: process.env.BNB_SECRET, 
+// const binance = new ccxt.binance({
+//   apiKey: process.env.BNB_ID,
+//   secret: process.env.BNB_SECRET, 
+//   enableRateLimit: true
+// })
+
+const kraken = new ccxtpro.kraken({
+  apiKey: process.env.KRAKEN_ID,
+  secret: process.env.KRAKEN_SECRET,
   enableRateLimit: true
 })
 
@@ -120,7 +126,7 @@ const fetchExchangeCoins = (exchange, searchTicker) => {
   .then(tickers => {
     const tickersArr = Object.keys(tickers);
     tickersArr.forEach(ticker => {
-      if (ticker.includes(searchTicker)) {
+      // if (ticker.includes(searchTicker)) {
         const tickerInfo = tickers[ticker];
         console.log(
           'symbol: ', tickerInfo.symbol,
@@ -129,7 +135,7 @@ const fetchExchangeCoins = (exchange, searchTicker) => {
           'change%: ', tickerInfo.percentage,
           'volume: ', tickerInfo.baseVolume,
         )
-      }
+      // }
     })
   })
   .catch(err => console.log(err))
@@ -150,16 +156,17 @@ const oneMinuteAgo = () => new Date - 60000
 
 // Object to mimic request coming from front-end ui 
 const exchangeRequestData = {
-  symbol: 'BTC/USD',
+  symbol: 'ALGO/USD',
   timeframe: '1m',
   since: allTime(),
-  exchange: bitmex
+  exchange: kraken
 }
 
 // CALL API SANDBOX FUNCTIONS // 
 
 // // fetch all trades 
 // fetchTrades(exchangeRequestData)
+kraken.fetchMyTrades().then(res => {console.log(res)})
 
 // // get average cost from all trades 
 // const trades = fetchTrades(exchangeRequestData)
@@ -167,7 +174,7 @@ const exchangeRequestData = {
 // console.log(averageCost(trades))
 
 // // fetch balance for user
-fetchBalance(bitmex)
+// fetchBalance(kraken)
 
 // binance.fetchBalance().then(balance => console.log(balance)).catch(err => console.log(err))
 
@@ -175,7 +182,7 @@ fetchBalance(bitmex)
 // getOHLCVData(exchangeRequestData)
 
 // fetch exchange coins
-// fetchExchangeCoins(binance, "BTC/USD")
+// fetchExchangeCoins(kraken)
 
 // fetch single ticker price
 // fetchTickerPrice(binance, 'BTC/USDT')
