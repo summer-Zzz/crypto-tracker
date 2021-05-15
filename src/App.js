@@ -5,10 +5,12 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
+  useHistory 
 } from "react-router-dom";
 import reducer from "./reducers/App"
 import './App.css';
+
 
 import Home from "./components/Home"
 import Form from "./components/Form"
@@ -217,22 +219,32 @@ const userDatabase = {
 }
 
 export default function App() {
-
+  
+  const history = useHistory();
   const [currentUser, setCurrentUser] = useState(null)
 
   const handleSubmit = (userData) => {
     // event.preventDefault()
     const { dataType, password, email } = userData;
     axios
-    .post(`http://localhost:3002/api/users/${dataType}/${email}/${password}`)
-    .then(res => console.log("response =>", res))
+    .post(`http://localhost:3001/api/users/${dataType}/${email}/${password}`)
+    .then((res) => {
+      if(res.status === 200){
+        history.push('/select')
+        history.go('/select')
+        setCurrentUser(res.data.id)
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   }
 
   const [exchangeCredentials, setExchangeCredentials] = useState(null);
   const [exchangeData, setExchangeData] = useState(null);
   const [state, dispatch] = useReducer(reducer, {
-    exchangeSelection: null,
-    timeframe: 1,
+    exchange: "kraken",
+    timeframe: '1hr',
     coin: "BTC/USD"
   })
 
@@ -251,43 +263,44 @@ export default function App() {
   }
 
   useEffect(() => {
+    if (exchangeCredentials) { 
       const { exchange, timeframe, coin } = state;
       const formattedCoin = escapeCoinSlash(coin);
-      console.log(formattedCoin)
-      const apiUrl = `http://localhost:3002/api/exchange/${exchange}/${formattedCoin}/${timeframe}`
+      const apiUrl = `http://localhost:3001/api/exchange/${exchange}/${formattedCoin}/${timeframe}`
       axios.get(apiUrl)
       .then(res => {
-       const {trades, candles, balance, coins, timeframes} = res.data;
-       const coin = state.coin;
+       const {trades, candles, balance, coins, selectedCoin, timeframes} = res.data;
         setExchangeData({
           trades,
           candles,
           balance,
           coins,
           coin,
-          timeframes
-        });
-      })
-  }, [state])
-
-  useEffect(() => {
-    if (exchangeCredentials) { 
-      const apiUrl = `http://localhost:3001/api/exchange`
-      axios.get(apiUrl)
-      .then(res => {
-       const {trades, candles, balance, coins, timeframes} = res.data;
-       const coin = state.coin;
-        setExchangeData({
-          trades,
-          candles,
-          balance,
-          coins,
-          coin,
-          timeframes
+          timeframes,
+          selectedCoin
         });
       })
     }
-  }, [exchangeCredentials])
+  }, [exchangeCredentials, state])
+
+  // useEffect(() => {
+  //   if (exchangeCredentials) { 
+  //     const apiUrl = `http://localhost:3001/api/exchange`
+  //     axios.get(apiUrl)
+  //     .then(res => {
+  //      const {trades, candles, balance, coins, timeframes} = res.data;
+  //      const coin = state.coin;
+  //       setExchangeData({
+  //         trades,
+  //         candles,
+  //         balance,
+  //         coins,
+  //         coin,
+  //         timeframes
+  //       });
+  //     })
+  //   }
+  // }, [exchangeCredentials])
 
   return (
     <Router>
@@ -297,11 +310,14 @@ export default function App() {
       <header>
         <nav className="navbar">
           <Link className="nav-text" to="/">Crypto-Tracker</Link>
+          <Link className="nav-text" to="/dashboard">Dashboard</Link>
           <Link className="nav-text" to="/login">Login</Link>
           <Link className="nav-text" to="/register">Register</Link>
+          <Link className="nav-text" to="/settings">Logout</Link> 
           <Link className="nav-text" to="/tradetable">Trade Table</Link>
           <Link className="nav-text" to="/settings">Settings</Link>
         </nav>
+
       </header>
       <main>
         <Switch>
@@ -317,13 +333,16 @@ export default function App() {
           <Route path="/settings">
             <SettingsForm /> 
           </Route>
+          <Route path="/select">
+            <h1>Hello</h1>
+          </Route>
           {/* <Home /> */}
         { exchangeData &&
-          <Route path="/">
+          <Route path="/dashboard">
             <div id="chart-dashboard-container">
-              <DisplayChart candles={exchangeData.candles} coinName={exchangeData.coin.symbol || "no data"} />
+              <DisplayChart candles={exchangeData.candles} coinName={exchangeData.selectedCoin.symbol || "no data"} />
               <Dashboard 
-                coin={exchangeData.coin}
+                coin={exchangeData.selectedCoin}
                 trades={exchangeData.trades}
                 balance={exchangeData.balance} 
                 exchanges={exchanges} 
@@ -336,6 +355,9 @@ export default function App() {
             <CoinTable rows={exchangeData.coins} currencies={currencies} setCoin={setCoin} />
             </Route>  
           }
+          <Route exact path="/">
+            <Home />
+          </Route>
         </Switch>
       </main>
     </div>
