@@ -1,6 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const {getUserByEmail, addUser, addUserAccount} = require('../db/helpers/dbHelpers');
+const cookieSession = require('cookie-session');
+app.use(cookieSession({
+  name: 'session',
+  keys: ['key1', 'key2']
+}))
 
 /* GET users listing. */
 // module.exports = ({
@@ -29,11 +34,9 @@ const {getUserByEmail, addUser, addUserAccount} = require('../db/helpers/dbHelpe
     res.sendStatus(200)
   })
 
-  router.post('/register', (req, res) => {
-    const {
-      email,
-      password
-    } = req.body;
+  //router.post('/exchanges/new', async (req, res) => {
+    router.post('/register', (req, res) => {
+    const { email, password } = req.body;
 
     getUserByEmail(email)
       .then(user => {
@@ -59,7 +62,8 @@ router.post('/login/:email/:password', (req, res) => {
       req.session['user_id'] = user.id;
       return res.status(200).json(user)
     }
-    return res.send("Error!! Please try again!");
+    return res.send("Error!! Invalid email/password");
+    res.statusCode = 403;
   })
 });
 
@@ -69,7 +73,7 @@ router.post('/register/:email/:password', (req, res) => {
   getUserByEmail(email)
   .then(user => {
     if (user) {
-      // set cookie 
+      req.session.user_id = userId;
       return res.send("Sorry, there is already a user registered with this email")
     }
     addUser(email, password).then(userAdded => {
