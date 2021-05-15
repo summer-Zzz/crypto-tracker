@@ -190,10 +190,10 @@ const getExchangeInfo = (exchangeData) => {
   })
   
   exchange.setSandboxMode(true);
-  const fetchTrades = exchange.fetchMyTrades("BTC/USD", oneMonthAgo());
-  const fetchOHLCV = exchange.fetchOHLCV("BTC/USD", '1h', oneMonthAgo());
+  const fetchTrades = exchange.fetchMyTrades("BTC/USDT", oneMonthAgo());
+  const fetchOHLCV = exchange.fetchOHLCV("BTC/USDT", '1h', oneMonthAgo());
   const fetchBalance = exchange.fetchBalance();
-  const fetchCoins = exchange.fetchTickers(['BTC/USD']);
+  const fetchCoins = exchange.fetchTickers(['BTC/USDT']);
   const timeframes = exchange.timeframes;
   return Promise.all([fetchTrades, fetchOHLCV, fetchBalance, fetchCoins, timeframes])
   .then(values => {

@@ -17,6 +17,11 @@ const {getUserByEmail, addUser, addUserAccount} = require('../db/helpers/dbHelpe
   //     }));
   // });
 
+  // router.get('/select', (req, res) => {
+  //   console.log(req.body)
+  //   res.send("success, you are login")
+  // })
+
   router.post('/exchanges/new', async (req, res) => {
     const { userId, exchangeId, apiKey, apiSecret } = req.body;
     const account = await addUserAccount({ userId, exchangeId, apiKey, apiSecret })
@@ -77,7 +82,7 @@ router.post('/register/:email/:password', (req, res) => {
 })
 
 module.exports = router;
-4
+
 // app.post('/register', (req,res) => {
 //   const {email, password} = req.body;
 //   userDatabase[email] = {email, password};

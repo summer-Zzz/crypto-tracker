@@ -225,6 +225,7 @@ export default function App() {
     axios
     .post(`http://localhost:3001/api/users/${dataType}/${email}/${password}`)
     .then(res => console.log("response =>", res))
+    
   }
 
   const [exchangeCredentials, setExchangeCredentials] = useState(null);
@@ -286,9 +287,6 @@ export default function App() {
           <Route path="/settings">
             <SettingsForm handleLogin={handleSubmit}/> 
           </Route>
-          <Route path="/">
-            <Home />
-          </Route>
         { exchangeData &&
           <Route path="/dashboard">
             <div id="chart-dashboard-container">
@@ -306,6 +304,9 @@ export default function App() {
             <CoinTable rows={exchangeData.coins} currencies={currencies} />
             </Route>  
           }
+          <Route path="/">
+            <Home />
+          </Route>
         </Switch>
       </main>
     </div>
