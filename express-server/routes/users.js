@@ -57,7 +57,7 @@ router.post('/login/:email/:password', (req, res) => {
   .then(user => {
     if (email && user.password === password) {
       req.session['user_id'] = user.id;
-      return res.redirect("/");
+      return res.status(200).json(user)
     }
     return res.send("Error!! Please try again!");
   })
