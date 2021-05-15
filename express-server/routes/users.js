@@ -51,17 +51,16 @@ app.use(cookieSession({
 
 router.post('/login/:email/:password', (req, res) => {
   const {email, password} = req.params;
-  
   getUserByEmail(email)
   .then(user => {
     if (email && user.password === password) {
-      req.session.user_id = userId;
+      req.session['user_id'] = user.id;
       return res.redirect("/");
     }
     return res.send("Error!! Invalid email/password");
     res.statusCode = 403;
   })
-})
+});
 
 router.post('/register/:email/:password', (req, res) => {
   const {email, password} = req.params;
@@ -77,7 +76,7 @@ router.post('/register/:email/:password', (req, res) => {
       return res.send("success, you are registered")
     })
   })
-})
+});
 
 module.exports = router;
 4
