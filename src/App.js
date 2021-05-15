@@ -18,6 +18,7 @@ import Dashboard from "./components/Dashboard"
 import DisplayChart from './components/Candlestick/DisplayChart';
 import TradeTable from "./components/TradeTable/TradeTable";
 import axios from 'axios';
+import DropMenu from './components/DropDownMenu/DropMenu';
 
 const exchanges = [
   {
@@ -250,12 +251,12 @@ export default function App() {
           balance,
           coins,
           coin,
-          timeframes
+          timeframes,
+          exchanges, 
         });
       })
     }
   }, [exchangeCredentials])
-
 
   return (
     <Router>
@@ -285,7 +286,7 @@ export default function App() {
           <Route path="/settings">
             <SettingsForm handleLogin={handleSubmit}/> 
           </Route>
-          {/* <Home /> */}
+        { !exchangeData && <DropMenu options={exchanges} /> }
         { exchangeData &&
           <Route path="/">
             <div id="chart-dashboard-container">

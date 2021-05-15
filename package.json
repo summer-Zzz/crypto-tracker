@@ -13,6 +13,7 @@
     "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
     "ccxt": "^1.49.73",
+    "ccxt.pro": "git+ssh://git@github.com/kroitor/ccxt.pro.git",
     "dotenv": "^9.0.1",
     "https-proxy-agent": "^5.0.0",
     "node-sass": "^4.14.1",

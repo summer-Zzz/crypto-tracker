@@ -21,12 +21,12 @@ export default function DropMenu(props) {
 
   return (
       <div className="select">
-        <select onChange={handleChange} value={currentOption}>
+       {props.options && <select onChange={handleChange} value={currentOption}>
           <DropDownItem 
             name={'Select option'}
           />
           {options}
-        </select>
+        </select> }
       </div>
   )
 }
