@@ -266,6 +266,7 @@ export default function App() {
       <header>
         <nav className="navbar">
           <Link className="nav-text" to="/">Crypto-Tracker</Link>
+          <Link className="nav-text" to="/dashboard">Crypto-Tracker</Link>
           <Link className="nav-text" to="/login">Login</Link>
           <Link className="nav-text" to="/register">Register</Link>
           <Link className="nav-text" to="/tradetable">Trade Table</Link>
@@ -287,7 +288,7 @@ export default function App() {
             <SettingsForm handleLogin={handleSubmit}/> 
           </Route>
         { exchangeData &&
-          <Route path="/">
+          <Route path="/dashboard">
             <div id="chart-dashboard-container">
               <DisplayChart candles={exchangeData.candles} coinName={exchangeData.coin.symbol || "no data"} />
               <Dashboard 
