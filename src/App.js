@@ -224,7 +224,7 @@ export default function App() {
     // event.preventDefault()
     const { dataType, password, email } = userData;
     axios
-    .post(`http://localhost:3001/api/users/${dataType}/${email}/${password}`)
+    .post(`http://localhost:3002/api/users/${dataType}/${email}/${password}`)
     .then(res => console.log("response =>", res))
   }
 
