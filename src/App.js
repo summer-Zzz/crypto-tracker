@@ -233,7 +233,7 @@ export default function App() {
   const [exchangeData, setExchangeData] = useState(null);
   const [state, dispatch] = useReducer(reducer, {
     exchangeSelection: null,
-    timeframe: null,
+    timeframe: 1,
     coin: "BTC/USD"
   })
 

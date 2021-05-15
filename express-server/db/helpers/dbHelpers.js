@@ -1,4 +1,5 @@
 const db = require('../index')
+const ccxt = require('ccxt')
 
 // User queries
 // module.exports = (db) => {
@@ -43,10 +44,10 @@ const db = require('../index')
 
 
   // 4 - POST /api/users/new === register user 
-  const addUser = (userName, email, password) => {
+  const addUser = (email, password) => {
       const query = {
-          text: `INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *`,
-          values: [userName, email, password]
+          text: `INSERT INTO users (email, password) VALUES ($1, $2) RETURNING *`,
+          values: [email, password]
       }
 
       return db.query(query)
@@ -57,14 +58,15 @@ const db = require('../index')
   // 5- GET /api/users/exchange/:id === get user exchange 
   const getUserExchanges = (userId) => {
     const query = {
-        text: `SELECT users.id as user_id, users.name as user_name, email, accounts.id as account_id, exchanges.id as exchange_id, exchanges.name as exchange_name
-        FROM users
-        INNER JOIN accounts
-        ON users.id = accounts.user_id
-        INNER JOIN exchanges
-        ON accounts.exchange_id = exchanges.id
-        WHERE users.id = $1`,
-        values: [userId]
+
+      text: `SELECT accounts.api_key, accounts.api_secret, exchanges.name as exchange_name
+      FROM users
+      INNER JOIN accounts
+      ON users.id = accounts.user_id
+      INNER JOIN exchanges
+      ON accounts.exchange_id = exchanges.id
+      WHERE users.id = $1`,
+      values: [userId]
       }
 
     return db.query(query)
@@ -171,19 +173,95 @@ const addUserAccount = (txnData) => {
     .catch(err => err);
 }
 
- module.exports = {
-      getUsers,
-      getUserById,
-      getUserByEmail,
-      addUser,
-      getUserExchanges,
-      getUserTransactions,
-      getUserExchangeTransactions,
-      addUserTransactions,
-      addUserExchange, 
-      addUserAccount
+const oneMonthAgo = () => new Date - 2629800000
+const oneWeekAgo = () => new Date - 604800000
+const oneDayAgo = () => new Date - 86400000
+const oneMinuteAgo = () => new Date - 60000
+
+const getExchangeInfo = (exchangeData) => {
+  const firstExchange = exchangeData[0]
+  const {api_key, api_secret, exchange_name} = firstExchange; 
+  exchangeId = exchange_name;
+  exchangeClass = ccxt[exchangeId];
+  const exchange = new exchangeClass({
+    apiKey: api_key,
+    secret: api_secret,
+    enableRateLimit: true
+  })
+  
+  exchange.setSandboxMode(true);
+  const fetchTrades = exchange.fetchMyTrades("BTC/USD", oneMonthAgo());
+  const fetchOHLCV = exchange.fetchOHLCV("BTC/USD", '1h', oneMonthAgo());
+  const fetchBalance = exchange.fetchBalance();
+  const fetchCoins = exchange.fetchTickers(['BTC/USD']);
+  const timeframes = exchange.timeframes;
+  return Promise.all([fetchTrades, fetchOHLCV, fetchBalance, fetchCoins, timeframes])
+  .then(values => {
+    const trades = formatTrades(values[0]);
+    const candles = values[1];
+    const balance = values[2];
+    const coins = formatCoins(values[3]);
+    const timeframes = values[4];
+
+    return {
+      trades,
+      candles,
+      balance,
+      coins,
+      timeframes
+    };
+  })
+  .catch(err => console.log(err))
+}
+
+const formatTrades = (trades) => {
+  const formattedTrades = trades.map(trade => {
+    return {
+      price: trade.price, 
+      amount: trade.cost, 
+      cost: trade.amount, 
+      time: trade.timestamp,
+      symbol: trade.info.symbol,
+      orderType: trade.type,
+      side: trade.side     
+    }
+  })
+  return formattedTrades;
+}
+
+const formatCoins = (coins, searchParam) => {
+  const coinArray = []
+  for (let coin in coins) {
+    // if (coin.includes(searchParam)) {
+      const coinData = coins[coin]
+      const coinObject = {
+        key: coinData.symbol,
+        symbol: coinData.symbol,
+        price: coinData.ask,
+        change: coinData.change,
+        changePercent: coinData.percentage,
+        volume: coinData.baseVolume
+      }
+     coinArray.push(coinObject)
+    // }
   }
-//}
+  return coinArray;
+}
+
+ module.exports = {
+  getExchangeInfo,
+  getUsers,
+  getUserById,
+  getUserByEmail,
+  addUser,
+  getUserExchanges,
+  getUserTransactions,
+  getUserExchangeTransactions,
+  addUserTransactions,
+  addUserExchange, 
+  addUserAccount
+}
+
 
 // - POST /api/login === log user in (set cookies)
 // - POST /api/logout === log user out (delete cookies)
