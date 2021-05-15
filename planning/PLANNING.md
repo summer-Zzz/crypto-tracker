@@ -83,7 +83,7 @@ Stretch - I want to see data from a closed account
 - React.js
 - Express.js
 - D3
-- CCXT 
+- ccxt 
 - postgreSQL
 - Storybook 
 
@@ -127,8 +127,8 @@ Stretch - I want to see data from a closed account
 - Hold echange practice session
 - Personal crypto research
 - Read D3 docs and candlestick guide
-- Read CCXT docs 
-- Play with CCXT 
+- Read ccxt docs 
+- Play with ccxt 
 - Create Trello board/accounts
 - Develop ERDs 
 - Record structure of API data

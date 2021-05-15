@@ -228,15 +228,17 @@ export default function App() {
     .then(res => console.log("response =>", res))
   }
 
+  const handleRequestData = (requestData) => {
+    
+  }
+
   const [exchangeCredentials, setExchangeCredentials] = useState(null);
   const [exchangeData, setExchangeData] = useState(null);
-  const [chartTimeframe, setChartTimeframe] = useState(null);
-
-  const requestData = {
+  const [data, setData] = useState({
     exchange: "bitmex",
     timeframe: '1h',
     coin: "BTC/USD"
-  }
+  })
 
   useEffect(() => {
     if (exchangeCredentials) { 
@@ -286,7 +288,7 @@ export default function App() {
           <Route path="/settings">
             <SettingsForm handleLogin={handleSubmit}/> 
           </Route>
-        { !exchangeData && <DropMenu options={exchanges} /> }
+        {/* { !exchangeData && <DropMenu options={exchanges} /> } */}
         { exchangeData &&
           <Route path="/">
             <div id="chart-dashboard-container">
@@ -298,10 +300,10 @@ export default function App() {
                 exchanges={exchanges} 
                 timeframes={exchangeData.timeframes}
                 currencies={currencies}
-                setChartTimeframe={setChartTimeframe}
+                setData={setData}
               />
             </div>
-            <CoinTable rows={exchangeData.coins} currencies={currencies} />
+            <CoinTable rows={exchangeData.coins} currencies={currencies} setData={setData}/>
             </Route>  
           }
         </Switch>

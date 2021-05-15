@@ -46,7 +46,7 @@ export default function Dashboard(props) {
     <div className='dashboard-container'>
       <div className="menu-container">
         <label>Pick your exchange</label>
-        <DropMenu options={exchanges}/>
+        <DropMenu options={exchanges} setRequestData={props.setRequestData}/>
         <label>Chart timeframe</label>
         <DropMenu options={formattedTimeframes} setData={props.setChartTimeframe} />
       </div>

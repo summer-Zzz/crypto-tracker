@@ -2,6 +2,6 @@
 
 - React.js
 - D3
-- CCXT 
+- ccxt 
 - Express
 - PG 

@@ -209,7 +209,6 @@ const getExchangeInfo = (exchangeData) => {
       balance,
       coins,
       timeframes,
-      exchangeData
     };
   })
   .catch(err => console.log(err))
