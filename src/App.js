@@ -5,10 +5,12 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
+  useHistory 
 } from "react-router-dom";
 import reducer from "./reducers/App"
 import './App.css';
+
 
 import Home from "./components/Home"
 import Form from "./components/Form"
@@ -217,15 +219,25 @@ const userDatabase = {
 }
 
 export default function App() {
-
+  
+  const history = useHistory();
   const [currentUser, setCurrentUser] = useState(null)
 
   const handleSubmit = (userData) => {
     // event.preventDefault()
     const { dataType, password, email } = userData;
     axios
-    .post(`http://localhost:3002/api/users/${dataType}/${email}/${password}`)
-    .then(res => console.log("response =>", res))
+    .post(`http://localhost:3001/api/users/${dataType}/${email}/${password}`)
+    .then((res) => {
+      if(res.status === 200){
+        history.push('/select')
+        history.go('/select')
+        setCurrentUser(res.data.id)
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   }
 
   const [exchangeCredentials, setExchangeCredentials] = useState(null);
@@ -297,11 +309,14 @@ export default function App() {
       <header>
         <nav className="navbar">
           <Link className="nav-text" to="/">Crypto-Tracker</Link>
+          <Link className="nav-text" to="/dashboard">Dashboard</Link>
           <Link className="nav-text" to="/login">Login</Link>
           <Link className="nav-text" to="/register">Register</Link>
+          <Link className="nav-text" to="/settings">Logout</Link> 
           <Link className="nav-text" to="/tradetable">Trade Table</Link>
           <Link className="nav-text" to="/settings">Settings</Link>
         </nav>
+
       </header>
       <main>
         <Switch>
@@ -317,9 +332,12 @@ export default function App() {
           <Route path="/settings">
             <SettingsForm /> 
           </Route>
+          <Route path="/select">
+            <h1>Hello</h1>
+          </Route>
           {/* <Home /> */}
         { exchangeData &&
-          <Route path="/">
+          <Route path="/dashboard">
             <div id="chart-dashboard-container">
               <DisplayChart candles={exchangeData.candles} coinName={exchangeData.coin.symbol || "no data"} />
               <Dashboard 
@@ -336,6 +354,9 @@ export default function App() {
             <CoinTable rows={exchangeData.coins} currencies={currencies} setCoin={setCoin} />
             </Route>  
           }
+          <Route exact path="/">
+            <Home />
+          </Route>
         </Switch>
       </main>
     </div>

@@ -22,6 +22,11 @@ app.use(cookieSession({
   //     }));
   // });
 
+  // router.get('/select', (req, res) => {
+  //   console.log(req.body)
+  //   res.send("success, you are login")
+  // })
+
   router.post('/exchanges/new', async (req, res) => {
     const { userId, exchangeId, apiKey, apiSecret } = req.body;
     const account = await addUserAccount({ userId, exchangeId, apiKey, apiSecret })
@@ -55,7 +60,7 @@ router.post('/login/:email/:password', (req, res) => {
   .then(user => {
     if (email && user.password === password) {
       req.session['user_id'] = user.id;
-      return res.redirect("/");
+      return res.status(200).json(user)
     }
     return res.send("Error!! Invalid email/password");
     res.statusCode = 403;
@@ -79,7 +84,7 @@ router.post('/register/:email/:password', (req, res) => {
 });
 
 module.exports = router;
-4
+
 // app.post('/register', (req,res) => {
 //   const {email, password} = req.body;
 //   userDatabase[email] = {email, password};
