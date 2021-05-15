@@ -4,10 +4,8 @@ import DropDownItem from './DropDownItem'
 
 export default function DropMenu(props) {
 
-  const [currentOption, setOption] = useState('')
-    function handleChange(event) {
-    let value = event.target.value;
-    setOption(value)
+  function handleChange(e) {
+    props.setData(e.target.value);
   }
 
   const options = props.options.map(option => {
@@ -19,7 +17,7 @@ export default function DropMenu(props) {
 
   return (
       <div className="select">
-        <select onChange={handleChange} value={currentOption}>
+        <select onChange={(e) => handleChange(e)}>
           <DropDownItem 
             name={'Select option'}
           />

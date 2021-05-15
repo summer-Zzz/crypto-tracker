@@ -1,5 +1,5 @@
 // import React from 'react'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useReducer } from 'react'
 import 'dotenv/config'
 import {
   BrowserRouter as Router,
@@ -7,7 +7,7 @@ import {
   Route,
   Link
 } from "react-router-dom";
-
+import reducer from "./reducers/App"
 import './App.css';
 
 import Home from "./components/Home"
@@ -231,10 +231,22 @@ export default function App() {
 
   const [exchangeCredentials, setExchangeCredentials] = useState(null);
   const [exchangeData, setExchangeData] = useState(null)
-    // exchange: null,
-    // coin: null,
-    // filter: null,
-    // timeframe: null
+  const [state, dispatch] = useReducer(reducer, {
+    exchange: null,
+    timeframe: null,
+    coin: null
+  })
+
+  const setExchange = (exchange) => {
+    dispatch({type: "SET_EXCHANGE", value: exchange})
+  }
+  const setTimeframe = (timeframe) => {
+    dispatch({type: "SET_TIMEFRAME", value: timeframe})
+  }
+  const setCoin = (coin) => {
+    dispatch({type: "SET_COIN", value: coin})
+  }
+
 
   useEffect(() => {
     if (exchangeCredentials) { 
@@ -298,9 +310,11 @@ export default function App() {
                 exchanges={exchanges} 
                 timeframes={exchangeData.timeframes}
                 currencies={currencies}
+                setTimeframe={setTimeframe}
+                setExchange={setExchange}
               />
             </div>
-            <CoinTable rows={exchangeData.coins} currencies={currencies} />
+            <CoinTable rows={exchangeData.coins} currencies={currencies} setCoin={setCoin} />
             </Route>  
           }
         </Switch>
