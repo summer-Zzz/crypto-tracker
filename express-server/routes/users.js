@@ -1,11 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {getUserByEmail, addUser, addUserAccount} = require('../db/helpers/dbHelpers');
-const cookieSession = require('cookie-session');
-app.use(cookieSession({
-  name: 'session',
-  keys: ['key1', 'key2']
-}))
+const {getUserByEmail, addUser, addUserAccount, getExchanges} = require('../db/helpers/dbHelpers');
 
 /* GET users listing. */
 // module.exports = ({
@@ -54,6 +49,7 @@ router.post('/login/:email/:password', (req, res) => {
   getUserByEmail(email)
   .then(user => {
     if (email && user.password === password) {
+
       req.session['user_id'] = user.id;
       return res.redirect("/");
     }
@@ -79,7 +75,7 @@ router.post('/register/:email/:password', (req, res) => {
 });
 
 module.exports = router;
-4
+
 // app.post('/register', (req,res) => {
 //   const {email, password} = req.body;
 //   userDatabase[email] = {email, password};

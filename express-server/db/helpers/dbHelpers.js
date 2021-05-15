@@ -248,6 +248,18 @@ const formatCoins = (coins, searchParam) => {
   return coinArray;
 }
 
+// Get exchanges 
+const getExchanges = () => {
+  const query = {
+    text: `SELECT name 
+      FROM exchanges`
+  }
+
+  return db.query(query)
+    .then(result => result.rows)
+    .catch(err => err);
+}
+
  module.exports = {
   getExchangeInfo,
   getUsers,
@@ -259,7 +271,8 @@ const formatCoins = (coins, searchParam) => {
   getUserExchangeTransactions,
   addUserTransactions,
   addUserExchange, 
-  addUserAccount
+  addUserAccount,
+  getExchanges
 }
 
 

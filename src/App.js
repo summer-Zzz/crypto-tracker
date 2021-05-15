@@ -254,7 +254,7 @@ export default function App() {
       const { exchange, timeframe, coin } = state;
       const formattedCoin = escapeCoinSlash(coin);
       console.log(formattedCoin)
-      const apiUrl = `http://localhost:3001/api/exchange/${exchange}/${formattedCoin}/${timeframe}`
+      const apiUrl = `http://localhost:3002/api/exchange/${exchange}/${formattedCoin}/${timeframe}`
       axios.get(apiUrl)
       .then(res => {
        const {trades, candles, balance, coins, timeframes} = res.data;
