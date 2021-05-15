@@ -1,5 +1,5 @@
 // import React from 'react'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useReducer } from 'react'
 import 'dotenv/config'
 import {
   BrowserRouter as Router,
@@ -7,7 +7,7 @@ import {
   Route,
   Link
 } from "react-router-dom";
-
+import reducer from "./reducers/App"
 import './App.css';
 
 import Home from "./components/Home"
@@ -221,7 +221,8 @@ export default function App() {
   const [currentUser, setCurrentUser] = useState(null)
 
   const handleSubmit = (userData) => {
-    const { email, password, dataType} = userData;
+    // event.preventDefault()
+    const { dataType, password, email } = userData;
     axios
     .post(`http://localhost:3001/api/users/${dataType}/${email}/${password}`)
     .then(res => console.log("response =>", res))
@@ -229,21 +230,53 @@ export default function App() {
 
   const [exchangeCredentials, setExchangeCredentials] = useState(null);
   const [exchangeData, setExchangeData] = useState(null);
-  const [chartTimeframe, setChartTimeframe] = useState(null);
-
-  const requestData = {
-    exchange: "bitmex",
-    timeframe: '1h',
+  const [state, dispatch] = useReducer(reducer, {
+    exchangeSelection: null,
+    timeframe: 1,
     coin: "BTC/USD"
+  })
+
+  const setExchange = (exchange) => {
+    dispatch({type: "SET_EXCHANGE", value: exchange})
   }
+  const setTimeframe = (timeframe) => {
+    dispatch({type: "SET_TIMEFRAME", value: timeframe})
+  }
+  const setCoin = (coin) => {
+    dispatch({type: "SET_COIN", value: coin})
+  }
+
+  const escapeCoinSlash = (coin) => {
+   return coin.split('/').join('%2F');
+  }
+
+  useEffect(() => {
+      const { exchange, timeframe, coin } = state;
+      const formattedCoin = escapeCoinSlash(coin);
+      console.log(formattedCoin)
+      const apiUrl = `http://localhost:3001/api/exchange/${exchange}/${formattedCoin}/${timeframe}`
+      axios.get(apiUrl)
+      .then(res => {
+       const {trades, candles, balance, coins, timeframes} = res.data;
+       const coin = state.coin;
+        setExchangeData({
+          trades,
+          candles,
+          balance,
+          coins,
+          coin,
+          timeframes
+        });
+      })
+  }, [state])
 
   useEffect(() => {
     if (exchangeCredentials) { 
       const apiUrl = `http://localhost:3001/api/exchange`
-      axios.get(apiUrl, {requestData})
+      axios.get(apiUrl)
       .then(res => {
        const {trades, candles, balance, coins, timeframes} = res.data;
-       const coin = coins[0];
+       const coin = state.coin;
         setExchangeData({
           trades,
           candles,
@@ -256,7 +289,6 @@ export default function App() {
     }
   }, [exchangeCredentials])
 
-
   return (
     <Router>
     <div>
@@ -265,7 +297,6 @@ export default function App() {
       <header>
         <nav className="navbar">
           <Link className="nav-text" to="/">Crypto-Tracker</Link>
-          <Link className="nav-text" to="/dashboard">Dashboard</Link>
           <Link className="nav-text" to="/login">Login</Link>
           <Link className="nav-text" to="/register">Register</Link>
           <Link className="nav-text" to="/tradetable">Trade Table</Link>
@@ -284,13 +315,11 @@ export default function App() {
           { exchangeData && <TradeTable rows={exchangeData.trades}/> }
           </Route>
           <Route path="/settings">
-            <SettingsForm handleLogin={handleSubmit}/> 
+            <SettingsForm /> 
           </Route>
-          <Route path="/">
-            <Home />
-          </Route>
+          {/* <Home /> */}
         { exchangeData &&
-          <Route path="/dashboard">
+          <Route path="/">
             <div id="chart-dashboard-container">
               <DisplayChart candles={exchangeData.candles} coinName={exchangeData.coin.symbol || "no data"} />
               <Dashboard 
@@ -300,10 +329,11 @@ export default function App() {
                 exchanges={exchanges} 
                 timeframes={exchangeData.timeframes}
                 currencies={currencies}
-                setChartTimeframe={setChartTimeframe}
+                setTimeframe={setTimeframe}
+                setExchange={setExchange}
               />
             </div>
-            <CoinTable rows={exchangeData.coins} currencies={currencies} />
+            <CoinTable rows={exchangeData.coins} currencies={currencies} setCoin={setCoin} />
             </Route>  
           }
         </Switch>
