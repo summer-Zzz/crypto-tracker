@@ -230,9 +230,9 @@ export default function App() {
     .post(`http://localhost:3001/api/users/${dataType}/${email}/${password}`)
     .then((res) => {
       if(res.status === 200){
-        console.log("user", res.data.id)
         history.push('/select')
         history.go('/select')
+        setCurrentUser(res.data.id)
       }
     })
     .catch((err) => {
