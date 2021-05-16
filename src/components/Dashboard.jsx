@@ -36,7 +36,6 @@ const formatTimeframes = (timeframes) => {
 export default function Dashboard(props) {
   const { coin, trades, balance, exchanges, timeframes, currencies } = props;
   // use selected coin's symbol to access balance 
-  console.log(coin)
   const baseTicker = coin.symbol.split('/')[0];
   const baseTickerBalance = balance[baseTicker].total
   const pL = calculatePL(trades, coin.last);

@@ -6,7 +6,11 @@ import {
   Switch,
   Route,
   Link,
+<<<<<<< HEAD
+  useHistory,
+=======
   useHistory, 
+>>>>>>> 1045690ac8d825fb8355ed3f3bcd36122dc4a4b2
   Redirect
 } from "react-router-dom";
 import { Navbar, Nav, Container } from 'react-bootstrap';
@@ -213,12 +217,12 @@ const tradeRows = [
   },
 ]
 
-const userDatabase = {
-  'testlogin@test.com' : {
-    email: 'testlogin@test.com',
-    password: '123'
-  }
-}
+// const userDatabase = {
+//   'testlogin@test.com' : {
+//     email: 'testlogin@test.com',
+//     password: '123'
+//   }
+// }
 
 export default function App() {
   
@@ -226,7 +230,6 @@ export default function App() {
   const [currentUser, setCurrentUser] = useState(null)
 
   const handleSubmit = (userData) => {
-    // event.preventDefault()
     const { dataType, password, email } = userData;
     axios
     .post(`http://localhost:3001/api/users/${dataType}/${email}/${password}`)
@@ -241,14 +244,20 @@ export default function App() {
     });
   }
 
+  const handleLogOut = () => {
+    setCurrentUser(null)
+    axios.post('http://localhost:3001/api/users/logout')
+    .then(res => {
+      console.log(res)
+    })
+  }
 
-  const [userLoggedIn, setUserLoggedIn] = useState(false);
   const [exchangeData, setExchangeData] = useState(null);
   const [state, dispatch] = useReducer(reducer, {
     exchange: "kraken",
     timeframe: '1hr',
     coin: "BTC/USD"
-  })
+  });
 
   const setExchange = (exchange) => {
     dispatch({type: "SET_EXCHANGE", value: exchange})
@@ -260,15 +269,11 @@ export default function App() {
     dispatch({type: "SET_COIN", value: coin})
   }
 
-  const escapeCoinSlash = (coin) => {
-   return coin.split('/').join('%2F');
-  }
-
   useEffect(() => {
-    if (userLoggedIn) { 
+    if (currentUser) { 
       const { exchange, timeframe, coin } = state;
-      const formattedCoin = escapeCoinSlash(coin);
-      const apiUrl = `http://localhost:3001/api/exchange/${exchange}/${formattedCoin}/${timeframe}`
+      const formattedCoin = coin.split('/').join('%2F');
+      const apiUrl = `http://localhost:3001/api/exchange/${exchange}/${formattedCoin}/${timeframe}/`
       axios.get(apiUrl)
       .then(res => {
        const {trades, candles, balance, coins, selectedCoin, timeframes} = res.data;
@@ -282,27 +287,9 @@ export default function App() {
           selectedCoin
         });
       })
+      .catch(err => console.log(err))
     }
-  }, [userLoggedIn, state])
-
-  // useEffect(() => {
-  //   if (exchangeCredentials) { 
-  //     const apiUrl = `http://localhost:3001/api/exchange`
-  //     axios.get(apiUrl)
-  //     .then(res => {
-  //      const {trades, candles, balance, coins, timeframes} = res.data;
-  //      const coin = state.coin;
-  //       setExchangeData({
-  //         trades,
-  //         candles,
-  //         balance,
-  //         coins,
-  //         coin,
-  //         timeframes
-  //       });
-  //     })
-  //   }
-  // }, [exchangeCredentials])
+  }, [state, currentUser])
 
   return (
     <Router>
@@ -310,17 +297,17 @@ export default function App() {
       {/* <button onClick={() => setExchangeCredentials("Exchange set")}>Update data</button> */}
       {/* <div>{JSON.stringify(exchangeData)}</div> */}
       <header>
-        {/* <nav className="navbar">
+        <nav className="navbar">
           <Link className="nav-text" to="/">Crypto-Tracker</Link>
-          <Link className="nav-text" to="/dashboard">Dashboard</Link>
+          {currentUser && <Link className="nav-text" to="/dashboard">Dashboard</Link> }
           <Link className="nav-text" to="/login">Login</Link>
           <Link className="nav-text" to="/register">Register</Link>
-          <Link className="nav-text" to="/settings">Logout</Link> 
-          <Link className="nav-text" to="/tradetable">Trade Table</Link>
-          <Link className="nav-text" to="/settings">Settings</Link>
-        </nav> */}
+          {currentUser && <Link onClick={() => handleLogOut()} className="nav-text" to="/api/logout">Logout</Link> }
+          {currentUser && <Link className="nav-text" to="/tradetable">Trade Table</Link> }
+          {currentUser && <Link className="nav-text" to="/settings">Settings</Link> }
+        </nav>
 
-        <Navbar collapseOnSelect expand='sm' className="navbar">
+        {/* <Navbar collapseOnSelect expand='sm' className="navbar">
           <Container>  
             <Navbar.Toggle aria-controls='responsive-navbar-nav'/>
               <Navbar.Collapse id='responsive-navbar-nav'>
@@ -335,7 +322,7 @@ export default function App() {
                 </Nav>  
               </Navbar.Collapse>
           </Container> 
-        </Navbar>
+        </Navbar> */}
 
       </header>
       <main>
