@@ -1,10 +1,11 @@
-const ccxtpro = require('ccxt.pro');
+const ccxt = require('ccxt');
 const express = require('express');
 const router = express.Router();
 const db = require('../db/index')
 const { getUserExchanges, getUserTransactions,
   addUserTransactions } = require('../db/helpers/dbHelpers')
-
+ 
+// get apiUrl/exchange/coin/timeframe
 router.get('/:exchange/:coin/:timeframe', function (req, res) {
   const { exchange, coin, timeframe} = req.params;
   const userId = 1;
@@ -14,6 +15,19 @@ router.get('/:exchange/:coin/:timeframe', function (req, res) {
     getExchangeInfo(exchanges, exchange, coin, timeframe).then(data => {
       return res.send(data);
     })
+  })
+  .catch(err => console.log(err));
+})
+
+// Get transaction of Trade Table - DB
+router.get('/:exchange/:tradetable', function (req, res) {
+  const { exchange, account_id} = req.params;
+  const userId = 1;
+  getUserTransactions(userId)
+  .then(transactions => {
+    console.log('route pinged')
+    console.log('formattedData: ', transactions)
+    return res.send(transactions);
   })
   .catch(err => console.log(err));
 })
@@ -38,7 +52,7 @@ const getExchangeInfo = (exchangeData, exchangeSelection, coin, timeframe) => {
   const firstExchange = exchangeData[0]
   const {api_key, api_secret} = firstExchange; 
   const exchangeId = exchangeSelection;
-  const exchangeClass = ccxtpro[exchangeId];
+  const exchangeClass = ccxt[exchangeId];
   const exchange = new exchangeClass({
     apiKey: api_key,
     secret: api_secret,
@@ -109,6 +123,15 @@ const formatCoins = (coins, searchParam) => {
   }
   return coinArray;
 }
+
+// Split Asset:
+const splitAsset = (symbol) => {
+  const coin = [];
+  coin.push(symbol.split("/")[0]);
+  coin.push(symbol.split("/")[1]);
+  return (coin);
+}
+
 // const getDefaultExchangeInfo = (exchangeData) => {
 //   const firstExchange = exchangeData[0]
 //   const {api_key, api_secret, exchange_name} = firstExchange; 
@@ -161,7 +184,7 @@ const formatCoins = (coins, searchParam) => {
 
 
 
-// Retreive trade transaction
+// Retreive trade transaction - API
 router.get('/exchange/trades', (req, res) => {
   fetchTrades()
     .then((tradeData) => res.json(tradeData))
@@ -170,47 +193,36 @@ router.get('/exchange/trades', (req, res) => {
   }));
 });
 
-  router.get('/exchange/trades/new', (req, res) => {
-    const { account_id, exchange } = req.body;
-    console.log (account_id, exchange)
-    fetchTrades(account_id, exchange)
-      .then(tradesData => {
-        if (!tradesData) {
-          res.json({
-            msg: 'Sorry, a user account with this email already exists'
-          });
-        } else {
-          console.log (tradesData)
-          return addUserTransactions(formatTrades(trades))
-        }
-      })
-        .then(newTradeTxn => res.json(newTradeTxn))
-        .catch(err => res.json({
-          error: err.message
-      }));
-  })
+// Retreive trade transaction - DB
+router.get('/exchange/trades', (req, res) => {
+  getUserExchangeTransactions (userId)
+    .then((tradeData) => res.json(tradeData))
+    console.log(tradeData)
+    .catch((err) => res.json({
+      error: err.message
+  }));
+});
 
 // Add new trade transaction
-  router.post('/exchange/trades/new', (req, res) => {
-    const { account_id, exchange } = req.body;
-    console.log (account_id, exchange)
-    fetchTrades(account_id, exchange)
-      .then(tradesData => {
-        if (!tradesData) {
-          res.json({
-            msg: 'Sorry, a user account with this email already exists'
-          });
-        } else {
-          console.log (tradesData)
-          return addUserTransactions(formatTrades(trades))
-        }
-      })
-        .then(newTradeTxn => res.json(newTradeTxn))
-        .catch(err => res.json({
-          error: err.message
+router.get('/exchange/trades/new', (req, res) => {
+  const { account_id, exchange } = req.body;
+  console.log (account_id, exchange)
+  fetchTrades(account_id, exchange)
+    .then(tradesData => {
+      if (!tradesData) {
+        res.json({
+          msg: 'Sorry, No transactions'
+        });
+      } else {
+        console.log (tradesData)
+        return addUserTransactions(formatTrades(trades))
+      }
+    })
+      .then(newTradeTxn => res.json(newTradeTxn))
+      .catch(err => res.json({
+        error: err.message
       }));
-  })
-
+})
 
 module.exports = router
 
@@ -240,37 +252,3 @@ module.exports = router
 //     res.json(trades)
 //   })
 // })
-module.exports = ({
-  getUserByEmail,
-  getUserExchanges,
-  addUserAccount,
-  getUserTransactions,
-  addUserTransactions,
- }) => {
-
-  router.get('/', (req, res) => {
-    getUserExchanges()
-      .then((exchanges) => res.json(exchanges))
-      .catch((err) => res.json({
-        error: err.message
-    }));
-  });
-
-    getUserByEmail(email)
-      .then(user => {
-        if (user) {
-          res.json({
-            msg: 'Sorry, a user account with this email already exists'
-          });
-        } else {
-          return addUser(email, password)
-        }
-      })
-        .then(newUser => res.json(newUser))
-        .catch(err => res.json({
-          error: err.message
-        }));
-  return router;
-};
-
-module.exports = router

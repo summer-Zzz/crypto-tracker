@@ -227,9 +227,10 @@ export default function App() {
     // event.preventDefault()
     const { dataType, password, email } = userData;
     axios
-    .post(`http://localhost:3001/api/users/${dataType}/${email}/${password}`)
+    .post(`http://localhost:3002/api/users/${dataType}/${email}/${password}`)
     .then((res) => {
       if(res.status === 200){
+        console.log(res.data);
         history.push('/select')
         history.go('/select')
         setCurrentUser(res.data.id)
@@ -266,7 +267,7 @@ export default function App() {
     if (exchangeCredentials) { 
       const { exchange, timeframe, coin } = state;
       const formattedCoin = escapeCoinSlash(coin);
-      const apiUrl = `http://localhost:3001/api/exchange/${exchange}/${formattedCoin}/${timeframe}`
+      const apiUrl = `http://localhost:3002/api/exchange/${exchange}/${formattedCoin}/${timeframe}`
       axios.get(apiUrl)
       .then(res => {
        const {trades, candles, balance, coins, selectedCoin, timeframes} = res.data;
@@ -285,7 +286,7 @@ export default function App() {
 
   // useEffect(() => {
   //   if (exchangeCredentials) { 
-  //     const apiUrl = `http://localhost:3001/api/exchange`
+  //     const apiUrl = `http://localhost:3002/api/exchange`
   //     axios.get(apiUrl)
   //     .then(res => {
   //      const {trades, candles, balance, coins, timeframes} = res.data;
