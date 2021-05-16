@@ -19,7 +19,6 @@ export default function TradeTable(props) {
   })
   
   return (
-
     <div className="trade-table">
       <h2>Trades</h2>
       <Table striped bordered hover>
