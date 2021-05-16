@@ -220,7 +220,10 @@ const tradeRows = [
 // }
 export default function App() {
   
+<<<<<<< HEAD
   // STATE
+=======
+>>>>>>> 808bc6303d92453afed4967666448ded87fd6b2e
   const [currentUser, setCurrentUser] = useState(null)
   const [exchangeData, setExchangeData] = useState(null);
   const [state, dispatch] = useReducer(reducer, {
@@ -237,7 +240,11 @@ export default function App() {
     .post(`http://localhost:3001/api/users/${dataType}/${email}/${password}`)
     .then((res) => {
       if(res.status === 200){
+<<<<<<< HEAD
         setCurrentUser(res.data.id);
+=======
+        setCurrentUser(res.data.id)
+>>>>>>> 808bc6303d92453afed4967666448ded87fd6b2e
       }
     })
     .catch((err) => {
@@ -297,30 +304,19 @@ export default function App() {
       <header>
         <nav className="navbar">
           <Link className="nav-text" to="/">Crypto-Tracker</Link>
+<<<<<<< HEAD
           {currentUser && <Link className="nav-text" to="/dashboard">Dashboard</Link> }–
           {!currentUser && <Link className="nav-text" to="/login">Login</Link> }
           {!currentUser && <Link className="nav-text" to="/register">Register</Link> }
+=======
+          {currentUser && <Link className="nav-text" to="/dashboard">Dashboard</Link> }
+          {!currentUser && <Link className="nav-text" to="/login">Login</Link>}
+          {!currentUser && <Link className="nav-text" to="/register">Register</Link>}
+>>>>>>> 808bc6303d92453afed4967666448ded87fd6b2e
           {currentUser && <Link onClick={() => handleLogOut()} className="nav-text" to="/api/logout">Logout</Link> }
           {currentUser && <Link className="nav-text" to="/tradetable">Trade Table</Link> }
           {currentUser && <Link className="nav-text" to="/settings">Settings</Link> }
         </nav>
-
-        {/* <Navbar collapseOnSelect expand='sm' className="navbar">
-          <Container>  
-            <Navbar.Toggle aria-controls='responsive-navbar-nav'/>
-              <Navbar.Collapse id='responsive-navbar-nav'>
-                <Nav>
-                  <Nav.Link className="nav-text" href="/">Crypto-Tracker</Nav.Link>
-                  <Nav.Link className="nav-text" href="/dashboard">Dashboard</Nav.Link>
-                  <Nav.Link className="nav-text" href="/login">Login</Nav.Link>
-                  <Nav.Link className="nav-text" href="/register">Register</Nav.Link>
-                  <Nav.Link className="nav-text" href="/settings">Logout</Nav.Link> 
-                  <Nav.Link className="nav-text" href="/tradetable">Trade Table</Nav.Link>
-                  <Nav.Link className="nav-text" href="/settings">Settings</Nav.Link>
-                </Nav>  
-              </Navbar.Collapse>
-          </Container> 
-        </Navbar> */}
 
       </header>
       <main>
