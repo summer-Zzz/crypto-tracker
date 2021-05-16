@@ -11,7 +11,7 @@ import {
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import reducer from "./reducers/App"
 import './App.css';
-
+import { FlapperSpinner } from "react-spinners-kit";
 
 import Home from "./components/Home"
 import Form from "./components/Form"
@@ -21,6 +21,8 @@ import Dashboard from "./components/Dashboard"
 import DisplayChart from './components/Candlestick/DisplayChart';
 import TradeTable from "./components/TradeTable/TradeTable";
 import axios from 'axios';
+
+var Spinner = require('react-spinkit');
 
 const exchanges = [
   {
@@ -304,7 +306,6 @@ export default function App() {
           {currentUser && <Link className="nav-text" to="/tradetable">Trade Table</Link> }
           {currentUser && <Link className="nav-text" to="/settings">Settings</Link> }
         </nav>
-
       </header>
       <main>
         <Switch>
@@ -316,14 +317,19 @@ export default function App() {
             <Form formLabel={'Login'} firstLabel={'Email:'} secondLabel={'Password:'} handleSubmit={handleSubmit}/>}
           </Route>
           <Route path="/tradetable">
+            <div className="loader-container">
+              { !exchangeData && <Spinner name="pacman" fadeIn="none" className="loader" />}
+            </div>
           { exchangeData && <TradeTable rows={exchangeData.trades}/> }
           </Route>
           <Route path="/settings">
             <SettingsForm /> 
           </Route>
           {/* <Home /> */}
-        { exchangeData &&
           <Route path="/dashboard">
+          { !exchangeData && <Spinner name="pacman" fadeIn="none" className="loader"/>}
+        { exchangeData &&
+          <div>
             <div id="chart-dashboard-container">
               <DisplayChart candles={exchangeData.candles} coinName={exchangeData.selectedCoin.symbol || "no data"} />
               <Dashboard 
@@ -338,8 +344,9 @@ export default function App() {
               />
             </div>
             <CoinTable rows={exchangeData.coins} currencies={currencies} setCoin={setCoin} setFilter={setFilter} />
-            </Route>  
+          </div>
           }
+            </Route>  
           <Route exact path="/">
             <Home />
           </Route>

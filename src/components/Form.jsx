@@ -35,6 +35,7 @@ export default function Form(props) {
   }
 
   return (
+    <div id="form-all-container">
     <div className="form-back-container">
       <div id="scene" ref={sceneEl}>
         <img className="form-coins" src="/images/coins1.png" alt="coins" data-depth="1.5" />
@@ -64,5 +65,6 @@ export default function Form(props) {
         </form>
       </div>
     </div >
+    </div>
   )
 }
