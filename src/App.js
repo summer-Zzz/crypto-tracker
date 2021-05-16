@@ -6,9 +6,14 @@ import {
   Switch,
   Route,
   Link,
+<<<<<<< HEAD
   useHistory,
+=======
+  useHistory, 
+>>>>>>> 1045690ac8d825fb8355ed3f3bcd36122dc4a4b2
   Redirect
 } from "react-router-dom";
+import { Navbar, Nav, Container } from 'react-bootstrap';
 import reducer from "./reducers/App"
 import './App.css';
 
@@ -228,12 +233,10 @@ export default function App() {
     const { dataType, password, email } = userData;
     axios
     .post(`http://localhost:3001/api/users/${dataType}/${email}/${password}`)
-    .then(res => {
-      if (res.status === 200) {
-        setCurrentUser(res.data.id);
-        history.push('/dashboard');
-        console.log(history)
-        history.go(-1);
+    .then((res) => {
+      if(res.status === 200){
+        setCurrentUser(res.data.id)
+        setUserLoggedIn(true)
       }
     })
     .catch((err) => {
@@ -303,6 +306,24 @@ export default function App() {
           {currentUser && <Link className="nav-text" to="/tradetable">Trade Table</Link> }
           {currentUser && <Link className="nav-text" to="/settings">Settings</Link> }
         </nav>
+
+        {/* <Navbar collapseOnSelect expand='sm' className="navbar">
+          <Container>  
+            <Navbar.Toggle aria-controls='responsive-navbar-nav'/>
+              <Navbar.Collapse id='responsive-navbar-nav'>
+                <Nav>
+                  <Nav.Link className="nav-text" href="/">Crypto-Tracker</Nav.Link>
+                  <Nav.Link className="nav-text" href="/dashboard">Dashboard</Nav.Link>
+                  <Nav.Link className="nav-text" href="/login">Login</Nav.Link>
+                  <Nav.Link className="nav-text" href="/register">Register</Nav.Link>
+                  <Nav.Link className="nav-text" href="/settings">Logout</Nav.Link> 
+                  <Nav.Link className="nav-text" href="/tradetable">Trade Table</Nav.Link>
+                  <Nav.Link className="nav-text" href="/settings">Settings</Nav.Link>
+                </Nav>  
+              </Navbar.Collapse>
+          </Container> 
+        </Navbar> */}
+
       </header>
       <main>
         <Switch>
@@ -310,16 +331,14 @@ export default function App() {
             <Form formLabel={'Register'} firstLabel={'Email:'} secondLabel={'Password:'} handleSubmit={handleSubmit}/>
           </Route>
           <Route path="/login">
-            <Form formLabel={'Login'} firstLabel={'Email:'} secondLabel={'Password:'} handleSubmit={handleSubmit}/>
+            {currentUser ? <Redirect to="/dashboard" /> :
+            <Form formLabel={'Login'} firstLabel={'Email:'} secondLabel={'Password:'} handleSubmit={handleSubmit}/>}
           </Route>
           <Route path="/tradetable">
           { exchangeData && <TradeTable rows={exchangeData.trades}/> }
           </Route>
           <Route path="/settings">
             <SettingsForm /> 
-          </Route>
-          <Route path="/select">
-            <h1>Hello</h1>
           </Route>
           {/* <Home /> */}
         { exchangeData &&

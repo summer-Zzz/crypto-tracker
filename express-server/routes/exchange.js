@@ -11,7 +11,6 @@ router.get('/:exchange/:coin/:timeframe', function (req, res) {
   .then(exchanges => {
     console.log('route pinged')
     getExchangeInfo(exchanges, exchange, coin, timeframe).then(data => {
-      console.log('got exchange info');
       return res.json(data);
     })
   })

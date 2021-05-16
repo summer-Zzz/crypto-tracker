@@ -26,5 +26,5 @@ yarn-error.log*
 .env
 .history
 
-# api keyse 
-express-server/db/seeds/02_accounts.sql
+# api keys
+/express-server/db/seeds/02_accounts.sql

@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const {getUserByEmail, addUser, addUserAccount} = require('../db/helpers/dbHelpers');
+const cookieSession = require('cookie-session');
 
 /* GET users listing. */
 // module.exports = ({
