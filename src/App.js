@@ -212,12 +212,6 @@ const tradeRows = [
   },
 ]
 
-// kraken = {
-// timeframes
-// coins
-// balance
-// trades 
-// }
 export default function App() {
   
   // STATE
@@ -332,6 +326,8 @@ export default function App() {
                 balance={exchangeData.balance} 
                 exchanges={exchanges} 
                 timeframes={exchangeData.timeframes}
+                selectedTimeframe={state.timeframe}
+                selectedExchange={state.exchange}
                 currencies={currencies}
                 setTimeframe={setTimeframe}
                 setExchange={setExchange}

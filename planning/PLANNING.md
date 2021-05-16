@@ -226,9 +226,9 @@ Stretch - I want to see data from a closed account
 
 ### JARED
 
-- style navbar 
 - Make select options stick when moving between routes
 - Fix trade table symbol bug 
+- style navbar 
 - Find fonts 
 
 ### EMAN
