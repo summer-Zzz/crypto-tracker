@@ -18,31 +18,6 @@ router.get('/:exchange/:coin/:timeframe', function (req, res) {
   .catch(err => console.log(err));
 })
 
-const mockDataAPI = (params, mockData) => {
-  const {exchange, coin, timeframe, filter} = params;
-  const returnExchange = mockData[exchange][coin][timeframe][filter];
-  const returnCoin = mockData[exchange][coin][timeframe];
-  const returntimeFrame = mockData[exchange][coin];
-  const returnFilter = mockData[exchange];
-  return [
-    returnFilter,
-    returnCoin,
-    returnTime,
-    returnFilter
-  ]
-}
-
-// router.get('/', function (req, res) {
-//   const userId = 1;
-//   getUserExchanges(userId)
-//   .then(exchanges => {
-//     getDefaultExchangeInfo(exchanges).then(data => {
-//       return res.send(data);
-//     })
-//   })
-//   .catch(err => console.log(err));
-// })
-
 const oneMonthAgo = () => new Date - 2629800000
 const oneWeekAgo = () => new Date - 604800000
 const oneDayAgo = () => new Date - 86400000
@@ -88,7 +63,7 @@ const formatTrades = (trades) => {
   const formattedTrades = []
   trades.forEach(trade => {
     formattedTrades.push({
-      cymbal: trade.symbol,
+      coinSymbol: trade.symbol,
       price: trade.price,
       amount: trade.amount,
       cost: trade.cost,
@@ -118,58 +93,6 @@ const formatCoins = (coins) => {
   }
   return coinArray;
 }
-// const getDefaultExchangeInfo = (exchangeData) => {
-//   const firstExchange = exchangeData[0]
-//   const {api_key, api_secret, exchange_name} = firstExchange; 
-//   const exchangeId = exchange_name;
-//   const exchangeClass = ccxt[exchangeId];
-//   const exchange = new exchangeClass({
-//     apiKey: api_key,
-//     secret: api_secret,
-//     enableRateLimit: true
-//   })
-  
-//   exchange.setSandboxMode(true);
-//   const fetchTrades = exchange.fetchMyTrades("BTC/USD", oneMonthAgo());
-//   const fetchOHLCV = exchange.fetchOHLCV("BTC/USD", "1h", oneMonthAgo());
-//   const fetchBalance = exchange.fetchBalance("BTC/USD");
-//   const fetchCoins = exchange.fetchTickers(["BTC/USD", "ETH/USD", "DOGE/USDT", "ADA/USDT"]);
-//   const timeframes = exchange.timeframes;
-//   return Promise.all([fetchTrades, fetchOHLCV, fetchBalance, fetchCoins, timeframes])
-//   .then(values => {
-//     const trades = formatTrades(values[0]);
-//     const candles = values[1];
-//     const balance = values[2];
-//     const coins = formatCoins(values[3]);
-//     const timeframes = values[4];
-//     return {
-//       trades,
-//       candles,
-//       balance,
-//       coins,
-//       timeframes
-//     };
-//   })
-//   .catch(err => console.log(err))
-// }
-
-// const getDefaultExchangeInfo = () => {
-//   const binance = new ccxt.binance({
-//     enableRateLimit: true
-//   })
-//   return binance.fetchTickers()
-//   .then(values => {
-//     const coins = formatCoins(values, "BTC");
-//     const coin = coins[0];
-//     return {
-//       coins: coins,
-//       coin: coin
-//     }
-//   })
-// }
-
-
-
 
 module.exports = router
 

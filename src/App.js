@@ -10,7 +10,7 @@ import {
 } from "react-router-dom";
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import reducer from "./reducers/App"
-import './App.css';
+import './App.scss';
 import { FlapperSpinner } from "react-spinners-kit";
 
 import Home from "./components/Home"
@@ -247,7 +247,7 @@ export default function App() {
     setCurrentUser(null)
     axios.post('http://localhost:3001/api/users/logout')
     .then(res => {
-      console.log(res)
+
     })
   }
 
@@ -302,7 +302,7 @@ export default function App() {
           <div className="navbar-right">
             { !currentUser && <Link className="nav-text" to="/login">Login</Link> }
             { !currentUser && <Link className="nav-text" to="/register">Register</Link> }
-            { currentUser && <Link onClick={() => handleLogout()} className="nav-text" to="/api/logout">Logout</Link> }
+            { currentUser && <Link onClick={() => handleLogout()} className="nav-text" to="/logout">Logout</Link> }
             { currentUser && <Link className="nav-text" to="/settings">Add Exchange</Link> }
             { currentUser && <Link className="nav-text" to="/tradetable">Your Trades</Link> }
             { currentUser && <Link className="nav-text" to="/dashboard">Dashboard</Link> }
@@ -326,6 +326,9 @@ export default function App() {
           </Route>
           <Route path="/settings">
             <SettingsForm /> 
+          </Route>
+          <Route path="/logout">
+            <Redirect to="/" />   
           </Route>
           <Route path="/dashboard">
           { !exchangeData && <Spinner name="pacman" fadeIn="none" className="loader"/>}
@@ -353,6 +356,7 @@ export default function App() {
               setFilter={setFilter} 
               selectedFilter={state.filter} />
           </div>
+          
           }
             </Route>  
           <Route exact path="/">

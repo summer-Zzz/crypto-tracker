@@ -7,6 +7,7 @@ const calculatePL = (trades, currentPrice) => {
   let costs = 0;
   let amounts = 0;
     for(let trade of trades) {
+      // if (trade.)
       costs += trade.cost;
       amounts += trade.amount;
     }
