@@ -14,12 +14,16 @@ const calculatePL = (trades, currentPrice) => {
   return proLoss;
 }
 
-const averageCost = (trades) => {
+const averageCost = (trades, currentCoin) => {
   let priceTotal = 0;
+  let tradesArray = [];
   trades.forEach(trade => {
-    priceTotal += trade.price;
+    if (trade.symbol = currentCoin.symbol) {
+      priceTotal += trade.price;  
+      tradesArray.push(trade)
+    }
   })
-  return priceTotal / trades.length;
+  return priceTotal / tradesArray.length;
 }
 
 const formatTimeframes = (timeframes) => {
@@ -39,7 +43,7 @@ export default function Dashboard(props) {
   const baseTicker = coin.symbol.split('/')[0];
   const baseTickerBalance = balance[baseTicker].total
   const pL = calculatePL(trades, coin.last);
-  const average = `$${averageCost(trades)}`;
+  const average = `$${averageCost(trades, coin)}`;
   const formattedTimeframes = formatTimeframes(timeframes);
  
   return (
