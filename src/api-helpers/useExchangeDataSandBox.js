@@ -88,16 +88,16 @@ const getOHLCVData = (exchangeRequestData) => {
 }
 
 // we get a % for the profit or loss of a single trade from this function
-const calculatePL = (trades, currentPrice) => {
-  let costs = 0;
-  let amounts = 0;
-    for(let trade of trades) {
-      costs += trade.cost;
-      amounts += trade.amount;
-    }
-  const proLoss =((currentPrice * amounts) - costs) /costs * 100;
-  return proLoss;
-}
+// const calculatePL = (trades, currentPrice) => {
+//   let costs = 0;
+//   let amounts = 0;
+//     for(let trade of trades) {
+//       costs += trade.cost;
+//       amounts += trade.amount;
+//     }
+//   const proLoss =((currentPrice * amounts) - costs) /costs * 100;
+//   return proLoss;
+// }
 
 // alternate method using CryptoCompare
 // const fetchExchangeCoinsPrice = (exchange, currency) => {
