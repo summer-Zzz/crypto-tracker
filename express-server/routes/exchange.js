@@ -1,4 +1,4 @@
-const ccxtpro = require('ccxt.pro');
+const ccxt = require('ccxt');
 const express = require('express');
 const router = express.Router();
 const db = require('../db/index')
@@ -11,7 +11,7 @@ router.get('/:exchange/:coin/:timeframe', function (req, res) {
   .then(exchanges => {
     console.log('route pinged')
     getExchangeInfo(exchanges, exchange, coin, timeframe).then(data => {
-      return res.send(data);
+      return res.status(200).json(data)
     })
   })
   .catch(err => console.log(err));
@@ -37,7 +37,7 @@ const getExchangeInfo = (exchangeData, exchangeSelection, coin, timeframe) => {
   const firstExchange = exchangeData[0]
   const {api_key, api_secret} = firstExchange; 
   const exchangeId = exchangeSelection;
-  const exchangeClass = ccxtpro[exchangeId];
+  const exchangeClass = ccxt[exchangeId];
   const exchange = new exchangeClass({
     apiKey: api_key,
     secret: api_secret,
@@ -58,7 +58,6 @@ const getExchangeInfo = (exchangeData, exchangeSelection, coin, timeframe) => {
     const coins = formatCoins(values[3]);
     const timeframes = values[4];
     const selectedCoin = values[5];
-    console.log(coin);
     return {
       trades,
       candles,
@@ -86,7 +85,7 @@ const formatTrades = (trades, coin) => {
       })
     }
   })
-  console.log(formattedTrades)
+  console.log('formattedTrades', formattedTrades)
   return formattedTrades;
 }
 

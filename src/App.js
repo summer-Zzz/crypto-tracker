@@ -6,8 +6,10 @@ import {
   Switch,
   Route,
   Link,
-  useHistory 
+  useHistory, 
+  Redirect
 } from "react-router-dom";
+import { Navbar, Nav, Container } from 'react-bootstrap';
 import reducer from "./reducers/App"
 import './App.css';
 
@@ -230,9 +232,8 @@ export default function App() {
     .post(`http://localhost:3001/api/users/${dataType}/${email}/${password}`)
     .then((res) => {
       if(res.status === 200){
-        history.push('/select')
-        history.go('/select')
         setCurrentUser(res.data.id)
+        setUserLoggedIn(true)
       }
     })
     .catch((err) => {
@@ -240,7 +241,8 @@ export default function App() {
     });
   }
 
-  const [exchangeCredentials, setExchangeCredentials] = useState(null);
+
+  const [userLoggedIn, setUserLoggedIn] = useState(false);
   const [exchangeData, setExchangeData] = useState(null);
   const [state, dispatch] = useReducer(reducer, {
     exchange: "kraken",
@@ -263,7 +265,7 @@ export default function App() {
   }
 
   useEffect(() => {
-    if (exchangeCredentials) { 
+    if (userLoggedIn) { 
       const { exchange, timeframe, coin } = state;
       const formattedCoin = escapeCoinSlash(coin);
       const apiUrl = `http://localhost:3001/api/exchange/${exchange}/${formattedCoin}/${timeframe}`
@@ -281,7 +283,7 @@ export default function App() {
         });
       })
     }
-  }, [exchangeCredentials, state])
+  }, [userLoggedIn, state])
 
   // useEffect(() => {
   //   if (exchangeCredentials) { 
@@ -305,10 +307,10 @@ export default function App() {
   return (
     <Router>
     <div>
-      <button onClick={() => setExchangeCredentials("Exchange set")}>Update data</button>
+      {/* <button onClick={() => setExchangeCredentials("Exchange set")}>Update data</button> */}
       {/* <div>{JSON.stringify(exchangeData)}</div> */}
       <header>
-        <nav className="navbar">
+        {/* <nav className="navbar">
           <Link className="nav-text" to="/">Crypto-Tracker</Link>
           <Link className="nav-text" to="/dashboard">Dashboard</Link>
           <Link className="nav-text" to="/login">Login</Link>
@@ -316,7 +318,24 @@ export default function App() {
           <Link className="nav-text" to="/settings">Logout</Link> 
           <Link className="nav-text" to="/tradetable">Trade Table</Link>
           <Link className="nav-text" to="/settings">Settings</Link>
-        </nav>
+        </nav> */}
+
+        <Navbar collapseOnSelect expand='sm' className="navbar">
+          <Container>  
+            <Navbar.Toggle aria-controls='responsive-navbar-nav'/>
+              <Navbar.Collapse id='responsive-navbar-nav'>
+                <Nav>
+                  <Nav.Link className="nav-text" href="/">Crypto-Tracker</Nav.Link>
+                  <Nav.Link className="nav-text" href="/dashboard">Dashboard</Nav.Link>
+                  <Nav.Link className="nav-text" href="/login">Login</Nav.Link>
+                  <Nav.Link className="nav-text" href="/register">Register</Nav.Link>
+                  <Nav.Link className="nav-text" href="/settings">Logout</Nav.Link> 
+                  <Nav.Link className="nav-text" href="/tradetable">Trade Table</Nav.Link>
+                  <Nav.Link className="nav-text" href="/settings">Settings</Nav.Link>
+                </Nav>  
+              </Navbar.Collapse>
+          </Container> 
+        </Navbar>
 
       </header>
       <main>
@@ -325,16 +344,14 @@ export default function App() {
             <Form formLabel={'Register'} firstLabel={'Email:'} secondLabel={'Password:'} handleSubmit={handleSubmit}/>
           </Route>
           <Route path="/login">
-            <Form formLabel={'Login'} firstLabel={'Email:'} secondLabel={'Password:'} handleSubmit={handleSubmit}/>
+            {currentUser ? <Redirect to="/dashboard" /> :
+            <Form formLabel={'Login'} firstLabel={'Email:'} secondLabel={'Password:'} handleSubmit={handleSubmit}/>}
           </Route>
           <Route path="/tradetable">
           { exchangeData && <TradeTable rows={exchangeData.trades}/> }
           </Route>
           <Route path="/settings">
             <SettingsForm /> 
-          </Route>
-          <Route path="/select">
-            <h1>Hello</h1>
           </Route>
           {/* <Home /> */}
         { exchangeData &&
