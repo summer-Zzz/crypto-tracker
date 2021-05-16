@@ -18,16 +18,18 @@ router.get('/:exchange/:coin/:timeframe/', function (req, res) {
   .catch(err => console.log(err));
 })
 
-// router.get('/', function (req, res) {
-//   const userId = 1;
-//   getUserExchanges(userId)
-//   .then(exchanges => {
-//     getDefaultExchangeInfo(exchanges).then(data => {
-//       return res.send(data);
-//     })
-//   })
-//   .catch(err => console.log(err));
-// })
+// Get transaction of Trade Table - DB
+router.get('/:exchange/:tradetable', function (req, res) {
+  const { exchange, account_id} = req.params;
+  const userId = 1;
+  getUserTransactions(userId)
+  .then(transactions => {
+    console.log('route pinged')
+    console.log('formattedData: ', transactions)
+    return res.send(transactions);
+  })
+  .catch(err => console.log(err));
+})
 
 const oneMonthAgo = () => new Date - 2629800000
 const oneWeekAgo = () => new Date - 604800000
@@ -88,7 +90,6 @@ const formatTrades = (trades) => {
   return formattedTrades;
 }
 
-
 const formatCoins = (coins, searchParam) => {
   const coinArray = []
   for (let coin in coins) {
@@ -108,5 +109,54 @@ const formatCoins = (coins, searchParam) => {
   return coinArray;
 }
 
+// Split Asset:
+const splitAsset = (symbol) => {
+  const coin = [];
+  coin.push(symbol.split("/")[0]);
+  coin.push(symbol.split("/")[1]);
+  return (coin);
+}
+
+// Retreive trade transaction - API
+router.get('/exchange/trades', (req, res) => {
+  fetchTrades()
+    .then((tradeData) => res.json(tradeData))
+    .catch((err) => res.json({
+      error: err.message
+  }));
+});
+
+// Retreive trade transaction - DB
+router.get('/exchange/trades', (req, res) => {
+  getUserExchangeTransactions (userId)
+    .then((tradeData) => res.json(tradeData))
+    console.log(tradeData)
+    .catch((err) => res.json({
+      error: err.message
+  }));
+});
+
+// Add new trade transaction
+router.get('/exchange/trades/new', (req, res) => {
+  const { account_id, exchange } = req.body;
+  console.log (account_id, exchange)
+  fetchTrades(account_id, exchange)
+    .then(tradesData => {
+      if (!tradesData) {
+        res.json({
+          msg: 'Sorry, No transactions'
+        });
+      } else {
+        console.log (tradesData)
+        return addUserTransactions(formatTrades(trades))
+      }
+    })
+      .then(newTradeTxn => res.json(newTradeTxn))
+      .catch(err => res.json({
+        error: err.message
+      }));
+})
+
 module.exports = router
 
+module.exports = router

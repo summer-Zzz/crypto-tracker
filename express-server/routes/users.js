@@ -18,10 +18,12 @@ router.post('/login/:email/:password', (req, res) => {
   .then(user => {
     if (email && user.password === password) {
       req.session['user_id'] = user.id;
+      console.log('User_id: ', user.id);
       return res.status(200).json(user);
+    } else {
+      return res.send("Error!! Invalid email/password");
+      res.statusCode = 403;
     }
-    return res.send("Error!! Invalid email/password");
-    res.statusCode = 403;
   })
 });
 
@@ -43,12 +45,10 @@ router.post('/register/:email/:password', (req, res) => {
       return res.send("Sorry, there is already a user registered with this email")
     }
     addUser(email, password).then(userAdded => {
-      console.log(userAdded)
-      return res.send("success, you are registered")
+      console.log('User added: ', userAdded);
+      return res.send("success, you are registered");
     })
   })
 });
 
 module.exports = router;
-
-

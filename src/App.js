@@ -228,7 +228,7 @@ export default function App() {
   const handleSubmit = (userData) => {
     const { dataType, password, email } = userData;
     axios
-    .post(`http://localhost:3001/api/users/${dataType}/${email}/${password}`)
+    .post(`http://localhost:3002/api/users/${dataType}/${email}/${password}`)
     .then((res) => {
       if(res.status === 200){
         setCurrentUser(res.data.id);
