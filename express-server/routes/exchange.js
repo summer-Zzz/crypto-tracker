@@ -20,12 +20,12 @@ router.get('/:exchange/:coin/:timeframe', function (req, res) {
 
 const mockDataAPI = (params, mockData) => {
   const {exchange, coin, timeframe, filter} = params;
-  const returnExchange = mockData[exchange][coin];
-  const returnFilter = mockData[exchange][coin][timeframe][filter];
+  const returnExchange = mockData[exchange][coin][timeframe][filter];
   const returnCoin = mockData[exchange][coin][timeframe];
+  const returntimeFrame = mockData[exchange][coin];
   const returnFilter = mockData[exchange];
   return [
-    returnExchange,
+    returnFilter,
     returnCoin,
     returnTime,
     returnFilter
