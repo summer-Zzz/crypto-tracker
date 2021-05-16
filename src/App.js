@@ -6,11 +6,6 @@ import {
   Switch,
   Route,
   Link,
-<<<<<<< HEAD
-  useHistory,
-=======
-  useHistory, 
->>>>>>> 1045690ac8d825fb8355ed3f3bcd36122dc4a4b2
   Redirect
 } from "react-router-dom";
 import { Navbar, Nav, Container } from 'react-bootstrap';
@@ -217,26 +212,32 @@ const tradeRows = [
   },
 ]
 
-// const userDatabase = {
-//   'testlogin@test.com' : {
-//     email: 'testlogin@test.com',
-//     password: '123'
-//   }
+// kraken = {
+// timeframes
+// coins
+// balance
+// trades 
 // }
-
 export default function App() {
   
-  const history = useHistory();
+  // STATE
   const [currentUser, setCurrentUser] = useState(null)
+  const [exchangeData, setExchangeData] = useState(null);
+  const [state, dispatch] = useReducer(reducer, {
+    exchange: "kraken",
+    timeframe: '1hr',
+    coin: "BTC/USD",
+    filter: "0"
+  });
 
+  // EVENT HANDLING
   const handleSubmit = (userData) => {
     const { dataType, password, email } = userData;
     axios
     .post(`http://localhost:3001/api/users/${dataType}/${email}/${password}`)
     .then((res) => {
       if(res.status === 200){
-        setCurrentUser(res.data.id)
-        setUserLoggedIn(true)
+        setCurrentUser(res.data.id);
       }
     })
     .catch((err) => {
@@ -252,28 +253,25 @@ export default function App() {
     })
   }
 
-  const [exchangeData, setExchangeData] = useState(null);
-  const [state, dispatch] = useReducer(reducer, {
-    exchange: "kraken",
-    timeframe: '1hr',
-    coin: "BTC/USD"
-  });
-
   const setExchange = (exchange) => {
-    dispatch({type: "SET_EXCHANGE", value: exchange})
+    dispatch({type: "SET_EXCHANGE", value: exchange});
   }
   const setTimeframe = (timeframe) => {
-    dispatch({type: "SET_TIMEFRAME", value: timeframe})
+    dispatch({type: "SET_TIMEFRAME", value: timeframe});
   }
   const setCoin = (coin) => {
-    dispatch({type: "SET_COIN", value: coin})
+    dispatch({type: "SET_COIN", value: coin});
+  }
+  const setFilter = (currency) => {
+    dispatch({type: "SET_FILTER", value: currency});
   }
 
+  // Re-renders all api data when user interacts with state
   useEffect(() => {
     if (currentUser) { 
       const { exchange, timeframe, coin } = state;
       const formattedCoin = coin.split('/').join('%2F');
-      const apiUrl = `http://localhost:3001/api/exchange/${exchange}/${formattedCoin}/${timeframe}/`
+      const apiUrl = `http://localhost:3001/api/exchange/${exchange}/${formattedCoin}/${timeframe}`
       axios.get(apiUrl)
       .then(res => {
        const {trades, candles, balance, coins, selectedCoin, timeframes} = res.data;
@@ -299,9 +297,9 @@ export default function App() {
       <header>
         <nav className="navbar">
           <Link className="nav-text" to="/">Crypto-Tracker</Link>
-          {currentUser && <Link className="nav-text" to="/dashboard">Dashboard</Link> }
-          <Link className="nav-text" to="/login">Login</Link>
-          <Link className="nav-text" to="/register">Register</Link>
+          {currentUser && <Link className="nav-text" to="/dashboard">Dashboard</Link> }–
+          {!currentUser && <Link className="nav-text" to="/login">Login</Link> }
+          {!currentUser && <Link className="nav-text" to="/register">Register</Link> }
           {currentUser && <Link onClick={() => handleLogOut()} className="nav-text" to="/api/logout">Logout</Link> }
           {currentUser && <Link className="nav-text" to="/tradetable">Trade Table</Link> }
           {currentUser && <Link className="nav-text" to="/settings">Settings</Link> }
@@ -356,7 +354,7 @@ export default function App() {
                 setExchange={setExchange}
               />
             </div>
-            <CoinTable rows={exchangeData.coins} currencies={currencies} setCoin={setCoin} />
+            <CoinTable rows={exchangeData.coins} currencies={currencies} setCoin={setCoin} setFilter={setFilter} />
             </Route>  
           }
           <Route exact path="/">

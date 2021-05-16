@@ -111,8 +111,8 @@ export default function DisplayChart(props) {
     y: values}})
 
     
-  const [chartData, setChartData] = useState({
-    
+    const chartData = {
+
     series: [{
       data: exchange
     }],
@@ -133,10 +133,10 @@ export default function DisplayChart(props) {
           enabled: true
         }
       }
-    },
-  })
+    }
+  }
 
-
+  // props.setCandles(setChartData);
   const chart_width = 700;
   const chart_height = 500;
 
