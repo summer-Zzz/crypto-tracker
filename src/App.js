@@ -6,8 +6,9 @@ import {
   Switch,
   Route,
   Link,
-  useHistory 
+  Redirect
 } from "react-router-dom";
+import { Navbar, Nav, Container } from 'react-bootstrap';
 import reducer from "./reducers/App"
 import './App.css';
 
@@ -211,29 +212,26 @@ const tradeRows = [
   },
 ]
 
-const userDatabase = {
-  'testlogin@test.com' : {
-    email: 'testlogin@test.com',
-    password: '123'
-  }
-}
-
 export default function App() {
   
-  const history = useHistory();
+  // STATE
   const [currentUser, setCurrentUser] = useState(null)
+  const [exchangeData, setExchangeData] = useState(null);
+  const [state, dispatch] = useReducer(reducer, {
+    exchange: "kraken",
+    timeframe: '1hr',
+    coin: "BTC/USD",
+    filter: "0"
+  });
 
+  // EVENT HANDLING
   const handleSubmit = (userData) => {
-    // event.preventDefault()
     const { dataType, password, email } = userData;
     axios
     .post(`http://localhost:3002/api/users/${dataType}/${email}/${password}`)
     .then((res) => {
       if(res.status === 200){
-        console.log(res.data);
-        history.push('/select')
-        history.go('/select')
-        setCurrentUser(res.data.id)
+        setCurrentUser(res.data.id);
       }
     })
     .catch((err) => {
@@ -241,33 +239,33 @@ export default function App() {
     });
   }
 
-  const [exchangeCredentials, setExchangeCredentials] = useState(null);
-  const [exchangeData, setExchangeData] = useState(null);
-  const [state, dispatch] = useReducer(reducer, {
-    exchange: "kraken",
-    timeframe: '1hr',
-    coin: "BTC/USD"
-  })
+  const handleLogOut = () => {
+    setCurrentUser(null)
+    axios.post('http://localhost:3001/api/users/logout')
+    .then(res => {
+      console.log(res)
+    })
+  }
 
   const setExchange = (exchange) => {
-    dispatch({type: "SET_EXCHANGE", value: exchange})
+    dispatch({type: "SET_EXCHANGE", value: exchange});
   }
   const setTimeframe = (timeframe) => {
-    dispatch({type: "SET_TIMEFRAME", value: timeframe})
+    dispatch({type: "SET_TIMEFRAME", value: timeframe});
   }
   const setCoin = (coin) => {
-    dispatch({type: "SET_COIN", value: coin})
+    dispatch({type: "SET_COIN", value: coin});
+  }
+  const setFilter = (currency) => {
+    dispatch({type: "SET_FILTER", value: currency});
   }
 
-  const escapeCoinSlash = (coin) => {
-   return coin.split('/').join('%2F');
-  }
-
+  // Re-renders all api data when user interacts with state
   useEffect(() => {
-    if (exchangeCredentials) { 
+    if (currentUser) { 
       const { exchange, timeframe, coin } = state;
-      const formattedCoin = escapeCoinSlash(coin);
-      const apiUrl = `http://localhost:3002/api/exchange/${exchange}/${formattedCoin}/${timeframe}`
+      const formattedCoin = coin.split('/').join('%2F');
+      const apiUrl = `http://localhost:3001/api/exchange/${exchange}/${formattedCoin}/${timeframe}`
       axios.get(apiUrl)
       .then(res => {
        const {trades, candles, balance, coins, selectedCoin, timeframes} = res.data;
@@ -281,42 +279,24 @@ export default function App() {
           selectedCoin
         });
       })
+      .catch(err => console.log(err))
     }
-  }, [exchangeCredentials, state])
-
-  // useEffect(() => {
-  //   if (exchangeCredentials) { 
-  //     const apiUrl = `http://localhost:3002/api/exchange`
-  //     axios.get(apiUrl)
-  //     .then(res => {
-  //      const {trades, candles, balance, coins, timeframes} = res.data;
-  //      const coin = state.coin;
-  //       setExchangeData({
-  //         trades,
-  //         candles,
-  //         balance,
-  //         coins,
-  //         coin,
-  //         timeframes
-  //       });
-  //     })
-  //   }
-  // }, [exchangeCredentials])
+  }, [state, currentUser])
 
   return (
     <Router>
     <div>
-      <button onClick={() => setExchangeCredentials("Exchange set")}>Update data</button>
+      {/* <button onClick={() => setExchangeCredentials("Exchange set")}>Update data</button> */}
       {/* <div>{JSON.stringify(exchangeData)}</div> */}
       <header>
         <nav className="navbar">
           <Link className="nav-text" to="/">Crypto-Tracker</Link>
-          <Link className="nav-text" to="/dashboard">Dashboard</Link>
-          <Link className="nav-text" to="/login">Login</Link>
-          <Link className="nav-text" to="/register">Register</Link>
-          <Link className="nav-text" to="/settings">Logout</Link> 
-          <Link className="nav-text" to="/tradetable">Trade Table</Link>
-          <Link className="nav-text" to="/settings">Settings</Link>
+          {currentUser && <Link className="nav-text" to="/dashboard">Dashboard</Link> }
+          {!currentUser && <Link className="nav-text" to="/login">Login</Link>}
+          {!currentUser && <Link className="nav-text" to="/register">Register</Link>}
+          {currentUser && <Link onClick={() => handleLogOut()} className="nav-text" to="/api/logout">Logout</Link> }
+          {currentUser && <Link className="nav-text" to="/tradetable">Trade Table</Link> }
+          {currentUser && <Link className="nav-text" to="/settings">Settings</Link> }
         </nav>
 
       </header>
@@ -326,16 +306,14 @@ export default function App() {
             <Form formLabel={'Register'} firstLabel={'Email:'} secondLabel={'Password:'} handleSubmit={handleSubmit}/>
           </Route>
           <Route path="/login">
-            <Form formLabel={'Login'} firstLabel={'Email:'} secondLabel={'Password:'} handleSubmit={handleSubmit}/>
+            {currentUser ? <Redirect to="/dashboard" /> :
+            <Form formLabel={'Login'} firstLabel={'Email:'} secondLabel={'Password:'} handleSubmit={handleSubmit}/>}
           </Route>
           <Route path="/tradetable">
           { exchangeData && <TradeTable rows={exchangeData.trades}/> }
           </Route>
           <Route path="/settings">
             <SettingsForm /> 
-          </Route>
-          <Route path="/select">
-            <h1>Hello</h1>
           </Route>
           {/* <Home /> */}
         { exchangeData &&
@@ -348,12 +326,14 @@ export default function App() {
                 balance={exchangeData.balance} 
                 exchanges={exchanges} 
                 timeframes={exchangeData.timeframes}
+                selectedTimeframe={state.timeframe}
+                selectedExchange={state.exchange}
                 currencies={currencies}
                 setTimeframe={setTimeframe}
                 setExchange={setExchange}
               />
             </div>
-            <CoinTable rows={exchangeData.coins} currencies={currencies} setCoin={setCoin} />
+            <CoinTable rows={exchangeData.coins} currencies={currencies} setCoin={setCoin} setFilter={setFilter} />
             </Route>  
           }
           <Route exact path="/">

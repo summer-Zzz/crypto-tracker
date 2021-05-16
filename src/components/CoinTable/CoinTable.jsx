@@ -24,7 +24,7 @@ export default function CoinTable(props) {
   return (
     <div className="coin-container">
       <lable className="option-lable">Select Currency:</lable>
-      <DropMenu options={props.currencies} />
+      <DropMenu options={props.currencies} setData={props.setFilter} />
       <Table striped bordered hover>
         <thead>
           <tr>

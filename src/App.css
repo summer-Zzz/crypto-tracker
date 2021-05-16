@@ -16,6 +16,7 @@ a {
 
 a:hover {
   background-color: #ffffff;
+  color: #38537B!important;
 }
 
 
@@ -41,13 +42,21 @@ button:hover {
   z-index: 20;
 }
 
+.nav-text-title {
+  font-size: 30px;
+  color: white;
+  margin-top: 0;
+  float: left;
+  font-family: 'Ubuntu', sans-serif;
+}
+
 .nav-text {
   font-size: 22px;
   color: white;
-  font-family: Arial;
   margin-top: 0;
   padding: 20px;
   font-family: 'Ubuntu', sans-serif;
+  float: right;
 }
 
 
@@ -67,3 +76,7 @@ button:hover {
     margin: 10px
   }
 }
+
+/* @media only screen and (max-width: 2000px) {
+
+} */

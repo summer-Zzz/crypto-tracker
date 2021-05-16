@@ -19,7 +19,7 @@ export default function DropMenu(props) {
       <div className="select">
         <select onChange={(e) => handleChange(e)}>
           <DropDownItem 
-            name={'Select option'}
+            name={props.selectedVal}
           />
           {options}
         </select>

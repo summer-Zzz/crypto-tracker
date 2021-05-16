@@ -1,36 +1,17 @@
 const express = require('express');
 const router = express.Router();
-const {getUserByEmail, addUser, addUserAccount, getExchanges} = require('../db/helpers/dbHelpers');
+const {getUserByEmail, addUser, addUserAccount} = require('../db/helpers/dbHelpers');
+const cookieSession = require('cookie-session');
 
-/* GET users listing. */
-// module.exports = ({
-//   getUsers,
-//   getUserByEmail,
-//   addUser
-// }) => {
-  /* GET users listing. */
-  // router.get('/', (req, res) => {
-  //   getUsers()
-  //     .then((users) => res.json(users))
-  //     .catch((err) => res.json({
-  //       error: err.message
-  //     }));
-  // });
+ // ADD NEW EXCHANGE
+router.post('/exchanges/new', async (req, res) => {
+  const { userId, exchangeId, apiKey, apiSecret } = req.body;
+  const account = await addUserAccount({ userId, exchangeId, apiKey, apiSecret })
+  console.log(account)
+  res.sendStatus(200)
+})
 
-  // router.get('/select', (req, res) => {
-  //   console.log(req.body)
-  //   res.send("success, you are login")
-  // })
-
-  // Route User Account Exchange
-  router.post('/exchanges/new', async (req, res) => {
-    const { userId, exchangeId, apiKey, apiSecret } = req.body;
-    const account = await addUserAccount({ userId, exchangeId, apiKey, apiSecret });
-    console.log(account);
-    res.sendStatus(200);
-  })
-
-// User Login
+  // USER LOGIN
 router.post('/login/:email/:password', (req, res) => {
   const {email, password} = req.params;
   getUserByEmail(email)
@@ -46,7 +27,14 @@ router.post('/login/:email/:password', (req, res) => {
   })
 });
 
-// User Register
+ // USER LOGOUT
+router.post('/logout', (req,res) => {
+  req.session.user_id = null;
+  return res.json({msg: 'Cookie cleared!'});
+});
+
+
+  // USER REGISTER
 router.post('/register/:email/:password', (req, res) => {
   const {email, password} = req.params;
   

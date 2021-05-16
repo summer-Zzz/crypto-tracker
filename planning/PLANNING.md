@@ -206,15 +206,48 @@ Stretch - I want to see data from a closed account
 ## QUESTION FOR FRANCIS
 - Testing?!?!
 
-## TOMORROW (FINISH MVP)
-- Style user login 
-- Style user Register 
-- Add labels to options 
-- Add filter to top of coin table 
-- (minor) create error message if filter returns no coins 
-- Test backend routes for login and register 
-- Setup exchange backend 
-- Testing db queries 
-- Adding transactions to db 
-  - figure out flow for this 
-- 
+## TODAY 
+- Styling 
+  - navbar 
+  - dashboard 
+  - tables 
+  - landing page
+  - add label to coinTable 
+
+- Make select options stick when moving between routes
+- Fix dashboard stats
+- Fix trade table symbol bug 
+- Add background to settings page
+- Let user see emtpy componenets before data renders 
+  - OR add loading message to appear if !currentUser 
+- Start creating data 
+- Make P&L red if negative and green if positive 
+- Find fonts 
+
+### JARED
+
+- Make select options stick when moving between routes
+- Fix trade table symbol bug 
+- style navbar 
+- Find fonts 
+
+### EMAN
+
+- Fix dashboard stats
+- style dashboard
+- Make mock data
+
+### SUMMER
+
+- style tables
+  - make more "button-like"
+  - make obvious 
+  - add label to cointable
+  - Add background to settings page
+- Add loading message when no exchange data
+
+## STRETCH GOALS FOR LATER 
+- Use userId for backend call
+- Let user see emtpy componenets before data renders 
+  - OR add loading message to appear if !currentUser 
+- Make P&L red if negative and green if positive 
