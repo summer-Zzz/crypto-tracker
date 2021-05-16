@@ -214,12 +214,6 @@ const tradeRows = [
   },
 ]
 
-// kraken = {
-// timeframes
-// coins
-// balance
-// trades 
-// }
 export default function App() {
   
   // STATE
@@ -229,14 +223,16 @@ export default function App() {
     exchange: "kraken",
     timeframe: '1hr',
     coin: "BTC/USD",
-    filter: "0"
+    filter: "none"
   });
 
   // EVENT HANDLING
+
+  // used for login and register
   const handleSubmit = (userData) => {
     const { dataType, password, email } = userData;
     axios
-    .post(`http://localhost:3001/api/users/${dataType}/${email}/${password}`)
+    .post(`http://localhost:3002/api/users/${dataType}/${email}/${password}`)
     .then((res) => {
       if(res.status === 200){
         setCurrentUser(res.data.id);
@@ -247,7 +243,7 @@ export default function App() {
     });
   }
 
-  const handleLogOut = () => {
+  const handleLogout = () => {
     setCurrentUser(null)
     axios.post('http://localhost:3001/api/users/logout')
     .then(res => {
@@ -258,15 +254,19 @@ export default function App() {
   const setExchange = (exchange) => {
     dispatch({type: "SET_EXCHANGE", value: exchange});
   }
+
   const setTimeframe = (timeframe) => {
     dispatch({type: "SET_TIMEFRAME", value: timeframe});
   }
+
   const setCoin = (coin) => {
     dispatch({type: "SET_COIN", value: coin});
   }
+
   const setFilter = (currency) => {
-    dispatch({type: "SET_FILTER", value: currency});
+    dispatch({type: "SET_FILTER", value: currency}); 
   }
+
 
   // Re-renders all api data when user interacts with state
   useEffect(() => {
@@ -277,12 +277,12 @@ export default function App() {
       axios.get(apiUrl)
       .then(res => {
        const {trades, candles, balance, coins, selectedCoin, timeframes} = res.data;
+       console.log(trades)
         setExchangeData({
           trades,
           candles,
           balance,
           coins,
-          coin,
           timeframes,
           selectedCoin
         });
@@ -294,17 +294,19 @@ export default function App() {
   return (
     <Router>
     <div>
-      {/* <button onClick={() => setExchangeCredentials("Exchange set")}>Update data</button> */}
-      {/* <div>{JSON.stringify(exchangeData)}</div> */}
       <header>
         <nav className="navbar">
-          <Link className="nav-text" to="/">Crypto-Tracker</Link>
-          {currentUser && <Link className="nav-text" to="/dashboard">Dashboard</Link> }
-          {!currentUser && <Link className="nav-text" to="/login">Login</Link>}
-          {!currentUser && <Link className="nav-text" to="/register">Register</Link>}
-          {currentUser && <Link onClick={() => handleLogOut()} className="nav-text" to="/api/logout">Logout</Link> }
-          {currentUser && <Link className="nav-text" to="/tradetable">Trade Table</Link> }
-          {currentUser && <Link className="nav-text" to="/settings">Settings</Link> }
+          <div className="navbar-left">
+            <Link className="nav-text-title" to="/">Crypto-Tracker</Link>
+          </div>
+          <div className="navbar-right">
+            { !currentUser && <Link className="nav-text" to="/login">Login</Link> }
+            { !currentUser && <Link className="nav-text" to="/register">Register</Link> }
+            { currentUser && <Link onClick={() => handleLogout()} className="nav-text" to="/api/logout">Logout</Link> }
+            { currentUser && <Link className="nav-text" to="/settings">Add Exchange</Link> }
+            { currentUser && <Link className="nav-text" to="/tradetable">Your Trades</Link> }
+            { currentUser && <Link className="nav-text" to="/dashboard">Dashboard</Link> }
+          </div>
         </nav>
       </header>
       <main>
@@ -325,7 +327,6 @@ export default function App() {
           <Route path="/settings">
             <SettingsForm /> 
           </Route>
-          {/* <Home /> */}
           <Route path="/dashboard">
           { !exchangeData && <Spinner name="pacman" fadeIn="none" className="loader"/>}
         { exchangeData &&
@@ -338,12 +339,19 @@ export default function App() {
                 balance={exchangeData.balance} 
                 exchanges={exchanges} 
                 timeframes={exchangeData.timeframes}
+                selectedTimeframe={state.timeframe}
+                selectedExchange={state.exchange}
                 currencies={currencies}
                 setTimeframe={setTimeframe}
                 setExchange={setExchange}
               />
             </div>
-            <CoinTable rows={exchangeData.coins} currencies={currencies} setCoin={setCoin} setFilter={setFilter} />
+            <CoinTable 
+              rows={exchangeData.coins} 
+              currencies={currencies} 
+              setCoin={setCoin} 
+              setFilter={setFilter} 
+              selectedFilter={state.filter} />
           </div>
           }
             </Route>  

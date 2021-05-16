@@ -8,7 +8,7 @@ export default function TradeTable(props) {
   const tableRows = props.rows.map(row => {
     return <TradeTableRow 
       key={row.id}
-      symbol={row.symbol}
+      symbol={row.cymbal}
       price={row.price}
       amount={row.amount}
       cost={row.cost}
