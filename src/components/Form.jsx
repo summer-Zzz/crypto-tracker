@@ -35,8 +35,7 @@ export default function Form(props) {
   }
 
   return (
-    <div id="form-all-container">
-    <div className="form-back-container">
+    <div className="form-all-container">
       <div id="scene" ref={sceneEl}>
         <img className="form-coins" src="/images/coins1.png" alt="coins" data-depth="1.5" />
         <img className="form-coins" src="/images/coins2.png" alt="coins" data-depth="0.4" />
@@ -63,7 +62,6 @@ export default function Form(props) {
             <input type="submit" onSubmit={(event) => props.handleSubmit(userData)} className="button"></input>
           </div>
         </form>
-      </div>
     </div >
     </div>
   )
