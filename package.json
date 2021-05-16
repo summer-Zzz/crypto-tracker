@@ -30,6 +30,7 @@
     "react-scroll-parallax": "^2.4.0",
     "react-spinkit": "^3.0.0",
     "react-spinners-kit": "^1.9.1",
+    "spinkit": "^2.0.1",
     "web-vitals": "^1.1.1"
   },
   "scripts": {

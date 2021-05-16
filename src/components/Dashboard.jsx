@@ -7,8 +7,10 @@ const calculatePL = (trades, currentPrice) => {
   let costs = 0;
   let amounts = 0;
     for(let trade of trades) {
+      if (trade.cymbal === currentPrice.symbol) {
       costs += trade.cost;
       amounts += trade.amount;
+      }
     }
     console.log('Trades:', trades);
     console.log('currentPrice: ', currentPrice)
@@ -20,12 +22,14 @@ const averageCost = (trades, currentCoin) => {
   let priceTotal = 0;
   let tradesArray = [];
   trades.forEach(trade => {
-    if (trade.symbol = currentCoin.symbol) {
+    if (trade.cymbal = currentCoin.symbol) {
       priceTotal += trade.price;  
       tradesArray.push(trade)
     }
   })
-  return priceTotal / tradesArray.length;
+  console.log('Trades:', trades);
+  console.log('currentCoin: ', currentCoin);
+  return (priceTotal / tradesArray.length).toFixed(2);
 }
 
 const formatTimeframes = (timeframes) => {

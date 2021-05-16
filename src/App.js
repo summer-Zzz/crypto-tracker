@@ -10,7 +10,7 @@ import {
 } from "react-router-dom";
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import reducer from "./reducers/App"
-import './App.css';
+import './App.scss';
 import { FlapperSpinner } from "react-spinners-kit";
 
 import Home from "./components/Home"
