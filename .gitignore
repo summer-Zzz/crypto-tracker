@@ -1,6 +1,7 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
+.gitignore
 /node_modules
 /express-server/node_modules
 /.pnp
@@ -25,5 +26,5 @@ yarn-error.log*
 .env
 .history
 
-# api keys
+# api keyse 
 express-server/db/seeds/02_accounts.sql
