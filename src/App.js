@@ -10,7 +10,7 @@ import {
 } from "react-router-dom";
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import reducer from "./reducers/App"
-import './App.css';
+import './App.scss';
 import { FlapperSpinner } from "react-spinners-kit";
 
 import Home from "./components/Home"
@@ -245,7 +245,7 @@ export default function App() {
 
   const handleLogout = () => {
     setCurrentUser(null)
-    axios.post('http://localhost:3001/api/users/logout')
+    axios.post('http://localhost:3002/api/users/logout')
     .then(res => {
       console.log(res)
     })
@@ -273,7 +273,7 @@ export default function App() {
     if (currentUser) { 
       const { exchange, timeframe, coin } = state;
       const formattedCoin = coin.split('/').join('%2F');
-      const apiUrl = `http://localhost:3001/api/exchange/${exchange}/${formattedCoin}/${timeframe}`
+      const apiUrl = `http://localhost:3002/api/exchange/${exchange}/${formattedCoin}/${timeframe}`
       axios.get(apiUrl)
       .then(res => {
        const {trades, candles, balance, coins, selectedCoin, timeframes} = res.data;
