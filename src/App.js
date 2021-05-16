@@ -6,11 +6,7 @@ import {
   Switch,
   Route,
   Link,
-<<<<<<< HEAD
   useHistory,
-=======
-  useHistory, 
->>>>>>> 1045690ac8d825fb8355ed3f3bcd36122dc4a4b2
   Redirect
 } from "react-router-dom";
 import { Navbar, Nav, Container } from 'react-bootstrap';
@@ -226,7 +222,6 @@ const tradeRows = [
 
 export default function App() {
   
-  const history = useHistory();
   const [currentUser, setCurrentUser] = useState(null)
 
   const handleSubmit = (userData) => {
@@ -236,7 +231,6 @@ export default function App() {
     .then((res) => {
       if(res.status === 200){
         setCurrentUser(res.data.id)
-        setUserLoggedIn(true)
       }
     })
     .catch((err) => {
@@ -300,29 +294,12 @@ export default function App() {
         <nav className="navbar">
           <Link className="nav-text" to="/">Crypto-Tracker</Link>
           {currentUser && <Link className="nav-text" to="/dashboard">Dashboard</Link> }
-          <Link className="nav-text" to="/login">Login</Link>
-          <Link className="nav-text" to="/register">Register</Link>
+          {!currentUser && <Link className="nav-text" to="/login">Login</Link>}
+          {!currentUser && <Link className="nav-text" to="/register">Register</Link>}
           {currentUser && <Link onClick={() => handleLogOut()} className="nav-text" to="/api/logout">Logout</Link> }
           {currentUser && <Link className="nav-text" to="/tradetable">Trade Table</Link> }
           {currentUser && <Link className="nav-text" to="/settings">Settings</Link> }
         </nav>
-
-        {/* <Navbar collapseOnSelect expand='sm' className="navbar">
-          <Container>  
-            <Navbar.Toggle aria-controls='responsive-navbar-nav'/>
-              <Navbar.Collapse id='responsive-navbar-nav'>
-                <Nav>
-                  <Nav.Link className="nav-text" href="/">Crypto-Tracker</Nav.Link>
-                  <Nav.Link className="nav-text" href="/dashboard">Dashboard</Nav.Link>
-                  <Nav.Link className="nav-text" href="/login">Login</Nav.Link>
-                  <Nav.Link className="nav-text" href="/register">Register</Nav.Link>
-                  <Nav.Link className="nav-text" href="/settings">Logout</Nav.Link> 
-                  <Nav.Link className="nav-text" href="/tradetable">Trade Table</Nav.Link>
-                  <Nav.Link className="nav-text" href="/settings">Settings</Nav.Link>
-                </Nav>  
-              </Navbar.Collapse>
-          </Container> 
-        </Navbar> */}
 
       </header>
       <main>
