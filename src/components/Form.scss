@@ -1,6 +1,6 @@
-.form-back-container{
+.form-all-container {
   width: 100%;
-  height: 800px;
+  height: 1200px;
   margin-top: 0;
   text-align: center;
   background-image: url("../background.jpeg");
@@ -13,12 +13,12 @@
 .form-container{
   margin-bottom: 200px;
   display: block;
-  margin-left: 30%;
-  margin-top: 10%;
+  margin-left: 35%;
+  margin-top: 150px;
+  margin-bottom: auto;
   background: #fff;
   position: absolute;              
-  top: 40%;  
-  left: 1%;                      
+  top: 40%;                      
   transform: translate(0, -50%);
   width: 500px;
   padding: 50px;
@@ -110,19 +110,32 @@ label {
 }
 
 @media only screen and (max-width: 1024px) {
-.form-container{
-  margin-bottom: 200px;
-  display: block;
-  margin-left: 20%;
-  margin-top: 10%;
-  position: absolute;              
-  top: 40%;  
-  left: 6%;                      
-  transform: translate(0, -50%);
-  background: #fff;
-  width: 50%;
-  padding: 50px;
-  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
-}
-}
+  .form-container{
+    margin-bottom: 200px;
+    display: block;
+    margin-left: 20%;
+    margin-top: 10%;
+    position: absolute;              
+    top: 40%;  
+    left: 6%;                      
+    transform: translate(0, -50%);
+    background: #fff;
+    width: 50%;
+    padding: 50px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+    }
+  }
+@media only screen and (max-width: 1440px) {
 
+  .form-container{
+    margin-left: 30%;
+    margin-top: 150px;
+    margin-bottom: auto;
+  }
+  .form-all-container {
+    width: 100%;
+      height: 800px;
+      margin-top: 0;
+
+  }
+}

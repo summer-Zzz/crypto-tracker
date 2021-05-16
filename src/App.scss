@@ -4,9 +4,11 @@
 h1, h2 {
   font-size: 2em;
   font-family: 'Ubuntu', sans-serif;
-
 }
 
+* {
+  font-family: 'M PLUS Rounded 1c', sans-serif
+}
 
 a {
   text-decoration: none!important;
@@ -31,6 +33,8 @@ button:hover {
 
 
 .navbar {
+  display: flex;
+  justify-content: space-between;
   border: none;
   background: #38537B;
   padding: 15px 0;
@@ -47,7 +51,7 @@ button:hover {
   color: white;
   margin-top: 0;
   float: left;
-  font-family: 'Ubuntu', sans-serif;
+  font-family: 'Righteous', cursive;
 }
 
 .nav-text {
@@ -55,10 +59,20 @@ button:hover {
   color: white;
   margin-top: 0;
   padding: 20px;
-  font-family: 'Ubuntu', sans-serif;
+  font-family: 'Righteous', cursive;
   float: right;
 }
 
+.loader {
+  margin-left: 50%;
+  margin-right: 50%;
+  margin-top: 20%;
+  transform: scale(2, 2);
+}
+
+.loader-container {
+  height: 100%
+}
 
 #chart-dashboard-container {
   display: flex;
@@ -77,6 +91,19 @@ button:hover {
   }
 }
 
+@media only screen and (max-width: 800px) {
+  .navbar {
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+  }
+
+  .navbar-right {
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+  }
+}
 /* @media only screen and (max-width: 2000px) {
 
 } */
