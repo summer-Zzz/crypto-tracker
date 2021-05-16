@@ -29,7 +29,7 @@ export default function CoinTable(props) {
         setData={props.setFilter} 
         selectedVal={props.selectedFilter} 
       />
-      <Table striped bordered hover>
+      <Table striped hover>
         <thead>
           <tr>
             <td></td>
@@ -40,7 +40,7 @@ export default function CoinTable(props) {
             <td>Volume (24h)</td>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="tbody">
           {tableRows}
         </tbody>
       </Table>

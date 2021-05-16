@@ -10,7 +10,7 @@ import {
 } from "react-router-dom";
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import reducer from "./reducers/App"
-import './App.css';
+import './App.scss';
 import { FlapperSpinner } from "react-spinners-kit";
 
 import Home from "./components/Home"
@@ -232,7 +232,7 @@ export default function App() {
   const handleSubmit = (userData) => {
     const { dataType, password, email } = userData;
     axios
-    .post(`http://localhost:3002/api/users/${dataType}/${email}/${password}`)
+    .post(`http://localhost:3001/api/users/${dataType}/${email}/${password}`)
     .then((res) => {
       if(res.status === 200){
         setCurrentUser(res.data.id);
@@ -328,7 +328,7 @@ export default function App() {
             <SettingsForm /> 
           </Route>
           <Route path="/dashboard">
-          { !exchangeData && <Spinner name="pacman" fadeIn="none" className="loader"/>}
+          { !exchangeData && <div><Spinner name="pacman" fadeIn="none" className="loader"/><p className="loading-text">Loading...</p></div>}
         { exchangeData &&
           <div>
             <div id="chart-dashboard-container">
