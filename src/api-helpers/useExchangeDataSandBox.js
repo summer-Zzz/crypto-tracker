@@ -1,5 +1,5 @@
 require('dotenv').config();
-const ccxtpro = require ('ccxt.pro');
+const ccxt = require ('ccxt');
 const axios = require('axios');
 
 // SINGLE EXCHANGE INSTANTIATION  //
@@ -27,7 +27,7 @@ const axios = require('axios');
 //   enableRateLimit: true
 // })
 
-const kraken = new ccxtpro.kraken({
+const kraken = new ccxt.kraken({
   apiKey: process.env.KRAKEN_ID,
   secret: process.env.KRAKEN_SECRET,
   enableRateLimit: true

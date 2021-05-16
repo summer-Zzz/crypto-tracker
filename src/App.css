@@ -43,7 +43,7 @@ button:hover {
 
 .nav-text {
   font-size: 22px;
-  color: white;
+  color: white!important;
   font-family: Arial;
   margin-top: 0;
   padding: 20px;
