@@ -7,7 +7,7 @@
 }
 #container {
   width: 100%;
-  height: 700px;
+  height: 800px;
   margin-top: 0;
   text-align: center;
   background-image: url("../background.jpeg");
@@ -40,8 +40,9 @@
 .header-text {
   color: white;
   font-weight: 600;
-  margin-top: -22%;    
+  margin-top: -18%;    
   font-size: 80px;
+  z-index: 10;
 }
 .intro {
   color:white;
@@ -58,22 +59,29 @@
   margin-left: 40%;
   margin-right: 0px;
   margin-bottom: 100px;
-  margin-top: 10px;
-  background-color: rgba(255, 255, 255, 0);
+  margin-top: 40px;
+  font-weight: 800;
+  background-color: rgba(255, 255, 255, .1);
   color: white;
-  border: 2px solid rgba(255, 255, 255, 0.5); 
+  border: 2px solid white; 
   font-size: 20px;
   border-radius: 4px;
   transition-duration: 0.4s;
   width: 180px;
   height: 50px;
   font-family: 'Ubuntu', sans-serif;
+  box-shadow: 0 0 10px white, inset 0 0 10px white;
+  text-shadow: 0 0 20px white;
+  z-index: 10;
 }
 
 .track-button:hover {
   background-color: rgba(255, 255, 255, 0);
-  color: white;
+  color: white !important;
   border: 2px solid white; 
+  box-shadow: 0 0 40px white, inset 0 0 20px white;
+  text-shadow: 0 0 20px white;
+  transition: .5s;
 }
 
 .header-container {
@@ -98,7 +106,7 @@
   
   .header-text {
     color: white;
-    font-weight: 600;
+    font-weight: 500;
     margin-top: -17%;    
     font-size: 80px;
   }
@@ -139,13 +147,13 @@
 // }
 
 // @media only screen and (max-width: 2200px) {
-//   .header-text {
-//     color: white;
-//     position: absolute;              
-//     top: 70%;  
-//     left: 10%;                      
-//     transform: translate(0, -50%);
-//     font-weight: 600;    
-//     font-size: 80px;
-//   }
+  // .header-text {
+  //   color: white;
+  //   position: absolute;              
+  //   top: 70%;  
+  //   left: 10%;                      
+  //   transform: translate(0, -50%);
+  //   font-weight: 600;    
+  //   font-size: 80px;
+  // }
 // }
