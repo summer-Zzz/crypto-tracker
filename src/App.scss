@@ -4,7 +4,6 @@
 h1, h2 {
   font-size: 2em;
   font-family: 'Ubuntu', sans-serif;
-
 }
 
 * {
@@ -64,6 +63,16 @@ button:hover {
   float: right;
 }
 
+.loader {
+  margin-left: 50%;
+  margin-right: 50%;
+  margin-top: 20%;
+  transform: scale(2, 2);
+}
+
+.loader-container {
+  height: 100%
+}
 
 #chart-dashboard-container {
   display: flex;
