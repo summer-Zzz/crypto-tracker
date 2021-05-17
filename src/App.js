@@ -247,9 +247,9 @@ export default function App() {
             </Route>
             <Route path="/tradetable">
               <div className="loader-container">
-                {!exchangeData && <Spinner name="pacman" fadeIn="none" className="loader" />}
+                {!exchangeData && currentUser && <Spinner name="pacman" fadeIn="none" className="loader" />}
               </div>
-              {exchangeData && <TradeTable rows={exchangeData.trades} />}
+              {currentUser ? exchangeData && <TradeTable rows={exchangeData.trades} /> : <Redirect to="/" />}
             </Route>
             <Route path="/settings">
               <SettingsForm />
@@ -258,8 +258,9 @@ export default function App() {
               <Redirect to="/" />
             </Route>
             <Route path="/dashboard">
-              {!exchangeData && <Spinner name="pacman" fadeIn="none" className="loader" />}
-              {exchangeData &&
+            { !exchangeData && currentUser && <div><Spinner name="pacman" fadeIn="none" className="loader"/><p className="loading-text">Loading...</p></div>}
+            { currentUser ?
+            exchangeData &&
                 <div>
                   <div className="show-container">
                     <div id="chart-dashboard-container">
@@ -291,7 +292,7 @@ export default function App() {
                       selectedExchange={state.exchange}
                       selectedFilter={state.filter} />
                     </div>
-                  </div>
+                  </div> : <Redirect to="/" />
               }
             </Route>
             <Route exact path="/">

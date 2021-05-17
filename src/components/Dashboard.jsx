@@ -16,6 +16,7 @@ const calculatePL = (trades, currentPrice) => {
   return((proLoss.toFixed(2) > 0) ? "+" + proLoss.toFixed(2) : proLoss.toFixed(2));
 }
 
+
 const averageCost = (trades, currentCoin) => {
   let priceTotal = 0;
   let tradesArray = [];
@@ -35,7 +36,15 @@ export default function Dashboard(props) {
   const baseTickerBalance = balance[baseTicker].total
   const pL = calculatePL(trades, coin);
   const average = `$${averageCost(trades, coin)}`;
- 
+  
+
+  const checkPl = (pL) => {
+    if(pL.includes('+')) {
+      console.log(pL)
+      return true
+    }
+  }
+
   return (
     <div className='dashboard-container'>
       <div className='timeframe'>
@@ -44,7 +53,13 @@ export default function Dashboard(props) {
       </div>
       <div className="info-container">
         <InfoDisplay infoHeader={'Balance'} infoContent={`${baseTickerBalance} ${baseTicker}`} />
+        {/* {checkPl(pL) &&
         <InfoDisplay infoHeader={'P&L'} infoContent={`${pL}%`}/>
+
+        } */}
+        <div className={checkPl(pL) ? 'red' : 'green'}>
+        <InfoDisplay infoHeader={'P&L'} infoContent={`${pL}%`} />
+        </div>
         <InfoDisplay infoHeader={'Average Price'} infoContent={average}/>
       </div>
     </div>
