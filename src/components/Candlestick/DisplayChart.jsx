@@ -148,8 +148,6 @@ export default function DisplayChart(props) {
         </div>
       </div>
       <div className="timeframe">
-        <label>Chart timeframe</label>
-        <DropMenu options={props.timeframes} setData={props.setTimeframe} selectedVal={props.selectedTimeframe} />
       </div>
     </div>
   );

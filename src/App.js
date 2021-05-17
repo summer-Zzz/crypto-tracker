@@ -267,9 +267,6 @@ export default function App() {
                       <DisplayChart
                         candles={exchangeData.candles}
                         coinName={exchangeData.selectedCoin.symbol || "no data"} 
-                        timeframes={exchangeData.timeframes}
-                        setTimeframe={setTimeframe}
-                        selectedTimeframe={state.timeframe}
                       />
                       <Dashboard
                         coin={exchangeData.selectedCoin}
@@ -278,6 +275,7 @@ export default function App() {
                         exchanges={exchanges}
                         timeframes={exchangeData.timeframes}
                         selectedTimeframe={state.timeframe}
+                        setTimeframe={setTimeframe}
                         selectedExchange={state.exchange}
                         currencies={currencies}
                       />
