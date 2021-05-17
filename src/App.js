@@ -287,9 +287,9 @@ export default function App() {
             </Route>
             <Route path="/tradetable">
               <div className="loader-container">
-                {!exchangeData && <Spinner name="pacman" fadeIn="none" className="loader" />}
+                {!exchangeData && currentUser && <Spinner name="pacman" fadeIn="none" className="loader" />}
               </div>
-              {exchangeData && <TradeTable rows={exchangeData.trades} />}
+              {currentUser ? exchangeData && <TradeTable rows={exchangeData.trades} /> : <Redirect to="/" />}
             </Route>
             <Route path="/settings">
               <SettingsForm />
