@@ -9,11 +9,18 @@ import './SettingsForm.scss';
 export default function SettingsForm(props) {
 
 const [apiKey, setApiKey] = useState(null)
-const [secret, setSecret] = useState(null)
-const [exchange, setExchange] = useState(null)
+const [apiSecret, setApiSecret] = useState(null)
+const [exchange, setExchange] = useState("Binance")
 
-const handleCreateAccount = async () => {
-  const account = await axios.post('http://localhost:3001/api/users/exchanges/new', { userId: 1, exchangeId: 1, apiKey, apiSecret: secret })
+const handleExchange = (event) => {
+  setExchange(event.target.value)
+}
+
+const handleApiKey = (event) => {
+  setApiKey(event.target.value)
+}
+const handleSecret = (event) => {
+  setApiSecret(event.target.value)
 }
 
 const sceneEl = useRef(null);
@@ -42,19 +49,23 @@ const sceneEl = useRef(null);
           <option value="Binance">Binance</option>
           <option value="Kraken">Kraken</option>
           <option value="Bitmex">Bitmex</option>
+          <option value="BitBuy">BitBuy</option>
+          <option value="BitMap">BitMap</option>
+          <option value="CoinSquare">CoinSquare</option>
+          <option value="AAX">AAX</option>
         </select>
         <div className="label-input">
           <FontAwesomeIcon icon={faKey} className="icon" />
           <label className="form-label" htmlFor='api-key'>API Key:</label>
-          <input className="input-feild" type="text" name="api-key" value={apiKey} placeholder='Enter your API key' onChange={(e) => setApiKey(e.target.value)}/>
+          <input className="input-feild" type="text" name="api-key" value={apiKey} placeholder='Enter your API key' onChange={(e) => handleApiKey(e)}/>
         </div>
         <div className="label-input">
           <FontAwesomeIcon icon={faKey} className="icon" />
           <label htmlFor='secret-key'>Secret Key:</label>
-          <input type="text" name="secret-key" value={secret} placeholder='Enter your API secret key' onChange={(e) => setSecret(e.target.value)}/>
+          <input type="text" name="secret-key" value={apiSecret} placeholder='Enter your API secret key' onChange={(e) => handleSecret(e)}/>
         </div>
         <div className="button-container">
-        <button onClick={handleCreateAccount} className="button">Submit</button>
+        <button onClick={() => props.handleAddAccount(1, exchange, apiKey, apiSecret)} className="button">Submit</button>
         </div>
       </div>
     </div>

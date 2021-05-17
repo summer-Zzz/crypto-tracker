@@ -18,7 +18,6 @@ import CoinTable from "./components/CoinTable/CoinTable"
 import Dashboard from "./components/Dashboard"
 import DisplayChart from './components/Candlestick/DisplayChart';
 import TradeTable from "./components/TradeTable/TradeTable";
-import DropMenu from "./components/DropDownMenu/DropMenu"
 import { propTypes } from 'react-bootstrap/esm/Image';
 const Spinner = require('react-spinkit');
 
@@ -214,8 +213,8 @@ const tradeRows = [
 
 
 export default function App() {
-  const { handleSubmit, handleLogout, setExchange, setTimeframe, setCoin, setFilter, state, currentUser, exchangeData, cookies } = useApplicationData()
-
+  const { handleSubmit, handleAddAccount, handleLogout, setExchange, setTimeframe, setCoin, setFilter, state, currentUser, exchangeData, cookies } = useApplicationData()
+ 
   return (
     <Router>
       <div>
@@ -250,7 +249,7 @@ export default function App() {
               {cookies.Email ? exchangeData && <TradeTable rows={exchangeData.trades} /> : <Redirect to="/" />}
             </Route>
             <Route path="/settings">
-              <SettingsForm />
+              <SettingsForm handleAddAccount={handleAddAccount}/>
             </Route>
             <Route path="/logout">
               <Redirect to="/" />
@@ -285,7 +284,7 @@ export default function App() {
                       currencies={currencies}
                       setCoin={setCoin}
                       setFilter={setFilter}
-                      exchanges={exchanges}
+                      exchanges={exchangeData.exchanges}
                       setExchange={setExchange}
                       selectedExchange={state.exchange}
                       selectedFilter={state.filter} />

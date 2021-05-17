@@ -6,7 +6,8 @@ import { useCookies } from 'react-cookie';
 export default function useApplicationData() {
 
   // STATE
-  const [currentUser, setCurrentUser] = useState(null)
+
+  const [currentUser, setCurrentUser] = useState(null);
   const [exchangeData, setExchangeData] = useState(null);
   const [cookies, setCookie, removeCookie] = useCookies(['Email']);
 
@@ -37,12 +38,21 @@ export default function useApplicationData() {
     axios.post('http://localhost:3001/api/users/logout')
     .then(res => {
       removeCookie("Email")
+      console.log(res)
     })
+  }
+
+  const handleAddAccount = (userId, exchangeName, apiKey, apiSecret) => {
+    axios.post(`http://localhost:3001/api/exchange/account/new`, {userId, exchangeName, apiKey, apiSecret})
+    .then(res => {
+      setExchange(exchangeName);
+    })
+    .catch(err => console.log(err))
   }
   
   // REDUCER FUNCTIONS
-  const setExchange = (exchange) => {
-    dispatch({type: "SET_EXCHANGE", value: exchange});
+  function setExchange(exchange) {
+    dispatch({ type: "SET_EXCHANGE", value: exchange });
   }
   
   const setTimeframe = (timeframe) => {
@@ -62,23 +72,24 @@ export default function useApplicationData() {
     if (currentUser) { 
       const { exchange, timeframe, coin } = state;
       const formattedCoin = coin.split('/').join('%2F');
-      const apiUrl = `http://localhost:3001/api/exchange/${exchange}/${formattedCoin}/${timeframe}`
+      const id = 1;
+      const apiUrl = `http://localhost:3001/api/exchange/${true}/${id}/${exchange}/${formattedCoin}/${timeframe}`
       axios.get(apiUrl)
       .then(res => {
-       const {trades, candles, balance, coins, selectedCoin, timeframes} = res.data;
-       console.log(timeframes);
+       const {exchanges, trades, candles, balance, coins, selectedCoin, timeframes} = res.data;
         setExchangeData({
           trades,
           candles,
           timeframes,
           balance,
           coins,
-          selectedCoin
+          selectedCoin,
+          exchanges
         });
       })
       .catch(err => console.log(err))
     }
   }, [state, currentUser])
   
-  return { handleSubmit, handleLogout, setExchange, setTimeframe, setCoin, setFilter, state, currentUser, exchangeData, cookies }
+  return { handleSubmit, handleAddAccount, handleLogout, setExchange, setTimeframe, setCoin, setFilter, state, currentUser, exchangeData, cookies }
 }
