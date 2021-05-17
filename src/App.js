@@ -8,10 +8,9 @@ import {
   Link,
   Redirect
 } from "react-router-dom";
-import { Navbar, Nav, Container } from 'react-bootstrap';
+
 import reducer from "./reducers/App"
 import './App.scss';
-import { FlapperSpinner } from "react-spinners-kit";
 
 import Home from "./components/Home"
 import Form from "./components/Form"
@@ -21,8 +20,7 @@ import Dashboard from "./components/Dashboard"
 import DisplayChart from './components/Candlestick/DisplayChart';
 import TradeTable from "./components/TradeTable/TradeTable";
 import axios from 'axios';
-
-var Spinner = require('react-spinkit');
+const Spinner = require('react-spinkit');
 
 const exchanges = [
   {
@@ -247,7 +245,7 @@ export default function App() {
     setCurrentUser(null)
     axios.post('http://localhost:3002/api/users/logout')
     .then(res => {
-      console.log(res)
+
     })
   }
 
@@ -302,7 +300,7 @@ export default function App() {
           <div className="navbar-right">
             { !currentUser && <Link className="nav-text" to="/login">Login</Link> }
             { !currentUser && <Link className="nav-text" to="/register">Register</Link> }
-            { currentUser && <Link onClick={() => handleLogout()} className="nav-text" to="/api/logout">Logout</Link> }
+            { currentUser && <Link onClick={() => handleLogout()} className="nav-text" to="/logout">Logout</Link> }
             { currentUser && <Link className="nav-text" to="/settings">Add Exchange</Link> }
             { currentUser && <Link className="nav-text" to="/tradetable">Your Trades</Link> }
             { currentUser && <Link className="nav-text" to="/dashboard">Dashboard</Link> }
@@ -327,12 +325,17 @@ export default function App() {
           <Route path="/settings">
             <SettingsForm /> 
           </Route>
+          <Route path="/logout">
+            <Redirect to="/" />   
+          </Route>
           <Route path="/dashboard">
           { !exchangeData && <Spinner name="pacman" fadeIn="none" className="loader"/>}
         { exchangeData &&
           <div>
             <div id="chart-dashboard-container">
-              <DisplayChart candles={exchangeData.candles} coinName={exchangeData.selectedCoin.symbol || "no data"} />
+              <DisplayChart 
+                candles={exchangeData.candles} 
+                coinName={exchangeData.selectedCoin.symbol || "no data"} />
               <Dashboard 
                 coin={exchangeData.selectedCoin}
                 trades={exchangeData.trades}
@@ -353,6 +356,7 @@ export default function App() {
               setFilter={setFilter} 
               selectedFilter={state.filter} />
           </div>
+          
           }
             </Route>  
           <Route exact path="/">

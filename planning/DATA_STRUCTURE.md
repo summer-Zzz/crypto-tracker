@@ -2,14 +2,13 @@ TradeTable Data
 
 ```js
 {
-  baseCurrency: 'BTC',
-  quoteCurrency: 'USD',
-  time: 1620331915827, // trade transaction time (milliseconds)
-  side: 'buy', // side: buy or sell
-  order-type: 'limit', // order type
-  price:  54240.09, // unit price
-  cost:  19.960353, // amount spent on coin 
-  amount:  0.000368 // amount of coin received
+      coinSymbol: trade.symbol,
+      price: trade.price,
+      amount: trade.amount,
+      cost: trade.cost,
+      time: trade.timestamp,
+      orderType: trade.type,
+      side: trade.side 
 }
 
   ``` 
@@ -17,11 +16,12 @@ CoinTable Data
 
 ```js
 {
-  symbol: "BTC/USDT"
-  price:  54173.95,
-  change:  -3455.18, // 24h change
-  change%:  -5.998, // 24hr change in percent
-  volume:  80330.68993 // 24hr volume in crypto 
+        key: coinData.symbol,
+        coinSymbol: coinData.symbol,
+        price: coinData.ask,
+        change: coinData.change,
+        changePercent: coinData.percentage,
+        volume: coinData.baseVolume
 }
 
   ```
