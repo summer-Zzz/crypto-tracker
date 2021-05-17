@@ -69,6 +69,24 @@ const getUserExchanges = (userId) => {
     .catch(err => err);
 }
 
+//6 - Get user exchanges but just the names 
+const getUserExchangeNames = (userId) => {
+  const query = {
+    text: `SELECT exchanges.name as exchange_name
+      FROM users
+      INNER JOIN accounts
+      ON users.id = accounts.user_id
+      INNER JOIN exchanges
+      ON accounts.exchange_id = exchanges.id
+      WHERE users.id = $1`,
+    values: [userId]
+  }
+
+  return db.query(query)
+    .then(result => result.rows)
+    .catch(err => err);
+}
+
 // - GET /api/users/exchanges
 //   const getUserExchanges = (userId) => {
 //     const query = {
@@ -88,7 +106,7 @@ const getUserExchanges = (userId) => {
 //}
   
 
-//6- getUserTransactions
+//7- getUserTransactions
 const getUserTransactions = (userId) => {
   const query = {
     text: `SELECT account_id, base_currency||'/'||quote_currency as asset, transaction_type, order_type, unit_price, amount, cost, transaction_fee
@@ -107,7 +125,7 @@ const getUserTransactions = (userId) => {
   }
 
 
-// 7- getUserExchangeTransactions
+// 8- getUserExchangeTransactions
 const getUserExchangeTransactions = () => {
   const query = {
     text: `SELECT exchanges.name, account_id, base_currency||'/'||quote_currency as asset, transaction_type, order_type, unit_price, amount, cost, transaction_fee
@@ -124,8 +142,19 @@ const getUserExchangeTransactions = () => {
     .catch(err => err);
 }
 
+//-9 
+const getExchangeByName = (exchangeName) => {
+  const query = {
+    text: "SELECT * FROM exchanges WHERE name = $1",
+    values: [exchangeName]
+  }
+  return db.query(query)
+    .then(result => result.rows[0])
+    .catch(err => err);
+}
+
   
-// 8- addUserTransaction
+// 10- addUserTransaction
 const addUserTransactions = (txnData) => {
   const {accountId, baseCurrency, quoteCurrency, 
     txnType, orderType, unitPrice, amount, cost, txnTime, txnFee} = txnData; 
@@ -144,7 +173,7 @@ const addUserTransactions = (txnData) => {
 
  
 // - POST /api/users/exchanges/new === add user exchange
-// 9- Add new exchange
+// 11- Add new exchange
 const addUserExchange = (exchangeName, exchangeWebsite) => {
   const query = {
     text: `INSERT INTO exchanges (name, website) VALUES ($1, $2) RETURNING *` ,
@@ -156,7 +185,7 @@ const addUserExchange = (exchangeName, exchangeWebsite) => {
     .catch(err => err);
 }
 
-// 10- Add new user account
+// 12- Add new user account
 const addUserAccount = (txnData) => {
   const { userId, exchangeId, apiKey, apiSecret } = txnData;
     const query = {
@@ -169,7 +198,7 @@ const addUserAccount = (txnData) => {
     .catch(err => err);
 }
 
-// 11- Get exchanges 
+// 13- Get exchanges 
 const getExchanges = () => {
   const query = {
     text: `SELECT name 
@@ -181,89 +210,16 @@ const getExchanges = () => {
     .catch(err => err);
 }
 
-const oneMonthAgo = () => new Date - 2629800000
-const oneWeekAgo = () => new Date - 604800000
-const oneDayAgo = () => new Date - 86400000
-const oneMinuteAgo = () => new Date - 60000
-
-const getExchangeInfo = (exchangeData) => {
-  const firstExchange = exchangeData[0]
-  const {api_key, api_secret, exchange_name} = firstExchange; 
-  exchangeId = exchange_name;
-  exchangeClass = ccxt[exchangeId];
-  const exchange = new exchangeClass({
-    apiKey: api_key,
-    secret: api_secret,
-    enableRateLimit: true
-  })
-  
-  exchange.setSandboxMode(true);
-  const fetchTrades = exchange.fetchMyTrades("BTC/USDT", oneMonthAgo());
-  const fetchOHLCV = exchange.fetchOHLCV("BTC/USDT", '1h', oneMonthAgo());
-  const fetchBalance = exchange.fetchBalance();
-  const fetchCoins = exchange.fetchTickers(['BTC/USDT']);
-  const timeframes = exchange.timeframes;
-  return Promise.all([fetchTrades, fetchOHLCV, fetchBalance, fetchCoins, timeframes])
-  .then(values => {
-    const trades = formatTrades(values[0]);
-    const candles = values[1];
-    const balance = values[2];
-    const coins = formatCoins(values[3]);
-    const timeframes = values[4];
-
-    return {
-      trades,
-      candles,
-      balance,
-      coins,
-      timeframes
-    };
-  })
-  .catch(err => console.log(err))
-}
-
-const formatTrades = (trades) => {
-  const formattedTrades = trades.map(trade => {
-    return {
-      price: trade.price, 
-      amount: trade.cost, 
-      cost: trade.amount, 
-      time: trade.timestamp,
-      symbol: trade.info.symbol,
-      orderType: trade.type,
-      side: trade.side     
-    }
-  })
-  return formattedTrades;
-}
-
-const formatCoins = (coins, searchParam) => {
-  const coinArray = []
-  for (let coin in coins) {
-    // if (coin.includes(searchParam)) {
-      const coinData = coins[coin]
-      const coinObject = {
-        key: coinData.symbol,
-        symbol: coinData.symbol,
-        price: coinData.ask,
-        change: coinData.change,
-        changePercent: coinData.percentage,
-        volume: coinData.baseVolume
-      }
-     coinArray.push(coinObject)
-    // }
-  }
-  return coinArray;
-}
-
  module.exports = {
-  getExchangeInfo,
+  addUserExchange,
+  getExchangeByName,
   getUsers,
   getUserById,
   getUserByEmail,
   addUser,
   getUserExchanges,
   getUserTransactions,
+  getUserExchangeNames,
   getUserExchangeTransactions,
   addUserTransactions,
   addUserExchange, 

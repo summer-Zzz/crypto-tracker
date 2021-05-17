@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from "react";
 import ReactApexChart from "react-apexcharts";
 
-import DropMenu from "../DropDownMenu/DropMenu"
 import "./DisplayChart.scss";
 
 export default function DisplayChart(props) {

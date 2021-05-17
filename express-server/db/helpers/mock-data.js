@@ -2,8 +2,7 @@ const getMockData = (exchange, coin, timeframe, filter) => {
   return mockData
 }
 
-
-const krakenMockData = {
+const mockData = {
   balance: {
     USD: 179.3275,
     CAD: 2146.1453,
