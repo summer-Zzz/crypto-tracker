@@ -38,6 +38,7 @@ export default function CoinTable(props) {
             <td>24h</td>
             <td>24h%</td>
             <td>Volume (24h)</td>
+            <td></td>
           </tr>
         </thead>
         <tbody className="tbody">
