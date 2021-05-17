@@ -33,7 +33,7 @@ export default function Home(props) {
 return (
   <div id="container">
     <div className="intro-container">
-      <h3 className="intro">we could also have some backgroud story and introduction here.</h3>
+      <h3 className="intro">Track all of your crypto data in a single centralized location </h3>
     </div>
 
     <div id="scene" ref={sceneEl}>

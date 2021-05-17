@@ -7,13 +7,11 @@ const calculatePL = (trades, currentPrice) => {
   let costs = 0;
   let amounts = 0;
     for(let trade of trades) {
-      if (trade.cymbal === currentPrice.symbol) {
-      costs += trade.cost;
-      amounts += trade.amount;
+      if (trade.coinSymbol === currentPrice.symbol) {
+        costs += trade.cost;
+        amounts += trade.amount;
       }
     }
-    console.log('Trades:', trades);
-    console.log('currentPrice: ', currentPrice)
   let proLoss =(((currentPrice.last * amounts) - costs) /costs) * 100;
   return((proLoss.toFixed(2) > 0) ? "+" + proLoss.toFixed(2) : proLoss.toFixed(2));
 }
@@ -21,14 +19,14 @@ const calculatePL = (trades, currentPrice) => {
 const averageCost = (trades, currentCoin) => {
   let priceTotal = 0;
   let tradesArray = [];
+  console.log(trades)
   trades.forEach(trade => {
-    if (trade.cymbal = currentCoin.symbol) {
+    if (trade.coinSymbol === currentCoin.symbol) {
+      console.log(trade.coinSymbol);
       priceTotal += trade.price;  
-      tradesArray.push(trade)
+      tradesArray.push(trade);
     }
   })
-  console.log('Trades:', trades);
-  console.log('currentCoin: ', currentCoin);
   return (priceTotal / tradesArray.length).toFixed(2);
 }
 
