@@ -3,6 +3,7 @@
   margin-top: 40px;
   display: flex;
   flex-direction: column-reverse;
+  float: right;
 }
 
 .menu-container {
@@ -16,7 +17,6 @@
 
 
 .info-container {
-  margin-left: 20%;
   margin: top 10px;
   margin-bottom: 40px;
   text-align: center;
@@ -28,6 +28,12 @@
   text-decoration: underline;
 }
 
+.timeframe {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
 .red {
   color: red;
 }
@@ -36,29 +42,24 @@
   color: green;
 }
 
-.timeframe {
-  display: flex;
-  flex-direction: column;
-}
+
 
 @media only screen and (max-width: 1024px) {
   .dashboard-container {
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: row;
     width: 90%;
     margin: 10px;
-    text-align: center;
+    justify-content: space-evenly;
     margin-top: 50px;
     margin-bottom: 50px;
-    border: solid black
   }
-  .info-container {
-    margin-left:20%;
-    margin-right: 30px;
-  }
+  
   .menu-container {
-    margin-top: 600px;
-    margin-left: 10%;
-    position: relative;
-  }
+    display: flex;
+    flex-direction: row;
+    font-weight: 800;
+    justify-content: flex-start;
+    align-items: baseline;
+  }  
 }
