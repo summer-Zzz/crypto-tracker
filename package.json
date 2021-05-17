@@ -2,7 +2,7 @@
   "name": "react-crypto-tracker",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:3001",
+  "proxy": "http://localhost:3002",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
@@ -30,6 +30,7 @@
     "react-scroll-parallax": "^2.4.0",
     "react-spinkit": "^3.0.0",
     "react-spinners-kit": "^1.9.1",
+    "spinkit": "^2.0.1",
     "web-vitals": "^1.1.1"
   },
   "scripts": {

@@ -82,7 +82,7 @@ const formatCoins = (coins) => {
       const coinData = coins[coin]
       const coinObject = {
         key: coinData.symbol,
-        symbol: coinData.symbol,
+        coinSymbol: coinData.symbol,
         price: coinData.ask,
         change: coinData.change,
         changePercent: coinData.percentage,

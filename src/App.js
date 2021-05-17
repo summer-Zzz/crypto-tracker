@@ -8,10 +8,9 @@ import {
   Link,
   Redirect
 } from "react-router-dom";
-import { Navbar, Nav, Container } from 'react-bootstrap';
+
 import reducer from "./reducers/App"
 import './App.scss';
-import { FlapperSpinner } from "react-spinners-kit";
 
 import Home from "./components/Home"
 import Form from "./components/Form"
@@ -21,8 +20,7 @@ import Dashboard from "./components/Dashboard"
 import DisplayChart from './components/Candlestick/DisplayChart';
 import TradeTable from "./components/TradeTable/TradeTable";
 import axios from 'axios';
-
-var Spinner = require('react-spinkit');
+const Spinner = require('react-spinkit');
 
 const exchanges = [
   {
@@ -245,7 +243,7 @@ export default function App() {
 
   const handleLogout = () => {
     setCurrentUser(null)
-    axios.post('http://localhost:3001/api/users/logout')
+    axios.post('http://localhost:3002/api/users/logout')
     .then(res => {
 
     })
@@ -273,7 +271,7 @@ export default function App() {
     if (currentUser) { 
       const { exchange, timeframe, coin } = state;
       const formattedCoin = coin.split('/').join('%2F');
-      const apiUrl = `http://localhost:3001/api/exchange/${exchange}/${formattedCoin}/${timeframe}`
+      const apiUrl = `http://localhost:3002/api/exchange/${exchange}/${formattedCoin}/${timeframe}`
       axios.get(apiUrl)
       .then(res => {
        const {trades, candles, balance, coins, selectedCoin, timeframes} = res.data;
@@ -335,7 +333,9 @@ export default function App() {
         { exchangeData &&
           <div>
             <div id="chart-dashboard-container">
-              <DisplayChart candles={exchangeData.candles} coinName={exchangeData.selectedCoin.symbol || "no data"} />
+              <DisplayChart 
+                candles={exchangeData.candles} 
+                coinName={exchangeData.selectedCoin.symbol || "no data"} />
               <Dashboard 
                 coin={exchangeData.selectedCoin}
                 trades={exchangeData.trades}

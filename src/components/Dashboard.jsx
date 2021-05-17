@@ -7,24 +7,27 @@ const calculatePL = (trades, currentPrice) => {
   let costs = 0;
   let amounts = 0;
     for(let trade of trades) {
-      // if (trade.)
-      costs += trade.cost;
-      amounts += trade.amount;
+      if (trade.coinSymbol === currentPrice.symbol) {
+        costs += trade.cost;
+        amounts += trade.amount;
+      }
     }
-  const proLoss =((currentPrice * amounts) - costs) /costs * 100;
-  return proLoss;
+  let proLoss =(((currentPrice.last * amounts) - costs) /costs) * 100;
+  return((proLoss.toFixed(2) > 0) ? "+" + proLoss.toFixed(2) : proLoss.toFixed(2));
 }
 
 const averageCost = (trades, currentCoin) => {
   let priceTotal = 0;
   let tradesArray = [];
+  console.log(trades)
   trades.forEach(trade => {
-    if (trade.symbol = currentCoin.symbol) {
+    if (trade.coinSymbol === currentCoin.symbol) {
+      console.log(trade.coinSymbol);
       priceTotal += trade.price;  
-      tradesArray.push(trade)
+      tradesArray.push(trade);
     }
   })
-  return priceTotal / tradesArray.length;
+  return (priceTotal / tradesArray.length).toFixed(2);
 }
 
 const formatTimeframes = (timeframes) => {
@@ -43,7 +46,7 @@ export default function Dashboard(props) {
   // use selected coin's symbol to access balance 
   const baseTicker = coin.symbol.split('/')[0];
   const baseTickerBalance = balance[baseTicker].total
-  const pL = calculatePL(trades, coin.last);
+  const pL = calculatePL(trades, coin);
   const average = `$${averageCost(trades, coin)}`;
   const formattedTimeframes = formatTimeframes(timeframes);
  
@@ -57,7 +60,7 @@ export default function Dashboard(props) {
       </div>
       <div className="info-container">
         <InfoDisplay infoHeader={'Balance'} infoContent={`${baseTickerBalance} ${baseTicker}`} />
-        <InfoDisplay infoHeader={'P&L'} infoContent={`${pL.toFixed(2)}%`}/>
+        <InfoDisplay infoHeader={'P&L'} infoContent={`${pL}%`}/>
         <InfoDisplay infoHeader={'Average Price'} infoContent={average}/>
       </div>
     </div>
