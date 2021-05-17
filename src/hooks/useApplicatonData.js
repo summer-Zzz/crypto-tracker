@@ -61,6 +61,7 @@ export default function useApplicationData() {
       axios.get(apiUrl)
       .then(res => {
        const {trades, candles, balance, coins, selectedCoin, timeframes} = res.data;
+       console.log(timeframes);
         setExchangeData({
           trades,
           candles,

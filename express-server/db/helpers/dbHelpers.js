@@ -256,6 +256,12 @@ const formatCoins = (coins, searchParam) => {
   return coinArray;
 }
 
+const getMockData = () => {
+  return {
+    
+  }
+}
+
  module.exports = {
   getExchangeInfo,
   getUsers,
