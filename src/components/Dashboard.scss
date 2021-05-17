@@ -1,11 +1,25 @@
 .dashboard-container {
-  margin-bottom: 50px;
+  margin-bottom: 40px;
   margin-top: 40px;
+  display: flex;
+  flex-direction: column-reverse;
 }
+
+.menu-container {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  font-weight: 800;
+  justify-content: center;
+  align-items: baseline;
+}
+
 
 .info-container {
   margin-left: 20%;
-  margin-top: 50px;
+  margin: top 10px;
+  margin-bottom: 40px;
+  text-align: center;
 }
 
 .option-lable {
@@ -18,7 +32,7 @@
 @media only screen and (max-width: 1024px) {
   .dashboard-container {
     display: flex;
-    flex-direction: row;
+    flex-direction: column-reverse;
     width: 90%;
     margin: 10px;
     text-align: center;
@@ -28,10 +42,10 @@
   }
   .info-container {
     margin-left:20%;
-    margin-right: 20px;
+    margin-right: 30px;
   }
   .menu-container {
-    margin-top: 50px;
+    margin-top: 600px;
     margin-left: 10%;
     position: relative;
   }

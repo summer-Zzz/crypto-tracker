@@ -50,6 +50,12 @@ export default function Dashboard(props) {
  
   return (
     <div className='dashboard-container'>
+      <div className="menu-container">
+        <label>Pick Exchange </label>
+        <DropMenu options={exchanges} setData={props.setExchange} selectedVal={props.selectedExchange}/>
+        <label>Chart Timeframe</label>
+        <DropMenu options={formattedTimeframes} setData={props.setTimeframe} selectedVal={props.selectedTimeframe}/>
+      </div>
       <div className="info-container">
         <InfoDisplay infoHeader={'Balance'} infoContent={`${baseTickerBalance} ${baseTicker}`} />
         <InfoDisplay infoHeader={'P&L'} infoContent={`${pL}%`}/>
