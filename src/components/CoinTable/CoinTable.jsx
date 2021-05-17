@@ -37,7 +37,7 @@ export default function CoinTable(props) {
         selectedVal={props.selectedExchange} 
       />
       </div>
-      <Table striped bordered hover>
+      <Table striped hover>
         <thead>
           <tr>
             <td></td>
@@ -46,9 +46,10 @@ export default function CoinTable(props) {
             <td>24h</td>
             <td>24h%</td>
             <td>Volume (24h)</td>
+            <td></td>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="tbody">
           {tableRows}
         </tbody>
       </Table>

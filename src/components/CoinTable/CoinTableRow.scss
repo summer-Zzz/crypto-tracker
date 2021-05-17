@@ -1,6 +1,5 @@
 .coin-td {
   cursor: pointer;  
-  border: solid 1px black;
 }
 
 .coin-column {
@@ -12,4 +11,22 @@
 .price {
   font-size: 17px;
   cursor: pointer;
+}
+
+.coin-button {
+  margin-top: 8px;
+  background-color: #008CBA;
+  color: white;
+  border: 2px solid white; 
+  font-size: 16px;
+  border-radius: 4px;
+  transition-duration: 0.4s;
+  width: 100px;
+  font-family: 'Ubuntu', sans-serif;
+}
+  
+.coin-button:hover {
+  background-color: white; /* Green */
+  color:black;
+  border: solid black 1px
 }

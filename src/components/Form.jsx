@@ -56,7 +56,7 @@ export default function Form(props) {
           <div className="label-input">
             <FontAwesomeIcon icon={faLock} className="icon" />
             <label htmlFor={props.secondLabel}>{props.secondLabel}</label>
-            <input type="text" name={props.firstLabel} placeholder="Enter your password" onChange={(e) => handlePasswordChange(e)} />
+            <input type="password" name={props.firstLabel} placeholder="Enter your password" onChange={(e) => handlePasswordChange(e)} />
           </div>
           <div className="button-container">
             <input type="submit" onSubmit={(event) => props.handleSubmit(userData)} className="button"></input>
