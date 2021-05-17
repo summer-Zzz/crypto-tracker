@@ -11,7 +11,7 @@ export default function CoinTableRow(props) {
       <td className="coin-td">{props.change}</td>
       <td className="coin-td">{props.changePercent}</td>
       <td className="coin-td">{props.volume}</td>
-      <button className="coin-button" onClick={() => props.setCoin(props.symbol)}>Select Coin</button>
+      <td><button className="coin-button" onClick={() => props.setCoin(props.symbol)}>Select Coin</button></td>
     </tr>
   )
 }
