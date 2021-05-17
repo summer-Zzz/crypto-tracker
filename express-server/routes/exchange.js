@@ -17,6 +17,10 @@ router.get('/:exchange/:coin/:timeframe', function (req, res) {
   .catch(err => console.log(err));
 })
 
+router.get('/:exchange/:coin/:timeframe', function (req, res) {
+  
+})
+
 const oneMonthAgo = () => new Date - 2629800000
 const oneWeekAgo = () => new Date - 604800000
 const oneDayAgo = () => new Date - 86400000
@@ -46,7 +50,7 @@ const getExchangeInfo = (exchangeData, exchangeSelection, coin, timeframe) => {
     const coins = formatCoins(values[3]);
     const timeframes = formatTimeframes(values[4]);
     const selectedCoin = values[5];
-    console.log(selectedCoin);
+    console.log(timeframes);
     return {
       trades,
       candles,

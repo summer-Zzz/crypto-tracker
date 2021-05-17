@@ -8,4 +8,9 @@
 
 .timeframe {
   display: flex;
+  align-items: center;
+
+  label {
+    padding-top: .5em;
+  }
 }
