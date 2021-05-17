@@ -226,46 +226,6 @@ export default function App() {
             <div className="navbar-left">
               <Link className="nav-text-title" to="/">Crypto-Tracker</Link>
             </div>
-          {/* { exchangeData && <TradeTable rows={exchangeData.trades}/> }
-          </Route>
-          <Route path="/settings">
-            <SettingsForm /> 
-          </Route>
-          <Route path="/dashboard">
-          { !exchangeData && currentUser && <div><Spinner name="pacman" fadeIn="none" className="loader"/><p className="loading-text">Loading...</p></div>}
-        { currentUser ?
-         exchangeData &&
-          <div>
-            <div id="chart-dashboard-container">
-              <DisplayChart candles={exchangeData.candles} coinName={exchangeData.selectedCoin.symbol || "no data"} />
-              <Dashboard 
-                coin={exchangeData.selectedCoin}
-                trades={exchangeData.trades}
-                balance={exchangeData.balance} 
-                exchanges={exchanges} 
-                timeframes={exchangeData.timeframes}
-                selectedTimeframe={state.timeframe}
-                selectedExchange={state.exchange}
-                currencies={currencies}
-                setTimeframe={setTimeframe}
-                setExchange={setExchange}
-              />
-            </div>
-            <CoinTable 
-              rows={exchangeData.coins} 
-              currencies={currencies} 
-              setCoin={setCoin} 
-              setFilter={setFilter} 
-              selectedFilter={state.filter} />
-          </div> : <Redirect to="/" />
-          }
-            </Route>  
-          <Route exact path="/">
-            <Home />
-          </Route>
-        </Switch>
-      </main>
-    </div> */}
             <div className="navbar-right">
               {!currentUser && <Link className="nav-text" to="/login">Login</Link>}
               {!currentUser && <Link className="nav-text" to="/register">Register</Link>}
