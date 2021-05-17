@@ -61,7 +61,7 @@ export default function Dashboard(props) {
         <InfoDisplay infoHeader={'Symbol'} infoContent={priceInfo(coin).coinSymbol} />
         <InfoDisplay infoHeader={'Current Price'} infoContent={`$${priceInfo(coin).currentPrice}`} />
         <InfoDisplay infoHeader={'Balance'} infoContent={`${baseTickerBalance} ${baseTicker}`} />
-        <div className={checkPl(pL) ? 'red' : 'green'}>
+        <div className={checkPl(pL) ? 'green' : 'red'}>
         <InfoDisplay infoHeader={'P&L'} infoContent={`${pL}%`} />
         </div>
         <InfoDisplay infoHeader={'Average Price'} infoContent={average}/>

@@ -18,6 +18,7 @@
   text-align: center;
   margin-bottom: 10px;
   display: inline-block;
+  
 }
 
 .option-lable {
@@ -61,4 +62,12 @@
     justify-content: flex-start;
     align-items: baseline;
   }  
+  .info-container {
+    text-align: center;
+    margin-bottom: 10px;
+    display: flex;
+    position: relative;
+    flex: 2;
+    height: 100px;
+  }
 }
