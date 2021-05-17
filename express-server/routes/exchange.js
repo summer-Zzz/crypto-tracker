@@ -11,7 +11,6 @@ router.get('/:exchange/:coin/:timeframe', function (req, res) {
   .then(exchanges => {
     console.log('route pinged')
     getExchangeInfo(exchanges, exchange, coin, timeframe).then(data => {
-      console.log(data.trades);
       return res.status(200).json(data);
     })
   })
@@ -45,8 +44,9 @@ const getExchangeInfo = (exchangeData, exchangeSelection, coin, timeframe) => {
     const candles = values[1];
     const balance = values[2];
     const coins = formatCoins(values[3]);
-    const timeframes = values[4];
+    const timeframes = formatTimeframes(values[4]);
     const selectedCoin = values[5];
+    console.log(selectedCoin);
     return {
       trades,
       candles,
@@ -92,6 +92,17 @@ const formatCoins = (coins) => {
     // }
   }
   return coinArray;
+}
+
+const formatTimeframes = (timeframes) => {
+  const timeFrameArr = [] 
+  for (let tf in timeframes) {
+    timeFrameArr.push({
+      id: tf,
+      name: tf
+    })
+  }
+  return timeFrameArr
 }
 
 module.exports = router

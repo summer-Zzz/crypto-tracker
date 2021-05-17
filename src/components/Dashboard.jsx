@@ -19,10 +19,8 @@ const calculatePL = (trades, currentPrice) => {
 const averageCost = (trades, currentCoin) => {
   let priceTotal = 0;
   let tradesArray = [];
-  console.log(trades)
   trades.forEach(trade => {
     if (trade.coinSymbol === currentCoin.symbol) {
-      console.log(trade.coinSymbol);
       priceTotal += trade.price;  
       tradesArray.push(trade);
     }
