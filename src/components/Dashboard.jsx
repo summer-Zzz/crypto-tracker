@@ -33,6 +33,7 @@ export default function Dashboard(props) {
   const { coin, trades, balance, timeframes, setTimeframe, selectedTimeframe} = props;
   // use selected coin's symbol to access balance 
   const baseTicker = coin.symbol.split('/')[0];
+  console.log(baseTicker)
   const baseTickerBalance = balance[baseTicker].total
   const pL = calculatePL(trades, coin);
   const average = `$${averageCost(trades, coin)}`;
