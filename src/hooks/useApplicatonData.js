@@ -16,7 +16,7 @@ export default function useApplicationData() {
   const handleSubmit = (userData) => {
     const { dataType, password, email } = userData;
     axios
-    .post(`http://localhost:3001/api/users/${dataType}/${email}/${password}`)
+    .post(`http://localhost:3002/api/users/${dataType}/${email}/${password}`)
     .then((res) => {
       if (res.status === 200){
         setCurrentUser(res.data.id);
@@ -29,7 +29,7 @@ export default function useApplicationData() {
   
   const handleLogout = () => {
     setCurrentUser(null)
-    axios.post('http://localhost:3001/api/users/logout')
+    axios.post('http://localhost:3002/api/users/logout')
     .then(res => {
   
     })
@@ -57,7 +57,7 @@ export default function useApplicationData() {
     if (currentUser) { 
       const { exchange, timeframe, coin } = state;
       const formattedCoin = coin.split('/').join('%2F');
-      const apiUrl = `http://localhost:3001/api/exchange/${exchange}/${formattedCoin}/${timeframe}`
+      const apiUrl = `http://localhost:3002/api/exchange/${exchange}/${formattedCoin}/${timeframe}`
       axios.get(apiUrl)
       .then(res => {
        const {trades, candles, balance, coins, selectedCoin, timeframes} = res.data;

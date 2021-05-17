@@ -10,7 +10,7 @@ const [secret, setSecret] = useState(null)
 const [exchange, setExchange] = useState(null)
 
 const handleCreateAccount = async () => {
-  const account = await axios.post('http://localhost:3001/api/users/exchanges/new', { userId: 1, exchangeId: 1, apiKey, apiSecret: secret })
+  const account = await axios.post('http://localhost:3002/api/users/exchanges/new', { userId: 1, exchangeId: 1, apiKey, apiSecret: secret })
 }
 
 const sceneEl = useRef(null);
