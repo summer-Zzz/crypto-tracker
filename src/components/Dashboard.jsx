@@ -19,10 +19,8 @@ const calculatePL = (trades, currentPrice) => {
 const averageCost = (trades, currentCoin) => {
   let priceTotal = 0;
   let tradesArray = [];
-  console.log(trades)
   trades.forEach(trade => {
     if (trade.coinSymbol === currentCoin.symbol) {
-      console.log(trade.coinSymbol);
       priceTotal += trade.price;  
       tradesArray.push(trade);
     }
@@ -52,12 +50,6 @@ export default function Dashboard(props) {
  
   return (
     <div className='dashboard-container'>
-      <div className="menu-container">
-        <label>Pick your exchange</label>
-        <DropMenu options={exchanges} setData={props.setExchange} selectedVal={props.selectedExchange}/>
-        <label>Chart timeframe</label>
-        <DropMenu options={formattedTimeframes} setData={props.setTimeframe} selectedVal={props.selectedTimeframe}/>
-      </div>
       <div className="info-container">
         <InfoDisplay infoHeader={'Balance'} infoContent={`${baseTickerBalance} ${baseTicker}`} />
         <InfoDisplay infoHeader={'P&L'} infoContent={`${pL}%`}/>

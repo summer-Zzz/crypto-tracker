@@ -10,9 +10,9 @@ export default function CoinTable(props) {
     props.setCoin(symbol)
   }
 
-  const tableRows = props.rows.map(row => {
+  const tableRows = props.rows.map((row, i) => {
     return <CoinTableRow
-      key={row.coinSymbol}
+      key={i}
       symbol={row.coinSymbol}
       price={row.price}
       change={row.change}

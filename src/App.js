@@ -1,5 +1,5 @@
 // import React from 'react'
-import React, { useState, useEffect, useReducer } from 'react'
+import React from 'react'
 import 'dotenv/config'
 import {
   BrowserRouter as Router,
@@ -9,7 +9,8 @@ import {
   Redirect
 } from "react-router-dom";
 
-import reducer from "./reducers/App"
+import useApplicationData from "./App-helpers"
+
 import './App.scss';
 
 import Home from "./components/Home"
@@ -19,7 +20,7 @@ import CoinTable from "./components/CoinTable/CoinTable"
 import Dashboard from "./components/Dashboard"
 import DisplayChart from './components/Candlestick/DisplayChart';
 import TradeTable from "./components/TradeTable/TradeTable";
-import axios from 'axios';
+import DropMenu from "./components/DropDownMenu/DropMenu"
 const Spinner = require('react-spinkit');
 
 const exchanges = [
@@ -137,234 +138,239 @@ const balance = {
 }
 const coinRows = [
   {
-  id: 1, 
-  coinLogo: "https://cryptologos.cc/logos/bitcoin-btc-logo.png?v=010",
-  coinSymbol: "BTC/USD",
-  currentPrice: 59203.82,
-  dayPerformance: "2.3%",
-  weekPerformance: "10%",
-  marketCap: 1105217718036,
-  volume: 67366474410
+    id: 1,
+    coinLogo: "https://cryptologos.cc/logos/bitcoin-btc-logo.png?v=010",
+    coinSymbol: "BTC/USD",
+    currentPrice: 59203.82,
+    dayPerformance: "2.3%",
+    weekPerformance: "10%",
+    marketCap: 1105217718036,
+    volume: 67366474410
   },
   {
-  id: 2, 
-  coinLogo: "https://s2.coinmarketcap.com/static/img/coins/64x64/1.png",
-  coinSymbol: "BTC/USD",
-  currentPrice: 59203.82,
-  dayPerformance: "2.3%",
-  weekPerformance: "10%",
-  marketCap: 1105217718036,
-  volume: 67366474410
+    id: 2,
+    coinLogo: "https://s2.coinmarketcap.com/static/img/coins/64x64/1.png",
+    coinSymbol: "BTC/USD",
+    currentPrice: 59203.82,
+    dayPerformance: "2.3%",
+    weekPerformance: "10%",
+    marketCap: 1105217718036,
+    volume: 67366474410
   },
   {
-  id: 3, 
-  coinLogo: "https://s2.coinmarketcap.com/static/img/coins/64x64/1.png",
-  coinSymbol: "BTC/USD",
-  currentPrice: 59203.82,
-  dayPerformance: "2.3%",
-  weekPerformance: "10%",
-  marketCap: 1105217718036,
-  volume: 67366474410
+    id: 3,
+    coinLogo: "https://s2.coinmarketcap.com/static/img/coins/64x64/1.png",
+    coinSymbol: "BTC/USD",
+    currentPrice: 59203.82,
+    dayPerformance: "2.3%",
+    weekPerformance: "10%",
+    marketCap: 1105217718036,
+    volume: 67366474410
   },
   {
-  id: 4, 
-  coinLogo: "https://s2.coinmarketcap.com/static/img/coins/64x64/1.png",
-  coinSymbol: "BTC/USD",
-  currentPrice: 59203.82,
-  dayPerformance: "2.3%",
-  weekPerformance: "10%",
-  marketCap: 1105217718036,
-  volume: 67366474410
+    id: 4,
+    coinLogo: "https://s2.coinmarketcap.com/static/img/coins/64x64/1.png",
+    coinSymbol: "BTC/USD",
+    currentPrice: 59203.82,
+    dayPerformance: "2.3%",
+    weekPerformance: "10%",
+    marketCap: 1105217718036,
+    volume: 67366474410
   },
 ]
 const tradeRows = [
   {
-  id: 1, 
-  tradeTime: "2021-08-17 12:42",
-  tradeType: "Buy",
-  tradeOrder: "Limit",
-  tradePrice: 59203.82,
-  tradeAmount: 0.0855208
+    id: 1,
+    tradeTime: "2021-08-17 12:42",
+    tradeType: "Buy",
+    tradeOrder: "Limit",
+    tradePrice: 59203.82,
+    tradeAmount: 0.0855208
   },
   {
-  id: 2, 
-  tradeTime: "2021-08-17 12:42",
-  tradeType: "Buy",
-  tradeOrder: "Limit",
-  tradePrice: 59203.82,
-  tradeAmount: 0.0855208
+    id: 2,
+    tradeTime: "2021-08-17 12:42",
+    tradeType: "Buy",
+    tradeOrder: "Limit",
+    tradePrice: 59203.82,
+    tradeAmount: 0.0855208
   },
   {
-  id: 3, 
-  tradeTime: "2021-08-17 12:42",
-  tradeType: "Buy",
-  tradeOrder: "Limit",
-  tradePrice: 59203.82,
-  tradeAmount: 0.0855208
+    id: 3,
+    tradeTime: "2021-08-17 12:42",
+    tradeType: "Buy",
+    tradeOrder: "Limit",
+    tradePrice: 59203.82,
+    tradeAmount: 0.0855208
   },
   {
-  id: 4, 
-  tradeTime: "2021-08-17 12:42",
-  tradeType: "Buy",
-  tradeOrder: "Limit",
-  tradePrice: 59203.82,
-  tradeAmount: 0.0855208
+    id: 4,
+    tradeTime: "2021-08-17 12:42",
+    tradeType: "Buy",
+    tradeOrder: "Limit",
+    tradePrice: 59203.82,
+    tradeAmount: 0.0855208
   },
 ]
 
 export default function App() {
-  
-  // STATE
-  const [currentUser, setCurrentUser] = useState(null)
-  const [exchangeData, setExchangeData] = useState(null);
-  const [state, dispatch] = useReducer(reducer, {
-    exchange: "kraken",
-    timeframe: '1hr',
-    coin: "BTC/USD",
-    filter: "none"
-  });
 
-  // EVENT HANDLING
+  const { handleSubmit, handleLogout, setExchange, setTimeframe, setCoin, setFilter, state, currentUser, exchangeData } = useApplicationData()
+  // // STATE
+  // const [currentUser, setCurrentUser] = useState(null)
+  // const [exchangeData, setExchangeData] = useState(null);
+  // const [state, dispatch] = useReducer(reducer, {
+  //   exchange: "kraken",
+  //   timeframe: '1hr',
+  //   coin: "BTC/USD",
+  //   filter: "none"
+  // });
 
-  // used for login and register
-  const handleSubmit = (userData) => {
-    const { dataType, password, email } = userData;
-    axios
-    .post(`http://localhost:3002/api/users/${dataType}/${email}/${password}`)
-    .then((res) => {
-      if(res.status === 200){
-        setCurrentUser(res.data.id);
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-  }
+  // // EVENT HANDLING
 
-  const handleLogout = () => {
-    setCurrentUser(null)
-    axios.post('http://localhost:3002/api/users/logout')
-    .then(res => {
+  // // used for login and register
+  // const handleSubmit = (userData) => {
+  //   const { dataType, password, email } = userData;
+  //   axios
+  //   .post(`http://localhost:3002/api/users/${dataType}/${email}/${password}`)
+  //   .then((res) => {
+  //     if(res.status === 200){
+  //       setCurrentUser(res.data.id);
+  //     }
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   });
+  // }
 
-    })
-  }
+  // const handleLogout = () => {
+  //   setCurrentUser(null)
+  //   axios.post('http://localhost:3002/api/users/logout')
+  //   .then(res => {
 
-  const setExchange = (exchange) => {
-    dispatch({type: "SET_EXCHANGE", value: exchange});
-  }
+  //   })
+  // }
 
-  const setTimeframe = (timeframe) => {
-    dispatch({type: "SET_TIMEFRAME", value: timeframe});
-  }
+  // const setExchange = (exchange) => {
+  //   dispatch({type: "SET_EXCHANGE", value: exchange});
+  // }
 
-  const setCoin = (coin) => {
-    dispatch({type: "SET_COIN", value: coin});
-  }
+  // const setTimeframe = (timeframe) => {
+  //   dispatch({type: "SET_TIMEFRAME", value: timeframe});
+  // }
 
-  const setFilter = (currency) => {
-    dispatch({type: "SET_FILTER", value: currency}); 
-  }
+  // const setCoin = (coin) => {
+  //   dispatch({type: "SET_COIN", value: coin});
+  // }
+
+  // const setFilter = (currency) => {
+  //   dispatch({type: "SET_FILTER", value: currency}); 
+  // }
 
 
-  // Re-renders all api data when user interacts with state
-  useEffect(() => {
-    if (currentUser) { 
-      const { exchange, timeframe, coin } = state;
-      const formattedCoin = coin.split('/').join('%2F');
-      const apiUrl = `http://localhost:3002/api/exchange/${exchange}/${formattedCoin}/${timeframe}`
-      axios.get(apiUrl)
-      .then(res => {
-       const {trades, candles, balance, coins, selectedCoin, timeframes} = res.data;
-       console.log(trades)
-        setExchangeData({
-          trades,
-          candles,
-          balance,
-          coins,
-          timeframes,
-          selectedCoin
-        });
-      })
-      .catch(err => console.log(err))
-    }
-  }, [state, currentUser])
+  // // Re-renders all api data when user interacts with state
+  // useEffect(() => {
+  //   if (currentUser) { 
+  //     const { exchange, timeframe, coin } = state;
+  //     const formattedCoin = coin.split('/').join('%2F');
+  //     const apiUrl = `http://localhost:3002/api/exchange/${exchange}/${formattedCoin}/${timeframe}`
+  //     axios.get(apiUrl)
+  //     .then(res => {
+  //      const {trades, candles, balance, coins, selectedCoin, timeframes} = res.data;
+  //       setExchangeData({
+  //         trades,
+  //         candles,
+  //         balance,
+  //         coins,
+  //         timeframes,
+  //         selectedCoin
+  //       });
+  //     })
+  //     .catch(err => console.log(err))
+  //   }
+  // }, [state, currentUser])
 
   return (
     <Router>
-    <div>
-      <header>
-        <nav className="navbar">
-          <div className="navbar-left">
-            <Link className="nav-text-title" to="/">Crypto-Tracker</Link>
-          </div>
-          <div className="navbar-right">
-            { !currentUser && <Link className="nav-text" to="/login">Login</Link> }
-            { !currentUser && <Link className="nav-text" to="/register">Register</Link> }
-            { currentUser && <Link onClick={() => handleLogout()} className="nav-text" to="/logout">Logout</Link> }
-            { currentUser && <Link className="nav-text" to="/settings">Add Exchange</Link> }
-            { currentUser && <Link className="nav-text" to="/tradetable">Your Trades</Link> }
-            { currentUser && <Link className="nav-text" to="/dashboard">Dashboard</Link> }
-          </div>
-        </nav>
-      </header>
-      <main>
-        <Switch>
-          <Route path="/register">
-            <Form formLabel={'Register'} firstLabel={'Email:'} secondLabel={'Password:'} handleSubmit={handleSubmit}/>
-          </Route>
-          <Route path="/login">
-            {currentUser ? <Redirect to="/dashboard" /> :
-            <Form formLabel={'Login'} firstLabel={'Email:'} secondLabel={'Password:'} handleSubmit={handleSubmit}/>}
-          </Route>
-          <Route path="/tradetable">
-            <div className="loader-container">
-              { !exchangeData && <Spinner name="pacman" fadeIn="none" className="loader" />}
+      <div>
+        <header>
+          <nav className="navbar">
+            <div className="navbar-left">
+              <Link className="nav-text-title" to="/">Crypto-Tracker</Link>
             </div>
-          { exchangeData && <TradeTable rows={exchangeData.trades}/> }
-          </Route>
-          <Route path="/settings">
-            <SettingsForm /> 
-          </Route>
-          <Route path="/logout">
-            <Redirect to="/" />   
-          </Route>
-          <Route path="/dashboard">
-          { !exchangeData && <Spinner name="pacman" fadeIn="none" className="loader"/>}
-        { exchangeData &&
-          <div>
-            <div id="chart-dashboard-container">
-              <DisplayChart 
-                candles={exchangeData.candles} 
-                coinName={exchangeData.selectedCoin.symbol || "no data"} />
-              <Dashboard 
-                coin={exchangeData.selectedCoin}
-                trades={exchangeData.trades}
-                balance={exchangeData.balance} 
-                exchanges={exchanges} 
-                timeframes={exchangeData.timeframes}
-                selectedTimeframe={state.timeframe}
-                selectedExchange={state.exchange}
-                currencies={currencies}
-                setTimeframe={setTimeframe}
-                setExchange={setExchange}
-              />
+            <div className="navbar-right">
+              {!currentUser && <Link className="nav-text" to="/login">Login</Link>}
+              {!currentUser && <Link className="nav-text" to="/register">Register</Link>}
+              {currentUser && <Link onClick={() => handleLogout()} className="nav-text" to="/logout">Logout</Link>}
+              {currentUser && <Link className="nav-text" to="/settings">Add Exchange</Link>}
+              {currentUser && <Link className="nav-text" to="/tradetable">Your Trades</Link>}
+              {currentUser && <Link className="nav-text" to="/dashboard">Dashboard</Link>}
             </div>
-            <CoinTable 
-              rows={exchangeData.coins} 
-              currencies={currencies} 
-              setCoin={setCoin} 
-              setFilter={setFilter} 
-              selectedFilter={state.filter} />
-          </div>
-          
-          }
-            </Route>  
-          <Route exact path="/">
-            <Home />
-          </Route>
-        </Switch>
-      </main>
-    </div>
+          </nav>
+        </header>
+        <main>
+          <Switch>
+            <Route path="/register">
+              <Form formLabel={'Register'} firstLabel={'Email:'} secondLabel={'Password:'} handleSubmit={handleSubmit} />
+            </Route>
+            <Route path="/login">
+              {currentUser ? <Redirect to="/dashboard" /> :
+                <Form formLabel={'Login'} firstLabel={'Email:'} secondLabel={'Password:'} handleSubmit={handleSubmit} />}
+            </Route>
+            <Route path="/tradetable">
+              <div className="loader-container">
+                {!exchangeData && <Spinner name="pacman" fadeIn="none" className="loader" />}
+              </div>
+              {exchangeData && <TradeTable rows={exchangeData.trades} />}
+            </Route>
+            <Route path="/settings">
+              <SettingsForm />
+            </Route>
+            <Route path="/logout">
+              <Redirect to="/" />
+            </Route>
+            <Route path="/dashboard">
+              {!exchangeData && <Spinner name="pacman" fadeIn="none" className="loader" />}
+              {exchangeData &&
+                <div>
+                  <div className="show-container">
+                    <div id="chart-dashboard-container">
+                      <DisplayChart
+                        candles={exchangeData.candles}
+                        coinName={exchangeData.selectedCoin.symbol || "no data"} />
+                      <Dashboard
+                        coin={exchangeData.selectedCoin}
+                        trades={exchangeData.trades}
+                        balance={exchangeData.balance}
+                        exchanges={exchanges}
+                        timeframes={exchangeData.timeframes}
+                        selectedTimeframe={state.timeframe}
+                        selectedExchange={state.exchange}
+                        currencies={currencies}
+                      />
+                    </div>
+                    <div className="menu-container">
+                      <label>Pick your exchange</label>
+                      <DropMenu options={exchanges} setData={setExchange} selectedVal={exchangeData.exchange} />
+                      <label>Chart timeframe</label>
+                      <DropMenu options={timeframes} setData={setTimeframe} selectedVal={exchangeData.timeframe} />
+                    </div>
+                    </div>
+                    <CoinTable
+                      rows={exchangeData.coins}
+                      currencies={currencies}
+                      setCoin={setCoin}
+                      setFilter={setFilter}
+                      selectedFilter={state.filter} />
+                  </div>
+              }
+            </Route>
+            <Route exact path="/">
+              <Home />
+            </Route>
+          </Switch>
+        </main>
+      </div>
     </Router>
   );
 }
