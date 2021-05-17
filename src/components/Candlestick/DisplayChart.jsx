@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ReactApexChart from "react-apexcharts";
 
-
+import DropMenu from "../DropDownMenu/DropMenu"
 import "./DisplayChart.scss";
 
 export default function DisplayChart(props) {
@@ -146,6 +146,10 @@ export default function DisplayChart(props) {
         <div>
           <ReactApexChart options={chartData.options} series={chartData.series} type="candlestick" width={chart_width} height={chart_height} />
         </div>
+      </div>
+      <div className="timeframe">
+        <label>Chart timeframe</label>
+        <DropMenu options={props.timeframes} setData={props.setTimeframe} selectedVal={props.selectedTimeframe} />
       </div>
     </div>
   );

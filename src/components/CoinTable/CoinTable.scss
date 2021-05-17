@@ -1,5 +1,5 @@
 
-@import "~bootstrap/scss/bootstrap";
+// @import "~bootstrap/scss/bootstrap";
 // .coin-container {
 //   display: flex;
 //   justify-content: center;
@@ -10,3 +10,10 @@
 //   text-align: center;
 //   width: 100%;
 // }
+
+.coin-container {
+  .options {
+    display: flex;
+  }
+}
+

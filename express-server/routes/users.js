@@ -41,7 +41,7 @@ router.post('/register/:email/:password', (req, res) => {
   getUserByEmail(email)
   .then(user => {
     if (user) {
-      req.session.user_id = userId;
+      req.session['user_id'] = user.id;
       return res.send("Sorry, there is already a user registered with this email")
     }
     addUser(email, password).then(userAdded => {

@@ -1,4 +1,4 @@
-import { useState } from "react"
+
 import CoinTableRow from "./CoinTableRow"
 import Table from 'react-bootstrap/Table'
 import DropMenu from "../DropDownMenu/DropMenu";
@@ -10,10 +10,10 @@ export default function CoinTable(props) {
     props.setCoin(symbol)
   }
 
-  const tableRows = props.rows.map(row => {
+  const tableRows = props.rows.map((row, i) => {
     return <CoinTableRow
-      key={row.symbol}
-      symbol={row.symbol}
+      key={i}
+      symbol={row.coinSymbol}
       price={row.price}
       change={row.change}
       changePercent={row.changePercent}
@@ -23,12 +23,20 @@ export default function CoinTable(props) {
   })
   return (
     <div className="coin-container">
+      <div className="options">
       <lable className="option-lable">Filter</lable>
       <DropMenu 
         options={props.currencies} 
         setData={props.setFilter} 
         selectedVal={props.selectedFilter} 
       />
+       <lable className="option-lable">Select Exchange</lable>
+      <DropMenu 
+        options={props.exchanges} 
+        setData={props.setExchange} 
+        selectedVal={props.selectedExchange} 
+      />
+      </div>
       <Table striped hover>
         <thead>
           <tr>

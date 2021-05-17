@@ -46,6 +46,7 @@ button:hover {
   z-index: 20;
 }
 
+
 .nav-text-title {
   font-size: 30px;
   color: white;
@@ -79,7 +80,20 @@ button:hover {
   justify-content: center;
   width: 100%;
   margin: 10px;
-  margin-bottom: 100px;
+  margin-bottom: .5em;
+}
+
+.dashboard {
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-container {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding-left: 1em;
 }
 
 .loading-text {
