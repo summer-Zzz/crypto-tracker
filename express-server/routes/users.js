@@ -7,6 +7,7 @@ const cookieSession = require('cookie-session');
 router.post('/exchanges/new', async (req, res) => {
   const { userId, exchangeId, apiKey, apiSecret } = req.body;
   const account = await addUserAccount({ userId, exchangeId, apiKey, apiSecret })
+  console.log(account)
   res.sendStatus(200)
 })
 
@@ -17,6 +18,7 @@ router.post('/login/:email/:password', (req, res) => {
   .then(user => {
     if (email && user.password === password) {
       req.session['user_id'] = user.id;
+      console.log('User_id: ', user.id);
       return res.status(200).json(user);
     } else {
       return res.send("Error!! Invalid email/password");
@@ -39,7 +41,7 @@ router.post('/register/:email/:password', (req, res) => {
   getUserByEmail(email)
   .then(user => {
     if (user) {
-      req.session.user_id = userId;
+      req.session['user_id'] = user.id;
       return res.send("Sorry, there is already a user registered with this email")
     }
     addUser(email, password).then(userAdded => {

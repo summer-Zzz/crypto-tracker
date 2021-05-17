@@ -13,15 +13,12 @@ export default function useApplicationData() {
     filter: "none"  
   });
   
-  // EVENT HANDLING
-  
-  // used for login and register
   const handleSubmit = (userData) => {
     const { dataType, password, email } = userData;
     axios
     .post(`http://localhost:3001/api/users/${dataType}/${email}/${password}`)
     .then((res) => {
-      if(res.status === 200){
+      if (res.status === 200){
         setCurrentUser(res.data.id);
       }
     })
@@ -38,6 +35,7 @@ export default function useApplicationData() {
     })
   }
   
+  // REDUCER FUNCTIONS
   const setExchange = (exchange) => {
     dispatch({type: "SET_EXCHANGE", value: exchange});
   }
@@ -63,7 +61,6 @@ export default function useApplicationData() {
       axios.get(apiUrl)
       .then(res => {
        const {trades, candles, balance, coins, selectedCoin, timeframes} = res.data;
-       console.log(res.data)
         setExchangeData({
           trades,
           candles,
@@ -76,17 +73,6 @@ export default function useApplicationData() {
       .catch(err => console.log(err))
     }
   }, [state, currentUser])
-
-  // const formatTimeframes = (timeframes) => {
-  //   const timeFrameArr = [] 
-  //   for (let tf in timeframes) {
-  //     timeFrameArr.push({
-  //       id: tf,
-  //       name: tf
-  //     })
-  //   }
-  //   return timeFrameArr
-  // }
   
   return { handleSubmit, handleLogout, setExchange, setTimeframe, setCoin, setFilter, state, currentUser, exchangeData }
 }

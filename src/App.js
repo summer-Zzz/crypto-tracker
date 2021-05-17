@@ -281,10 +281,6 @@ export default function App() {
                         currencies={currencies}
                       />
                     </div>
-                    <div className="menu-container">
-                      <label>Chart timeframe</label>
-                      <DropMenu options={timeframes} setData={setTimeframe} selectedVal={state.timeframe} />
-                    </div>
                   </div>
                     <div className="cointable">
                     <CoinTable

@@ -46,7 +46,7 @@ const getExchangeInfo = (exchangeData, exchangeSelection, coin, timeframe) => {
     const coins = formatCoins(values[3]);
     const timeframes = formatTimeframes(values[4]);
     const selectedCoin = values[5];
-    console.log(timeframes);
+    console.log(selectedCoin);
     return {
       trades,
       candles,

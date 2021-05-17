@@ -147,7 +147,10 @@ export default function DisplayChart(props) {
           <ReactApexChart options={chartData.options} series={chartData.series} type="candlestick" width={chart_width} height={chart_height} />
         </div>
       </div>
-      <DropMenu options={props.timeframes} setData={props.setTimeframe} selectedVal={props.selectedTimeframe} />
+      <div className="timeframe">
+        <label>Chart timeframe</label>
+        <DropMenu options={props.timeframes} setData={props.setTimeframe} selectedVal={props.selectedTimeframe} />
+      </div>
     </div>
   );
 }
