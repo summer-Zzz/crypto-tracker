@@ -328,8 +328,9 @@ export default function App() {
             <SettingsForm /> 
           </Route>
           <Route path="/dashboard">
-          { !exchangeData && <div><Spinner name="pacman" fadeIn="none" className="loader"/><p className="loading-text">Loading...</p></div>}
-        { exchangeData &&
+          { !exchangeData && currentUser && <div><Spinner name="pacman" fadeIn="none" className="loader"/><p className="loading-text">Loading...</p></div>}
+        { currentUser ?
+         exchangeData &&
           <div>
             <div id="chart-dashboard-container">
               <DisplayChart candles={exchangeData.candles} coinName={exchangeData.selectedCoin.symbol || "no data"} />
@@ -352,7 +353,7 @@ export default function App() {
               setCoin={setCoin} 
               setFilter={setFilter} 
               selectedFilter={state.filter} />
-          </div>
+          </div> : <Redirect to="/" />
           }
             </Route>  
           <Route exact path="/">
