@@ -59,7 +59,7 @@ export default function useApplicationData() {
     if (currentUser) { 
       const { exchange, timeframe, coin } = state;
       const formattedCoin = coin.split('/').join('%2F');
-      const apiUrl = `http://localhost:3002/api/exchange/${exchange}/${formattedCoin}/${timeframe}`
+      const apiUrl = `http://localhost:3001/api/exchange/${exchange}/${formattedCoin}/${timeframe}`
       axios.get(apiUrl)
       .then(res => {
        const {trades, candles, balance, coins, selectedCoin, timeframes} = res.data;
