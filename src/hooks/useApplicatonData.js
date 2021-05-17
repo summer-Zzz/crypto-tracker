@@ -1,11 +1,15 @@
 import { useState, useEffect, useReducer } from 'react'
 import axios from 'axios'
 import reducer from '../reducers/App'
+import { useCookies } from 'react-cookie';
+
 export default function useApplicationData() {
 
   // STATE
   const [currentUser, setCurrentUser] = useState(null)
   const [exchangeData, setExchangeData] = useState(null);
+  const [cookies, setCookie, removeCookie] = useCookies(['Email']);
+
   const [state, dispatch] = useReducer(reducer, {
     exchange: "kraken",
     timeframe: '1hr',
@@ -20,6 +24,7 @@ export default function useApplicationData() {
     .then((res) => {
       if (res.status === 200){
         setCurrentUser(res.data.id);
+        setCookie('Email', email, { path: '/' });
       }
     })
     .catch((err) => {
@@ -31,7 +36,7 @@ export default function useApplicationData() {
     setCurrentUser(null)
     axios.post('http://localhost:3001/api/users/logout')
     .then(res => {
-  
+      removeCookie("Email")
     })
   }
   
@@ -75,5 +80,5 @@ export default function useApplicationData() {
     }
   }, [state, currentUser])
   
-  return { handleSubmit, handleLogout, setExchange, setTimeframe, setCoin, setFilter, state, currentUser, exchangeData }
+  return { handleSubmit, handleLogout, setExchange, setTimeframe, setCoin, setFilter, state, currentUser, exchangeData, cookies }
 }

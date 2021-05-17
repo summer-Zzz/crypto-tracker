@@ -1,6 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react'
 import axios from 'axios'
 import Parallax from 'parallax-js';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faKey } from "@fortawesome/free-solid-svg-icons";
+
 import './SettingsForm.scss';
 
 export default function SettingsForm(props) {
@@ -33,17 +36,23 @@ const sceneEl = useRef(null);
       </div>
       <div className="form-container">
       <h2>{props.formLabel}</h2>
-        <label htmlFor="exchange">Exchange</label> 
-        <select value={exchange} onChange={(e) => setExchange(e.target.value)}>
+        <label className="exchange-label" htmlFor="exchange">Exchange:</label> 
+        <select className="exchange-select" value={exchange} onChange={(e) => setExchange(e.target.value)}>
           <option value="Phemex">Phemex</option>
           <option value="Binance">Binance</option>
           <option value="Kraken">Kraken</option>
           <option value="Bitmex">Bitmex</option>
         </select>
-        <label htmlFor='api-key'>API Key</label>
-        <input type="text" name="api-key" value={apiKey} onChange={(e) => setApiKey(e.target.value)}/>
-        <label htmlFor='secret-key'>Secret Key</label>
-        <input type="text" name="secret-key" value={secret} onChange={(e) => setSecret(e.target.value)}/>
+        <div className="label-input">
+          <FontAwesomeIcon icon={faKey} className="icon" />
+          <label className="form-label" htmlFor='api-key'>API Key:</label>
+          <input className="input-feild" type="text" name="api-key" value={apiKey} placeholder='Enter your API key' onChange={(e) => setApiKey(e.target.value)}/>
+        </div>
+        <div className="label-input">
+          <FontAwesomeIcon icon={faKey} className="icon" />
+          <label htmlFor='secret-key'>Secret Key:</label>
+          <input type="text" name="secret-key" value={secret} placeholder='Enter your API secret key' onChange={(e) => setSecret(e.target.value)}/>
+        </div>
         <div className="button-container">
         <button onClick={handleCreateAccount} className="button">Submit</button>
         </div>

@@ -8,9 +8,7 @@ import {
   Link,
   Redirect
 } from "react-router-dom";
-
 import useApplicationData from "./hooks/useApplicatonData"
-
 import './App.scss';
 
 import Home from "./components/Home"
@@ -214,10 +212,10 @@ const tradeRows = [
   },
 ]
 
-export default function App() {
 
-  const { handleSubmit, handleLogout, setExchange, setTimeframe, setCoin, setFilter, state, currentUser, exchangeData } = useApplicationData()
- 
+export default function App() {
+  const { handleSubmit, handleLogout, setExchange, setTimeframe, setCoin, setFilter, state, currentUser, exchangeData, cookies } = useApplicationData()
+
   return (
     <Router>
       <div>
@@ -227,12 +225,12 @@ export default function App() {
               <Link className="nav-text-title" to="/">Crypto-Tracker</Link>
             </div>
             <div className="navbar-right">
-              {!currentUser && <Link className="nav-text" to="/login">Login</Link>}
-              {!currentUser && <Link className="nav-text" to="/register">Register</Link>}
-              {currentUser && <Link onClick={() => handleLogout()} className="nav-text" to="/logout">Logout</Link>}
-              {currentUser && <Link className="nav-text" to="/settings">Add Exchange</Link>}
-              {currentUser && <Link className="nav-text" to="/tradetable">Your Trades</Link>}
-              {currentUser && <Link className="nav-text" to="/dashboard">Dashboard</Link>}
+              {!cookies.Email && <Link className="nav-text" to="/login">Login</Link>}
+              {!cookies.Email && <Link className="nav-text" to="/register">Register</Link>}
+              {cookies.Email && <Link onClick={() => handleLogout()} className="nav-text" to="/logout">Logout</Link>}
+              {cookies.Email && <Link className="nav-text" to="/settings">Add Exchange</Link>}
+              {cookies.Email && <Link className="nav-text" to="/tradetable">Your Trades</Link>}
+              {cookies.Email && <Link className="nav-text" to="/dashboard">Dashboard</Link>}
             </div>
           </nav>
         </header>
@@ -242,14 +240,14 @@ export default function App() {
               <Form formLabel={'Register'} firstLabel={'Email:'} secondLabel={'Password:'} handleSubmit={handleSubmit} />
             </Route>
             <Route path="/login">
-              {currentUser ? <Redirect to="/dashboard" /> :
+              {cookies.Email ? <Redirect to="/dashboard" /> :
                 <Form formLabel={'Login'} firstLabel={'Email:'} secondLabel={'Password:'} handleSubmit={handleSubmit} />}
             </Route>
             <Route path="/tradetable">
               <div className="loader-container">
-                {!exchangeData && currentUser && <Spinner name="pacman" fadeIn="none" className="loader" />}
+                {!exchangeData && cookies.Email && <Spinner name="pacman" fadeIn="none" className="loader" />}
               </div>
-              {currentUser ? exchangeData && <TradeTable rows={exchangeData.trades} /> : <Redirect to="/" />}
+              {cookies.Email ? exchangeData && <TradeTable rows={exchangeData.trades} /> : <Redirect to="/" />}
             </Route>
             <Route path="/settings">
               <SettingsForm />
@@ -258,8 +256,8 @@ export default function App() {
               <Redirect to="/" />
             </Route>
             <Route path="/dashboard">
-            { !exchangeData && currentUser && <div><Spinner name="pacman" fadeIn="none" className="loader"/><p className="loading-text">Loading...</p></div>}
-            { currentUser ?
+            { !exchangeData && cookies.Email && <div><Spinner name="pacman" fadeIn="none" className="loader"/><p className="loading-text">Loading...</p></div>}
+            { cookies.Email ?
             exchangeData &&
                 <div>
                   <div className="show-container">
