@@ -36,7 +36,15 @@ export default function Dashboard(props) {
   const baseTickerBalance = balance[baseTicker].total
   const pL = calculatePL(trades, coin);
   const average = `$${averageCost(trades, coin)}`;
- 
+  
+
+  const checkPl = (pL) => {
+    if(pL.includes('+')) {
+      console.log(pL)
+      return true
+    }
+  }
+
   return (
     <div className='dashboard-container'>
       <div className='timeframe'>
