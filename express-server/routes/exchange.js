@@ -3,22 +3,24 @@ const express = require('express');
 const router = express.Router();
 const db = require('../db/index')
 const { getUserExchanges } = require('../db/queries/queries')
+const { getMockData } = require('../db/helpers/mock-data') 
+
+// router.get('/:exchange/:coin/:timeframe', function (req, res) {
+//   const { exchange, coin, timeframe} = req.params;
+//   const userId = 1;
+//   return getUserExchanges(userId)
+//   .then(exchanges => {
+//     console.log('route pinged')
+//     getExchangeInfo(exchanges, exchange, coin, timeframe).then(data => {
+//       return res.status(200).json(data);
+//     })
+//   })
+//   .catch(err => console.log(err));
+// })
 
 router.get('/:exchange/:coin/:timeframe', function (req, res) {
-  const { exchange, coin, timeframe} = req.params;
-  const userId = 1;
-  return getUserExchanges(userId)
-  .then(exchanges => {
-    console.log('route pinged')
-    getExchangeInfo(exchanges, exchange, coin, timeframe).then(data => {
-      return res.status(200).json(data);
-    })
-  })
-  .catch(err => console.log(err));
-})
-
-router.get('/:exchange/:coin/:timeframe', function (req, res) {
-  
+  const mockData = getMockData();
+  return res.status(200).json(mockData)
 })
 
 const oneMonthAgo = () => new Date - 2629800000
