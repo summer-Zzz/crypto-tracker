@@ -1,6 +1,6 @@
 import { useState, useEffect, useReducer } from 'react'
 import axios from 'axios'
-import reducer from './reducers/App'
+import reducer from '../reducers/App'
 export default function useApplicationData() {
 
   // STATE
@@ -63,13 +63,13 @@ export default function useApplicationData() {
       axios.get(apiUrl)
       .then(res => {
        const {trades, candles, balance, coins, selectedCoin, timeframes} = res.data;
-       const formattedTimeframes = formatTimeframes(timeframes)
+       console.log(res.data)
         setExchangeData({
           trades,
           candles,
+          timeframes,
           balance,
           coins,
-          formattedTimeframes,
           selectedCoin
         });
       })
@@ -77,16 +77,16 @@ export default function useApplicationData() {
     }
   }, [state, currentUser])
 
-  const formatTimeframes = (timeframes) => {
-    const timeFrameArr = [] 
-    for (let tf in timeframes) {
-      timeFrameArr.push({
-        id: tf,
-        name: tf
-      })
-    }
-    return timeFrameArr
-  }
+  // const formatTimeframes = (timeframes) => {
+  //   const timeFrameArr = [] 
+  //   for (let tf in timeframes) {
+  //     timeFrameArr.push({
+  //       id: tf,
+  //       name: tf
+  //     })
+  //   }
+  //   return timeFrameArr
+  // }
   
   return { handleSubmit, handleLogout, setExchange, setTimeframe, setCoin, setFilter, state, currentUser, exchangeData }
 }

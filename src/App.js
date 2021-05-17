@@ -9,7 +9,7 @@ import {
   Redirect
 } from "react-router-dom";
 
-import useApplicationData from "./App-helpers"
+import useApplicationData from "./hooks/useApplicatonData"
 
 import './App.scss';
 
@@ -21,6 +21,7 @@ import Dashboard from "./components/Dashboard"
 import DisplayChart from './components/Candlestick/DisplayChart';
 import TradeTable from "./components/TradeTable/TradeTable";
 import DropMenu from "./components/DropDownMenu/DropMenu"
+import { propTypes } from 'react-bootstrap/esm/Image';
 const Spinner = require('react-spinkit');
 
 const exchanges = [
@@ -216,80 +217,7 @@ const tradeRows = [
 export default function App() {
 
   const { handleSubmit, handleLogout, setExchange, setTimeframe, setCoin, setFilter, state, currentUser, exchangeData } = useApplicationData()
-  // // STATE
-  // const [currentUser, setCurrentUser] = useState(null)
-  // const [exchangeData, setExchangeData] = useState(null);
-  // const [state, dispatch] = useReducer(reducer, {
-  //   exchange: "kraken",
-  //   timeframe: '1hr',
-  //   coin: "BTC/USD",
-  //   filter: "none"
-  // });
-
-  // // EVENT HANDLING
-
-  // // used for login and register
-  // const handleSubmit = (userData) => {
-  //   const { dataType, password, email } = userData;
-  //   axios
-  //   .post(`http://localhost:3002/api/users/${dataType}/${email}/${password}`)
-  //   .then((res) => {
-  //     if(res.status === 200){
-  //       setCurrentUser(res.data.id);
-  //     }
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   });
-  // }
-
-  // const handleLogout = () => {
-  //   setCurrentUser(null)
-  //   axios.post('http://localhost:3002/api/users/logout')
-  //   .then(res => {
-
-  //   })
-  // }
-
-  // const setExchange = (exchange) => {
-  //   dispatch({type: "SET_EXCHANGE", value: exchange});
-  // }
-
-  // const setTimeframe = (timeframe) => {
-  //   dispatch({type: "SET_TIMEFRAME", value: timeframe});
-  // }
-
-  // const setCoin = (coin) => {
-  //   dispatch({type: "SET_COIN", value: coin});
-  // }
-
-  // const setFilter = (currency) => {
-  //   dispatch({type: "SET_FILTER", value: currency}); 
-  // }
-
-
-  // // Re-renders all api data when user interacts with state
-  // useEffect(() => {
-  //   if (currentUser) { 
-  //     const { exchange, timeframe, coin } = state;
-  //     const formattedCoin = coin.split('/').join('%2F');
-  //     const apiUrl = `http://localhost:3002/api/exchange/${exchange}/${formattedCoin}/${timeframe}`
-  //     axios.get(apiUrl)
-  //     .then(res => {
-  //      const {trades, candles, balance, coins, selectedCoin, timeframes} = res.data;
-  //       setExchangeData({
-  //         trades,
-  //         candles,
-  //         balance,
-  //         coins,
-  //         timeframes,
-  //         selectedCoin
-  //       });
-  //     })
-  //     .catch(err => console.log(err))
-  //   }
-  // }, [state, currentUser])
-
+ 
   return (
     <Router>
       <div>
@@ -337,7 +265,11 @@ export default function App() {
                     <div id="chart-dashboard-container">
                       <DisplayChart
                         candles={exchangeData.candles}
-                        coinName={exchangeData.selectedCoin.symbol || "no data"} />
+                        coinName={exchangeData.selectedCoin.symbol || "no data"} 
+                        timeframes={exchangeData.timeframes}
+                        setTimeframe={setTimeframe}
+                        selectedTimeframe={state.timeframe}
+                      />
                       <Dashboard
                         coin={exchangeData.selectedCoin}
                         trades={exchangeData.trades}
@@ -350,18 +282,21 @@ export default function App() {
                       />
                     </div>
                     <div className="menu-container">
-                      <label>Pick your exchange</label>
-                      <DropMenu options={exchanges} setData={setExchange} selectedVal={exchangeData.exchange} />
                       <label>Chart timeframe</label>
-                      <DropMenu options={timeframes} setData={setTimeframe} selectedVal={exchangeData.timeframe} />
+                      <DropMenu options={timeframes} setData={setTimeframe} selectedVal={state.timeframe} />
                     </div>
-                    </div>
+                  </div>
+                    <div className="cointable">
                     <CoinTable
                       rows={exchangeData.coins}
                       currencies={currencies}
                       setCoin={setCoin}
                       setFilter={setFilter}
+                      exchanges={exchanges}
+                      setExchange={setExchange}
+                      selectedExchange={state.exchange}
                       selectedFilter={state.filter} />
+                    </div>
                   </div>
               }
             </Route>

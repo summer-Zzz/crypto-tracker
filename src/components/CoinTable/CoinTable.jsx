@@ -1,4 +1,4 @@
-import { useState } from "react"
+
 import CoinTableRow from "./CoinTableRow"
 import Table from 'react-bootstrap/Table'
 import DropMenu from "../DropDownMenu/DropMenu";
@@ -23,12 +23,20 @@ export default function CoinTable(props) {
   })
   return (
     <div className="coin-container">
+      <div className="options">
       <lable className="option-lable">Filter</lable>
       <DropMenu 
         options={props.currencies} 
         setData={props.setFilter} 
         selectedVal={props.selectedFilter} 
       />
+       <lable className="option-lable">Select Exchange</lable>
+      <DropMenu 
+        options={props.exchanges} 
+        setData={props.setExchange} 
+        selectedVal={props.selectedExchange} 
+      />
+      </div>
       <Table striped bordered hover>
         <thead>
           <tr>
