@@ -74,13 +74,8 @@ export default function useApplicationData() {
   
   // Re-renders all api data when user interacts with state
   useEffect(() => {
-<<<<<<< HEAD
     if (cookies.Email) { 
-      const { exchange, timeframe, coin } = state;
-=======
-    if (currentUser) { 
       const { exchange, timeframe, time, coin } = state;
->>>>>>> 6ade83096398e3a00c3bf7716ae0af3fd2a1d2cb
       const formattedCoin = coin.split('/').join('%2F');
       const id = 1;
       const apiUrl = `http://localhost:3001/api/exchange/${true}/${id}/${exchange}/${formattedCoin}/${timeframe}/${time}`
