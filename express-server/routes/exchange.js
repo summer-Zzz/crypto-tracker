@@ -40,6 +40,18 @@ router.post('/account/new', (req, res) => {
   })
 })
 
+// NEW ACCOUNT
+router.post('/account/new', (req, res) => {
+  const {exchangeName} = req.body
+  getExchangeByName(exchangeName.toLowerCase()).then(data => {
+  exchangeId = data.id;
+  newUserData = {exchangeId, ...req.body}
+    addUserAccount(newUserData).then(data => {
+      return res.status(200).json(data);
+    })
+  })
+}) 
+
 const oneMonthAgo = () => new Date - 2629800000
 const oneWeekAgo = () => new Date - 604800000
 const oneDayAgo = () => new Date - 86400000
