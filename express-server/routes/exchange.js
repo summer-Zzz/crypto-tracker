@@ -5,16 +5,17 @@ const db = require('../db/index')
 const { getUserExchanges, addUserAccount } = require('../db/queries/queries')
 const { getMockData } = require('../db/helpers/mock-data') 
 const { getExchangeByName, getUserExchangeNames } = require('../db/helpers/dbHelpers')
+const { sendTime } = require('../db/helpers/api-helpers')
 
 const kraken = new ccxt.kraken()
 
 // REQUEST ALL DATA FROM API/MOCK
-router.get('/:mock/:id/:exchange/:coin/:timeframe', function (req, res) {
-  const { id, exchange, coin, timeframe, mock } = req.params;
+router.get('/:mock/:id/:exchange/:coin/:timeframe/:time', function (req, res) {
+  const { id, exchange, coin, timeframe, time,} = req.params;
     return getUserExchangeNames(id).then(exchangeNames => {
       const exchanges = formatExchangeNames(exchangeNames);
       const mockData = getMockData(exchange, coin);
-      kraken.fetchOHLCV(coin, timeframe, oneMonthAgo())
+      kraken.fetchOHLCV(coin, timeframe, sendTime(time))
       .then(candles => {
         return res.status(200).json({exchanges, candles, ...mockData})
       })

@@ -35,9 +35,51 @@ const checkPl = (pL) => {
   }
 }
 
+const time = [
+  {
+    id: 1,
+    name: '1m'
+  },
+  {
+    id: 2,
+    name: '5m'
+  },
+  {
+    id: 3,
+    name: '30m'
+  },
+  {
+    id: 4,
+    name: '1hr'
+  },
+  {
+    id: 5,
+    name: '12hr'
+  },
+  {
+    id: 6,
+    name: '1d'
+  },
+  {
+    id: 7,
+    name: '1w'
+  },
+  {
+    id: 8,
+    name: '2w'
+  },
+  {
+    id: 9,
+    name: '1mo'
+  },
+  {
+    id: 10,
+    name: '6mo'
+  }
+]
+
 export default function Dashboard(props) {
-  console.log(props)
-  const { coin, trades, balance, timeframes, setTimeframe, selectedTimeframe} = props;
+  const { coin, trades, balance, timeframes, setTimeframe, selectedTimeframe, setTime, selectedTime} = props;
   // use selected coin's symbol to access balance 
   const baseTicker = coin.symbol.split('/')[0];
   const baseTickerBalance = balance[baseTicker].toFixed(4)
@@ -47,15 +89,17 @@ export default function Dashboard(props) {
   return (
     <div className='dashboard-container'>
       <div className='timeframe'>
-        <p className='timeframe'>Chart timeframe</p>
+        <p className='timeframe'>Candle Length</p>
         <DropMenu options={timeframes} setData={setTimeframe} selectedVal={selectedTimeframe} />
+        <p className='timeframe'>Chart timeframe</p>
+        <DropMenu options={time} setData={setTime} selectedVal={selectedTime} />
       </div>
       <div className="info-container">
         <InfoDisplay infoHeader={'Symbol'} infoContent={coin.symbol} />
         <InfoDisplay infoHeader={'Current Price'} infoContent={`$${coin.last}`} />
         <InfoDisplay infoHeader={'Balance'} infoContent={`${baseTickerBalance || 0} ${baseTicker}`} />
         <div className={checkPl(pL) ? 'green' : 'red'}>
-        <InfoDisplay infoHeader={'P&L'} infoContent={`${pL}%` || 0} />
+          <InfoDisplay infoHeader={'P&L'} infoContent={`${pL}%` || 0} />
         </div>
         <InfoDisplay infoHeader={'Average Price'} infoContent={average || 0}/>
       </div>

@@ -9,5 +9,7 @@ export default function reducer(state, action) {
       return {...state, coin: action.value} 
     case "SET_FILTER":
       return {...state, filter: action.value} 
+    case "SET_TIME":
+      return {...state, time: action.value} 
   }
 }
