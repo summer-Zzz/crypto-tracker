@@ -1,4 +1,3 @@
-import "./TradeTableRow.scss"
 
 export default function TradeTableRow(props) {
   const d = new Date(props.time)
