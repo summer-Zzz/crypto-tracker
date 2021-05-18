@@ -4,6 +4,21 @@ import Table from 'react-bootstrap/Table'
 import DropMenu from "../DropDownMenu/DropMenu";
 import "./CoinTable.scss";
 
+const filters = [
+  {
+    id: 1,
+    name: "USD"
+  },
+  {
+    id: 1,
+    name: "CAD"
+  },
+  {
+    id: 1,
+    name: "EUR"
+  }
+]
+
 export default function CoinTable(props) {
 
   const handleSelect = (symbol) => {
@@ -27,7 +42,7 @@ export default function CoinTable(props) {
       <div className="options">
       <lable className="option-lable">Filter</lable>
       <DropMenu 
-        options={props.currencies} 
+        options={filters} 
         setData={props.setFilter} 
         selectedVal={props.selectedFilter} 
       />

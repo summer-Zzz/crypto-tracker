@@ -3,26 +3,17 @@ import DropMenu from './DropDownMenu/DropMenu'
 import InfoDisplay from './InfoDisplay'
 import "./Dashboard.scss";
 
-const calculatePL = (trades, currentPrice) => {
+const calculatePL = (trades, currentCoin) => {
   let costs = 0;
   let amounts = 0;
     for(let trade of trades) {
-      if (trade.coinSymbol === currentPrice.symbol) {
+      if (trade.coinSymbol === currentCoin.symbol) {
         costs += trade.cost;
         amounts += trade.amount;
       }
     }
-  let proLoss =(((currentPrice.last * amounts) - costs) /costs) * 100;
+  let proLoss =(((currentCoin.last * amounts) - costs) /costs) * 100;
   return((proLoss.toFixed(2) > 0) ? "+" + proLoss.toFixed(2) : proLoss.toFixed(2));
-}
-
-const priceInfo = (coin) => {
-  console.log(coin)
-  const volume = coin.baseVolume.toFixed(2)
-  const currentPrice = coin.last;
-  const coinSymbol = coin.symbol;
-  const vwap = coin.vwap.toFixed(2)
-  return {currentPrice, coinSymbol, volume, vwap}
 }
 
 const averageCost = (trades, currentCoin) => {
@@ -50,12 +41,54 @@ const totalCost = (trades, currentCoin) => {
   return priceTotal;
 }
 
+const time = [
+  {
+    id: 1,
+    name: '1m'
+  },
+  {
+    id: 2,
+    name: '5m'
+  },
+  {
+    id: 3,
+    name: '30m'
+  },
+  {
+    id: 4,
+    name: '1hr'
+  },
+  {
+    id: 5,
+    name: '12hr'
+  },
+  {
+    id: 6,
+    name: '1d'
+  },
+  {
+    id: 7,
+    name: '1w'
+  },
+  {
+    id: 8,
+    name: '2w'
+  },
+  {
+    id: 9,
+    name: '1mo'
+  },
+  {
+    id: 10,
+    name: '6mo'
+  }
+]
+
 export default function Dashboard(props) {
-  const { coin, trades, balance, timeframes, setTimeframe, selectedTimeframe} = props;
+  const { coin, trades, balance, timeframes, setTimeframe, selectedTimeframe, setTime, selectedTime} = props;
   // use selected coin's symbol to access balance 
   const baseTicker = coin.symbol.split('/')[0];
-  console.log(baseTicker)
-  const baseTickerBalance = balance[baseTicker].total
+  const baseTickerBalance = balance[baseTicker].toFixed(4)
   const pL = calculatePL(trades, coin);
   const average = `$${averageCost(trades, coin)}`;
   const total = `$${totalCost(trades, coin)}`
@@ -70,21 +103,23 @@ export default function Dashboard(props) {
   return (
     <div className='dashboard-container'>
       <div className='timeframe'>
-        <p className='timeframe'>Chart timeframe</p>
+        <p className='timeframe'>Candle Length</p>
         <DropMenu options={timeframes} setData={setTimeframe} selectedVal={selectedTimeframe} />
+        <p className='timeframe'>Chart timeframe</p>
+        <DropMenu options={time} setData={setTime} selectedVal={selectedTime} />
       </div>
       <div className="info-container">
         <div className='first-column'>
-          <InfoDisplay infoHeader={'Symbol'} infoContent={priceInfo(coin).coinSymbol} />
-          <InfoDisplay infoHeader={'Current Price'} infoContent={`$${priceInfo(coin).currentPrice}`} />
-          <InfoDisplay infoHeader={'Balance'} infoContent={`${baseTickerBalance} ${baseTicker}`} />
+        <InfoDisplay infoHeader={'Symbol'} infoContent={coin.symbol} />
+          <InfoDisplay infoHeader={'Current Price'} infoContent={`$${coin.last}`} />
+          <InfoDisplay infoHeader={'Balance'} infoContent={`${baseTickerBalance || 0} ${baseTicker}`} />
           <div className={checkPl(pL) ? 'green' : 'red'}>
-            <InfoDisplay infoHeader={'P&L'} infoContent={`${pL}%`} />
+          <InfoDisplay infoHeader={'P&L'} infoContent={`${pL}%` || 0} />
           </div>
         </div>
         <div className='second-column'>
-          <InfoDisplay infoHeader={'Volume'} infoContent={priceInfo(coin).volume}/>
-          <InfoDisplay infoHeader={'VWAP'} infoContent={priceInfo(coin).vwap}/>
+          <InfoDisplay infoHeader={'Volume'} infoContent={coin.volume}/>
+          <InfoDisplay infoHeader={'VWAP'} infoContent={coin.vwap}/>
           <InfoDisplay infoHeader={'Average Price'} infoContent={average}/>
           <InfoDisplay infoHeader={'Total Cost'} infoContent={total}/>
         </div>
