@@ -17,12 +17,16 @@ const calculatePL = (trades, currentPrice) => {
 }
 
 const priceInfo = (coin) => {
+  console.log(coin)
+  const volume = coin.baseVolume.toFixed(2)
   const currentPrice = coin.last;
   const coinSymbol = coin.symbol;
-  return {currentPrice, coinSymbol}
+  const vwap = coin.vwap.toFixed(2)
+  return {currentPrice, coinSymbol, volume, vwap}
 }
 
 const averageCost = (trades, currentCoin) => {
+  console.log('ttt', trades)
   let priceTotal = 0;
   let tradesArray = [];
   trades.forEach(trade => {
@@ -31,7 +35,19 @@ const averageCost = (trades, currentCoin) => {
       tradesArray.push(trade);
     }
   })
+  console.log(tradesArray)
+
   return (priceTotal / tradesArray.length).toFixed(2);
+}
+
+const totalCost = (trades, currentCoin) => {
+  let priceTotal = 0;
+  trades.forEach(trade => {
+    if (trade.coinSymbol === currentCoin.symbol) {
+      priceTotal += trade.price;  
+    }
+  })
+  return priceTotal;
 }
 
 export default function Dashboard(props) {
@@ -42,7 +58,7 @@ export default function Dashboard(props) {
   const baseTickerBalance = balance[baseTicker].total
   const pL = calculatePL(trades, coin);
   const average = `$${averageCost(trades, coin)}`;
-  
+  const total = `$${totalCost(trades, coin)}`
 
   const checkPl = (pL) => {
     if(pL.includes('+')) {
@@ -58,13 +74,20 @@ export default function Dashboard(props) {
         <DropMenu options={timeframes} setData={setTimeframe} selectedVal={selectedTimeframe} />
       </div>
       <div className="info-container">
-        <InfoDisplay infoHeader={'Symbol'} infoContent={priceInfo(coin).coinSymbol} />
-        <InfoDisplay infoHeader={'Current Price'} infoContent={`$${priceInfo(coin).currentPrice}`} />
-        <InfoDisplay infoHeader={'Balance'} infoContent={`${baseTickerBalance} ${baseTicker}`} />
-        <div className={checkPl(pL) ? 'green' : 'red'}>
-        <InfoDisplay infoHeader={'P&L'} infoContent={`${pL}%`} />
+        <div className='first-column'>
+          <InfoDisplay infoHeader={'Symbol'} infoContent={priceInfo(coin).coinSymbol} />
+          <InfoDisplay infoHeader={'Current Price'} infoContent={`$${priceInfo(coin).currentPrice}`} />
+          <InfoDisplay infoHeader={'Balance'} infoContent={`${baseTickerBalance} ${baseTicker}`} />
+          <div className={checkPl(pL) ? 'green' : 'red'}>
+            <InfoDisplay infoHeader={'P&L'} infoContent={`${pL}%`} />
+          </div>
         </div>
-        <InfoDisplay infoHeader={'Average Price'} infoContent={average}/>
+        <div className='second-column'>
+          <InfoDisplay infoHeader={'Volume'} infoContent={priceInfo(coin).volume}/>
+          <InfoDisplay infoHeader={'VWAP'} infoContent={priceInfo(coin).vwap}/>
+          <InfoDisplay infoHeader={'Average Price'} infoContent={average}/>
+          <InfoDisplay infoHeader={'Total Cost'} infoContent={total}/>
+        </div>
       </div>
     </div>
   )

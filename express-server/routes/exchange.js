@@ -123,9 +123,10 @@ const formatCoins = (coins) => {
         changePercent: coinData.percentage,
         volume: coinData.baseVolume
       }
-     coinArray.push(coinObject)
-    // }
-  }
+      
+      coinArray.push(coinObject)
+      // }
+    }
   return coinArray;
 }
 
