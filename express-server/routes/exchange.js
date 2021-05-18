@@ -26,6 +26,7 @@ router.get('/:mock/:id/:exchange/:coin/:timeframe', function (req, res) {
     })
   })
   .catch(err => console.log(err));
+})
 
 // NEW ACCOUNT
 router.post('/account/new', (req, res) => {
