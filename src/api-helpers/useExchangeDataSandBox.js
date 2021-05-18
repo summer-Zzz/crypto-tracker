@@ -24,6 +24,12 @@ const bitmex = new ccxt.bitmex({
   enableRateLimit: true
 })
 
+const kraken = new ccxt.kraken(
+  {apiKey: process.env.KRAKEN_ID,
+    secret: process.env.KRAKEN_SECRET,
+    enableRateLimit: true}
+)
+
 // bitmex.setSandboxMode(true);
 
 // const binance = new ccxt.binance({
@@ -211,5 +217,5 @@ async function gettickers() {
 }
 
 
-gettickers();
-//console.log(phemex.fetchTicker('BTC/USDT'))
+// gettickers();
+// console.log(phemex.fetchTicker('BTC/USDT'))
