@@ -38,7 +38,7 @@ router.post('/account/new', (req, res) => {
       return res.status(200).json(data);
     })
   })
-})
+}) 
 
 const oneMonthAgo = () => new Date - 2629800000
 const oneWeekAgo = () => new Date - 604800000
