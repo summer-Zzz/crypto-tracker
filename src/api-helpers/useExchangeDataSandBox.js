@@ -4,20 +4,25 @@ const axios = require('axios');
 
 // SINGLE EXCHANGE INSTANTIATION  //
 
-// const phemex = new ccxt.phemex({
-//   apiKey: process.env.PHEMEX_ID,
-//   secret: process.env.PHEMEX_SECRET,
-//   enableRateLimit: true
-// })
+const phemex = new ccxt.phemex({
+  apiKey: process.env.PHEMEX_ID,
+  secret: process.env.PHEMEX_SECRET,
+  enableRateLimit: true
+})
 
+const binance = new ccxt.binance({
+  apiKey: process.env.BINANCE_ID,
+  secret: process.env.BINANCE_SECRET,
+  enableRateLimit: true
+})
 // phemex.setSandboxMode(true);  
 
 
-// const bitmex = new ccxt.bitmex({
-//   apiKey: process.env.BITMEX_ID,
-//   secret: process.env.BITMEX_SECRET,
-//   enableRateLimit: true
-// })
+const bitmex = new ccxt.bitmex({
+  apiKey: process.env.BITMEX_ID,
+  secret: process.env.BITMEX_SECRET,
+  enableRateLimit: true
+})
 
 // bitmex.setSandboxMode(true);
 
@@ -27,11 +32,13 @@ const axios = require('axios');
 //   enableRateLimit: true
 // })
 
-const kraken = new ccxt.kraken({
-  apiKey: process.env.KRAKEN_ID,
-  secret: process.env.KRAKEN_SECRET,
-  enableRateLimit: true
-})
+// const kraken = new ccxt.kraken({
+//   apiKey: process.env.KRAKEN_ID,
+//   secret: process.env.KRAKEN_SECRET,
+//   enableRateLimit: true
+// })
+
+//let binance = new ccxt.binance ({ id: 'binance' })
 
 
 // USEREXCHANGE CLASS INSTANTIATION // 
@@ -159,14 +166,14 @@ const exchangeRequestData = {
   symbol: 'ALGO/USD',
   timeframe: '1m',
   since: allTime(),
-  exchange: kraken
+  exchange: phemex
 }
 
 // CALL API SANDBOX FUNCTIONS // 
 
 // // fetch all trades 
 // fetchTrades(exchangeRequestData)
-kraken.fetchMyTrades().then(res => {console.log(res)})
+//kraken.fetchMyTrades().then(res => {console.log(res)})
 
 // // get average cost from all trades 
 // const trades = fetchTrades(exchangeRequestData)
@@ -185,4 +192,24 @@ kraken.fetchMyTrades().then(res => {console.log(res)})
 // fetchExchangeCoins(kraken)
 
 // fetch single ticker price
-// fetchTickerPrice(binance, 'BTC/USDT')
+//fetchTickerPrice(binance, 'BTC/USDT')
+// fetchExchangeCoins(phemex);
+
+// const fs = require('fs')
+// async function callstuff() {
+//   let tickersBinance = await Binance.fetchTicker('BTC/USDT');
+//   fs.writeFileSync('BinanceTickerBTC.txt', JSON.stringify(tickersBinance));
+// }
+
+async function gettickers() {
+  if (bitmex.has['fetchTicker']) {
+  console.log (await (bitmex.fetchTicker ('ALGO/USDT'))) // ticker for BTC/USD
+// async function callstuff() {
+//   let tickersBinance = await Binance.fetchTicker('BTC/USD');
+//   fs.writeFileSync('BinanceTickerBTC.txt', JSON.stringify(tickersBinance));
+}
+}
+
+
+gettickers();
+//console.log(phemex.fetchTicker('BTC/USDT'))
