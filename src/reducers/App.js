@@ -2,7 +2,7 @@ export default function reducer(state, action) {
 
   switch (action.type) {
     case "SET_EXCHANGE":
-      return {...state, exchangeSelection: action.value} 
+      return {...state, exchange: action.value} 
     case "SET_TIMEFRAME":
       return {...state, timeframe: action.value} 
     case "SET_COIN":
