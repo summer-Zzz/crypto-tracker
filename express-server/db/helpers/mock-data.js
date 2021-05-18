@@ -1,8 +1,10 @@
-const getMockData = (exchange, coin, timeframe) => {
+const getMockData = (exchange, coin) => {
   // get exchange data 
-  
+  const selectedExchange = mockData[exchange]
   // get selectedCoin data 
-  return mockData[exchange]
+  const selectedCoin = mockData.selectedCoins[coin];
+  console.log(selectedCoin)
+  return {...selectedExchange, selectedCoin}
 }
 
 const mockData = {
@@ -666,46 +668,24 @@ const mockData = {
       { id: '2w', name: '2w' }
     ],
     coins: [
-      {
-        key: 'ALGO/USD',
-        coinSymbol: 'ALGO/USD',
-        price: 1.30299,
-        change: undefined,
-        changePercent: undefined,
-        volume: 4644991.29193508
-      },
-      {
-        key: 'DOGE/USD',
-        coinSymbol: 'DOGE/USD',
-        price: 0.4810123,
-        change: undefined,
-        changePercent: undefined,
-        volume: 361483622.6460658
-      },
-      {
-        key: 'ETH/USD',
-        coinSymbol: 'ETH/USD',
-        price: 3306.73,
-        change: undefined,
-        changePercent: undefined,
-        volume: 201202.38609611
-      },
-      {
-        key: 'BTC/CAD',
-        coinSymbol: 'BTC/CAD',
-        price: 51759.8,
-        change: undefined,
-        changePercent: undefined,
-        volume: 220.95213187
-      },
-      {
-        key: 'XRP/USD',
-        coinSymbol: 'XRP/USD',
-        price: 1.45695,
-        change: undefined,
-        changePercent: undefined,
-        volume: 74656114.74112025
-      }
+      {key: "AAVE/USD", coinSymbol: "AAVE/USD", change: .25, changePercent: 25, price: 656.96, volume: 21912.33949323},
+      {key: "ADA/USD", coinSymbol: "ADA/USD", change: .25, changePercent: 25, price: 2.079498, volume: 67043633.17569398},
+      {key: "ALGO/USD", coinSymbol: "ALGO/USD", change: .25, changePercent: 25, price: 1.37442, volume: 2628270.59664532},
+      {key: "ANT/USD", coinSymbol: "ANT/USD", change: .25, changePercent: 25, price: 7.042, volume: 27390.53853711},
+      {key: "ATOM/USD", coinSymbol: "ATOM/USD", change: .25, changePercent: 25, price: 22.9139, volume: 252753.49161536},
+      {key: "ATOM/BTC", coinSymbol: "ATOM/BTC", change: .25, changePercent: 25, price: 0.0005255, volume: 43703.30831466},
+      {key: "BCH/USD", coinSymbol: "BCH/USD", change: .25, changePercent: 25, price: 1119.49, volume: 21270.88753825},
+      {key: "BCH/USDT", coinSymbol: "BCH/USDT", change: .25, changePercent: 25, price: 1118.57, volume: 549.27828967},
+      {key: "COMP/USD", coinSymbol: "COMP/USD", change: .25, changePercent: 25, price: 684.12, volume: 1470.82685401},
+      {key: "CRV/USD", coinSymbol: "CRV/USD", change: .25, changePercent: 25, price: 3.443, volume: 698522.33972717},
+      {key: "DAI/USD", coinSymbol: "DAI/USD", change: .25, changePercent: 25, price: 1.00099, volume: 3999183.19833514},
+      {key: "DAI/USDT", coinSymbol: "DAI/USDT", change: .25, changePercent: 25, price: 0.9999, volume: 1330723.90014531},
+      {key: "DASH/USD", coinSymbol: "DASH/USD", change: .25, changePercent: 25, price: 311.726, volume: 17103.77077837},
+      {key: "EOS/USD", coinSymbol: "EOS/USD", change: .25, changePercent: 25, price: 9.4235, volume: 1217588.91864218},
+      {key: "EWT/USD", coinSymbol: "EWT/USD", change: .25, changePercent: 25, price: 12.523, volume: 73299.18114197},
+      {key: "FIL/USD", coinSymbol: "FIL/USD", change: .25, changePercent: 25, price: 100.657, volume: 41552.83296708},
+      {key: "FIL/BTC", coinSymbol: "FIL/BTC", change: .25, changePercent: 25, price: 0.0023094, volume: 4539.39103084},
+      {key: "FLOW/USD", coinSymbol: "FLOW/USD", change: .25, changePercent: 25, price: 20.51, volume: 489453.18089832}
     ],
     trades: [
       {
@@ -1292,38 +1272,6 @@ const mockData = {
       { id: '1w', name: '1w' },
       { id: '2w', name: '2w' }
     ],
-    selectedCoin: {
-      symbol: 'BTC/USD',
-      timestamp: 1621265209393,
-      datetime: '2021-05-17T15:26:49.393Z',
-      high: 48099.1,
-      low: 42200,
-      bid: 43550.3,
-      bidVolume: undefined,
-      ask: 43569.3,
-      askVolume: undefined,
-      vwap: 44938.74509,
-      open: 46474.7,
-      close: 43550.3,
-      last: 43550.3,
-      previousClose: undefined,
-      change: undefined,
-      percentage: undefined,
-      average: undefined,
-      baseVolume: 12955.53722716,
-      quoteVolume: 582205584.9553486,
-      info: {
-        a: [ '43569.30000', '1', '1.000' ],
-        b: [ '43550.30000', '4', '4.000' ],
-        c: [ '43550.30000', '0.00000016' ],
-        v: [ '7053.37534369', '12955.53722716' ],
-        p: [ '44374.56500', '44938.74509' ],
-        t: [ 61826, 116404 ],
-        l: [ '42200.00000', '42200.00000' ],
-        h: [ '46648.50000', '48099.10000' ],
-        o: '46474.70000'
-      }
-    },
     coins: [
       {
         key: 'ALGO/USD',
@@ -1955,7 +1903,6 @@ const mockData = {
         o: '46474.70000'
       }
     },
-
     'ETH/BTC': {
       symbol: 'ETH/BTC',
       timestamp: 1621308589043,
