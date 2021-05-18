@@ -18,7 +18,7 @@ export default function useApplicationData() {
   const handleSubmit = (userData) => {
     const { dataType, password, email } = userData;
     axios
-    .post(`http://localhost:3001/api/users/${dataType}/${email}/${password}`)
+    .post(`http://localhost:3002/api/users/${dataType}/${email}/${password}`)
     .then((res) => {
       if (res.status === 200){
         setCurrentUser(res.data.id);
@@ -31,7 +31,7 @@ export default function useApplicationData() {
   
   const handleLogout = () => {
     setCurrentUser(null)
-    axios.post('http://localhost:3001/api/users/logout')
+    axios.post('http://localhost:3002/api/users/logout')
     .then(res => {
       console.log(res)
     })

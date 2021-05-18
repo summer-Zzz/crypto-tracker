@@ -7,6 +7,78 @@ const getMockData = (exchange, coin, timeframe) => {
 
 const mockData = {
 
+<<<<<<< HEAD
+const mockData = {
+  balance: {
+    USD: 179.3275,
+    CAD: 2146.1453,
+    BTC: 0.430334396,
+    XRP: 0,
+    LTC: 3.27868852,
+    DOGE: 2200,
+    XLM: 1e-8,
+    ETH: 2.22547244,
+    BCH: 0,
+    ADA: 1128.91763873,
+    SC: 40000,
+    ALGO: 150,
+    DOT: 0,
+    'DOT.S': 256.77018894,
+    KSM: 1.934236,
+    UNI: 15.67303869
+  },
+  timeframes: [
+    { id: '1m', name: '1m' },
+    { id: '5m', name: '5m' },
+    { id: '15m', name: '15m' },
+    { id: '30m', name: '30m' },
+    { id: '1h', name: '1h' },
+    { id: '4h', name: '4h' },
+    { id: '1d', name: '1d' },
+    { id: '1w', name: '1w' },
+    { id: '2w', name: '2w' }
+  ],
+  selectedCoin: {
+    symbol: 'BTC/USD',
+    timestamp: 1621265209393,
+    datetime: '2021-05-17T15:26:49.393Z',
+    high: 48099.1,
+    low: 42200,
+    bid: 43550.3,
+    bidVolume: undefined,
+    ask: 43569.3,
+    askVolume: undefined,
+    vwap: 44938.74509,
+    open: 46474.7,
+    close: 43550.3,
+    last: 43550.3,
+    previousClose: undefined,
+    change: undefined,
+    percentage: undefined,
+    average: undefined,
+    baseVolume: 12955.53722716,
+    quoteVolume: 582205584.9553486,
+    info: {
+      a: [ '43569.30000', '1', '1.000' ],
+      b: [ '43550.30000', '4', '4.000' ],
+      c: [ '43550.30000', '0.00000016' ],
+      v: [ '7053.37534369', '12955.53722716' ],
+      p: [ '44374.56500', '44938.74509' ],
+      t: [ 61826, 116404 ],
+      l: [ '42200.00000', '42200.00000' ],
+      h: [ '46648.50000', '48099.10000' ],
+      o: '46474.70000'
+    }
+  },
+  coins: [
+    {
+      key: 'ALGO/USD',
+      coinSymbol: 'ALGO/USD',
+      price: 1.30299,
+      change: undefined,
+      changePercent: undefined,
+      volume: 4644991.29193508
+=======
   kraken: {
     
     balance: {
@@ -26,6 +98,7 @@ const mockData = {
       'DOT.S': 256.77018894,
       KSM: 1.934236,
       UNI: 15.67303869
+>>>>>>> 8bca26ac7085a938cb022934c2aa0441aa8ad2ac
     },
     timeframes: [
       { id: '1m', name: '1m' },
