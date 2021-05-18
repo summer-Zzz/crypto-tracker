@@ -1,3 +1,5 @@
+const { kraken } = require("ccxt");
+
 const getMockData = (exchange, coin) => {
   // get exchange data 
   const selectedExchange = mockData[exchange]
@@ -41,44 +43,39 @@ const mockData = {
     ],
     coins: [
       {
-        key: 'ALGO/USD',
-        coinSymbol: 'ALGO/USD',
-        price: 1.30299,
-        change: undefined,
-        changePercent: undefined,
-        volume: 4644991.29193508
+        coinSymbol: 'ADA/USDT', 
+        price:  2.020095, 
+        change:  undefined, 
+        changePercent:  undefined, 
+        volume:  3024549.02479544 
       },
       {
-        key: 'DOGE/USD',
-        coinSymbol: 'DOGE/USD',
-        price: 0.4810123,
+        coinSymbol: 'DOT/USD',
+        price: 39.2234,
         change: undefined,
         changePercent: undefined,
-        volume: 361483622.6460658
+        volume:  860816.40563964
       },
       {
-        key: 'ETH/USD',
-        coinSymbol: 'ETH/USD',
-        price: 3306.73,
+        coinSymbol:  'KSM/USD', 
+        price: 588.4,
         change: undefined,
         changePercent: undefined,
-        volume: 201202.38609611
+        volume:  27131.51005139,
       },
       {
-        key: 'BTC/CAD',
-        coinSymbol: 'BTC/CAD',
-        price: 51759.8,
-        change: undefined,
+        coinSymbol:  'SC/USD', 
+        price:  0.02636, 
+        change:  undefined, 
         changePercent: undefined,
-        volume: 220.95213187
+        volume:  282042931.6698535,
       },
       {
-        key: 'XRP/USD',
-        coinSymbol: 'XRP/USD',
-        price: 1.45695,
-        change: undefined,
-        changePercent: undefined,
-        volume: 74656114.74112025
+        coinSymbol:  'UNI/USD',
+        price:  34.668,
+        change:  undefined,
+        changePercent:  undefined,
+        volume:  97139.19783492
       }
     ],
     trades: [
@@ -667,24 +664,41 @@ const mockData = {
       { id: '2w', name: '2w' }
     ],
     coins: [
-      {key: "AAVE/USD", coinSymbol: "AAVE/USD", change: .25, changePercent: 25, price: 656.96, volume: 21912.33949323},
-      {key: "ADA/USD", coinSymbol: "ADA/USD", change: .25, changePercent: 25, price: 2.079498, volume: 67043633.17569398},
-      {key: "ALGO/USD", coinSymbol: "ALGO/USD", change: .25, changePercent: 25, price: 1.37442, volume: 2628270.59664532},
-      {key: "ANT/USD", coinSymbol: "ANT/USD", change: .25, changePercent: 25, price: 7.042, volume: 27390.53853711},
-      {key: "ATOM/USD", coinSymbol: "ATOM/USD", change: .25, changePercent: 25, price: 22.9139, volume: 252753.49161536},
-      {key: "ATOM/BTC", coinSymbol: "ATOM/BTC", change: .25, changePercent: 25, price: 0.0005255, volume: 43703.30831466},
-      {key: "BCH/USD", coinSymbol: "BCH/USD", change: .25, changePercent: 25, price: 1119.49, volume: 21270.88753825},
-      {key: "BCH/USDT", coinSymbol: "BCH/USDT", change: .25, changePercent: 25, price: 1118.57, volume: 549.27828967},
-      {key: "COMP/USD", coinSymbol: "COMP/USD", change: .25, changePercent: 25, price: 684.12, volume: 1470.82685401},
-      {key: "CRV/USD", coinSymbol: "CRV/USD", change: .25, changePercent: 25, price: 3.443, volume: 698522.33972717},
-      {key: "DAI/USD", coinSymbol: "DAI/USD", change: .25, changePercent: 25, price: 1.00099, volume: 3999183.19833514},
-      {key: "DAI/USDT", coinSymbol: "DAI/USDT", change: .25, changePercent: 25, price: 0.9999, volume: 1330723.90014531},
-      {key: "DASH/USD", coinSymbol: "DASH/USD", change: .25, changePercent: 25, price: 311.726, volume: 17103.77077837},
-      {key: "EOS/USD", coinSymbol: "EOS/USD", change: .25, changePercent: 25, price: 9.4235, volume: 1217588.91864218},
-      {key: "EWT/USD", coinSymbol: "EWT/USD", change: .25, changePercent: 25, price: 12.523, volume: 73299.18114197},
-      {key: "FIL/USD", coinSymbol: "FIL/USD", change: .25, changePercent: 25, price: 100.657, volume: 41552.83296708},
-      {key: "FIL/BTC", coinSymbol: "FIL/BTC", change: .25, changePercent: 25, price: 0.0023094, volume: 4539.39103084},
-      {key: "FLOW/USD", coinSymbol: "FLOW/USD", change: .25, changePercent: 25, price: 20.51, volume: 489453.18089832}
+      {
+        coinSymbol: 'DOGE/USD',
+        price:  0.4746492,
+        change:  undefined,
+        changePercent:  undefined,
+        volume:  137236887.2886881,
+      },
+      {
+        coinSymbol: 'ETH/CAD',
+        price:  4047.88,
+        change:  undefined, 
+        changePercent:  undefined,
+        volume:  991.69599645,
+      }, 
+      {
+        coinSymbol: 'LTC/USD',
+        price:  292.46,
+        change:  undefined,
+        changePercent:  undefined,
+        volume:  122075.42303656
+      },
+      {
+        coinSymbol: 'BTC/CAD',
+        price:  51628.5,
+        change:  undefined,
+        changePercent:  undefined,
+        volume:  108.05256622,
+      },
+      {
+        coinSymbol: 'BTC/USD',
+        price:  42735.7,
+        change:  undefined,
+        changePercent:  undefined,
+        volume:  8169.16403102
+      }
     ],
     trades: [
       {
@@ -1273,44 +1287,32 @@ const mockData = {
     ],
     coins: [
       {
-        key: 'ALGO/USD',
-        coinSymbol: 'ALGO/USD',
-        price: 1.30299,
-        change: undefined,
-        changePercent: undefined,
-        volume: 4644991.29193508
+        coinSymbol: 'DOGE/BTC',
+        price:  0.0000111,
+        change:  undefined,
+        changePercent:  undefined,
+        volume:  17844894.92259835
       },
       {
-        key: 'DOGE/USD',
-        coinSymbol: 'DOGE/USD',
-        price: 0.4810123,
-        change: undefined,
-        changePercent: undefined,
-        volume: 361483622.6460658
+        coinSymbol: 'XLM/USD',
+        price: 0.639477,
+        change:  undefined,
+        changePercent:  undefined,
+        volume:  16804445.88101703
       },
       {
-        key: 'ETH/USD',
-        coinSymbol: 'ETH/USD',
-        price: 3306.73,
-        change: undefined,
-        changePercent: undefined,
-        volume: 201202.38609611
-      },
-      {
-        key: 'BTC/CAD',
-        coinSymbol: 'BTC/CAD',
-        price: 51759.8,
-        change: undefined,
-        changePercent: undefined,
-        volume: 220.95213187
-      },
-      {
-        key: 'XRP/USD',
         coinSymbol: 'XRP/USD',
-        price: 1.45695,
-        change: undefined,
-        changePercent: undefined,
-        volume: 74656114.74112025
+        price:  1.55609,
+        change:  undefined,
+        changePercent:  undefined,
+        volume:  49040856.42974203
+      },
+      {
+        coinSymbol: 'USD/CAD',
+        price:  1.20698,
+        change:  undefined,
+        changePercent:  undefined,
+        volume:  1740320.23424103
       }
     ],
     trades: [
