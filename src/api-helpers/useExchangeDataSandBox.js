@@ -32,11 +32,11 @@ const bitmex = new ccxt.bitmex({
 //   enableRateLimit: true
 // })
 
-// const kraken = new ccxt.kraken({
-//   apiKey: process.env.KRAKEN_ID,
-//   secret: process.env.KRAKEN_SECRET,
-//   enableRateLimit: true
-// })
+const kraken = new ccxt.kraken({
+  apiKey: process.env.KRAKEN_ID,
+  secret: process.env.KRAKEN_SECRET,
+  enableRateLimit: true
+})
 
 //let binance = new ccxt.binance ({ id: 'binance' })
 
@@ -127,19 +127,19 @@ const fetchTickerPrice = (exchange, symbol) => {
   })
 }
 
-const fetchExchangeCoins = (exchange, searchTicker) => {
+const fetchExchangeCoins = (exchange, coins) => {
 
-  exchange.fetchTickers()
+  exchange.fetchTickers(coins)
   .then(tickers => {
     const tickersArr = Object.keys(tickers);
     tickersArr.forEach(ticker => {
       // if (ticker.includes(searchTicker)) {
         const tickerInfo = tickers[ticker];
         console.log(
-          'symbol: ', tickerInfo.symbol,
+          'coinSymbol:', tickerInfo.symbol,
           'price: ', tickerInfo.ask,
           'change: ', tickerInfo.change,
-          'change%: ', tickerInfo.percentage,
+          'changePercent: ', tickerInfo.percentage,
           'volume: ', tickerInfo.baseVolume,
         )
       // }
@@ -189,7 +189,8 @@ const exchangeRequestData = {
 // getOHLCVData(exchangeRequestData)
 
 // fetch exchange coins
-// fetchExchangeCoins(kraken)
+// fetchExchangeCoins(kraken, ['USD/CAD', 'DOT/USD', 'ADA/USDT', 'BTC/USD', 'KSM/USD', 'USD/CAD', 'DOT/USD', 'ADA/USDT', 'BTC/USD', 'KSM/USD', 'XRP/USD', 'UNI/USD', 'LTC/USD', 'BTC/CAD', 'DOGE/USD', 'XLM/USD', 'ETH/CAD',
+// 'DOGE/BTC', 'SC/USD'])
 
 // fetch single ticker price
 //fetchTickerPrice(binance, 'BTC/USDT')
@@ -201,15 +202,13 @@ const exchangeRequestData = {
 //   fs.writeFileSync('BinanceTickerBTC.txt', JSON.stringify(tickersBinance));
 // }
 
-async function gettickers() {
-  if (bitmex.has['fetchTicker']) {
-  console.log (await (bitmex.fetchTicker ('ALGO/USDT'))) // ticker for BTC/USD
+// async function gettickers() {
+//   if (bitmex.has['fetchTicker']) {
+//   console.log (await (bitmex.fetchTicker ('ALGO/USDT'))) // ticker for BTC/USD
 // async function callstuff() {
 //   let tickersBinance = await Binance.fetchTicker('BTC/USD');
 //   fs.writeFileSync('BinanceTickerBTC.txt', JSON.stringify(tickersBinance));
-}
-}
-
-
-gettickers();
+// }
+// }
+kraken.fetchTicker('SC/').then(ticker => console.log(ticker))
 //console.log(phemex.fetchTicker('BTC/USDT'))

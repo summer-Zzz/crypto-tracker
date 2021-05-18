@@ -15,7 +15,8 @@ export default function useApplicationData() {
     exchange: "kraken",
     timeframe: '1hr',
     coin: "BTC/USD",
-    filter: "none"  
+    filter: "none", 
+    time: "30m" 
   });
   
   const handleSubmit = (userData) => {
@@ -38,7 +39,6 @@ export default function useApplicationData() {
     axios.post('http://localhost:3001/api/users/logout')
     .then(res => {
       removeCookie("Email")
-      console.log(res)
     })
   }
 
@@ -66,18 +66,21 @@ export default function useApplicationData() {
   const setFilter = (currency) => {
     dispatch({type: "SET_FILTER", value: currency}); 
   }
+
+  const setTime = (time) => {
+    dispatch({type: "SET_TIME", value: time})
+  }
   
   // Re-renders all api data when user interacts with state
   useEffect(() => {
     if (currentUser) { 
-      const { exchange, timeframe, coin } = state;
+      const { exchange, timeframe, time, coin } = state;
       const formattedCoin = coin.split('/').join('%2F');
       const id = 1;
-      const apiUrl = `http://localhost:3001/api/exchange/${true}/${id}/${exchange}/${formattedCoin}/${timeframe}`
+      const apiUrl = `http://localhost:3001/api/exchange/${true}/${id}/${exchange}/${formattedCoin}/${timeframe}/${time}`
       axios.get(apiUrl)
       .then(res => {
        const {exchanges, trades, candles, balance, coins, selectedCoin, timeframes} = res.data;
-       console.log(selectedCoin)
         setExchangeData({
           trades,
           candles,
@@ -92,5 +95,5 @@ export default function useApplicationData() {
     }
   }, [state, currentUser])
   
-  return { handleSubmit, handleAddAccount, handleLogout, setExchange, setTimeframe, setCoin, setFilter, state, currentUser, exchangeData, cookies }
+  return { handleSubmit, handleAddAccount, handleLogout, setExchange, setTimeframe, setCoin, setTime, setFilter, state, currentUser, exchangeData, cookies }
 }
