@@ -35,10 +35,10 @@ const totalCost = (trades, currentCoin) => {
   let priceTotal = 0;
   trades.forEach(trade => {
     if (trade.coinSymbol === currentCoin.symbol) {
-      priceTotal += trade.price;  
+      priceTotal += trade.cost;  
     }
   })
-  return priceTotal;
+  return priceTotal.toFixed(2);
 }
 
 const time = [

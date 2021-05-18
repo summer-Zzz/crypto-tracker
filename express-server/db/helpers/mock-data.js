@@ -40,14 +40,6 @@ const mockData = {
     ],
     coins: [
       {
-        coinLogo: 'images/coin-logo/ADA.png',
-        coinSymbol: 'ADA/USDT', 
-        price:  2.020095, 
-        change:  0.022730, 
-        changePercent:  -1.12, 
-        volume:  3024549.02479544 
-      },
-      {
         coinLogo: 'images/coin-logo/DOT.png',
         coinSymbol: 'DOT/USD',
         price: 39.2234,
