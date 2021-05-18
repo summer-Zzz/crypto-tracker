@@ -32,13 +32,13 @@ const averageCost = (trades, currentCoin) => {
 }
 
 const totalCost = (trades, currentCoin) => {
-  let priceTotal = 0;
+  let costTotal = 0;
   trades.forEach(trade => {
     if (trade.coinSymbol === currentCoin.symbol) {
-      priceTotal += trade.cost;  
+      costTotal += trade.cost;  
     }
   })
-  return priceTotal;
+  return costTotal;
 }
 
 const time = [
@@ -118,7 +118,7 @@ export default function Dashboard(props) {
           </div>
         </div>
         <div className='second-column'>
-          <InfoDisplay infoHeader={'Volume'} infoContent={coin.baseVolume}/>
+          <InfoDisplay infoHeader={'Volume'} infoContent={coin.baseVolume.toFixed(2)}/>
           <InfoDisplay infoHeader={'Average Price'} infoContent={average}/>
           <InfoDisplay infoHeader={'VWAP'} infoContent={coin.vwap}/>
           <InfoDisplay infoHeader={'Total Cost'} infoContent={total}/>
