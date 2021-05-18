@@ -2,26 +2,55 @@ const ccxt = require('ccxt');
 const express = require('express');
 const router = express.Router();
 const db = require('../db/index')
-const { getUserExchanges } = require('../db/queries/queries')
+const { getUserExchanges, addUserAccount } = require('../db/queries/queries')
 const { getMockData } = require('../db/helpers/mock-data') 
+const { getExchangeByName, getUserExchangeNames } = require('../db/helpers/dbHelpers')
 
-// router.get('/:exchange/:coin/:timeframe', function (req, res) {
-//   const { exchange, coin, timeframe} = req.params;
-//   const userId = 1;
-//   return getUserExchanges(userId)
-//   .then(exchanges => {
-//     console.log('route pinged')
-//     getExchangeInfo(exchanges, exchange, coin, timeframe).then(data => {
-//       return res.status(200).json(data);
-//     })
-//   })
-//   .catch(err => console.log(err));
-// })
+// REQUEST ALL DATA FROM API/MOCK
+router.get('/:mock/:id/:exchange/:coin/:timeframe', function (req, res) {
+  const { id, exchange, coin, timeframe, mock } = req.params;
+  if (mock) {
+    return getUserExchangeNames(id).then(exchangeNames => {
+      const exchanges = formatExchangeNames(exchangeNames);
+      const mockData = getMockData();
+      return res.status(200).json({exchanges, ...mockData})
 
-router.get('/:exchange/:coin/:timeframe', function (req, res) {
-  const mockData = getMockData();
-  return res.status(200).json(mockData)
+    })
+  }
+  const userId = 1;
+  return getUserExchanges(userId)
+  .then(exchanges => {
+    console.log('route pinged')
+    getExchangeInfo(exchanges, exchange, coin, timeframe).then(data => {
+      return res.status(200).json(data);
+    })
+  })
+  .catch(err => console.log(err));
 })
+
+// NEW ACCOUNT
+router.post('/account/new', (req, res) => {
+  const {exchangeName} = req.body
+  getExchangeByName(exchangeName.toLowerCase()).then(data => {
+  exchangeId = data.id;
+  newUserData = {exchangeId, ...req.body}
+    addUserAccount(newUserData).then(data => {
+      return res.status(200).json(data);
+    })
+  })
+})
+
+// NEW ACCOUNT
+router.post('/account/new', (req, res) => {
+  const {exchangeName} = req.body
+  getExchangeByName(exchangeName.toLowerCase()).then(data => {
+  exchangeId = data.id;
+  newUserData = {exchangeId, ...req.body}
+    addUserAccount(newUserData).then(data => {
+      return res.status(200).json(data);
+    })
+  })
+}) 
 
 const oneMonthAgo = () => new Date - 2629800000
 const oneWeekAgo = () => new Date - 604800000
@@ -109,6 +138,17 @@ const formatTimeframes = (timeframes) => {
     })
   }
   return timeFrameArr
+}
+
+const formatExchangeNames = (names) => {
+  const formattedArr = names.map((name, i) => {
+    return {
+      id: i,
+      name: name.exchange_name
+    }
+  })
+  console.log(formattedArr)
+  return formattedArr;
 }
 
 module.exports = router

@@ -251,3 +251,20 @@ Stretch - I want to see data from a closed account
 - Let user see emtpy componenets before data renders 
   - OR add loading message to appear if !currentUser 
 - Make P&L red if negative and green if positive 
+
+
+## PRESENTATION
+
+- Introduce ourselves first - 1min - group 
+- Talk about problem our app solves - 1min - jared
+- Demo - 2min 
+  - Log in - use non-test an account - summer 
+  - Talk about chart - summer 
+  - Talk about dashboard - summer 
+    - Explain dashboard and table columns 
+  - Talk about tradetrable - eman
+  - Demonstrate adding exchange - eman
+- Talk about stack - 1mim - jared
+- Talk about features under construction - 1min - jared
+- Say goodbye - group 
+
