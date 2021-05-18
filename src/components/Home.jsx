@@ -43,7 +43,6 @@ return (
     <div className="header-container">
       <h2 className="header-text">The fastest way to follow markets</h2>
       <Link className="track-button" to="/login">Get Started
-      {/* <FontAwesomeIcon icon={faAngleDoubleDown} className="icon"/> */}
       </Link>
       </div>
   </div>

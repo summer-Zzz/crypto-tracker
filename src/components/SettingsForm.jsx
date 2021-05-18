@@ -1,6 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react'
 import axios from 'axios'
 import Parallax from 'parallax-js';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faKey } from "@fortawesome/free-solid-svg-icons";
+
 import './SettingsForm.scss';
 
 export default function SettingsForm(props) {
@@ -12,6 +15,7 @@ const [exchange, setExchange] = useState("Binance")
 const handleExchange = (event) => {
   setExchange(event.target.value)
 }
+
 const handleApiKey = (event) => {
   setApiKey(event.target.value)
 }
@@ -39,8 +43,8 @@ const sceneEl = useRef(null);
       </div>
       <div className="form-container">
       <h2>{props.formLabel}</h2>
-        <label htmlFor="exchange">Exchange</label> 
-        <select value={exchange} onChange={(e) => handleExchange(e)}>
+        <label className="exchange-label" htmlFor="exchange">Exchange:</label> 
+        <select className="exchange-select" value={exchange} onChange={(e) => setExchange(e.target.value)}>
           <option value="Phemex">Phemex</option>
           <option value="Binance">Binance</option>
           <option value="Kraken">Kraken</option>
@@ -50,10 +54,16 @@ const sceneEl = useRef(null);
           <option value="CoinSquare">CoinSquare</option>
           <option value="AAX">AAX</option>
         </select>
-        <label htmlFor='api-key'>API Key</label>
-        <input type="text" name="api-key" value={apiKey} onChange={(e) => handleApiKey(e)}/>
-        <label htmlFor='secret-key'>Secret Key</label>
-        <input type="text" name="secret-key" value={apiSecret} onChange={(e) => handleSecret(e)}/>
+        <div className="label-input">
+          <FontAwesomeIcon icon={faKey} className="icon" />
+          <label className="form-label" htmlFor='api-key'>API Key:</label>
+          <input className="input-feild" type="text" name="api-key" value={apiKey} placeholder='Enter your API key' onChange={(e) => handleApiKey(e)}/>
+        </div>
+        <div className="label-input">
+          <FontAwesomeIcon icon={faKey} className="icon" />
+          <label htmlFor='secret-key'>Secret Key:</label>
+          <input type="text" name="secret-key" value={apiSecret} placeholder='Enter your API secret key' onChange={(e) => handleSecret(e)}/>
+        </div>
         <div className="button-container">
         <button onClick={() => props.handleAddAccount(1, exchange, apiKey, apiSecret)} className="button">Submit</button>
         </div>

@@ -59,7 +59,7 @@ input:focus {
 label {
   display: inline-block;
   clear: left;
-  width: 130px;
+  width: 150px;
   margin-right: 30px;
   text-align: left;
 }
@@ -100,13 +100,12 @@ label {
 .form-coins {
   width: 100%;
   margin-top: 40px;
-  margin-left: 0;
 }
 
 .icon {
   margin-left: 10px;
   margin-right: 10px;
-  margin-top: 4px;
+  margin-top: 10px;
 }
 
 @media only screen and (max-width: 1024px) {

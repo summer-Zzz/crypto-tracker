@@ -16,6 +16,11 @@ const calculatePL = (trades, currentPrice) => {
   return((proLoss.toFixed(2) > 0) ? "+" + proLoss.toFixed(2) : proLoss.toFixed(2));
 }
 
+const priceInfo = (coin) => {
+  const currentPrice = coin.last;
+  const coinSymbol = coin.symbol;
+  return {currentPrice, coinSymbol}
+}
 
 const averageCost = (trades, currentCoin) => {
   let priceTotal = 0;
@@ -49,16 +54,14 @@ export default function Dashboard(props) {
   return (
     <div className='dashboard-container'>
       <div className='timeframe'>
-        <label>Chart timeframe</label>
+        <p className='timeframe'>Chart timeframe</p>
         <DropMenu options={timeframes} setData={setTimeframe} selectedVal={selectedTimeframe} />
       </div>
       <div className="info-container">
+        <InfoDisplay infoHeader={'Symbol'} infoContent={priceInfo(coin).coinSymbol} />
+        <InfoDisplay infoHeader={'Current Price'} infoContent={`$${priceInfo(coin).currentPrice}`} />
         <InfoDisplay infoHeader={'Balance'} infoContent={`${baseTickerBalance} ${baseTicker}`} />
-        {/* {checkPl(pL) &&
-        <InfoDisplay infoHeader={'P&L'} infoContent={`${pL}%`}/>
-
-        } */}
-        <div className={checkPl(pL) ? 'red' : 'green'}>
+        <div className={checkPl(pL) ? 'green' : 'red'}>
         <InfoDisplay infoHeader={'P&L'} infoContent={`${pL}%`} />
         </div>
         <InfoDisplay infoHeader={'Average Price'} infoContent={average}/>
