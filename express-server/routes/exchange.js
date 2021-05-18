@@ -9,22 +9,21 @@ const { getExchangeByName, getUserExchangeNames } = require('../db/helpers/dbHel
 // REQUEST ALL DATA FROM API/MOCK
 router.get('/:mock/:id/:exchange/:coin/:timeframe', function (req, res) {
   const { id, exchange, coin, timeframe, mock } = req.params;
-  if (mock) {
     return getUserExchangeNames(id).then(exchangeNames => {
+      console.log(exchangeNames)
       const exchanges = formatExchangeNames(exchangeNames);
-      const mockData = getMockData();
+      const mockData = getMockData(exchange, coin);
       return res.status(200).json({exchanges, ...mockData})
-
     })
-  }
-  const userId = 1;
-  return getUserExchanges(userId)
-  .then(exchanges => {
-    console.log('route pinged')
-    getExchangeInfo(exchanges, exchange, coin, timeframe).then(data => {
-      return res.status(200).json(data);
-    })
-  })
+  // }
+  // const userId = 1;
+  // return getUserExchanges(userId)
+  // .then(exchanges => {
+  //   console.log('route pinged')
+  //   getExchangeInfo(exchanges, exchange, coin, timeframe).then(data => {
+  //     return res.status(200).json(data);
+  //   })
+  // })
   .catch(err => console.log(err));
 })
 
@@ -147,7 +146,6 @@ const formatExchangeNames = (names) => {
       name: name.exchange_name
     }
   })
-  console.log(formattedArr)
   return formattedArr;
 }
 
