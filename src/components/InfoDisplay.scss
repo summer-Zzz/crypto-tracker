@@ -7,7 +7,13 @@
   margin-left: 10px;
 }
 .info-text {
-  margin: 10px;
+  padding: 10px;
+padding-bottom: 0;
+}
+
+.info-page-container:hover {
+  background-color: rgb(159, 183, 220);
+  font-size: 20px;
 }
 .info-header {
   font-size: 24px;
