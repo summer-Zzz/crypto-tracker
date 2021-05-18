@@ -46,6 +46,7 @@ export default function useApplicationData() {
     axios.post(`http://localhost:3001/api/exchange/account/new`, {userId, exchangeName, apiKey, apiSecret})
     .then(res => {
       setExchange(exchangeName);
+      alert('Exchange added!')
     })
     .catch(err => console.log(err))
   }
@@ -73,7 +74,7 @@ export default function useApplicationData() {
   
   // Re-renders all api data when user interacts with state
   useEffect(() => {
-    if (currentUser) { 
+    if (cookies.Email) { 
       const { exchange, timeframe, time, coin } = state;
       const formattedCoin = coin.split('/').join('%2F');
       const id = 1;

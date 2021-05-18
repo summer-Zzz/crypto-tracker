@@ -24,6 +24,12 @@ const bitmex = new ccxt.bitmex({
   enableRateLimit: true
 })
 
+const kraken = new ccxt.kraken(
+  {apiKey: process.env.KRAKEN_ID,
+    secret: process.env.KRAKEN_SECRET,
+    enableRateLimit: true}
+)
+
 // bitmex.setSandboxMode(true);
 
 // const binance = new ccxt.binance({
@@ -208,7 +214,16 @@ const exchangeRequestData = {
 // async function callstuff() {
 //   let tickersBinance = await Binance.fetchTicker('BTC/USD');
 //   fs.writeFileSync('BinanceTickerBTC.txt', JSON.stringify(tickersBinance));
+<<<<<<< HEAD
+}
+}
+
+
+// gettickers();
+// console.log(phemex.fetchTicker('BTC/USDT'))
+=======
 // }
 // }
 kraken.fetchTicker('SC/').then(ticker => console.log(ticker))
 //console.log(phemex.fetchTicker('BTC/USDT'))
+>>>>>>> 6ade83096398e3a00c3bf7716ae0af3fd2a1d2cb

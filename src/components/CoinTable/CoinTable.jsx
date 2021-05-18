@@ -28,6 +28,7 @@ export default function CoinTable(props) {
   const tableRows = props.rows.map((row, i) => {
     return <CoinTableRow
       key={i}
+      coinLogo={row.coinLogo}
       symbol={row.coinSymbol}
       price={row.price}
       change={row.change}

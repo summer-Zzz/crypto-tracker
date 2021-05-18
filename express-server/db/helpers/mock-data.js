@@ -3,7 +3,6 @@ const getMockData = (exchange, coin) => {
   const selectedExchange = mockData[exchange]
   // get selectedCoin data 
   const selectedCoin = mockData.selectedCoins[coin];
-  console.log(selectedCoin)
   return {...selectedExchange, selectedCoin}
 }
 
@@ -41,31 +40,43 @@ const mockData = {
     ],
     coins: [
       {
+        coinLogo: 'images/coin-logo/ADA.png',
+        coinSymbol: 'ADA/USDT', 
+        price:  2.020095, 
+        change:  0.022730, 
+        changePercent:  -1.12, 
+        volume:  3024549.02479544 
+      },
+      {
+        coinLogo: 'images/coin-logo/DOT.png',
         coinSymbol: 'DOT/USD',
         price: 39.2234,
-        change: undefined,
-        changePercent: undefined,
+        change: 4.78,
+        changePercent: 11.49,
         volume:  860816.40563964
       },
       {
+        coinLogo: 'images/coin-logo/KSM.png',
         coinSymbol:  'KSM/USD', 
         price: 588.4,
-        change: undefined,
-        changePercent: undefined,
+        change: 30.00,
+        changePercent: 5.24,
         volume:  27131.51005139,
       },
       {
+        coinLogo: 'images/coin-logo/SC.png',
         coinSymbol:  'SC/USD', 
         price:  0.02636, 
-        change:  undefined, 
-        changePercent: undefined,
+        change:  0.0011, 
+        changePercent: 0.75,
         volume:  282042931.6698535,
       },
       {
+        coinLogo: 'images/coin-logo/UNI.png',
         coinSymbol:  'UNI/USD',
         price:  34.668,
-        change:  undefined,
-        changePercent:  undefined,
+        change:  2.11,
+        changePercent:  6.32,
         volume:  97139.19783492
       }
     ],
@@ -554,6 +565,7 @@ const mockData = {
     ],
     coins: [
       {
+        coinLogo: 'images/coin-logo/DOGE.png',
         coinSymbol: 'DOGE/USD',
         price:  0.4746492,
         change:  undefined,
@@ -561,6 +573,7 @@ const mockData = {
         volume:  137236887.2886881,
       },
       {
+        coinLogo: 'images/coin-logo/ETH.png',
         coinSymbol: 'ETH/CAD',
         price:  4047.88,
         change:  undefined, 
@@ -568,6 +581,7 @@ const mockData = {
         volume:  991.69599645,
       }, 
       {
+        coinLogo: 'images/coin-logo/LTC.png',
         coinSymbol: 'LTC/USD',
         price:  292.46,
         change:  undefined,
@@ -575,6 +589,7 @@ const mockData = {
         volume:  122075.42303656
       },
       {
+        coinLogo: 'images/coin-logo/BTC.png',
         coinSymbol: 'BTC/CAD',
         price:  51628.5,
         change:  undefined,
@@ -582,6 +597,7 @@ const mockData = {
         volume:  108.05256622,
       },
       {
+        coinLogo: 'images/coin-logo/BTC.png',
         coinSymbol: 'BTC/USD',
         price:  42735.7,
         change:  undefined,
@@ -1074,6 +1090,7 @@ const mockData = {
     ],
     coins: [
       {
+        coinLogo: 'images/coin-logo/DOGE.png',
         coinSymbol: 'DOGE/BTC',
         price:  0.0000111,
         change:  undefined,
@@ -1081,6 +1098,7 @@ const mockData = {
         volume:  17844894.92259835
       },
       {
+        coinLogo: 'images/coin-logo/XLM.png',
         coinSymbol: 'XLM/USD',
         price: 0.639477,
         change:  undefined,
@@ -1088,6 +1106,7 @@ const mockData = {
         volume:  16804445.88101703
       },
       {
+        coinLogo: 'images/coin-logo/XRP.png',
         coinSymbol: 'XRP/USD',
         price:  1.55609,
         change:  undefined,
@@ -1095,6 +1114,7 @@ const mockData = {
         volume:  49040856.42974203
       },
       {
+        coinLogo: 'images/coin-logo/USDT.png',
         coinSymbol: 'USD/CAD',
         price:  1.20698,
         change:  undefined,
@@ -1555,6 +1575,7 @@ const mockData = {
       }
     ],
   },
+
 
   selectedCoins: {
     'USD/CAD': {

@@ -120,15 +120,17 @@ const formatCoins = (coins) => {
       const coinData = coins[coin]
       const coinObject = {
         key: coinData.symbol,
+        coinLogo: coinData.coinLogo,
         coinSymbol: coinData.symbol,
         price: coinData.ask,
         change: coinData.change,
         changePercent: coinData.percentage,
         volume: coinData.baseVolume
       }
-     coinArray.push(coinObject)
-    // }
-  }
+      
+      coinArray.push(coinObject)
+      // }
+    }
   return coinArray;
 }
 

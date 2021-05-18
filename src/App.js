@@ -64,8 +64,7 @@ export default function App() {
             </Route>
             <Route path="/dashboard">
             { !exchangeData && cookies.Email && <div><Spinner name="pacman" fadeIn="none" className="loader"/><p className="loading-text">Loading...</p></div>}
-            { cookies.Email ?
-            exchangeData &&
+            { cookies.Email ? exchangeData &&
                 <div>
                   <div className="show-container">
                     <div id="chart-dashboard-container">
