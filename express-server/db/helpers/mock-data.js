@@ -1,8 +1,10 @@
-const getMockData = (exchange, coin, timeframe) => {
+const getMockData = (exchange, coin) => {
   // get exchange data 
-  
+  const selectedExchange = mockData[exchange]
   // get selectedCoin data 
-  return mockData[exchange]
+  const selectedCoin = mockData.selectedCoins[coin];
+  console.log(selectedCoin)
+  return {...selectedExchange, selectedCoin}
 }
 
 const mockData = {
@@ -666,46 +668,24 @@ const mockData = {
       { id: '2w', name: '2w' }
     ],
     coins: [
-      {
-        key: 'ALGO/USD',
-        coinSymbol: 'ALGO/USD',
-        price: 1.30299,
-        change: undefined,
-        changePercent: undefined,
-        volume: 4644991.29193508
-      },
-      {
-        key: 'DOGE/USD',
-        coinSymbol: 'DOGE/USD',
-        price: 0.4810123,
-        change: undefined,
-        changePercent: undefined,
-        volume: 361483622.6460658
-      },
-      {
-        key: 'ETH/USD',
-        coinSymbol: 'ETH/USD',
-        price: 3306.73,
-        change: undefined,
-        changePercent: undefined,
-        volume: 201202.38609611
-      },
-      {
-        key: 'BTC/CAD',
-        coinSymbol: 'BTC/CAD',
-        price: 51759.8,
-        change: undefined,
-        changePercent: undefined,
-        volume: 220.95213187
-      },
-      {
-        key: 'XRP/USD',
-        coinSymbol: 'XRP/USD',
-        price: 1.45695,
-        change: undefined,
-        changePercent: undefined,
-        volume: 74656114.74112025
-      }
+      {key: "AAVE/USD", coinSymbol: "AAVE/USD", change: .25, changePercent: 25, price: 656.96, volume: 21912.33949323},
+      {key: "ADA/USD", coinSymbol: "ADA/USD", change: .25, changePercent: 25, price: 2.079498, volume: 67043633.17569398},
+      {key: "ALGO/USD", coinSymbol: "ALGO/USD", change: .25, changePercent: 25, price: 1.37442, volume: 2628270.59664532},
+      {key: "ANT/USD", coinSymbol: "ANT/USD", change: .25, changePercent: 25, price: 7.042, volume: 27390.53853711},
+      {key: "ATOM/USD", coinSymbol: "ATOM/USD", change: .25, changePercent: 25, price: 22.9139, volume: 252753.49161536},
+      {key: "ATOM/BTC", coinSymbol: "ATOM/BTC", change: .25, changePercent: 25, price: 0.0005255, volume: 43703.30831466},
+      {key: "BCH/USD", coinSymbol: "BCH/USD", change: .25, changePercent: 25, price: 1119.49, volume: 21270.88753825},
+      {key: "BCH/USDT", coinSymbol: "BCH/USDT", change: .25, changePercent: 25, price: 1118.57, volume: 549.27828967},
+      {key: "COMP/USD", coinSymbol: "COMP/USD", change: .25, changePercent: 25, price: 684.12, volume: 1470.82685401},
+      {key: "CRV/USD", coinSymbol: "CRV/USD", change: .25, changePercent: 25, price: 3.443, volume: 698522.33972717},
+      {key: "DAI/USD", coinSymbol: "DAI/USD", change: .25, changePercent: 25, price: 1.00099, volume: 3999183.19833514},
+      {key: "DAI/USDT", coinSymbol: "DAI/USDT", change: .25, changePercent: 25, price: 0.9999, volume: 1330723.90014531},
+      {key: "DASH/USD", coinSymbol: "DASH/USD", change: .25, changePercent: 25, price: 311.726, volume: 17103.77077837},
+      {key: "EOS/USD", coinSymbol: "EOS/USD", change: .25, changePercent: 25, price: 9.4235, volume: 1217588.91864218},
+      {key: "EWT/USD", coinSymbol: "EWT/USD", change: .25, changePercent: 25, price: 12.523, volume: 73299.18114197},
+      {key: "FIL/USD", coinSymbol: "FIL/USD", change: .25, changePercent: 25, price: 100.657, volume: 41552.83296708},
+      {key: "FIL/BTC", coinSymbol: "FIL/BTC", change: .25, changePercent: 25, price: 0.0023094, volume: 4539.39103084},
+      {key: "FLOW/USD", coinSymbol: "FLOW/USD", change: .25, changePercent: 25, price: 20.51, volume: 489453.18089832}
     ],
     trades: [
       {
@@ -1292,38 +1272,6 @@ const mockData = {
       { id: '1w', name: '1w' },
       { id: '2w', name: '2w' }
     ],
-    selectedCoin: {
-      symbol: 'BTC/USD',
-      timestamp: 1621265209393,
-      datetime: '2021-05-17T15:26:49.393Z',
-      high: 48099.1,
-      low: 42200,
-      bid: 43550.3,
-      bidVolume: undefined,
-      ask: 43569.3,
-      askVolume: undefined,
-      vwap: 44938.74509,
-      open: 46474.7,
-      close: 43550.3,
-      last: 43550.3,
-      previousClose: undefined,
-      change: undefined,
-      percentage: undefined,
-      average: undefined,
-      baseVolume: 12955.53722716,
-      quoteVolume: 582205584.9553486,
-      info: {
-        a: [ '43569.30000', '1', '1.000' ],
-        b: [ '43550.30000', '4', '4.000' ],
-        c: [ '43550.30000', '0.00000016' ],
-        v: [ '7053.37534369', '12955.53722716' ],
-        p: [ '44374.56500', '44938.74509' ],
-        t: [ 61826, 116404 ],
-        l: [ '42200.00000', '42200.00000' ],
-        h: [ '46648.50000', '48099.10000' ],
-        o: '46474.70000'
-      }
-    },
     coins: [
       {
         key: 'ALGO/USD',
@@ -1955,71 +1903,166 @@ const mockData = {
         o: '46474.70000'
       }
     },
-
-    'ETH/BTC': {
-      symbol: 'ETH/BTC',
-      timestamp: 1621308589043,
-      datetime: '2021-05-18T03:29:49.043Z',
-      high: 0.078786,
-      low: 0.07401,
-      bid: 0.075683,
-      bidVolume: 1.472,
-      ask: 0.075703,
-      askVolume: 1.8,
-      vwap: 0.076175,
-      open: 0.07532,
-      close: 0.075701,
-      last: 0.075701,
-      previousClose: 0.07532,
-      change: 0.000381,
-      percentage: 0.506,
-      baseVolume: 283759.091,
-      quoteVolume:21615.34865861
-      },
-    "LTC/BTC": {
-      symbol:"LTC/BTC",
-      timestamp:1621308589015,
-      datetime:"2021-05-18T03:29:49.015Z",
-      high:0.006842,
-      low:0.00618,bid:0.006784,
-      bidVolume:4.11,ask:0.006785,askVolume:13.1,vwap:0.006454,open:0.00631,close:0.006785,last:0.006785,
-      previousClose:0.006306,change:0.000475,percentage:7.528,baseVolume:358814.03,quoteVolume:2315.78545744
-      },
-      "BNB/BTC": {
-      symbol:"BNB/BTC",timestamp:1621308588937,datetime:"2021-05-18T03:29:48.937Z",high:0.011951,low:0.01145,bid:0.011662,
-      bidVolume:4.44,ask:0.011665,askVolume:9.42,vwap:0.01172729,open:0.011826,close:0.011662,last:0.011662,
-      previousClose:0.011827,change:-0.000164,percentage:-1.387,baseVolume:510420.81,quoteVolume:5985.85185781
-      },
-      "NEO/BTC": {
-      symbol:"NEO/BTC",timestamp:1621308588235,datetime:"2021-05-18T03:29:48.235Z",high:0.002024,low:0.00189,bid:0.001988,
-      bidVolume:278.59,ask:0.001991,askVolume:75.88,vwap:0.00195163,open:0.001909,close:0.001988,last:0.001988,
-      previousClose:0.001907,change:0.000079,percentage:4.138,baseVolume:224948.01,quoteVolume:439.01607941
-      },
-      "QTUM/ETH": {
-      symbol:"QTUM/ETH",timestamp:1621308588683,datetime:"2021-05-18T03:29:48.683Z",high:0.005375,low:0.005089,bid:0.005314,
-      bidVolume:80,ask:0.005326,askVolume:4.6,vwap:0.00521287,open:0.005142,close:0.005322,last:0.005322,
-      previousClose:0.005108,change:0.00018,percentage:3.501,baseVolume:102528.23,quoteVolume:534.4661153
-      },
-      "EOS/ETH": {
-      symbol:"EOS/ETH",timestamp:1621308588177,datetime:"2021-05-18T03:29:48.177Z",high:0.002822,low:0.002682,bid:0.002802,
-      bidVolume:293.07,ask:0.002808,askVolume:7.74,vwap:0.00275296,open:0.002689,close:0.002802,last:0.002802,
-      previousClose:0.00269,change:0.000113,percentage:4.202,baseVolume:927566.45,quoteVolume:2553.55427375
-      },
-      "SNT/ETH": {
-      symbol:"SNT/ETH",timestamp:1621308579121,datetime:"2021-05-18T03:29:39.121Z",high:0.00004699,low:0.00004474,bid:0.00004572,
-      bidVolume:3763,ask:0.00004609,askVolume:3078,vwap:0.00004577,open:0.00004509,close:0.00004571,last:0.00004571,
-      previousClose:0.00004514,change:6.2e-7,percentage:1.375,baseVolume:5871022,quoteVolume:268.70659247
-      },
-      "BNT/ETH": {
-      symbol:"BNT/ETH",timestamp:1621308580454,datetime:"2021-05-18T03:29:40.454Z",high:0.00192,low:0.001852,bid:0.001906,
-      bidVolume:500,ask:0.001916,askVolume:256.99,vwap:0.00188823,open:0.00191,close:0.001906,last:0.001906,
-      previousClose:0.001903,change:-0.000004,percentage:-0.209,baseVolume:87458.16,quoteVolume:165.14145828
-      },
-      "BCC/BTC": {
-      symbol:"BCC/BTC",timestamp:1621220276384,datetime:"2021-05-17T02:57:56.384Z",high:0.079301,low:0.0774,bid:0,
-      bidVolume:0,ask:0,askVolume:0,vwap:0.07804368,open:0.079009,close:0.079081,last:0.079081,
-      previousClose:0.079009,change:0.000072,percentage:0.091,baseVolume:1887.255,quoteVolume:147.28832582
+    'ETH/USD': {
+      symbol: 'ETH/USD',
+      timestamp: 1621265209393,
+      datetime: '2021-05-17T15:26:49.393Z',
+      high: 48099.1,
+      low: 42200,
+      bid: 43550.3,
+      bidVolume: undefined,
+      ask: 43569.3,
+      askVolume: undefined,
+      vwap: 44938.74509,
+      open: 46474.7,
+      close: 43550.3,
+      last: 43550.3,
+      previousClose: undefined,
+      change: undefined,
+      percentage: undefined,
+      average: undefined,
+      baseVolume: 12955.53722716,
+      quoteVolume: 582205584.9553486,
+      info: {
+        a: [ '43569.30000', '1', '1.000' ],
+        b: [ '43550.30000', '4', '4.000' ],
+        c: [ '43550.30000', '0.00000016' ],
+        v: [ '7053.37534369', '12955.53722716' ],
+        p: [ '44374.56500', '44938.74509' ],
+        t: [ 61826, 116404 ],
+        l: [ '42200.00000', '42200.00000' ],
+        h: [ '46648.50000', '48099.10000' ],
+        o: '46474.70000'
       }
+    },
+    'DOGE/USD': {
+      symbol: 'DOGE/USD',
+      timestamp: 1621265209393,
+      datetime: '2021-05-17T15:26:49.393Z',
+      high: 48099.1,
+      low: 42200,
+      bid: 43550.3,
+      bidVolume: undefined,
+      ask: 43569.3,
+      askVolume: undefined,
+      vwap: 44938.74509,
+      open: 46474.7,
+      close: 43550.3,
+      last: 43550.3,
+      previousClose: undefined,
+      change: undefined,
+      percentage: undefined,
+      average: undefined,
+      baseVolume: 12955.53722716,
+      quoteVolume: 582205584.9553486,
+      info: {
+        a: [ '43569.30000', '1', '1.000' ],
+        b: [ '43550.30000', '4', '4.000' ],
+        c: [ '43550.30000', '0.00000016' ],
+        v: [ '7053.37534369', '12955.53722716' ],
+        p: [ '44374.56500', '44938.74509' ],
+        t: [ 61826, 116404 ],
+        l: [ '42200.00000', '42200.00000' ],
+        h: [ '46648.50000', '48099.10000' ],
+        o: '46474.70000'
+      }
+    },
+    'BTC/CAD': {
+      symbol: 'BTC/CAD',
+      timestamp: 1621265209393,
+      datetime: '2021-05-17T15:26:49.393Z',
+      high: 48099.1,
+      low: 42200,
+      bid: 43550.3,
+      bidVolume: undefined,
+      ask: 43569.3,
+      askVolume: undefined,
+      vwap: 44938.74509,
+      open: 46474.7,
+      close: 43550.3,
+      last: 43550.3,
+      previousClose: undefined,
+      change: undefined,
+      percentage: undefined,
+      average: undefined,
+      baseVolume: 12955.53722716,
+      quoteVolume: 582205584.9553486,
+      info: {
+        a: [ '43569.30000', '1', '1.000' ],
+        b: [ '43550.30000', '4', '4.000' ],
+        c: [ '43550.30000', '0.00000016' ],
+        v: [ '7053.37534369', '12955.53722716' ],
+        p: [ '44374.56500', '44938.74509' ],
+        t: [ 61826, 116404 ],
+        l: [ '42200.00000', '42200.00000' ],
+        h: [ '46648.50000', '48099.10000' ],
+        o: '46474.70000'
+      }
+    },
+    'XRP/USD': {
+      symbol: 'XRP/USD',
+      timestamp: 1621265209393,
+      datetime: '2021-05-17T15:26:49.393Z',
+      high: 48099.1,
+      low: 42200,
+      bid: 43550.3,
+      bidVolume: undefined,
+      ask: 43569.3,
+      askVolume: undefined,
+      vwap: 44938.74509,
+      open: 46474.7,
+      close: 43550.3,
+      last: 43550.3,
+      previousClose: undefined,
+      change: undefined,
+      percentage: undefined,
+      average: undefined,
+      baseVolume: 12955.53722716,
+      quoteVolume: 582205584.9553486,
+      info: {
+        a: [ '43569.30000', '1', '1.000' ],
+        b: [ '43550.30000', '4', '4.000' ],
+        c: [ '43550.30000', '0.00000016' ],
+        v: [ '7053.37534369', '12955.53722716' ],
+        p: [ '44374.56500', '44938.74509' ],
+        t: [ 61826, 116404 ],
+        l: [ '42200.00000', '42200.00000' ],
+        h: [ '46648.50000', '48099.10000' ],
+        o: '46474.70000'
+      }
+    },
+    'ALGO/USD': {
+      symbol: 'ALGO/USD',
+      timestamp: 1621265209393,
+      datetime: '2021-05-17T15:26:49.393Z',
+      high: 48099.1,
+      low: 42200,
+      bid: 43550.3,
+      bidVolume: undefined,
+      ask: 43569.3,
+      askVolume: undefined,
+      vwap: 44938.74509,
+      open: 46474.7,
+      close: 43550.3,
+      last: 43550.3,
+      previousClose: undefined,
+      change: undefined,
+      percentage: undefined,
+      average: undefined,
+      baseVolume: 12955.53722716,
+      quoteVolume: 582205584.9553486,
+      info: {
+        a: [ '43569.30000', '1', '1.000' ],
+        b: [ '43550.30000', '4', '4.000' ],
+        c: [ '43550.30000', '0.00000016' ],
+        v: [ '7053.37534369', '12955.53722716' ],
+        p: [ '44374.56500', '44938.74509' ],
+        t: [ 61826, 116404 ],
+        l: [ '42200.00000', '42200.00000' ],
+        h: [ '46648.50000', '48099.10000' ],
+        o: '46474.70000'
+      }
+    }
   }
 }
 

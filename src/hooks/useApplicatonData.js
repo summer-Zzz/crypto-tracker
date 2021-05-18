@@ -21,7 +21,7 @@ export default function useApplicationData() {
   const handleSubmit = (userData) => {
     const { dataType, password, email } = userData;
     axios
-    .post(`http://localhost:3002/api/users/${dataType}/${email}/${password}`)
+    .post(`http://localhost:3001/api/users/${dataType}/${email}/${password}`)
     .then((res) => {
       if (res.status === 200){
         setCurrentUser(res.data.id);
@@ -35,7 +35,7 @@ export default function useApplicationData() {
   
   const handleLogout = () => {
     setCurrentUser(null)
-    axios.post('http://localhost:3002/api/users/logout')
+    axios.post('http://localhost:3001/api/users/logout')
     .then(res => {
       removeCookie("Email")
       console.log(res)
@@ -77,6 +77,7 @@ export default function useApplicationData() {
       axios.get(apiUrl)
       .then(res => {
        const {exchanges, trades, candles, balance, coins, selectedCoin, timeframes} = res.data;
+       console.log(selectedCoin)
         setExchangeData({
           trades,
           candles,
