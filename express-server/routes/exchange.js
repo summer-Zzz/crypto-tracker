@@ -26,7 +26,6 @@ router.get('/:mock/:id/:exchange/:coin/:timeframe', function (req, res) {
     })
   })
   .catch(err => console.log(err));
-})
 
 // NEW ACCOUNT
 router.post('/account/new', (req, res) => {
@@ -39,6 +38,18 @@ router.post('/account/new', (req, res) => {
     })
   })
 })
+
+// NEW ACCOUNT
+router.post('/account/new', (req, res) => {
+  const {exchangeName} = req.body
+  getExchangeByName(exchangeName.toLowerCase()).then(data => {
+  exchangeId = data.id;
+  newUserData = {exchangeId, ...req.body}
+    addUserAccount(newUserData).then(data => {
+      return res.status(200).json(data);
+    })
+  })
+}) 
 
 const oneMonthAgo = () => new Date - 2629800000
 const oneWeekAgo = () => new Date - 604800000
