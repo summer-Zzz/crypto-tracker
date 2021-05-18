@@ -3,23 +3,17 @@ import DropMenu from './DropDownMenu/DropMenu'
 import InfoDisplay from './InfoDisplay'
 import "./Dashboard.scss";
 
-const calculatePL = (trades, currentPrice) => {
+const calculatePL = (trades, currentCoin) => {
   let costs = 0;
   let amounts = 0;
     for(let trade of trades) {
-      if (trade.coinSymbol === currentPrice.symbol) {
+      if (trade.coinSymbol === currentCoin.symbol) {
         costs += trade.cost;
         amounts += trade.amount;
       }
     }
-  let proLoss =(((currentPrice.last * amounts) - costs) /costs) * 100;
+  let proLoss =(((currentCoin.last * amounts) - costs) /costs) * 100;
   return((proLoss.toFixed(2) > 0) ? "+" + proLoss.toFixed(2) : proLoss.toFixed(2));
-}
-
-const priceInfo = (coin) => {
-  const currentPrice = coin.last;
-  const coinSymbol = coin.symbol;
-  return {currentPrice, coinSymbol}
 }
 
 const averageCost = (trades, currentCoin) => {
@@ -31,25 +25,24 @@ const averageCost = (trades, currentCoin) => {
       tradesArray.push(trade);
     }
   })
-  return (priceTotal / tradesArray.length).toFixed(2);
+  return (priceTotal / tradesArray.length).toFixed(5);
+}
+
+const checkPl = (pL) => {
+  if(pL.includes('+')) {
+    console.log(pL)
+    return true
+  }
 }
 
 export default function Dashboard(props) {
+  console.log(props)
   const { coin, trades, balance, timeframes, setTimeframe, selectedTimeframe} = props;
   // use selected coin's symbol to access balance 
   const baseTicker = coin.symbol.split('/')[0];
-  console.log(baseTicker)
-  const baseTickerBalance = balance[baseTicker].total
+  const baseTickerBalance = balance[baseTicker].toFixed(4)
   const pL = calculatePL(trades, coin);
   const average = `$${averageCost(trades, coin)}`;
-  
-
-  const checkPl = (pL) => {
-    if(pL.includes('+')) {
-      console.log(pL)
-      return true
-    }
-  }
 
   return (
     <div className='dashboard-container'>
@@ -58,13 +51,13 @@ export default function Dashboard(props) {
         <DropMenu options={timeframes} setData={setTimeframe} selectedVal={selectedTimeframe} />
       </div>
       <div className="info-container">
-        <InfoDisplay infoHeader={'Symbol'} infoContent={priceInfo(coin).coinSymbol} />
-        <InfoDisplay infoHeader={'Current Price'} infoContent={`$${priceInfo(coin).currentPrice}`} />
-        <InfoDisplay infoHeader={'Balance'} infoContent={`${baseTickerBalance} ${baseTicker}`} />
+        <InfoDisplay infoHeader={'Symbol'} infoContent={coin.symbol} />
+        <InfoDisplay infoHeader={'Current Price'} infoContent={`$${coin.last}`} />
+        <InfoDisplay infoHeader={'Balance'} infoContent={`${baseTickerBalance || 0} ${baseTicker}`} />
         <div className={checkPl(pL) ? 'green' : 'red'}>
-        <InfoDisplay infoHeader={'P&L'} infoContent={`${pL}%`} />
+        <InfoDisplay infoHeader={'P&L'} infoContent={`${pL}%` || 0} />
         </div>
-        <InfoDisplay infoHeader={'Average Price'} infoContent={average}/>
+        <InfoDisplay infoHeader={'Average Price'} infoContent={average || 0}/>
       </div>
     </div>
   )

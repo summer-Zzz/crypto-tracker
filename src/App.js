@@ -274,7 +274,6 @@ export default function App() {
                         selectedTimeframe={state.timeframe}
                         setTimeframe={setTimeframe}
                         selectedExchange={state.exchange}
-                        currencies={currencies}
                       />
                     </div>
                   </div>

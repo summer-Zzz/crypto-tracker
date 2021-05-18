@@ -20,14 +20,13 @@ const mockData = {
       XRP: 0,
       LTC: 3.27868852,
       DOGE: 2200,
-      XLM: 1e-8,
+      XLM: 100,
       ETH: 2.22547244,
       BCH: 0,
       ADA: 1128.91763873,
       SC: 40000,
       ALGO: 150,
-      DOT: 0,
-      'DOT.S': 256.77018894,
+      DOT: 256.77018894,
       KSM: 1.934236,
       UNI: 15.67303869
     },
@@ -43,13 +42,6 @@ const mockData = {
       { id: '2w', name: '2w' }
     ],
     coins: [
-      {
-        coinSymbol: 'ADA/USDT', 
-        price:  2.020095, 
-        change:  undefined, 
-        changePercent:  undefined, 
-        volume:  3024549.02479544 
-      },
       {
         coinSymbol: 'DOT/USD',
         price: 39.2234,
@@ -1937,38 +1929,6 @@ const mockData = {
         o: '38.69840'
       }
     },
-    'ADA/USDT': {
-      symbol: 'ADA/USDT',
-      timestamp: 1621367832967,
-      datetime: '2021-05-18T19:57:12.967Z',
-      high: 2.146311,
-      low: 1.975,
-      bid: 2.025793,
-      bidVolume: undefined,
-      ask: 2.028769,
-      askVolume: undefined,
-      vwap: 2.0451258,
-      open: 2.034239,
-      close: 2.030117,
-      last: 2.030117,
-      previousClose: undefined,
-      change: undefined,
-      percentage: undefined,
-      average: undefined,
-      baseVolume: 3748838.96379705,
-      quoteVolume: 7666847.284906614,
-      info: {
-        a: [ '2.02876900', '1059', '1059.000' ],
-        b: [ '2.02579300', '5000', '5000.000' ],
-        c: [ '2.03011700', '0.00000002' ],
-        v: [ '2900137.59181290', '3748838.96379705' ],
-        p: [ '2.04104639', '2.04512580' ],
-        t: [ 3471, 4660 ],
-        l: [ '1.97500000', '1.97500000' ],
-        h: [ '2.14631100', '2.14631100' ],
-        o: '2.03423900'
-      }
-    },
     'BTC/USD':{
       symbol: 'BTC/USD',
       timestamp: 1621367867957,
@@ -2068,7 +2028,7 @@ const mockData = {
     'UNI/USD':{
       symbol: 'UNI/USD',
       timestamp: 1621368075553,
-      datetime: '2021-05-18T20:01:15.553Z',
+      datetime: '2021-05-18T20e:01:15.553Z',
       high: 36.655,
       low: 32.644,
       bid: 35.058,

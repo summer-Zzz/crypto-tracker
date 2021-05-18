@@ -210,5 +210,5 @@ const exchangeRequestData = {
 //   fs.writeFileSync('BinanceTickerBTC.txt', JSON.stringify(tickersBinance));
 // }
 // }
-kraken.fetchTicker('SC/USD').then(ticker => console.log(ticker))
+kraken.fetchTicker('SC/').then(ticker => console.log(ticker))
 //console.log(phemex.fetchTicker('BTC/USDT'))
