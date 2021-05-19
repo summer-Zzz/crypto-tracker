@@ -4,7 +4,8 @@ import "./CoinTableRow.scss"
 export default function CoinTableRow(props) {
   const addDollarSign = (num) => {
     if (num < 0) {
-      return `-$${-num.toFixed(2)}`;
+      num = num * -1
+      return `-$${num.toFixed(2)}`;
     } else {
       return `$${num.toFixed(2)}`;
     }
