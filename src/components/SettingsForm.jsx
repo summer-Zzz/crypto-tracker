@@ -43,6 +43,7 @@ const sceneEl = useRef(null);
       </div>
       <div className="form-container">
       <h2>{props.formLabel}</h2>
+      {props.alert && <div className="alert">{props.alert}</div>}
         <label className="exchange-label" htmlFor="exchange">Exchange:</label> 
         <select className="exchange-select" value={exchange} onChange={(e) => setExchange(e.target.value)}>
           <option value="Phemex">Phemex</option>
@@ -57,12 +58,12 @@ const sceneEl = useRef(null);
         <div className="label-input">
           <FontAwesomeIcon icon={faKey} className="icon" />
           <label className="form-label" htmlFor='api-key'>API Key:</label>
-          <input className="input-feild" type="text" name="api-key" value={apiKey} placeholder='Enter your API key' onChange={(e) => handleApiKey(e)}/>
+          <input className="input-feild" type="password" name="api-key" value={apiKey} placeholder='Enter your API key' onChange={(e) => handleApiKey(e)}/>
         </div>
         <div className="label-input">
           <FontAwesomeIcon icon={faKey} className="icon" />
           <label htmlFor='secret-key'>Secret Key:</label>
-          <input type="text" name="secret-key" value={apiSecret} placeholder='Enter your API secret key' onChange={(e) => handleSecret(e)}/>
+          <input type="password" name="secret-key" value={apiSecret} placeholder='Enter your API secret key' onChange={(e) => handleSecret(e)}/>
         </div>
         <div className="button-container">
         <button onClick={() => props.handleAddAccount(1, exchange, apiKey, apiSecret)} className="button">Submit</button>
