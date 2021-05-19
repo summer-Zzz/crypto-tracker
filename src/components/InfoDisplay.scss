@@ -8,15 +8,25 @@
 }
 .info-text {
   padding: 10px;
-padding-bottom: 0;
+  padding-bottom: 0;
+  border: solid  rgba(0, 0, 0, 0.5) 2px;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+  margin: 8px
 }
 
 .info-page-container:hover {
-  background-color: rgb(159, 183, 220);
   font-size: 20px;
+  .info-text {
+    background-color: rgb(221, 228, 232);
+    box-shadow: 0 0 40px white, inset 0 0 20px white;
+    text-shadow: 0 0 40px white;
+
+  }
 }
 .info-header {
   font-size: 24px;
   padding: 3px;
-  background-color: rgb(222, 226, 232);
+  font-weight: 700;
 }

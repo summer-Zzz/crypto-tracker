@@ -101,27 +101,31 @@ export default function Dashboard(props) {
   }
 
   return (
-    <div className='dashboard-container'>
-      <div className='timeframe'>
-        <p className='timeframe'>Candle Length</p>
-        <DropMenu options={timeframes} setData={setTimeframe} selectedVal={selectedTimeframe} />
-        <p className='timeframe'>Chart timeframe</p>
-        <DropMenu options={time} setData={setTime} selectedVal={selectedTime} />
-      </div>
-      <div className="info-container">
-        <div className='first-column'>
-        <InfoDisplay infoHeader={'Symbol'} infoContent={coin.symbol} />
-          <InfoDisplay infoHeader={'Current Price'} infoContent={`$${coin.last}`} />
-          <InfoDisplay infoHeader={'Balance'} infoContent={`${baseTickerBalance || 0} ${baseTicker}`} />
-          <div className={checkPl(pL) ? 'green' : 'red'}>
-          <InfoDisplay infoHeader={'P&L'} infoContent={`${pL}%` || 0} />
+    <div className="dashboard-all-container">
+      <div className='dashboard-container'>
+        <div className="time-container">
+          <div className='timeframe'>
+            <p className='timeframe'>Candle Length</p>
+            <DropMenu options={timeframes} setData={setTimeframe} selectedVal={selectedTimeframe} />
+            <p className='timeframe'>Chart timeframe</p>
+            <DropMenu options={time} setData={setTime} selectedVal={selectedTime} />
           </div>
         </div>
-        <div className='second-column'>
-          <InfoDisplay infoHeader={'Volume'} infoContent={coin.baseVolume.toFixed(2)}/>
-          <InfoDisplay infoHeader={'Average Price'} infoContent={average}/>
-          <InfoDisplay infoHeader={'VWAP'} infoContent={coin.vwap}/>
-          <InfoDisplay infoHeader={'Total Cost'} infoContent={total}/>
+        <div className="info-container">
+          <div className='first-column'>
+          <InfoDisplay infoHeader={'Symbol'} infoContent={coin.symbol} />
+            <InfoDisplay infoHeader={'Current Price'} infoContent={`$${coin.last}`} />
+            <InfoDisplay infoHeader={'Balance'} infoContent={`${baseTickerBalance || 0} ${baseTicker}`} />
+            <div className={checkPl(pL) ? 'green' : 'red'}>
+            <InfoDisplay infoHeader={'P&L'} infoContent={`${pL}%` || 0} />
+            </div>
+          </div>
+          <div className='second-column'>
+            <InfoDisplay infoHeader={'Volume'} infoContent={coin.baseVolume.toFixed(2)}/>
+            <InfoDisplay infoHeader={'Average Price'} infoContent={average}/>
+            <InfoDisplay infoHeader={'VWAP'} infoContent={coin.vwap}/>
+            <InfoDisplay infoHeader={'Total Cost'} infoContent={total}/>
+          </div>
         </div>
       </div>
     </div>
