@@ -2,6 +2,7 @@ import "./CoinTableRow.scss"
 
 const addDollarSign = (num) => {
   if (num < 0) {
+    num = num * -1;
     return `-$${num.toFixed(2)}`;
   } else {
     return `$${num.toFixed(2)}`;
@@ -10,6 +11,7 @@ const addDollarSign = (num) => {
 
 export default function CoinTableRow(props) {
 
+  console.log(props.change)
   return (
     <tr onClick={() => props.setCoin(props.symbol)}>
       <td className="coin-td"><img className='coin-logo' src={props.coinLogo} alt="coinlogo"/></td>
