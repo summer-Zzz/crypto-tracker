@@ -3,7 +3,7 @@ const getMockData = (exchange, coin) => {
   const selectedExchange = mockData[exchange]
   // get selectedCoin data 
   const selectedCoin = mockData.selectedCoins[coin];
-  return {...selectedExchange, selectedCoin}
+  return {...selectedExchange }
 }
 
 const mockData = {

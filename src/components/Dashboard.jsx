@@ -17,7 +17,6 @@ const calculatePL = (trades, currentCoin) => {
 }
 
 const averageCost = (trades, currentCoin) => {
-  console.log('ttt', trades)
   let priceTotal = 0;
   let tradesArray = [];
   trades.forEach(trade => {
@@ -26,8 +25,6 @@ const averageCost = (trades, currentCoin) => {
       tradesArray.push(trade);
     }
   })
-  console.log(tradesArray)
-
   return (priceTotal / tradesArray.length).toFixed(2);
 }
 
@@ -51,24 +48,12 @@ const checkPl = (pL) => {
 
 const time = [
   {
-    id: 1,
-    name: '1m'
-  },
-  {
-    id: 2,
-    name: '5m'
-  },
-  {
     id: 3,
     name: '30m'
   },
   {
     id: 4,
     name: '1hr'
-  },
-  {
-    id: 5,
-    name: '12hr'
   },
   {
     id: 6,

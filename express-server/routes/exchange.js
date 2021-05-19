@@ -17,7 +17,9 @@ router.get('/:mock/:id/:exchange/:coin/:timeframe/:time', function (req, res) {
       const mockData = getMockData(exchange, coin);
       kraken.fetchOHLCV(coin, timeframe, sendTime(time))
       .then(candles => {
-        return res.status(200).json({exchanges, candles, ...mockData})
+        kraken.fetchTicker(coin).then(selectedCoin => {
+          return res.status(200).json({exchanges, candles, selectedCoin, ...mockData})
+        })
       })
     })
   // }
@@ -39,6 +41,7 @@ router.post('/account/new', (req, res) => {
   exchangeId = data.id;
   newUserData = {exchangeId, ...req.body}
     addUserAccount(newUserData).then(data => {
+      console.log(data)
       return res.status(200).json(data);
     })
   })
