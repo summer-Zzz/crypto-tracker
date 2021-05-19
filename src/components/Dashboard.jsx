@@ -41,6 +41,14 @@ const totalCost = (trades, currentCoin) => {
   return costTotal;
 }
 
+const checkPl = (pL) => {
+  if(pL.includes('+')) {
+    console.log(pL)
+    return true
+  }
+}
+
+
 const time = [
   {
     id: 1,
@@ -92,13 +100,6 @@ export default function Dashboard(props) {
   const pL = calculatePL(trades, coin);
   const average = `$${averageCost(trades, coin)}`;
   const total = `$${totalCost(trades, coin).toFixed(2)}`
-
-  const checkPl = (pL) => {
-    if(pL.includes('+')) {
-      console.log(pL)
-      return true
-    }
-  }
 
   return (
     <div className="dashboard-all-container">

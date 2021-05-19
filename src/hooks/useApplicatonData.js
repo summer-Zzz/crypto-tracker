@@ -8,6 +8,7 @@ export default function useApplicationData() {
   // STATE
 
   const [currentUser, setCurrentUser] = useState(null);
+  const [alert, setAlert] = useState(null)
   const [exchangeData, setExchangeData] = useState(null);
   const [cookies, setCookie, removeCookie] = useCookies(['Email']);
 
@@ -25,8 +26,8 @@ export default function useApplicationData() {
     .post(`http://localhost:3001/api/users/${dataType}/${email}/${password}`)
     .then((res) => {
       if (res.status === 200){
-        setCurrentUser(res.data.id);
         setCookie('Email', email, { path: '/' });
+        setCurrentUser(res.data.id);
       }
     })
     .catch((err) => {
@@ -38,17 +39,22 @@ export default function useApplicationData() {
     setCurrentUser(null)
     axios.post('http://localhost:3001/api/users/logout')
     .then(res => {
-      removeCookie("Email")
+      removeCookie("Email");
     })
   }
 
   const handleAddAccount = (userId, exchangeName, apiKey, apiSecret) => {
     axios.post(`http://localhost:3001/api/exchange/account/new`, {userId, exchangeName, apiKey, apiSecret})
     .then(res => {
-      setExchange(exchangeName);
-      alert('Exchange added!')
+      // setExchange(exchangeName);
+      setAlert('New Exchange Added!');
+      setTimeout(() => {
+        setAlert(null);
+      }, 2000);
+      setCurrentUser(true);
+      setCurrentUser(false);
     })
-    .catch(err => console.log(err))
+    .catch(err => console.log(err));
   }
   
   // REDUCER FUNCTIONS
@@ -96,5 +102,5 @@ export default function useApplicationData() {
     }
   }, [state, currentUser])
   
-  return { handleSubmit, handleAddAccount, handleLogout, setExchange, setTimeframe, setCoin, setTime, setFilter, state, currentUser, exchangeData, cookies }
+  return { handleSubmit, handleAddAccount, handleLogout, setExchange, setTimeframe, setCoin, setTime, setFilter, setAlert, alert, state, currentUser, exchangeData, cookies }
 }

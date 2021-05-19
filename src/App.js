@@ -18,11 +18,11 @@ import CoinTable from "./components/CoinTable/CoinTable"
 import Dashboard from "./components/Dashboard"
 import DisplayChart from './components/Candlestick/DisplayChart';
 import TradeTable from "./components/TradeTable/TradeTable";
-import { propTypes } from 'react-bootstrap/esm/Image';
 const Spinner = require('react-spinkit');
 
 export default function App() {
-  const { handleSubmit, handleAddAccount, handleLogout, setExchange, setTimeframe, setCoin, setFilter, setTime, state, exchangeData, cookies } = useApplicationData()
+  const { handleSubmit, handleAddAccount, handleLogout, setExchange, setTimeframe, setCoin, setFilter, setTime, alert, state, exchangeData, cookies } = useApplicationData();
+
   return (
     <Router>
       <div>
@@ -57,20 +57,20 @@ export default function App() {
               {cookies.Email ? exchangeData && <TradeTable rows={exchangeData.trades} /> : <Redirect to="/" />}
             </Route>
             <Route path="/settings">
-              <SettingsForm handleAddAccount={handleAddAccount}/>
+              <SettingsForm handleAddAccount={handleAddAccount} alert={alert} />
             </Route>
             <Route path="/logout">
               <Redirect to="/" />
             </Route>
             <Route path="/dashboard">
-            { !exchangeData && cookies.Email && <div><Spinner name="pacman" fadeIn="none" className="loader"/><p className="loading-text">Loading...</p></div>}
-            { cookies.Email ? exchangeData &&
+              {!exchangeData && cookies.Email && <div><Spinner name="pacman" fadeIn="none" className="loader" /><p className="loading-text">Loading...</p></div>}
+              {cookies.Email ? exchangeData &&
                 <div>
                   <div className="show-container">
                     <div id="chart-dashboard-container">
                       <DisplayChart
                         candles={exchangeData.candles}
-                        coinName={exchangeData.selectedCoin.symbol || "no data"} 
+                        coinName={exchangeData.selectedCoin.symbol || "no data"}
                       />
                       <Dashboard
                         coin={exchangeData.selectedCoin}
@@ -85,7 +85,7 @@ export default function App() {
                       />
                     </div>
                   </div>
-                    <div className="cointable">
+                  <div className="cointable">
                     <CoinTable
                       rows={exchangeData.coins}
                       setCoin={setCoin}
@@ -94,8 +94,8 @@ export default function App() {
                       setExchange={setExchange}
                       selectedExchange={state.exchange}
                       selectedFilter={state.filter} />
-                    </div>
-                  </div> : <Redirect to="/" />
+                  </div>
+                </div> : <Redirect to="/" />
               }
             </Route>
             <Route exact path="/">
