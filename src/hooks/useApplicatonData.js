@@ -13,11 +13,11 @@ export default function useApplicationData() {
   const [cookies, setCookie, removeCookie] = useCookies(['Email']);
 
   const [state, dispatch] = useReducer(reducer, {
-    exchange: "kraken",
-    timeframe: '1hr',
+    exchange: "Kraken",
+    timeframe: '1h',
     coin: "BTC/USD",
     filter: "none", 
-    time: "30m" 
+    time: "1d" 
   });
   
   const handleSubmit = (userData) => {
@@ -46,11 +46,10 @@ export default function useApplicationData() {
   const handleAddAccount = (userId, exchangeName, apiKey, apiSecret) => {
     axios.post(`http://localhost:3001/api/exchange/account/new`, {userId, exchangeName, apiKey, apiSecret})
     .then(res => {
-      // setExchange(exchangeName);
       setAlert('New Exchange Added!');
       setTimeout(() => {
         setAlert(null);
-      }, 2000);
+      }, 3000);
       setCurrentUser(true);
       setCurrentUser(false);
     })
@@ -82,12 +81,14 @@ export default function useApplicationData() {
   useEffect(() => {
     if (cookies.Email) { 
       const { exchange, timeframe, time, coin } = state;
+      const formattedExchange = exchange.toLowerCase()
       const formattedCoin = coin.split('/').join('%2F');
       const id = 1;
-      const apiUrl = `http://localhost:3001/api/exchange/${true}/${id}/${exchange}/${formattedCoin}/${timeframe}/${time}`
+      const apiUrl = `http://localhost:3001/api/exchange/${true}/${id}/${formattedExchange}/${formattedCoin}/${timeframe}/${time}`
       axios.get(apiUrl)
       .then(res => {
        const {exchanges, trades, candles, balance, coins, selectedCoin, timeframes} = res.data;
+       console.log(exchanges)
         setExchangeData({
           trades,
           candles,

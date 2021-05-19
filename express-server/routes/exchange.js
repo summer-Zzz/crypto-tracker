@@ -41,6 +41,7 @@ router.post('/account/new', (req, res) => {
   exchangeId = data.id;
   newUserData = {exchangeId, ...req.body}
     addUserAccount(newUserData).then(data => {
+      console.log(data)
       return res.status(200).json(data);
     })
   })
