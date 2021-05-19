@@ -45,8 +45,10 @@ export default function useApplicationData() {
   const handleAddAccount = (userId, exchangeName, apiKey, apiSecret) => {
     axios.post(`http://localhost:3001/api/exchange/account/new`, {userId, exchangeName, apiKey, apiSecret})
     .then(res => {
-      setExchange(exchangeName);
-      alert('Exchange added!')
+      // setExchange(exchangeName);
+      alert('Exchange added!');
+      setCurrentUser(true);
+      setCurrentUser(false);
     })
     .catch(err => console.log(err))
   }
