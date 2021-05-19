@@ -25,8 +25,8 @@ export default function useApplicationData() {
     .post(`http://localhost:3001/api/users/${dataType}/${email}/${password}`)
     .then((res) => {
       if (res.status === 200){
-        setCurrentUser(res.data.id);
         setCookie('Email', email, { path: '/' });
+        setCurrentUser(res.data.id);
       }
     })
     .catch((err) => {

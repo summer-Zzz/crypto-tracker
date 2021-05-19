@@ -264,6 +264,7 @@ Stretch - I want to see data from a closed account
     - Explain dashboard and table columns 
   - Talk about tradetrable - eman
   - Demonstrate adding exchange - eman
+- talk about group experience
 - Talk about stack - 1mim - jared
 - Talk about features under construction - 1min - jared
 - Say goodbye - group 
