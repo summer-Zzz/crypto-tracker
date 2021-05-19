@@ -1,9 +1,9 @@
+
+
 .dashboard-container {
-  margin-top: 30px;
-  margin-bottom: 50px;
   display: flex;
-  flex-direction: column-reverse;
-  padding: 10px;
+  flex-direction: column;
+  padding: 20px;
 }
 
 .menu-container {
@@ -16,10 +16,12 @@
 .info-container {
   text-align: center;
   margin-bottom: 10px;
+  margin-top: 10px;
   display: flex;
   position: relative;
   flex: 2;
   height: 100px;
+
 }
 
 .option-lable {
@@ -32,7 +34,18 @@
   display: flex;
   flex-direction: column;
   text-align: center;
+  font-weight: 600;
+  text-decoration: underline;
   margin: 0;
+}
+
+.time-container {
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  width: 360px;
+  border: solid  rgba(0, 0, 0, 0.5) 1px;
+  background-color: white;
 }
 
 .red {
@@ -50,10 +63,13 @@
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    margin-top: 50px;
     background-color: rgb(237, 240, 252);
     border: none
   }
+  .dashboard-all-container {
+    border: dashed black;
+  }
+
 
   .timeframe {
     display: flex;
