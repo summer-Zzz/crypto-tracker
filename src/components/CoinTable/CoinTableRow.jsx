@@ -1,14 +1,14 @@
-
 import "./CoinTableRow.scss"
 
-export default function CoinTableRow(props) {
-  const addDollarSign = (num) => {
-    if (num < 0) {
-      return `-$${-num.toFixed(2)}`;
-    } else {
-      return `$${num.toFixed(2)}`;
-    }
+const addDollarSign = (num) => {
+  if (num < 0) {
+    return `-$${num.toFixed(2)}`;
+  } else {
+    return `$${num.toFixed(2)}`;
   }
+}
+
+export default function CoinTableRow(props) {
 
   return (
     <tr onClick={() => props.setCoin(props.symbol)}>
