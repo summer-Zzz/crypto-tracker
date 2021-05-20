@@ -1,6 +1,5 @@
 // import React from 'react'
 import React from 'react'
-import 'dotenv/config'
 import {
   BrowserRouter as Router,
   Switch,
@@ -18,6 +17,7 @@ import CoinTable from "./components/CoinTable/CoinTable"
 import Dashboard from "./components/Dashboard"
 import DisplayChart from './components/Candlestick/DisplayChart';
 import TradeTable from "./components/TradeTable/TradeTable";
+
 const Spinner = require('react-spinkit');
 
 export default function App() {
