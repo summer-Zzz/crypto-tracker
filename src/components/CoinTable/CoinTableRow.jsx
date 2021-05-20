@@ -15,7 +15,6 @@ export default function CoinTableRow(props) {
     props.setCoin(event.target.value)
   }
 
-  console.log(props.change)
   return (
     <tr onClick={() => props.setCoin(props.symbol)}>
       <td className="coin-td"><img className='coin-logo' src={props.coinLogo} alt="coinlogo"/></td>

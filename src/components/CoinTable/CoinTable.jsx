@@ -10,11 +10,11 @@ const filters = [
     name: "USD"
   },
   {
-    id: 1,
+    id: 2,
     name: "CAD"
   },
   {
-    id: 1,
+    id: 3,
     name: "EUR"
   }
 ]

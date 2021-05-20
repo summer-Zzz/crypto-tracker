@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react'
-import axios from 'axios'
 import Parallax from 'parallax-js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faKey } from "@fortawesome/free-solid-svg-icons";
@@ -10,7 +9,7 @@ export default function SettingsForm(props) {
 
 const [apiKey, setApiKey] = useState(null)
 const [apiSecret, setApiSecret] = useState(null)
-const [exchange, setExchange] = useState("Binance")
+const [exchange, setExchange] = useState(null)
 
 const handleExchange = (event) => {
   setExchange(event.target.value)
