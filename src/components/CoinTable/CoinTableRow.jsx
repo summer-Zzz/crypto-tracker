@@ -12,6 +12,7 @@ const addDollarSign = (num) => {
 export default function CoinTableRow(props) {
 
   const handleCoin = (event) => {
+    console.log(props)
     props.setCoin(event.target.value)
   }
 
@@ -23,7 +24,7 @@ export default function CoinTableRow(props) {
       <td className="coin-td">{addDollarSign(props.change)}</td>
       <td className="coin-td">{props.changePercent}%</td>
       <td className="coin-td">{props.volume.toFixed(2)}</td>
-      <td><button className="coin-button" onClick={() => handleCoin(props.symbol)}>Select Coin</button></td>
+      <td><button className="coin-button" onClick={(e) => handleCoin(props.symbol)}>Select Coin</button></td>
     </tr>
   )
 }

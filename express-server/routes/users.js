@@ -1,15 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {getUserByEmail, addUser, addUserAccount} = require('../db/helpers/dbHelpers');
-const cookieSession = require('cookie-session');
-
- // ADD NEW EXCHANGE
-router.post('/exchanges/new', async (req, res) => {
-  const { userId, exchangeId, apiKey, apiSecret } = req.body;
-  const account = await addUserAccount({ userId, exchangeId, apiKey, apiSecret })
-  console.log(account)
-  res.sendStatus(200)
-})
+const {getUserByEmail, addUser} = require('../db/helpers/dbHelpers');
 
   // USER LOGIN
 router.post('/login/:email/:password', (req, res) => {
