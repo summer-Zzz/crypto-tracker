@@ -45,7 +45,7 @@ const sceneEl = useRef(null);
       <h2>{props.formLabel}</h2>
       {props.alert && <div className="alert">{props.alert}</div>}
         <label className="exchange-label" htmlFor="exchange">Exchange:</label> 
-        <select className="exchange-select" value={exchange} onChange={(e) => setExchange(e.target.value)}>
+        <select className="exchange-select" value={exchange} onChange={(e) => handleExchange(e)}>
           <option value="Phemex">Phemex</option>
           <option value="Binance">Binance</option>
           <option value="Kraken">Kraken</option>
