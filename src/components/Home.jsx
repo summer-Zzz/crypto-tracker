@@ -1,34 +1,21 @@
 import React, { useEffect, useRef } from 'react'
 import Parallax from 'parallax-js';
-import { faAngleDoubleDown } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   Link
 } from "react-router-dom";
 
 import "./Home.scss"
-import DisplayChart from "./Candlestick/DisplayChart";
+
 export default function Home(props) {
   const sceneEl = useRef(null);
+  
   useEffect(() => {
     const parallaxInstance = new Parallax(sceneEl.current, {
       relativeInput: true,
     })
-    
     parallaxInstance.enable();
-
     return () => parallaxInstance.disable();
-
   }, [])
-
-  function handleScroll() {
-    
-    window.scroll({
-      top: document.getElementById("chart-dashboard-container").scrollIntoView(),
-      left: 0, 
-      behavior: 'smooth',
-    });
-  }
 
 return (
   <div id="container">

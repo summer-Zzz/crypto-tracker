@@ -1,6 +1,4 @@
 import React from "react";
-//import "components/InfoDisplay.scss";
-import classNames from "classnames";
 import "./InfoDisplay.scss"
 
 export default function InfoDisplay(props) {

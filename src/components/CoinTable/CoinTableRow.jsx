@@ -11,13 +11,12 @@ const addDollarSign = (num) => {
 
 export default function CoinTableRow(props) {
 
-  const handleCoin = (event) => {
-    props.setCoin(event.target.value)
+  const handleCoin = (symbol) => {
+    props.setCoin(symbol)
   }
 
-  console.log(props.change)
   return (
-    <tr onClick={() => props.setCoin(props.symbol)}>
+    <tr>
       <td className="coin-td"><img className='coin-logo' src={props.coinLogo} alt="coinlogo"/></td>
       <td className="coin-column">{props.symbol}</td>
       <td className="price">${props.price.toFixed(2)}</td>

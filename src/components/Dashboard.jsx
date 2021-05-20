@@ -48,31 +48,31 @@ const checkPl = (pL) => {
 
 const time = [
   {
-    id: 3,
+    id: 1,
     name: '30m'
   },
   {
-    id: 4,
+    id: 2,
     name: '1hr'
   },
   {
-    id: 6,
+    id: 3,
     name: '1d'
   },
   {
-    id: 7,
+    id: 4,
     name: '1w'
   },
   {
-    id: 8,
+    id: 5,
     name: '2w'
   },
   {
-    id: 9,
+    id: 6,
     name: '1mo'
   },
   {
-    id: 10,
+    id: 7,
     name: '6mo'
   }
 ]
