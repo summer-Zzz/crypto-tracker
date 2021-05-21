@@ -41,5 +41,6 @@ Crypto tracker is a cryptocurrency portfolio-tracker that allows users to enter 
 ## Getting Started
 
 - Install all dependencies (using the `npm install` command).
-- Run the backend web server inside of the 'express-server' folder using the 'npm run start'
-- Run the React development sever in the root folder using 'npm run start'
+- Run the backend web server inside of the 'express-server' folder using the `npm run start`
+- Run the React development sever in the root folder using `npm run start`
+- Crypto-tracker is at this point, still running on mock data. Please be aware that the add an exchange function is not yet operational.
