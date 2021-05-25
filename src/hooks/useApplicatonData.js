@@ -1,7 +1,7 @@
 import { useState, useEffect, useReducer } from 'react'
 import axios from 'axios'
 import reducer from '../reducers/App'
-import { useCookies } from 'react-cookie';
+import { Cookies, useCookies } from 'react-cookie';
 
 export default function useApplicationData() {
 
@@ -10,7 +10,7 @@ export default function useApplicationData() {
   const [currentUser, setCurrentUser] = useState(null);
   const [alert, setAlert] = useState(null)
   const [exchangeData, setExchangeData] = useState(null);
-  const [cookies, setCookie, removeCookie] = useCookies(['Email']);
+  const [cookies, setCookie, removeCookie] = useCookies(['user_id']);
 
   const [state, dispatch] = useReducer(reducer, {
     exchange: "Kraken",
@@ -25,9 +25,8 @@ export default function useApplicationData() {
     axios
     .post(`http://localhost:3001/api/users/${dataType}/${email}/${password}`)
     .then((res) => {
-      if (res.status === 200){
-        setCookie('Email', email, { path: '/' });
-        setCurrentUser(res.data.id);
+      if (res.status === 200) {
+        setCookie('user_id', res.data.id, { path: '/' });
       }
     })
     .catch((err) => {
@@ -39,7 +38,7 @@ export default function useApplicationData() {
     setCurrentUser(null)
     axios.post('http://localhost:3001/api/users/logout')
     .then(res => {
-      removeCookie("Email");
+      removeCookie("user_id");
     })
   }
 
@@ -79,11 +78,11 @@ export default function useApplicationData() {
   
   // Re-renders all api data when user interacts with state
   useEffect(() => {
-    if (cookies.Email) { 
+    if (cookies.user_id) { 
       const { exchange, timeframe, time, coin } = state;
       const formattedExchange = exchange.toLowerCase()
       const formattedCoin = coin.split('/').join('%2F');
-      const id = 1;
+      const id = cookies.user_id;
       const apiUrl = `http://localhost:3001/api/exchange/${true}/${id}/${formattedExchange}/${formattedCoin}/${timeframe}/${time}`
       axios.get(apiUrl)
       .then(res => {
@@ -100,7 +99,7 @@ export default function useApplicationData() {
       })
       .catch(err => console.log(err))
     }
-  }, [state, currentUser, cookies.Email])
+  }, [state, currentUser, cookies.user_id])
   
   return { handleSubmit, handleAddAccount, handleLogout, setExchange, setTimeframe, setCoin, setTime, setFilter, setAlert, alert, state, currentUser, exchangeData, cookies }
 }

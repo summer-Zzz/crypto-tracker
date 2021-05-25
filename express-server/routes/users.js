@@ -8,19 +8,15 @@ router.post('/login/:email/:password', (req, res) => {
   getUserByEmail(email)
   .then(user => {
     if (email && user.password === password) {
-      req.session['user_id'] = user.id;
-      console.log('User_id: ', user.id);
       return res.status(200).json(user);
     } else {
       return res.send("Error!! Invalid email/password");
-      res.statusCode = 403;
     }
   })
 });
 
  // USER LOGOUT
 router.post('/logout', (req,res) => {
-  req.session.user_id = null;
   return res.json({msg: 'Cookie cleared!'});
 });
 

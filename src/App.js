@@ -32,12 +32,12 @@ export default function App() {
               <Link className="nav-text-title" to="/">Crypto-Tracker</Link>
             </div>
             <div className="navbar-right">
-              {!cookies.Email && <Link className="nav-text" to="/login">Login</Link>}
-              {!cookies.Email && <Link className="nav-text" to="/register">Register</Link>}
-              {cookies.Email && <Link onClick={() => handleLogout()} className="nav-text" to="/logout">Logout</Link>}
-              {cookies.Email && <Link className="nav-text" to="/settings">Add Exchange</Link>}
-              {cookies.Email && <Link className="nav-text" to="/tradetable">Your Trades</Link>}
-              {cookies.Email && <Link className="nav-text" to="/dashboard">Dashboard</Link>}
+              {!cookies.user_id && <Link className="nav-text" to="/login">Login</Link>}
+              {!cookies.user_id && <Link className="nav-text" to="/register">Register</Link>}
+              {cookies.user_id && <Link onClick={() => handleLogout()} className="nav-text" to="/logout">Logout</Link>}
+              {cookies.user_id && <Link className="nav-text" to="/settings">Add Exchange</Link>}
+              {cookies.user_id && <Link className="nav-text" to="/tradetable">Your Trades</Link>}
+              {cookies.user_id && <Link className="nav-text" to="/dashboard">Dashboard</Link>}
             </div>
           </nav>
         </header>
@@ -47,12 +47,12 @@ export default function App() {
               <Form formLabel={'Register'} firstLabel={'Email:'} secondLabel={'Password:'} handleSubmit={handleSubmit} />
             </Route>
             <Route path="/login">
-              {cookies.Email ? <Redirect to="/dashboard" /> :
+              {cookies.user_id ? <Redirect to="/dashboard" /> :
                 <Form formLabel={'Login'} firstLabel={'Email:'} secondLabel={'Password:'} handleSubmit={handleSubmit} />}
             </Route>
             <Route path="/tradetable">
               <div className="loader-container">
-                {!exchangeData && cookies.Email && <Spinner name="pacman" fadeIn="none" className="loader" />}
+                {!exchangeData && cookies.user_id && <Spinner name="pacman" fadeIn="none" className="loader" />}
               </div>
               {cookies.Email ? exchangeData && <TradeTable rows={exchangeData.trades} /> : <Redirect to="/" />}
             </Route>
@@ -63,8 +63,8 @@ export default function App() {
               <Redirect to="/" />
             </Route>
             <Route path="/dashboard">
-              {!exchangeData && cookies.Email && <div><Spinner name="pacman" fadeIn="none" className="loader" /><p className="loading-text">Loading...</p></div>}
-              {cookies.Email ? exchangeData &&
+              {!exchangeData && cookies.user_id && <div><Spinner name="pacman" fadeIn="none" className="loader" /><p className="loading-text">Loading...</p></div>}
+              {cookies.user_id ? exchangeData &&
                 <div>
                   <div className="show-container">
                     <div id="chart-dashboard-container">
