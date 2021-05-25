@@ -20,6 +20,7 @@ export default function useApplicationData() {
     time: "1d" 
   });
   
+
   const handleSubmit = (userData) => {
     const { dataType, password, email } = userData;
     axios
