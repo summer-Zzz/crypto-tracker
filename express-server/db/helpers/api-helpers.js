@@ -124,4 +124,4 @@ const formatExchangeNames = (names) => {
   return formattedArr;
 }
 
-module.exports = { sendTime, getExchangeInfo, formatExchangeNames }
+module.exports = { sendTime, getExchangeInfo, formatExchangeNames, formatCoins }

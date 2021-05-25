@@ -5,11 +5,21 @@ const db = require('../db/index')
 const { getUserExchanges, addUserAccount } = require('../db/queries/queries')
 const { getMockData } = require('../db/helpers/mock-data') 
 const { getExchangeByName, getUserExchangeNames } = require('../db/helpers/dbHelpers')
-const { sendTime, getExchangeInfo, formatExchangeNames } = require('../db/helpers/api-helpers')
+const { sendTime, getExchangeInfo, formatExchangeNames, formatCoins } = require('../db/helpers/api-helpers')
 
 const kraken = new ccxt.kraken()
+const binance = new ccxt.binance()
 
-// REQUEST ALL DATA FROM API/MOCK
+// SEND MARKET INFORMATION 
+router.get('/markets', (req, res) => {
+  binance.fetchTickers().then(markets => {
+    formattedMarkets = formatCoins(markets)
+    console.log(formattedMarkets)
+    return res.status(200).json(formattedMarkets)
+  })
+})
+
+// DASHBOARD DATA 
 router.get('/:mock/:id/:exchange/:coin/:timeframe/:time', function (req, res) {
   const { id, exchange, coin, timeframe, time,} = req.params;
     return getUserExchangeNames(id).then(exchangeNames => {
@@ -33,6 +43,7 @@ router.get('/:mock/:id/:exchange/:coin/:timeframe/:time', function (req, res) {
   // })
   .catch(err => console.log(err));
 })
+
 
 // NEW ACCOUNT
 router.post('/account/new', (req, res) => {
