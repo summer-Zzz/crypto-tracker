@@ -1,7 +1,7 @@
 import { useState, useEffect, useReducer } from 'react'
 import axios from 'axios'
 import reducer from '../reducers/App'
-import { Cookies, useCookies } from 'react-cookie';
+import { useCookies } from 'react-cookie';
 
 export default function useApplicationData() {
 
@@ -19,37 +19,50 @@ export default function useApplicationData() {
     filter: "none", 
     time: "1d" 
   });
-  
 
-  const handleSubmit = (userData) => {
-    const { dataType, password, email } = userData;
+  const handleAlert = (alert) => {
+    setAlert(alert)
+    setTimeout(() => {
+      setAlert(null);
+    }, 3000)
+  }
+  
+  const handleLogin = (userData) => {
+    const { password, email } = userData;
     axios
-    .post(`http://localhost:3001/api/users/${dataType}/${email}/${password}`)
+    .post(`http://localhost:3001/api/users/login`, {password, email})
     .then((res) => {
       if (res.status === 200) {
-        setCookie('user_id', res.data.id, { path: '/' });
+        setCookie('user_id', res.data, { path: '/' });
       }
     })
     .catch((err) => {
-      console.log(err);
+      handleAlert(err.response.data);
     });
   }
-  
-  const handleLogout = () => {
-    setCurrentUser(null)
-    axios.post('http://localhost:3001/api/users/logout')
+
+  const handleRegister = (userData) => {
+    const { password, email } = userData;
+    axios
+    .post(`http://localhost:3001/api/users/register`, {password, email})
     .then(res => {
-      removeCookie("user_id");
+      if (res) {
+        return setCookie('user_id', res.data.id, { path: '/' });
+      }
     })
+    .catch((err) => {
+      handleAlert(err.response.data)
+    });
+  }
+ 
+  const handleLogout = () => {
+    removeCookie("user_id");
   }
 
   const handleAddAccount = (userId, exchangeName, apiKey, apiSecret) => {
     axios.post(`http://localhost:3001/api/exchange/account/new`, {userId, exchangeName, apiKey, apiSecret})
     .then(res => {
-      setAlert('New Exchange Added!');
-      setTimeout(() => {
-        setAlert(null);
-      }, 3000);
+      handleAlert("New exchange added!")
       setCurrentUser(true);
       setCurrentUser(false);
     })
@@ -102,5 +115,5 @@ export default function useApplicationData() {
     }
   }, [state, currentUser, cookies.user_id])
   
-  return { handleSubmit, handleAddAccount, handleLogout, setExchange, setTimeframe, setCoin, setTime, setFilter, setAlert, alert, state, currentUser, exchangeData, cookies }
+  return { handleLogin, handleRegister, handleAddAccount, handleLogout, setExchange, setTimeframe, setCoin, setTime, setFilter, setAlert, alert, state, currentUser, exchangeData, cookies }
 }

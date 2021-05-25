@@ -11,7 +11,6 @@ export default function Form(props) {
   const userData = {
     email,
     password,
-    dataType: props.formLabel.toLowerCase()
   }
   
   const sceneEl = useRef(null);
@@ -36,11 +35,13 @@ export default function Form(props) {
 
   return (
     <div className="form-all-container">
+      {props.alert && <div className="alert">{props.alert}</div>}
       <div id="scene" ref={sceneEl}>
         <img className="form-coins" src="/images/coins1.png" alt="coins" data-depth="1.5" />
         <img className="form-coins" src="/images/coins2.png" alt="coins" data-depth="0.4" />
       </div>
       <div className="form-container">
+
         <form action="" method="POST" onSubmit={(event) => {
           event.preventDefault()
           props.handleSubmit(userData)
@@ -59,7 +60,7 @@ export default function Form(props) {
             <input type="password" name={props.firstLabel} placeholder="Enter your password" onChange={(e) => handlePasswordChange(e)} />
           </div>
           <div className="button-container">
-            <input type="submit" onSubmit={(event) => props.handleSubmit(userData)} className="button"></input>
+            <input type="submit" onSubmit={() => props.handleSubmit(userData)} className="button"></input>
           </div>
         </form>
     </div >
