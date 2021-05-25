@@ -1,7 +1,7 @@
 import { useState, useEffect, useReducer } from 'react'
 import axios from 'axios'
 import reducer from '../reducers/App'
-import { Cookies, useCookies } from 'react-cookie';
+import { useCookies } from 'react-cookie';
 
 export default function useApplicationData() {
 
@@ -24,7 +24,7 @@ export default function useApplicationData() {
     setAlert(alert)
     setTimeout(() => {
       setAlert(null);
-    }, 5000)
+    }, 3000)
   }
   
   const handleLogin = (userData) => {
@@ -33,11 +33,11 @@ export default function useApplicationData() {
     .post(`http://localhost:3001/api/users/login`, {password, email})
     .then((res) => {
       if (res.status === 200) {
-        setCookie('user_id', res.data.id, { path: '/' });
+        setCookie('user_id', res.data, { path: '/' });
       }
     })
     .catch((err) => {
-      console.log(err);
+      handleAlert(err.response.data);
     });
   }
 
