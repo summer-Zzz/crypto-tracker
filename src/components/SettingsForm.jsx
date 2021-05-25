@@ -36,13 +36,13 @@ const sceneEl = useRef(null);
 
   return (
     <div className="form-all-container">
+         {props.alert && <div className="alert">{props.alert}</div>}
       <div id="scene" ref={sceneEl}>
         <img className="form-coins" src="/images/coins1.png" alt="coins" data-depth="1.5" />
         <img className="form-coins" src="/images/coins2.png" alt="coins" data-depth="0.4" />
       </div>
       <div className="form-container">
       <h2>{props.formLabel}</h2>
-      {props.alert && <div className="alert">{props.alert}</div>}
         <label className="exchange-label" htmlFor="exchange">Exchange:</label> 
         <select className="exchange-select" value={exchange} onChange={(e) => handleExchange(e)}>
           <option value="Phemex">Phemex</option>

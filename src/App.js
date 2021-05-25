@@ -21,7 +21,7 @@ import TradeTable from "./components/TradeTable/TradeTable";
 const Spinner = require('react-spinkit');
 
 export default function App() {
-  const { handleSubmit, handleAddAccount, handleLogout, setExchange, setTimeframe, setCoin, setFilter, setTime, alert, state, exchangeData, cookies } = useApplicationData();
+  const { handleLogin, handleRegister, handleAddAccount, handleLogout, setExchange, setTimeframe, setCoin, setFilter, setTime, alert, state, exchangeData, cookies } = useApplicationData();
 
   return (
     <Router>
@@ -44,11 +44,11 @@ export default function App() {
         <main>
           <Switch>
             <Route path="/register">
-              <Form formLabel={'Register'} firstLabel={'Email:'} secondLabel={'Password:'} handleSubmit={handleSubmit} />
+              <Form formLabel={'Register'} firstLabel={'Email:'} secondLabel={'Password:'} handleSubmit={handleRegister} alert={alert} />
             </Route>
             <Route path="/login">
               {cookies.user_id ? <Redirect to="/dashboard" /> :
-                <Form formLabel={'Login'} firstLabel={'Email:'} secondLabel={'Password:'} handleSubmit={handleSubmit} />}
+                <Form formLabel={'Login'} firstLabel={'Email:'} secondLabel={'Password:'} handleSubmit={handleLogin} alert={alert}/>}
             </Route>
             <Route path="/tradetable">
               <div className="loader-container">
